@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+
 require("dotenv").config();
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -11,13 +12,13 @@ require("dotenv").config();
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
-  authDomain: "yummify-352b4.firebaseapp.com",
-  databaseURL: "https://yummify-352b4-default-rtdb.firebaseio.com",
-  projectId: "yummify-352b4",
-  storageBucket: "yummify-352b4.appspot.com",
-  messagingSenderId: "61047984799",
-  appId: "1:61047984799:web:e11a33049db5af613fc8aa",
-  measurementId: "G-ZSQQSCGKRV",
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 // Initialize Firebase
