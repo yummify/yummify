@@ -6,7 +6,7 @@
 // require("dotenv").config();
 
 const { collection, getDocs, query, where, addDoc } = require("firebase/firestore");
-const { db } = require("../server/firebase")
+const { db } = require("../src/firebase/config")
 
 const updateUser = async () => {
 const usersRef = collection(db, "users");
