@@ -1,10 +1,17 @@
-const { initializeApp } = require("firebase/app");
+// ----------------------Admin --------------------------//
 //const fs = require("firebase-admin");
 //const serviceAccount = require("./yummify-352b4-73278bfed852.json");
-const { getAuth } = require("firebase/auth");
-const { getFirestore } = require("firebase/firestore");
+// ----------------------Admin --------------------------//
 
-//require("dotenv").config();
+// ----------------------Require --------------------------//
+// const { initializeApp } = require("firebase/app");
+// const { getAuth } = require("firebase/auth");
+// const { getFirestore } = require("firebase/firestore");
+// ----------------------Require --------------------------//
+
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,17 +33,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// admin auth
+// ----------------------Admin --------------------------//
 // fs.initializeApp(firebaseConfig);
 // const db = fs.firestore();
-
 // const data = db.collection("users").where("email", "=", "dummy3@aol.com").get();
 // console.log("data++++++" + data);
-
-// Initialize Firebase Analytics
-//const analytics = getAnalytics(app);
+// ----------------------Admin --------------------------//
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-module.exports = { db, auth, app };
+export { db, auth, app };

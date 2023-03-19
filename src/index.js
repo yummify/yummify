@@ -1,17 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import App from "./App";
-import Auth from "../src/features/auth/Auth";
+import App from "./components/App/App";
+import Login from "./components/Auth/Login";
+import SignUp from "./components/Auth/SignUp";
+import Home from "./components/Home/Home";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
+import store from "./store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/login" element={<Auth />} />
-    </Routes>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Router>
+  </Provider>
 );
