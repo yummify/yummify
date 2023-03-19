@@ -12,8 +12,9 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const registerSignUp = async () => {
-    dispatch(fetchAuthAsync({ email: signUpEmail, password: signUpPwd }));
-    navigate("/editUserProfile");
+    dispatch(fetchAuthAsync({ email: signUpEmail, password: signUpPwd })).then(
+      () => navigate("/edituserprofile")
+    );
   };
 
   // useEffect(() => {

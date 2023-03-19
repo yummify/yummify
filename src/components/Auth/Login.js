@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { useDispatch } from "react-redux";
+import { fetchLoginAuthAsync } from "./authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginpwd, setLoginPwd] = useState("");
-  //const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginpwd);
-      console.log(user);
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(
+      fetchLoginAuthAsync({ email: loginEmail, password: loginpwd })
+    ).then(() => navigate("/home"));
   };
 
   // useEffect(() => {

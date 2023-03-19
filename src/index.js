@@ -5,6 +5,7 @@ import App from "./components/App/App";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
 import Home from "./components/Home/Home";
+import EditUserProfile from "./components/User/EditUserProfile";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -19,6 +20,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/edituserprofile" element={<EditUserProfile />} />
       </Routes>
     </Router>
   </Provider>
