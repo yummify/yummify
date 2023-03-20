@@ -7,6 +7,8 @@ import Home from "./components/Home/Home";
 import EditUserProfile from "./components/User/EditUserProfile";
 import Users from "./components/Users/Users";
 import AdminHome from "./components/Admin/Admin";
+import AdminManageRestaurants from "./components/Admin/AdminManageRestaurants";
+import AdminManageUsers from "./components/Admin/AdminManageUsers";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -25,6 +27,8 @@ root.render(
         <Route path="/edituserprofile" element={<EditUserProfile />} />
         <Route path="/users" element={<Users />} />
         <Route path="/admin" element={<AdminHome/>}/>
+        <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
+        <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
       </Routes>
     </Router>
   </Provider>

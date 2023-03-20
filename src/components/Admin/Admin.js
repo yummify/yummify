@@ -1,17 +1,22 @@
 import React from "react";
+import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
 
 const AdminHome = () => {
 
     return (
         <>
         <h2>Admin Dashboard</h2>
+        <ButtonToolbar>
+            <ButtonGroup>
+                <Button>Manage Users</Button>
+            </ButtonGroup>
+            <ButtonGroup>
+                <Button>Manage Restaurants</Button>
+            </ButtonGroup>
+        </ButtonToolbar>
+        <Button>Customer View</Button>
         </>
     )
-    // OPTIONS: 
-     // - manage users
-     // - manage restaurants
-     // view home page
-
      //ADD CONDITIONAL LOGIC TO THE LOGIN FUNCTION -> IF USER IS ADMIN, NAVIGATE TO THIS HOME PAGE INSTEAD
 
 };
