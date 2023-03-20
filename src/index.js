@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import store from "./store";
 
+<<<<<<< HEAD
 import App from "./components/App/App";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
@@ -28,3 +31,17 @@ root.render(
     </Router>
   </Provider>
 );
+=======
+
+import App from "./components/App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+    <App />
+    </Provider>
+  </React.StrictMode>
+);
+
+>>>>>>> main
