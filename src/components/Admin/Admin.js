@@ -19,7 +19,7 @@ const AdminHome = () => {
                 <Button onClick={() => navigate('/admin/order-history')}>Order History</Button>
             </ButtonGroup>
         </ButtonToolbar>
-        <Button>Customer View</Button>
+        <Button onClick={() => navigate('/home')}>Customer View</Button>
         </>
     )
      //ADD CONDITIONAL LOGIC TO THE LOGIN FUNCTION -> IF USER IS ADMIN, NAVIGATE TO THIS HOME PAGE INSTEAD
