@@ -1,13 +1,21 @@
-// Import the functions you need from the SDKs you need
-const { initializeApp } = require("firebase/app");
-// const { getAnalytics } = require("firebase/analytics");
-const { getAuth } = require("firebase/auth");
-const { getFirestore } = require("firebase/firestore");
+// ----------------------Admin --------------------------//
+//const fs = require("firebase-admin");
+//const serviceAccount = require("./yummify-352b4-73278bfed852.json");
+// ----------------------Admin --------------------------//
 
-// require("dotenv").config();
+// ----------------------Require --------------------------//
+// const { initializeApp } = require("firebase/app");
+// const { getAuth } = require("firebase/auth");
+// const { getFirestore } = require("firebase/firestore");
+// ----------------------Require --------------------------//
+
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -19,19 +27,20 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+  //credential: fs.credential.cert(serviceAccount),
 };
 
-console.log(firebaseConfig.apiKey);
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// Initialize Firebase Analytics
-// const analytics = getAnalytics(app);
+// ----------------------Admin --------------------------//
+// fs.initializeApp(firebaseConfig);
+// const db = fs.firestore();
+// const data = db.collection("users").where("email", "=", "dummy3@aol.com").get();
+// console.log("data++++++" + data);
+// ----------------------Admin --------------------------//
 
 // Initialize Firebase Authentication and get a reference to the service
-// const auth = getAuth(app);
+const auth = getAuth(app);
 
-const db  = getFirestore(app);
-
-module.exports =  { app, db };
+export { db, auth, app };
