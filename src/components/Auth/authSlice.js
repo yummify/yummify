@@ -5,8 +5,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-export const fetchAuthAsync = createAsyncThunk(
-  "fetchAuth",
+export const fetchSignUpAuthAsync = createAsyncThunk(
+  "fetchSignUp",
   async ({ email, password }) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -54,7 +54,7 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAuthAsync.fulfilled, (state, action) => {
+      .addCase(fetchSignUpAuthAsync.fulfilled, (state, action) => {
         console.log("In action payload:", action.payload);
         return action.payload;
       })

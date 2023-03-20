@@ -26,7 +26,8 @@ export const fetchUserAsync = createAsyncThunk("fetchUser", async (userId) => {
     const docSnap = await getDoc(usersRef);
     if (docSnap.exists()) {
       const user = docSnap.data();
-      return user;
+
+      return { ...user, userId: docSnap.id };
     } else {
       console.log("No such document");
     }
