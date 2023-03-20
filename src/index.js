@@ -6,6 +6,7 @@ import SignUp from "./components/Auth/SignUp";
 import Home from "./components/Home/Home";
 import EditUserProfile from "./components/User/EditUserProfile";
 import Users from "./components/Users/Users";
+import SingleRestaurant from "./components/SingleRestaurantUserView/SingleRestaurant";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -23,6 +24,7 @@ root.render(
         <Route path="/home" element={<Home />} />
         <Route path="/edituserprofile" element={<EditUserProfile />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/restaurant" element={<SingleRestaurant />} />
       </Routes>
     </Router>
   </Provider>
