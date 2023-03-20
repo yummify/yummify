@@ -18,6 +18,7 @@ const AdminManageRestaurants = () => {
   // TODO: 
   // functions for edit & suspend
   // admin able to see previous orders!!!
+  // CHANGE 'EDIT RESTAURANT' TO 'MESSAGE RESTAURANT'?
 
   return (
     <>
@@ -40,6 +41,7 @@ const AdminManageRestaurants = () => {
                       </div>
                       <div>
                         <Button>Edit Restaurant</Button>
+                        <div className="vr" />
                         <Button>Suspend Restaurant</Button>
                       </div>
                       </Stack>

@@ -1,20 +1,22 @@
 import React from "react";
 import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"
 
 const AdminHome = () => {
+    const navigate = useNavigate();
 
     return (
         <>
         <h2>Admin Dashboard</h2>
         <ButtonToolbar>
             <ButtonGroup>
-                <Button>Manage Users</Button>
+                <Button onClick={() => navigate('/admin/manage-users')}>Manage Users</Button>
             </ButtonGroup>
             <ButtonGroup>
-                <Button>Manage Restaurants</Button>
+                <Button onClick={() => navigate('/admin/manage-restaurants')}>Manage Restaurants</Button>
             </ButtonGroup>
             <ButtonGroup>
-                <Button>Order History</Button>
+                <Button onClick={() => navigate('/admin/order-history')}>Order History</Button>
             </ButtonGroup>
         </ButtonToolbar>
         <Button>Customer View</Button>
