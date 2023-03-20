@@ -8,14 +8,14 @@ const AllRestaurants = () => {
 
     const restaurants = useSelector(selectRestaurants);
 
-    // useEffect(() => {
-    //     dispatch(fetchAllRestaurants());
-    //   }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchAllRestaurants());
+      }, [dispatch]);
 
     return (
         <>
         <h1>Yum</h1>
-        <p>{restaurants}</p>
+        {/* <p>{restaurants}</p> */}
 
         </>
     )

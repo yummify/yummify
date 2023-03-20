@@ -27,7 +27,6 @@
     "build": "react-scripts build",
     "seed": "node script/seed.js",
     "test": "react-scripts test",
-    "seed": "node script/seed.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

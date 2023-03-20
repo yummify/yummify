@@ -14,7 +14,8 @@ import { getAllRestaurants } from "../../firebase/restaurantsMethod";
 // };
 // updateUser();
 
-export const fetchAllRestaurants = async () => {
+export const fetchAllRestaurants = createAsyncThunk("allRestaurants", async () => {
+    console.log('working');
     try {
         const restaurants = await getAllRestaurants();
         console.log(restaurants);
@@ -22,7 +23,7 @@ export const fetchAllRestaurants = async () => {
     } catch (err) {
         console.error(err)
     }
-};
+})
 
 // export default updateUser;
 
@@ -41,9 +42,6 @@ export const restaurantsSlice = createSlice({
 export const selectRestaurants = (state) => state.restaurants;
 
 export default restaurantsSlice.reducer;
-
-console.log('working')
-fetchAllRestaurants();
 
 /* DELETE THUNK: 
 - 
