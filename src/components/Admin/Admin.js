@@ -13,6 +13,9 @@ const AdminHome = () => {
             <ButtonGroup>
                 <Button>Manage Restaurants</Button>
             </ButtonGroup>
+            <ButtonGroup>
+                <Button>Order History</Button>
+            </ButtonGroup>
         </ButtonToolbar>
         <Button>Customer View</Button>
         </>

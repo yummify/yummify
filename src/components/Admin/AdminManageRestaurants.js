@@ -1,11 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
+import {
+  fetchAllRestaurants,
+  selectRestaurants,
+} from "../AllRestaurants/allRestaurantsSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { ListGroup, Stack, Button } from "react-bootstrap";
 
 const AdminManageRestaurants = () => {
-    return (
-        <>
-        <h2>Manage Restaurants</h2>
-        </>
-    );
+  const dispatch = useDispatch();
+  const restaurants = useSelector(selectRestaurants);
+
+  useEffect(() => {
+    dispatch(fetchAllRestaurants());
+  }, [dispatch]);
+
+  // TODO: 
+  // functions for edit & suspend
+  // admin able to see previous orders!!!
+
+  return (
+    <>
+      <h2>Manage Restaurants</h2>
+      <ListGroup>
+        {restaurants.length > 0
+          ? restaurants.map((rest) => {
+              return (
+                
+                  <div>
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start">
+                    <Stack direction="horizontal" gap={4}>
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold" style={{ fontSize: "1.5rem" }}>
+                          {rest.name}
+                        </div>
+                        <h5>{rest.cuisine}</h5>
+                        <h6>{rest.address}</h6>
+                        <p>{rest.phone}</p>
+                      </div>
+                      <div>
+                        <Button>Edit Restaurant</Button>
+                        <Button>Suspend Restaurant</Button>
+                      </div>
+                      </Stack>
+                    </ListGroup.Item>
+                  </div>
+              );
+            })
+          : "No restaurants registered"}
+      </ListGroup>
+    </>
+  );
 };
 
 export default AdminManageRestaurants;
