@@ -10,6 +10,7 @@ import AdminHome from "./components/Admin/Admin";
 import AdminManageRestaurants from "./components/Admin/AdminManageRestaurants";
 import AdminManageUsers from "./components/Admin/AdminManageUsers";
 import AdminOrderHistory from "./components/Admin/AdminOrderHistory";
+import SingleRestaurant from "./components/SingleRestaurantUserView/SingleRestaurant";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -31,6 +32,7 @@ root.render(
         <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
         <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
         <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
+        <Route path="/restaurant" element={<SingleRestaurant />} />
       </Routes>
     </Router>
   </Provider>
