@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import {  query, setDoc, getDoc, updateDoc, collection, doc} from "firebase/firestore";
+import { query,addDoc, setDoc, getDoc, updateDoc, collection, doc} from "firebase/firestore";
 
 //fetch by doc reference
 export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
@@ -26,23 +26,29 @@ export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>
 
 
 
-export const addBagAsync = createAsyncThunk("createBag", async (bagRef, expir, image, newprice, originalprice, pickup, type)=>{
+export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type})=>{
     try{
-        await setDoc(doc(db, "bags", bagRef),{
-            expir,
+        
+        const newDocRef = doc(collection(db, "bags"));
+
+        await setDoc(newDocRef,{
+            expiration,
             image,
-            newprice,
-            originalprice,
+            newPrice,
+            originalPrice,
             pickup,
+            quantity,
             type,
+
         });
+
 
     }catch(err){
         console.log(err);
     }
 })
 
-export const editBagAsyc = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type)=>{
+export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type)=>{
     try{
         const bagByDocRef = doc(db, 'bags', `${bagRef}`);
         await updateDoc(bagByDocRef, {
@@ -57,6 +63,8 @@ export const editBagAsyc = createAsyncThunk("editBag", async (bagRef,expir, imag
         console.log(err);
     }
 })
+
+
 const initialState = {};
 export const bagSlice = createSlice({
     name: "bag",
@@ -68,6 +76,9 @@ export const bagSlice = createSlice({
                 return action.payload;
             })
             .addCase(addBagAsync.fulfilled, (state, action)=>{
+                return action.payload;
+            })
+            .addCase(editBagAsync.fulfilled, (state, action)=>{
                 return action.payload;
             })
     }
