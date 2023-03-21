@@ -10,13 +10,13 @@ const SingleRestaurant = () => {
 
     useEffect(() => {
         dispatch(fetchSingleRestaurant());
-      }, [dispatch]);
+      }, [dispatch, restaurant]);
 
     return (
         <>
         <h1>Yum</h1>
         <div>
-            Hawthorne Cafe: ${restaurant}
+            Hawthorne Cafe: {restaurant.description}
         </div>
 
         </>
