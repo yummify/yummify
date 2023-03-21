@@ -12,6 +12,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 //import { AuthProvider } from "./contexts/AuthContext";
 import Bag from "./components/Bag/Bag"
+import BagForm from "./components/Bag/BagForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,6 +27,8 @@ root.render(
         <Route path="/users" element={<Users />} />
         {/*for testing */}
         <Route path="/bag" element={<Bag/>} />
+        <Route path="/bagform" element={<BagForm/>} />
+
       </Routes>
     </Router>
   </Provider>

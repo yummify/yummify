@@ -5,18 +5,19 @@ import { fetchSingleBagAsync, selectBag } from "./bagSlice";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-//TODO: 
+//TODO: able to fetch bag by specific bagID
+//Attach reserve button to cart
 
 const Bag = () =>{
     const dispatch = useDispatch();
 
-    //
+    //for testing only
     const testingbag = "5zo2C263fsMNft46cGwg";
-    //fetchSingleBagAsync(testingbag);
-    // should return expir: march17,2023. no img, newprice=7, etc.
+    
+    
     const singlebag = useSelector(selectBag);
     const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
-    //console.log(singlebag);
+    
     useEffect(()=>{
         dispatch(fetchSingleBagAsync(testingbag));
     },[dispatch]);
