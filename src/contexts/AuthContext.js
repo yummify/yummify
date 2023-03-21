@@ -24,17 +24,20 @@ export function AuthProvider({ children }) {
     }
   };
 
-  //   useEffect(() => {
-  //     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-  //       fetchUser().then((res) => {
-  //         const data = res.payload;
-  //         console.log("++++++++++ubsubs" + data);
-  //         setUser(data);
-  //       });
-  //     });
-  //     return unsubscribe;
-  //   }, []);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      console.log("AuthUser in useeffect:", authUser);
+      if (authUser) {
+        fetchUser()?.then((res) => {
+          const data = res.payload;
+          console.log("++++++++++ubsubs" + data);
+          setUser(data);
+        });
+      }
+    });
+    return unsubscribe;
+  }, []);
 
-  const value = { user, fetchUser };
+  const value = { user };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
