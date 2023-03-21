@@ -23,7 +23,7 @@
     "webpack-cli": "^5.0.1"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "seed": "node script/seed.js",
     "test": "react-scripts test",
@@ -50,6 +50,7 @@
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
+    "@faker-js/faker": "^7.6.0",
     "webpack": "^5.76.2"
   }
 }

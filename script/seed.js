@@ -1,6 +1,4 @@
-const { db } = require("../src/firebase");
-// Create a reference to the cities collection
-const { collection, query, where, getDocs } = require("firebase/firestore");
+// const { collection, query, where, getDocs } = require("firebase/firestore");
 // //import { doc, setDoc } from "firebase/firestore";
 // const { collection, addDoc } = require("firebase/firestore");
 // console.log(auth);
@@ -56,13 +54,13 @@ const { collection, query, where, getDocs } = require("firebase/firestore");
 
 //console.log("seed ddata+++++" + logUsers());
 
-const updateUser = async () => {
-  const usersRef = collection(db, "users");
-  const q = query(usersRef, where("email", "==", "dummy3@aol.com"));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-  });
-};
-updateUser();
+// const updateUser = async () => {
+//   const usersRef = collection(db, "users");
+//   const q = query(usersRef, where("email", "==", "dummy3@aol.com"));
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+//   });
+// };
+// updateUser();
