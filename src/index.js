@@ -28,6 +28,11 @@ root.render(
         <Route path="/home" element={<Home />} />
         <Route path="/edituserprofile" element={<EditUserProfile />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/admin" element={<AdminHome/>}/>
+        <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
+        <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
+        <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
+        <Route path="/restaurant" element={<SingleRestaurant />} />
       </Routes>
     </Router>
   </Provider>
