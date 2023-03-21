@@ -24,8 +24,9 @@ const AdminManageRestaurants = () => {
 
   // TODO:
   // functions for edit & suspend
+  // function to delete restaurant
   // admin able to see previous orders!!!
-  // CHANGE 'EDIT RESTAURANT' TO 'MESSAGE RESTAURANT'?
+  // use different method for counting # of restaurants pending?
 
   return (
     <>
@@ -35,10 +36,11 @@ const AdminManageRestaurants = () => {
           <h2>
             {pendingRestaurants.length} restuarant(s) are waiting for approval.
           </h2>
-          {pendingRestaurants.length > 0
-            ? pendingRestaurants.map((rest) => {
-                return (
-                  <Accordion.Item eventKey="0">
+          {restaurants.length > 0
+          ? restaurants.map((rest) => { 
+            if (rest.status === 'pending') {
+              return (
+                  <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
                     <Accordion.Header>{rest.name}</Accordion.Header>
                     <Accordion.Body>
                       <p>EIN: {rest.ein}</p>
@@ -55,7 +57,7 @@ const AdminManageRestaurants = () => {
                       </div>
                     </Accordion.Body>
                   </Accordion.Item>
-                );
+                );}
               })
             : null}
         </Accordion>
@@ -92,6 +94,32 @@ const AdminManageRestaurants = () => {
             })
           : "No restaurants registered"}
       </ListGroup>
+      <Alert variant={"danger"}>
+        <Accordion defaultActiveKey="0">
+          <h2>
+            Suspended Restaurants:
+          </h2>
+          {restaurants.length > 0
+          ? restaurants.map((rest) => { 
+            if (rest.status === 'suspended') {
+              return (
+                  <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
+                    <Accordion.Header>{rest.name}</Accordion.Header>
+                    <Accordion.Body>
+                      <p>EIN: {rest.ein}</p>
+                      <p>Phone: {rest.phone}</p>
+                      <p>Description: {rest.description}</p>
+                      <div>
+                        <Button variant="success">Un-suspend</Button>
+                        <Button variant="danger">Delete Restaurant</Button>
+                      </div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                );}
+              })
+            : null}
+        </Accordion>
+      </Alert>
     </>
   );
 };
