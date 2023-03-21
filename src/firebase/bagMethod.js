@@ -2,11 +2,32 @@ import {db} from './config';
 import { query, setDoc, getDoc, updateDoc, collection, doc } from 'firebase/firestore';
 
 
+
 export const getSingleBag = async (bagRef)=> {
     try{
         const bagByDocRef = doc(db, 'bags', `${bagRef}`);
         const bagDocSnap = await getDoc(bagByDocRef);
-        return bagDocSnap.data();
+    
+        const bag = bagDocSnap.data();
+
+        //TODO: will change once firebase model changes from Timestamp -> String
+        //converting firebase timestamp -> date with only JS
+        const convert = new Date(bag.expiration.seconds*1000 + bag.expiration.nanoseconds/1000000);
+        const date = convert.toDateString();
+
+
+        
+        const singlebag ={
+            expiration: date,
+            image: bag.image,
+            newPrice: bag.newPrice,
+            originalPrice: bag.originalPrice,
+            pickup: bag.pickup,
+            type: bag.type,
+        }
+
+
+        return {...singlebag, bagId: bagDocSnap.id}
     }catch(err){
         console.log(err);
     }

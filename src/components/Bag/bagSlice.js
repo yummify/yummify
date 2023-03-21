@@ -7,6 +7,7 @@ import { getSingleBag, createSingleBag, updateSingleBag } from "../../firebase/b
 export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
     try{
         const bag = await getSingleBag(bagRef);
+        
         return bag;
     }catch(err){
         console.log(err);
@@ -17,7 +18,7 @@ export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>
 
 export const addBagAsync = createAsyncThunk("createBag", async (bagRef, expir, image, newprice, originalprice, pickup, type)=>{
     try{
-        await createSingleBag();
+        await createSingleBag({bagRef, expir, image, newprice, originalprice, pickup, type});
     }catch(err){
         console.log(err);
     }
@@ -25,15 +26,15 @@ export const addBagAsync = createAsyncThunk("createBag", async (bagRef, expir, i
 
 export const editBagAsyc = createAsyncThunk("editBag", async (bagRef,expor, image, newprice, originalprice, pickup, type)=>{
     try{
-        await updateSingleBag(bagRef,expor, image, newprice, originalprice, pickup, type);
+        await updateSingleBag({bagRef,expor, image, newprice, originalprice, pickup, type});
     }catch(err){
         console.log(err);
     }
 })
-
+const initialState = {};
 export const bagSlice = createSlice({
     name: "bag",
-    initialState:{},
+    initialState,
     reducers: {},
     extraReducers: (builder)=> {
         builder
@@ -48,3 +49,4 @@ export const bagSlice = createSlice({
 
 
 export const selectBag = (state)=> state.bag;
+export default bagSlice.reducer;
