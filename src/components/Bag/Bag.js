@@ -2,12 +2,17 @@ import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleBagAsync, selectBag } from "./bagSlice";
 
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
+//TODO: 
 
 const Bag = () =>{
     const dispatch = useDispatch();
+
+    //
     const testingbag = "5zo2C263fsMNft46cGwg";
-    fetchSingleBagAsync(testingbag);
+    //fetchSingleBagAsync(testingbag);
     // should return expir: march17,2023. no img, newprice=7, etc.
     const singlebag = useSelector(selectBag);
     const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
@@ -17,16 +22,24 @@ const Bag = () =>{
     },[dispatch]);
 
     return(
-        <div id ="bagcard">
-            <p>this is where i would put bag info</p>
-            <p>manual docref: {testingbag}</p>
-            <p>from slice, docref: {bagId}</p>
-            <p>expir: {expiration}</p>
-            <p>newprice: {newPrice}</p>
-            <p>originalprice: {originalPrice}</p>
-        </div>
+        <Card style={{width: '18rem'}}>
+            <Card.Img variant="top" src={image} />
+            <Card.Body>
+                <Card.Title>
+                    {type} Surprise Bag
+                </Card.Title>
+                <Card.Text>
+                    Pickup: {pickup}
+                </Card.Text>
+                <Card.Text>
+                    Price: ${Number(newPrice).toFixed(2)} - Original: $ {Number(originalPrice).toFixed(2)}
+                </Card.Text>
+                <Button variant="primary">Reserve</Button>
+            </Card.Body>
+        </Card>
+        
     );
-};
+}
 
 
 export default Bag;
