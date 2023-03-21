@@ -4,11 +4,12 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
   "addUser",
-  async ({ userId, name, email, phoneNumber, zipcode }) => {
+  async ({ userId, name, email, image, phoneNumber, zipcode }) => {
     try {
       await setDoc(doc(db, "users", userId), {
         name,
         email,
+        image,
         phoneNumber,
         zipcode,
         isAdmin: false,

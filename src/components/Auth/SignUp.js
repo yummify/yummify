@@ -25,6 +25,7 @@ const SignUp = () => {
           userId: user.userId,
           name: firstName + " " + lastName,
           email: user.email,
+          image: "/Student_Profile.png",
           phoneNumber: phoneNumber,
           zipcode: zipcode,
         };
