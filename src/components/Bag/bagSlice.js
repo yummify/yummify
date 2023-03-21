@@ -1,14 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { collection, getDocs } from "firebase/firestore";
-import { getSingleBag, createSingleBag, updateSingleBag } from "../../firebase/bagMethod";
+import {  query, setDoc, getDoc, updateDoc, collection, doc} from "firebase/firestore";
 
-//fetch by Ref
+//fetch by doc reference
 export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
     try{
-        const bag = await getSingleBag(bagRef);
-        
-        return bag;
+        const bagByDocRef = doc(db, 'bags', `${bagRef}`);
+        const bagDocSnap = await getDoc(bagByDocRef);
+        const bag = bagDocSnap.data();
+
+        const singlebag ={
+            expiration: bag.expiration,
+            image: bag.image,
+            newPrice: bag.newPrice,
+            originalPrice: bag.originalPrice,
+            pickup: bag.pickup,
+            type: bag.type,
+        }
+
+        return {...singlebag, bagId: bagDocSnap.id}
     }catch(err){
         console.log(err);
     }
@@ -18,15 +28,31 @@ export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>
 
 export const addBagAsync = createAsyncThunk("createBag", async (bagRef, expir, image, newprice, originalprice, pickup, type)=>{
     try{
-        await createSingleBag({bagRef, expir, image, newprice, originalprice, pickup, type});
+        await setDoc(doc(db, "bags", bagRef),{
+            expir,
+            image,
+            newprice,
+            originalprice,
+            pickup,
+            type,
+        });
+
     }catch(err){
         console.log(err);
     }
 })
 
-export const editBagAsyc = createAsyncThunk("editBag", async (bagRef,expor, image, newprice, originalprice, pickup, type)=>{
+export const editBagAsyc = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type)=>{
     try{
-        await updateSingleBag({bagRef,expor, image, newprice, originalprice, pickup, type});
+        const bagByDocRef = doc(db, 'bags', `${bagRef}`);
+        await updateDoc(bagByDocRef, {
+            expiration: expir,
+            image: image,
+            newPrice: newprice,
+            originalPrice: originalprice,
+            pickup: pickup,
+            type: type,
+        });
     }catch(err){
         console.log(err);
     }
