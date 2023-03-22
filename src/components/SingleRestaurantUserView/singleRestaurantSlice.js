@@ -14,7 +14,7 @@ export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async 
 
             return {...restaurant, restaurantId: docSnap.id};
         } else {
-            console.log("No restaurant found");
+            console.error("No restaurant found");
         }
     } catch (err) {
         console.error(err)

@@ -14,7 +14,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // updateUser();
 
 export const fetchAllRestaurants = createAsyncThunk("allRestaurants", async () => {
-    console.log('working');
     try {
         const q = query(collection(db, 'restaurants'));
         const querySnapshot = await getDocs(q);

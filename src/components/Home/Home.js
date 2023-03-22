@@ -11,8 +11,8 @@ import { selectAuth } from "../Auth/authSlice";
 const Home = () => {
   const authUser = useSelector(selectAuth);
   const user = useSelector(selectUser);
-  console.log("User:", user);
-  console.log("AuthUser id:", authUser.userId);
+  //console.log("User:", user);
+  //console.log("AuthUser id:", authUser.userId);
   //const [loading, setLoading] = useState(true);
   //console.log("Auth User:", auth.currentUser.uid);
   // const { fetchUser, user } = useAuth();
