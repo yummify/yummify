@@ -3,9 +3,8 @@ import authSlice from "../components/Auth/authSlice";
 import userSlice from "../components/User/userSlice";
 import usersSlice from "../components/Users/usersSlice";
 import  restaurantsSlice  from "../components/AllRestaurants/allRestaurantsSlice";
-//testing
-import bagSlice from "../components/Bag/bagSlice";
 import singleRestaurantSlice from "../components/SingleRestaurantUserView/singleRestaurantSlice";
+import bagSlice from "../components/Bag/bagSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,8 +12,8 @@ export const store = configureStore({
     user: userSlice,
     users: usersSlice,
     restaurants: restaurantsSlice,
+    restaurant: singleRestaurantSlice,
     bag: bagSlice,
-    restaurant: singleRestaurantSlice
   },
 });
 export default store;
