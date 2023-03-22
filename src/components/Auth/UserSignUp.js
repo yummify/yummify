@@ -5,7 +5,7 @@ import { fetchSignUpAuthAsync } from "./authSlice";
 import { addUserAsync } from "../User/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const UserSignUp = () => {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPwd, setSignUpPwd] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -91,4 +91,4 @@ const SignUp = () => {
     </div>
   );
 };
-export default SignUp;
+export default UserSignUp;
