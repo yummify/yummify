@@ -12,6 +12,7 @@ const AllRestaurants = () => {
         dispatch(fetchAllRestaurants());
       }, [dispatch]);
 
+    //ONLY RETURN ACCEPTED RESTAURANTS
     return (
         <>
         <h1>Yum</h1>
