@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
     const navigate = useNavigate();

@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
     const user = useSelector(state => state.authenticate);
-
+    
     //VS RESTAURANT - how to distinguish???
 
     return (
-        <NavBar>
+        <Navbar>
             <Container>
                     {user.isAdmin ? 
                         <Nav>
@@ -27,7 +27,7 @@ const NavBar = () => {
                     <Nav.Link href='/cart'>Cart</Nav.Link>
                     </Nav>}
             </Container>
-        </NavBar>
+        </Navbar>
     )
 };
 
