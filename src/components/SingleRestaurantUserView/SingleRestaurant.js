@@ -53,8 +53,9 @@ const SingleRestaurant = () => {
         <ListGroup className="list-group-flush">
             <ListGroup.Item>Cuisine: {restaurant.cuisine}</ListGroup.Item>
             <ListGroup.Item>Address: {restaurant.address}</ListGroup.Item>
-            <ListGroup.Item>Open: {restaurant.open}</ListGroup.Item>
-            <ListGroup.Item>Close: {restaurant.close}</ListGroup.Item>
+            {/* <ListGroup.Item>Open: {restaurant.open}</ListGroup.Item>
+            <ListGroup.Item>Close: {restaurant.close}</ListGroup.Item> */}
+            <ListGroup.Item>Pickup Window: xx</ListGroup.Item>
         </ListGroup>
         <Card.Body>
             Order a Surprise Bag from {restaurant.name}:

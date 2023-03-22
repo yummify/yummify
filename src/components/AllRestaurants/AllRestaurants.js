@@ -17,6 +17,7 @@ const AllRestaurants = () => {
     return (
         <>
         <h1>Yum</h1>
+        {/* add filter/search bar here */}
         {restaurants.map((restaurant) => {
             return <Card
                 key={restaurant}
@@ -26,14 +27,14 @@ const AllRestaurants = () => {
             >
                 <Card.Header>{restaurant.name}</Card.Header>
                 <Card.Body>
-                  <Card.Title>{restaurant.description}</Card.Title>
-                  <Card.Text>
-                        Open: {restaurant.open} until Close: {restaurant.close}
-                    </Card.Text>
+                    <Card.Title>{restaurant.description}</Card.Title>
+                    {/* <Card.Text>
+                        Hours: {restaurant.open} to {restaurant.close}
+                    </Card.Text> */}
                     <Card.Text>
-                        ::info from bags::  ::also image on rt::
+                        ::info from bags:: 
+                        ::image::
                     </Card.Text>
-                  
                 </Card.Body>
               </Card>
         })}

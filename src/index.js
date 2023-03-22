@@ -16,6 +16,7 @@ import AdminOrderHistory from "./components/Admin/AdminOrderHistory";
 
 import SingleRestaurant from "./components/SingleRestaurantUserView/SingleRestaurant";
 import AllRestaurants from "./components/AllRestaurants/AllRestaurants";
+import Bag from './components/Bag/Bag';
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -40,8 +41,9 @@ root.render(
         <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
         <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
         <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
-        <Route path="/restaurant" element={<SingleRestaurant />} />
+        <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route path="/restaurants" element={<AllRestaurants />} />
+        <Route path="/bag" element={<Bag/>} />
       </Routes>
     </Router>
   </Provider>
