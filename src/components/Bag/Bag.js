@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleBagAsync, selectBag } from "./bagSlice";
+import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -12,14 +12,14 @@ const Bag = () =>{
     const dispatch = useDispatch();
 
     //for testing only
-    const testingbag = "5zo2C263fsMNft46cGwg";
-    
+
+    const testingrest= "D1EEQluv6HmkAjs7Uvyv";
     
     const singlebag = useSelector(selectBag);
     const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
     
     useEffect(()=>{
-        dispatch(fetchSingleBagAsync(testingbag));
+        dispatch(fetchSingleBagByRestAsync(testingrest));
     },[dispatch]);
 
     return(

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleBagAsync, selectBag, addBagAsync } from "./bagSlice";
+import { fetchSingleBagByRestAsync, selectBag, addBagAsync } from "./bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row'
 
 
 //TODO: change pickup time AND expiration date inputs to a dropdown menu
+//Still need adjustments b/c of thunk change
 const AddBagForm = () =>{
     const [bagType, setBagType] = useState("");
     const [bagQuantity, setBagQuantity] = useState(1);
