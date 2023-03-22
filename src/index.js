@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 //import { AuthProvider } from "./contexts/AuthContext";
 import Bag from "./components/Bag/Bag"
 import AddBagForm from "./components/Bag/AddBagForm";
+import EditBagForm from "./components/Bag/EditBagForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,9 +26,11 @@ root.render(
         <Route path="/home" element={<Home />} />
         <Route path="/edituserprofile" element={<EditUserProfile />} />
         <Route path="/users" element={<Users />} />
+        
         {/*for testing */}
         <Route path="/bag" element={<Bag/>} />
         <Route path="/bagform" element={<AddBagForm/>} />
+        <Route path="/bageditform" element={<EditBagForm/>}/>
 
       </Routes>
     </Router>

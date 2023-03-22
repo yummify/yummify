@@ -29,6 +29,7 @@ export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>
 export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type})=>{
     try{
         
+        //creating auto-gen doc reference
         const newDocRef = doc(collection(db, "bags"));
 
         await setDoc(newDocRef,{
