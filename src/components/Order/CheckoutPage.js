@@ -11,10 +11,23 @@
  *      - includes reminder about bringing own bag & pickup window.
  */
 
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+// import {Elements} from '@stripe/react-stripe-js';
+// import {loadStripe} from '@stripe/stripe-js';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
+import {getApp} from "@firebase/app";
+import { getStripePayments, getProducts } from "@stripe/firestore-stripe-payments";
+
+const app = getApp();
+const payments = getStripePayments(app, {
+    bagsCollection: "bags",
+    usersCollection: "users"
+});
+const products = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true
+});
 
 const CheckoutPage = () => {
 
