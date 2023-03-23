@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+// import { seedUsers } from "./usersSeed";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,6 +27,9 @@ const googleMapsConfig = {
 
 const app = initializeApp(firebaseConfig, googleMapsConfig);
 const db = getFirestore(app);
+
+// Initialize Firebase Analytics
+getAnalytics(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);

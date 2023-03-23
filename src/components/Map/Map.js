@@ -5,7 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { getPlaces } from "../../firebase/getPlaces";
+import { getPlaces } from "../../firebase/mapsSeed";
 import "./map.css";
 
 export default function Map() {
