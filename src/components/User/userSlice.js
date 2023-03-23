@@ -1,18 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
   "addUser",
-  async ({ userId, name, email, phoneNumber, zipcode }) => {
+  async ({ userId, name, email, image, phoneNumber, zipcode }) => {
     try {
       await setDoc(doc(db, "users", userId), {
         name,
         email,
+        image,
         phoneNumber,
         zipcode,
         isAdmin: false,
       });
+      console.log("after db insert");
     } catch (err) {
       console.log(err);
     }
@@ -35,6 +37,22 @@ export const fetchUserAsync = createAsyncThunk("fetchUser", async (userId) => {
     console.log(err);
   }
 });
+
+export const editUserImageAsync = createAsyncThunk(
+  "editUserImage",
+  async ({ userId, url }) => {
+    try {
+      console.log("UserId and url:", userId, url);
+      const usersRef = doc(db, "users", userId);
+      const data = { image: url };
+      updateDoc(usersRef, data).then((usersRef) =>
+        console.log("Value of document has been updated")
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 const initialState = {};
 export const userSlice = createSlice({

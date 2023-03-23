@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
@@ -46,3 +47,5 @@ const Home = () => {
 };
 
 export default Home;
+=======
+>>>>>>> 3554559e860333feeb3a0c1aff6cea52b57d4805

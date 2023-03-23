@@ -1,7 +1,16 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+<<<<<<< HEAD
 import { getAnalytics } from "firebase/analytics"; 
+=======
+import { getAnalytics } from "firebase/analytics";
+
+import { getStorage } from "firebase/storage";
+
+// import { seedUsers } from "./usersSeed";
+>>>>>>> 3554559e860333feeb3a0c1aff6cea52b57d4805
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,6 +29,8 @@ const firebaseConfig = {
   //credential: fs.credential.cert(serviceAccount),
 };
 
+// Google Maps configuration
+
 const googleMapsConfig = {
   apiMapsKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
 };
@@ -27,8 +38,15 @@ const googleMapsConfig = {
 const app = initializeApp(firebaseConfig, googleMapsConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
+<<<<<<< HEAD
+=======
+
+// Initialize Firebase Analytics
+getAnalytics(app);
+>>>>>>> 3554559e860333feeb3a0c1aff6cea52b57d4805
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+const storage = getStorage(app);
 
-export { db, auth, app };
+export { db, auth, analytics, storage, app };
