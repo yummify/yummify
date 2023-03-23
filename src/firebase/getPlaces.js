@@ -1,8 +1,8 @@
-// Google Places API to fetch places
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./config";
 import { faker } from "@faker-js/faker";
 
+// Google Places API to fetch places and seed firestore
 export const getPlaces = async () => {
   const location = { lat: 40.712776, lng: -74.005974 };
   const radius = 20000; // 20km radius around NYC
@@ -66,4 +66,4 @@ export const getPlaces = async () => {
   return Promise.all(places);
 };
 
-getPlaces();
+// call function to reseed

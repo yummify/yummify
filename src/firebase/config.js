@@ -21,6 +21,7 @@ const firebaseConfig = {
   //credential: fs.credential.cert(serviceAccount),
 };
 
+// Google Maps configuration
 const googleMapsConfig = {
   apiMapsKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
 };
