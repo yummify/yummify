@@ -34,6 +34,9 @@ import AdminOrderHistory from "../Admin/AdminOrderHistory";
 
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
 
+import PrivacyPolicy from "../Footer/PrivacyPolicy";
+import TermsAndConditions from "../Footer/TermsAndConditions";
+
 const AppRoutes = () => {
   const user = useAuth();
   const restaurant = useAuthRes();
@@ -58,6 +61,12 @@ const AppRoutes = () => {
       >
         Restaurant
       </Button>
+
+      <Routes>
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+      </Routes>
+
       {/* <AuthProvider>
         <Routes>
           <Route path="/userstart" element={<UserStartPage />} />

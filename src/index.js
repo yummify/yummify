@@ -13,7 +13,6 @@ root.render(
   <Router>
     <Provider store={store}>
       <App />
-      <Footer />
     </Provider>
   </Router>
 );

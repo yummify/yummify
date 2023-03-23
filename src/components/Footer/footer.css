@@ -1,8 +1,7 @@
 .footer {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
   width: 100%;
-  background-color: hsl(230, 100%, 54%);
+  background-color: hsl(219, 100%, 57%);
   padding: 20px;
   font-size: 12px;
 }
@@ -60,7 +59,7 @@ ul {
 .copy-right {
   margin-top: 20px;
   text-align: center;
-  color: #d3d3d6;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
