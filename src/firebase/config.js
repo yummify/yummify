@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
 
 import { getStorage } from "firebase/storage";
 
@@ -32,6 +33,7 @@ const googleMapsConfig = {
 
 const app = initializeApp(firebaseConfig, googleMapsConfig);
 const db = getFirestore(app);
+const analytics = getAnalytics(app);
 
 // Initialize Firebase Analytics
 getAnalytics(app);
@@ -40,4 +42,4 @@ getAnalytics(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-export { db, auth, app, storage };
+export { db, auth, analytics, storage, app };
