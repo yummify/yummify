@@ -4,58 +4,57 @@ import { Button, Col, Image, Container, Row } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
-import {
-  fetchUserAsync,
-  editUserImageAsync,
-  selectUser,
-} from "../User/userSlice";
+import { fetchRestaurantAsync, selectRestaurant } from "./restaurantSlice";
 import { selectAuth } from "../Auth/authSlice";
-import { useAuth } from "../../contexts/AuthContext";
+//import { useAuth } from "../../contexts/AuthContext";
+import { useAuthRes } from "../../contexts/AuthResContext";
 import { app } from "../../firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
-const UserProfile = () => {
+const RestaurantProfile = () => {
   //const authUser = useSelector(selectAuth);
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
-  const authuser = useSelector(selectUser);
-  console.log("authuser:", authuser);
+  const authRestaurant = useSelector(selectRestaurant);
+  console.log("authrestaurant:", authRestaurant);
   //console.log("AuthUser id:", authUser.userId);
   //const [loading, setLoading] = useState(true);
   //console.log("Auth User:", auth.currentUser.uid);
-  const { user } = useAuth();
-  console.log("User from AuthContext:", user);
+  const { restaurant } = useAuthRes();
+  console.log("restaurant from AuthContext:", restaurant);
   // console.log("User from auth context:", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user?.userId) dispatch(fetchUserAsync(user?.userId));
-  }, [user?.userId, fileUrl]);
+    if (restaurant?.restaurantId)
+      dispatch(fetchRestaurantAsync(restaurant?.restaurantId));
+  }, [restaurant?.restaurantId, fileUrl]);
 
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/userstart");
+      navigate("/restaurantstart");
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleImage = async (event) => {
-    if (imageFile == null) return;
-    const imageRef = ref(storage, `users/${imageFile.name}`);
-    uploadBytes(imageRef, imageFile).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        dispatch(editUserImageAsync({ userId, url })).then(() => {
-          console.log("file updated");
-          setFileUrl(url);
-        });
-      });
-    });
-    const userId = user.userId;
-    setUpload(false);
+    // if (imageFile == null) return;
+    // const imageRef = ref(storage, `users/${imageFile.name}`);
+    // uploadBytes(imageRef, imageFile).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((url) => {
+    //     dispatch(editUserImageAsync({ userId, url })).then(() => {
+    //       console.log("file updated");
+    //       setFileUrl(url);
+    //     });
+    //   });
+    // });
+    // const userId = user.userId;
+    // setUpload(false);
+    //________________________________//
     // const file = event.target.files[0];
     // console.log("FileName:", file.name);
     // const storage = getStorage();
@@ -69,7 +68,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      {user?.userId && (
+      {restaurant?.restaurantId && (
         <div>
           <Container>
             <Row>
@@ -81,7 +80,7 @@ const UserProfile = () => {
                   >
                     <Image
                       fluid
-                      src={authuser.image}
+                      src={authRestaurant.image}
                       alt="image of user"
                       thumbnail
                       style={{ width: "100px", borderRadius: "10px" }}
@@ -114,10 +113,20 @@ const UserProfile = () => {
                     className="flex-grow-1 ms-3"
                     style={{ marginTop: "5rem" }}
                   >
-                    <h1>{authuser?.name}</h1>
-                    <p>Email :{authuser?.email}</p>
-                    <p>PhoneNumber:{authuser?.phoneNumber}</p>
-                    <p>Zipcode:{authuser.zipcode}</p>
+                    <h1>{authRestaurant?.restaurantName}</h1>
+                    <p>Email :{authRestaurant?.email}</p>
+                    <p>Image :{authRestaurant?.image}</p>
+                    <p>Cuisine :{authRestaurant?.cuisine}</p>
+                    <p>Description :{authRestaurant?.description}</p>
+                    <p>Address :{authRestaurant?.address}</p>
+                    <p>Open :{authRestaurant?.open}</p>
+                    <p>Close :{authRestaurant?.close}</p>
+                    <p>EIN :{authRestaurant?.EIN}</p>
+                    <p>Role :{authRestaurant?.role}</p>
+                    <p>Status :{authRestaurant?.status}</p>
+                    <p>PhoneNumber:{authRestaurant?.phoneNumber}</p>
+                    <p>Zipcode:{authRestaurant.zipcode}</p>
+                    <p>Terms :{authRestaurant?.terms}</p>
                   </div>
                 </Col>
               </div>
@@ -130,4 +139,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default RestaurantProfile;

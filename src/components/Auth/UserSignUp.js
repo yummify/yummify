@@ -5,7 +5,7 @@ import { fetchSignUpAuthAsync } from "./authSlice";
 import { addUserAsync } from "../User/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const UserSignUp = () => {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPwd, setSignUpPwd] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -17,20 +17,24 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const registerSignUp = async () => {
-    dispatch(fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd }))
-      .then((res) => {
-        const user = res.payload;
-        console.log(res.payload);
-        const reqbody = {
-          userId: user.userId,
-          name: firstName + " " + lastName,
-          email: user.email,
-          phoneNumber: phoneNumber,
-          zipcode: zipcode,
-        };
-        dispatch(addUserAsync(reqbody));
-      })
-      .then(() => navigate("/home"));
+    dispatch(
+      fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
+    ).then((res) => {
+      const user = res.payload;
+      console.log(res.payload);
+      const reqbody = {
+        userId: user.userId,
+        name: firstName + " " + lastName,
+        email: user.email,
+        image: "/Student_Profile.png",
+        phoneNumber: phoneNumber,
+        zipcode: zipcode,
+      };
+      dispatch(addUserAsync(reqbody)).then(() => {
+        console.log("before navigate");
+        navigate("/userprofile");
+      });
+    });
   };
 
   // useEffect(() => {
@@ -90,4 +94,4 @@ const SignUp = () => {
     </div>
   );
 };
-export default SignUp;
+export default UserSignUp;

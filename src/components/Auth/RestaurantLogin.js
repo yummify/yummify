@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { fetchLoginAuthAsync } from "./authSlice";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const RestaurantLogin = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginpwd, setLoginPwd] = useState("");
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const Login = () => {
   const login = async () => {
     dispatch(
       fetchLoginAuthAsync({ email: loginEmail, password: loginpwd })
-    ).then(() => navigate("/userprofile"));
+    ).then(() => navigate("/restaurantprofile"));
   };
 
   // useEffect(() => {
@@ -48,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RestaurantLogin;
