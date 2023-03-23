@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';  
+import { useParams } from "react-router-dom";
 import { fetchSingleRestaurant, selectRestaurant } from './singleRestaurantSlice';
 import { useSelector, useDispatch } from "react-redux";
 import Card from 'react-bootstrap/Card';
@@ -6,17 +7,29 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-//import Bag component
+import Bag from '../Bag/Bag';
+import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
 
 
 const SingleRestaurant = () => {
     const dispatch = useDispatch();
 
     const restaurant = useSelector(selectRestaurant);
+    const bag = useSelector(selectBag);
+    const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
+    //console.log(expiration);
+    
+
+    //useParams to get bagId
+    const { id } = useParams();
+    //console.log('id:', id);
 
     useEffect(() => {
-        dispatch(fetchSingleRestaurant());
-      }, [dispatch, restaurant]);
+        dispatch(fetchSingleRestaurant(id));
+        dispatch(fetchSingleBagByRestAsync(id));
+        console.log('bag:', bag);
+      }, [dispatch, id]);
+      
 
     //for Bootstrap modal
     const [show, setShow] = useState(false);
@@ -53,12 +66,13 @@ const SingleRestaurant = () => {
         <ListGroup className="list-group-flush">
             <ListGroup.Item>Cuisine: {restaurant.cuisine}</ListGroup.Item>
             <ListGroup.Item>Address: {restaurant.address}</ListGroup.Item>
-            <ListGroup.Item>Open: {restaurant.open}</ListGroup.Item>
-            <ListGroup.Item>Close: {restaurant.close}</ListGroup.Item>
+            {/* <ListGroup.Item>Open: {restaurant.open}</ListGroup.Item>
+            <ListGroup.Item>Close: {restaurant.close}</ListGroup.Item> */}
         </ListGroup>
         <Card.Body>
             Order a Surprise Bag from {restaurant.name}:
-            {/* <Bag />//link to Bag component here */}
+            {/* add onClick */}
+            <Bag bag={bag}/>
         </Card.Body>
         <Card.Body>
             <Card.Link href={restaurant.website}>Website</Card.Link>
