@@ -13,7 +13,7 @@ const Login = () => {
   const login = async () => {
     dispatch(
       fetchLoginAuthAsync({ email: loginEmail, password: loginpwd })
-    ).then(() => navigate("/home"));
+    ).then(() => navigate("/userprofile"));
   };
 
   // useEffect(() => {
