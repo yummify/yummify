@@ -4,6 +4,9 @@ import userSlice from "../components/User/userSlice";
 import usersSlice from "../components/Users/usersSlice";
 import restaurantsSlice from "../components/AllRestaurants/allRestaurantsSlice";
 import restaurantSlice from "../components/Restaurant/restaurantSlice";
+import singleRestaurantSlice from "../components/SingleRestaurantUserView/singleRestaurantSlice";
+import bagSlice from "../components/Bag/bagSlice";
+
 export const store = configureStore({
   reducer: {
     authenticate: authSlice,
@@ -11,6 +14,8 @@ export const store = configureStore({
     users: usersSlice,
     restaurants: restaurantsSlice,
     restaurant: restaurantSlice,
+    singleRestaurant: singleRestaurantSlice,
+    bag: bagSlice,
   },
 });
 export default store;

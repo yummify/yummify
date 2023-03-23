@@ -1,14 +1,3 @@
-// ----------------------Admin --------------------------//
-//const fs = require("firebase-admin");
-//const serviceAccount = require("./yummify-352b4-73278bfed852.json");
-// ----------------------Admin --------------------------//
-
-// ----------------------Require --------------------------//
-// const { initializeApp } = require("firebase/app");
-// const { getAuth } = require("firebase/auth");
-// const { getFirestore } = require("firebase/firestore");
-// ----------------------Require --------------------------//
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -31,16 +20,13 @@ const firebaseConfig = {
   //credential: fs.credential.cert(serviceAccount),
 };
 
-const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
-const db = getFirestore(app);
+const googleMapsConfig = {
+  apiMapsKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+};
 
-// ----------------------Admin --------------------------//
-// fs.initializeApp(firebaseConfig);
-// const db = fs.firestore();
-// const data = db.collection("users").where("email", "=", "dummy3@aol.com").get();
-// console.log("data++++++" + data);
-// ----------------------Admin --------------------------//
+const app = initializeApp(firebaseConfig, googleMapsConfig);
+const db = getFirestore(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);

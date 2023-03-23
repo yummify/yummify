@@ -6,6 +6,7 @@ import UserSignUp from "./components/Auth/UserSignUp";
 import Home from "./components/Home/Home";
 import EditUserProfile from "./components/User/EditUserProfile";
 import Users from "./components/Users/Users";
+
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -17,6 +18,10 @@ import { AuthResProvider } from "./contexts/AuthResContext";
 import RestaurantLogin from "./components/Auth/RestaurantLogin";
 import RestaurantStartPage from "./components/App/RestaurantStartPage";
 import UserStartPage from "./components/App/UserStartPage";
+//import { AuthProvider } from "./contexts/AuthContext";
+import Bag from "./components/Bag/Bag";
+import AddBagForm from "./components/Bag/AddBagForm";
+import EditBagForm from "./components/Bag/EditBagForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

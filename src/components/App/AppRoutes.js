@@ -22,6 +22,17 @@ import { useNavigate } from "react-router-dom";
 import PrivateRestaurantRoute from "../Auth/PrivateRestaurantRoute";
 import PrivateUserRoute from "../Auth/PrivateUserRoute";
 import UserProfile from "../User/UserProfile";
+import Bag from "../Bag/Bag";
+import AddBagForm from "../Bag/AddBagForm";
+import EditBagForm from "../Bag/EditBagForm";
+import Map from "../Map/Map";
+
+import AdminHome from "../Admin/Admin";
+import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
+import AdminManageUsers from "../Admin/AdminManageUsers";
+import AdminOrderHistory from "../Admin/AdminOrderHistory";
+
+import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
 
 const AppRoutes = () => {
   const user = useAuth();
@@ -62,6 +73,11 @@ const AppRoutes = () => {
           />
           <Route path="/edituserprofile" element={<EditUserProfile />} />
           <Route path="/users" element={<Users />} />
+           <Route path="/map" element={<Map />} />
+                 <Route path="/admin" element={<AdminHome/>}/>
+        <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
+        <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
+        <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
         </Routes>
       </AuthProvider> */}
       <AuthResProvider>
@@ -78,6 +94,11 @@ const AppRoutes = () => {
             }
           />
         </Routes>
+        <Route path="/bag" element={<Bag />} />
+        <Route path="/bagform" element={<AddBagForm />} />
+        <Route path="/bageditform" element={<EditBagForm />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/restaurant" element={<SingleRestaurant />} />
       </AuthResProvider>
     </div>
   );
