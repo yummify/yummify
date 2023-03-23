@@ -24,8 +24,6 @@ const firebaseConfig = {
   //credential: fs.credential.cert(serviceAccount),
 };
 
-const storage = getStorage(app);
-
 // Google Maps configuration
 
 const googleMapsConfig = {
@@ -40,5 +38,6 @@ getAnalytics(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 export { db, auth, app, storage };

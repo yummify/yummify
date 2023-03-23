@@ -93,12 +93,12 @@ const AppRoutes = () => {
               </PrivateRestaurantRoute>
             }
           />
+          <Route path="/bag" element={<Bag />} />
+          <Route path="/bagform" element={<AddBagForm />} />
+          <Route path="/bageditform" element={<EditBagForm />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/restaurant" element={<SingleRestaurant />} />
         </Routes>
-        <Route path="/bag" element={<Bag />} />
-        <Route path="/bagform" element={<AddBagForm />} />
-        <Route path="/bageditform" element={<EditBagForm />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/restaurant" element={<SingleRestaurant />} />
       </AuthResProvider>
     </div>
   );
