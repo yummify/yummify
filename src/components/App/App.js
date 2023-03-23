@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Footer from "../Footer/Footer";
 import AppRoutes from "./AppRoutes";
+
 function App() {
   //const navigate = useNavigate();
   return (
@@ -11,6 +13,7 @@ function App() {
       </Link>
       <Link to={"/userstart"}>Go to User Page</Link> */}
       <AppRoutes />
+      <Footer />
 
       {/* <Button onClick={() => navigate("/login")}>Login</Button>
       <Button onClick={() => navigate("/loginrestaurant")}>
