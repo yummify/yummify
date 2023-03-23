@@ -25,9 +25,10 @@ const AllRestaurants = () => {
                 style={{ width: '25rem', backgroundColor: '#E5D4CE' }}
                             className="mb-2"
             >
-                <Card.Header>{restaurant.name}</Card.Header>
+                <Card.Header>{restaurant.restaurantName}</Card.Header>
                 <Card.Body>
                     <Card.Title>{restaurant.description}</Card.Title>
+                    <Card.Title>Address: {restaurant.address}</Card.Title>
                     {/* <Card.Text>
                         Hours: {restaurant.open} to {restaurant.close}
                     </Card.Text> */}

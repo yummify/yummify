@@ -13,6 +13,7 @@ export const store = configureStore({
     users: usersSlice,
     restaurants: restaurantsSlice,
     restaurant: singleRestaurantSlice,
+    bag: bagSlice,
     bag: bagSlice
   },
 });
