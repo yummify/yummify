@@ -23,34 +23,34 @@ const RestaurantSignUp = () => {
   const navigate = useNavigate();
 
   const registerSignUp = async () => {
-    dispatch(fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd }))
-      .then((res) => {
-        const restaurant = res.payload;
-        console.log("Restaurant from fetchsignup:", res.payload);
-        const reqbody = {
-          restaurantId: restaurant.userId,
-          restaurantName,
-          email: restaurant.email,
-          image: "/Student_Profile.png",
-          cuisine,
-          description,
-          address,
-          open,
-          close,
-          website,
-          EIN,
-          role: "restaurant",
-          status: "pending",
-          phoneNumber: phoneNumber,
-          zipcode: zipcode,
-          terms,
-        };
-        dispatch(addRestaurantAsync(reqbody));
-      })
-      .then(() => {
+    dispatch(
+      fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
+    ).then((res) => {
+      const restaurant = res.payload;
+      console.log("Restaurant from fetchsignup:", res.payload);
+      const reqbody = {
+        restaurantId: restaurant.userId,
+        restaurantName,
+        email: restaurant.email,
+        image: "/Student_Profile.png",
+        cuisine,
+        description,
+        address,
+        open,
+        close,
+        website,
+        EIN,
+        role: "restaurant",
+        status: "pending",
+        phoneNumber: phoneNumber,
+        zipcode: zipcode,
+        terms,
+      };
+      dispatch(addRestaurantAsync(reqbody)).then(() => {
         console.log("restaurant added");
         navigate("/restaurantprofile");
       });
+    });
   };
 
   return (
