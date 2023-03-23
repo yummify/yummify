@@ -7,7 +7,6 @@ import Home from "./components/Home/Home";
 import EditUserProfile from "./components/User/EditUserProfile";
 import Users from "./components/Users/Users";
 
-<<<<<<< HEAD
 import Map from "./components/Map/Map";
 
 import AdminHome from "./components/Admin/Admin";
@@ -17,10 +16,7 @@ import AdminManageUsers from "./components/Admin/AdminManageUsers";
 import AdminOrderHistory from "./components/Admin/AdminOrderHistory";
 
 import SingleRestaurant from "./components/SingleRestaurantUserView/SingleRestaurant";
-=======
->>>>>>> 2b6f636bf2db9ff4b79c51199f95a27f0a87922b
 import AllRestaurants from "./components/AllRestaurants/AllRestaurants";
-import Bag from './components/Bag/Bag';
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import store from "./store";
@@ -42,10 +38,9 @@ root.render(
   <Provider store={store}>
     <Router>
       <Routes>
-<<<<<<< HEAD
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<UserSignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/edituserprofile" element={<EditUserProfile />} />
         <Route path="/users" element={<Users />} />
@@ -64,9 +59,7 @@ root.render(
         <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
         <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
-=======
         <Route path="/*" element={<App />} />
->>>>>>> 2b6f636bf2db9ff4b79c51199f95a27f0a87922b
         <Route path="/restaurants" element={<AllRestaurants />} />
         <Route path="/bag" element={<Bag/>} />
       </Routes>

@@ -1,46 +1,50 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query,addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where} from "firebase/firestore";
+import { query,addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
 
 //do not delete -- old search single bag by bagRef
  //fetch by doc reference
-export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
-    try{
-        const bagByDocRef = doc(db, 'bags', `${bagRef}`);
-        const bagDocSnap = await getDoc(bagByDocRef);
-        const bag = bagDocSnap.data();
+// export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
+//     try{
+//         const bagByDocRef = doc(db, 'bags', `${bagRef}`);
+//         const bagDocSnap = await getDoc(bagByDocRef);
+//         const bag = bagDocSnap.data();
 
-        const singlebag ={
-            expiration: bag.expiration,
-            image: bag.image,
-            newPrice: bag.newPrice,
-            originalPrice: bag.originalPrice,
-            pickup: bag.pickup,
-            type: bag.type,
-        }
+//         const singlebag ={
+//             expiration: bag.expiration,
+//             image: bag.image,
+//             newPrice: bag.newPrice,
+//             originalPrice: bag.originalPrice,
+//             pickup: bag.pickup,
+//             type: bag.type,
+//         }
 
-        return {...singlebag, bagId: bagDocSnap.id}
-    }catch(err){
-        console.log(err);
-    }
-}); 
+//         return {...singlebag, bagId: bagDocSnap.id}
+//     }catch(err){
+//         console.log(err);
+//     }
+// }); 
 
 //fetch by restID 
 export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", async (id)=>{
     try{
         //const bagCollectionRef = db.collection('bags');
         const bagCollectionRef = collection(db, 'bags');
-        const q = query(bagCollectionRef,where('restaurantId', "==", id ));
+        const q = query(bagCollectionRef, where('restaurantId', "==", id ), limit(1));
         const querySnap = await getDocs(q);
+        // console.log(doc.data());
+        console.log('querySnap:', querySnap.docs[0].data());
         if (querySnap.empty) {
             console.error('No matching documents.');
             //return;
           }  
           
-          querySnap.forEach((doc) => {
-            console.log('doc.data', doc.data());
-            return (doc.data());
-          });
+        //   querySnap.forEach((doc) => {
+        //     console.log('doc.data', doc.data());
+        //     return (doc.data());
+        //   });
+        return querySnap.docs[0].data();
+        
         
     }catch(err){
         console.log(err);
@@ -116,7 +120,7 @@ export const bagSlice = createSlice({
 
 
 export const selectBag = (state) => {
-    console.log(state.bag);
+    //console.log(state.bag);
     return state.bag;
 };
 export default bagSlice.reducer;
