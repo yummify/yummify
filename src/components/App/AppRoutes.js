@@ -19,6 +19,9 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useAuthRes } from "../../contexts/AuthResContext";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import PrivateRestaurantRoute from "../Auth/PrivateRestaurantRoute";
+import PrivateUserRoute from "../Auth/PrivateUserRoute";
+import UserProfile from "../User/UserProfile";
 
 const AppRoutes = () => {
   const user = useAuth();
@@ -44,32 +47,38 @@ const AppRoutes = () => {
       >
         Restaurant
       </Button>
-      {/* {userBtn && (
-        <AuthProvider>
-          <Routes>
-
-
-            <Route path="/" element={<App />} />
-            <Route path="/userstart" element={<UserStartPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/usersignup" element={<UserSignUp />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/edituserprofile" element={<EditUserProfile />} />
-            <Route path="/users" element={<Users />} />
-          </Routes>
-        </AuthProvider>
-      )} */}
-      {/* {restaurantBtn && ( */}
+      {/* <AuthProvider>
+        <Routes>
+          <Route path="/userstart" element={<UserStartPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/usersignup" element={<UserSignUp />} />
+          <Route
+            path="/userprofile"
+            element={
+              <PrivateUserRoute>
+                <UserProfile />
+              </PrivateUserRoute>
+            }
+          />
+          <Route path="/edituserprofile" element={<EditUserProfile />} />
+          <Route path="/users" element={<Users />} />
+        </Routes>
+      </AuthProvider> */}
       <AuthResProvider>
         <Routes>
-          {/* <Route path="/" element={<App />} /> */}
           <Route path="/restaurantstart" element={<RestaurantStartPage />} />
           <Route path="/loginrestaurant" element={<RestaurantLogin />} />
           <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
-          <Route path="/restaurantprofile" element={<RestaurantProfile />} />
+          <Route
+            path="/restaurantprofile"
+            element={
+              <PrivateRestaurantRoute>
+                <RestaurantProfile />
+              </PrivateRestaurantRoute>
+            }
+          />
         </Routes>
       </AuthResProvider>
-      {/* )} */}
     </div>
   );
 };
