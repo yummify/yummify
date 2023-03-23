@@ -74,12 +74,18 @@ const AppRoutes = () => {
           <Route path="/edituserprofile" element={<EditUserProfile />} />
           <Route path="/users" element={<Users />} />
            <Route path="/map" element={<Map />} />
-                 <Route path="/admin" element={<AdminHome/>}/>
+        <Route path="/admin" element={<AdminHome/>}/>
         <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
         <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
         <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
         </Routes>
       </AuthProvider> */}
+      <Routes>
+              <Route path="/admin" element={<AdminHome/>}/>
+        <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
+        <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>
+        <Route path="/admin/order-history" element={<AdminOrderHistory/>}/>
+        </Routes>
       <AuthResProvider>
         <Routes>
           <Route path="/restaurantstart" element={<RestaurantStartPage />} />

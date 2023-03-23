@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -17,6 +17,16 @@ export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async 
             console.log("No restaurant found");
         }
     } catch (err) {
+        console.error(err)
+    }
+})
+
+export const updateStatusRestaurantAsync = createAsyncThunk("updateStatusRestaurant", async (restId, newStatus) => {
+    try {
+        const restRef = doc(db, "restaurants", restId);
+        const data = {status: newStatus};
+        updateDoc(restRef, data).then((restRef) => console.log('rest updated'));
+    } catch(err) {
         console.error(err)
     }
 })

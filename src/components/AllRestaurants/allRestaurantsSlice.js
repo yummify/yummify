@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
+import { collection, getDocs, query, where, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -14,7 +14,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // updateUser();
 
 export const fetchAllRestaurants = createAsyncThunk("allRestaurants", async () => {
-    console.log('working');
     try {
         const q = query(collection(db, 'restaurants'));
         const querySnapshot = await getDocs(q);
@@ -27,23 +26,6 @@ export const fetchAllRestaurants = createAsyncThunk("allRestaurants", async () =
         console.error(err)
     }
 })
-
-// export default updateUser;
-
-// export const fetchPendingRestaurants = createAsyncThunk("restaurants/pending", async() => {
-//     try {
-//         const q = query(collection(db, 'restaurants'), where("status", "===", "pending"))
-//         const querySnapshot = await getDocs(q);
-//         let pendingRestaurants = [];
-//         querySnapshot.forEach((query) => {
-//             pendingRestaurants.push(query.data());
-//         })
-//         console.log(pendingRestaurants);
-//         return pendingRestaurants;
-//     } catch(err) {
-//         console.error(err)
-//     }
-// })
 
 
 export const restaurantsSlice = createSlice({

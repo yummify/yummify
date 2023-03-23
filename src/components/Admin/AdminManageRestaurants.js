@@ -3,9 +3,11 @@ import {
   fetchAllRestaurants,
   selectRestaurants,
 } from "../AllRestaurants/allRestaurantsSlice";
+import { updateStatusRestaurantAsync } from "../SingleRestaurantUserView/singleRestaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ListGroup, Stack, Button, Alert, Accordion } from "react-bootstrap";
+import { documentId } from "firebase/firestore";
 
 const AdminManageRestaurants = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,14 @@ const AdminManageRestaurants = () => {
   // admin able to see previous orders!!!
   // use different method for counting # of restaurants pending?
 
+  const handleSuspend = async () => {
+
+  };
+
+  const handleApprove = async (restaurantId) => {
+    dispatch(updateStatusRestaurantAsync(restaurantId, 'approved'))
+  };
+
   return (
     <>
       <h2>Manage Restaurants</h2>
@@ -38,19 +48,18 @@ const AdminManageRestaurants = () => {
           </h2>
           {restaurants.length > 0
           ? restaurants.map((rest) => { 
+            let key = 0;
             if (rest.status === 'pending') {
+              console.log(rest.documentId, 'id');
               return (
                   <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
-                    <Accordion.Header>{rest.name}</Accordion.Header>
+                    <Accordion.Header>{rest.restaurantName}</Accordion.Header>
                     <Accordion.Body>
-                      <p>EIN: {rest.ein}</p>
                       <p>Address: {rest.address}</p>
-                      <p>
-                        Hours of Operation: {rest.open} - {rest.close}
-                      </p>
                       <p>Cuisine: {rest.cuisine}</p>
-                      <p>Phone: {rest.phone}</p>
+                      <p>Phone: {rest.phoneNumber}</p>
                       <p>Description: {rest.description}</p>
+                      <p>EIN: {rest.EIN}</p>
                       <div>
                         <Button variant="success">Approve</Button>
                         <Button variant="danger">Deny</Button>
@@ -104,10 +113,10 @@ const AdminManageRestaurants = () => {
             if (rest.status === 'suspended') {
               return (
                   <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
-                    <Accordion.Header>{rest.name}</Accordion.Header>
+                    <Accordion.Header>{rest.restaurantName}</Accordion.Header>
                     <Accordion.Body>
-                      <p>EIN: {rest.ein}</p>
-                      <p>Phone: {rest.phone}</p>
+                      <p>EIN: {rest.EIN}</p>
+                      <p>Phone: {rest.phoneNumber}</p>
                       <p>Description: {rest.description}</p>
                       <div>
                         <Button variant="success">Un-suspend</Button>
