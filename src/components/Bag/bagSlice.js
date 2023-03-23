@@ -3,7 +3,7 @@ import { db } from "../../firebase/config";
 import { query,addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where} from "firebase/firestore";
 
 //do not delete -- old search single bag by bagRef
-/* //fetch by doc reference
+ //fetch by doc reference
 export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
     try{
         const bagByDocRef = doc(db, 'bags', `${bagRef}`);
@@ -23,26 +23,25 @@ export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>
     }catch(err){
         console.log(err);
     }
-}); */
+}); 
 
 //fetch by restID 
-export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", async (restId)=>{
+export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", async (id)=>{
     try{
-
         //const bagCollectionRef = db.collection('bags');
         const bagCollectionRef = collection(db, 'bags');
-        const q = query(bagCollectionRef,where('restaurantId', "==", restId ));
+        const q = query(bagCollectionRef,where('restaurantId', "==", id ));
         const querySnap = await getDocs(q);
         if (querySnap.empty) {
-            console.log('No matching documents.');
-            return;
+            console.error('No matching documents.');
+            //return;
           }  
           
-          querySnap.forEach(doc => {
-            return(doc.id, '=>', doc.data());
+          querySnap.forEach((doc) => {
+            console.log('doc.data', doc.data());
+            return (doc.data());
           });
         
-
     }catch(err){
         console.log(err);
     }
@@ -109,11 +108,15 @@ export const bagSlice = createSlice({
                 return action.payload;
             })
             .addCase(fetchSingleBagByRestAsync.fulfilled, (state, action)=>{
+                console.log('action.payload:', action.payload);
                 return action.payload;
             })
     }
 })
 
 
-export const selectBag = (state)=> state.bag;
+export const selectBag = (state) => {
+    console.log(state.bag);
+    return state.bag;
+};
 export default bagSlice.reducer;

@@ -14,7 +14,6 @@ export const store = configureStore({
     restaurants: restaurantsSlice,
     restaurant: singleRestaurantSlice,
     bag: bagSlice,
-    bag: bagSlice
   },
 });
 export default store;

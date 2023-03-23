@@ -9,7 +9,9 @@ import Button from 'react-bootstrap/Button';
 //Attach reserve button to cart
 
 const Bag = (restaurant) =>{
-    console.log(restaurant.bag);
+    // console.log(restaurant.bag);
+    const {expiration, image, newPrice, originalPrice, pickup, type} = restaurant.bag;
+    //console.log(expiration);
     const dispatch = useDispatch();
 
     //for testing only
@@ -17,7 +19,7 @@ const Bag = (restaurant) =>{
     //const testingrest= "D1EEQluv6HmkAjs7Uvyv";
     
     const singlebag = useSelector(selectBag);
-    const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
+    //const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
     
     // useEffect(()=>{
     //     dispatch(fetchSingleBagByRestAsync());
