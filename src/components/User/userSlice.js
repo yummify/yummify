@@ -14,6 +14,7 @@ export const addUserAsync = createAsyncThunk(
         zipcode,
         isAdmin: false,
       });
+      console.log("after db insert");
     } catch (err) {
       console.log(err);
     }

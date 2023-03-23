@@ -39,6 +39,7 @@ export const addRestaurantAsync = createAsyncThunk(
         zipcode,
         terms,
       });
+      console.log("after db insert for restaurant");
     } catch (err) {
       console.log(err);
     }
