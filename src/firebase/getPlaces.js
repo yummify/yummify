@@ -13,6 +13,7 @@ export const getPlaces = async () => {
 
   const places = data.results.map(async (result) => {
     const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=name,formatted_address,formatted_phone_number,opening_hours,website,types,photos,reviews&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    // const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=name,formatted_address,formatted_phone_number,opening_hours,website,types,photos,reviews&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
     const placeDetailsResponse = await fetch(placeDetailsUrl);
     const placeDetailsData = await placeDetailsResponse.json();
     const placeDetails = placeDetailsData.result;
@@ -38,6 +39,12 @@ export const getPlaces = async () => {
       Math.floor(Math.random() * 9000000) + 1000000
     }`;
 
+    // get first 3 photos from photo reference
+    const photos = placeDetails.photos.slice(0, 3).map((photo) => {
+      const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+      return photoUrl;
+    });
+
     const place = {
       restaurantName: result.name,
       EIN: ein,
@@ -51,11 +58,34 @@ export const getPlaces = async () => {
       website: placeDetails.website,
       cuisine:
         cuisineOptions[Math.floor(Math.random() * cuisineOptions.length)],
-      image: placeDetails.photos,
+      image: photos,
+      zipcode: "10014",
     };
 
+    // Add the restaurant to the restaurants collection
     const placesCollection = collection(db, "restaurants");
     const docRef = await addDoc(placesCollection, place);
+
+    //     // Create the user object to be added to the users collection
+    //     const user = {
+    //       isRestaurantOwner: true,
+    //       email: place.email,
+    //       image: place.image,
+    //       isAdmin: false,
+    //       name: place.restaurantName,
+    //       phoneNumber: place.phoneNumber,
+    //       zipcode: place.zipcode,
+    //     };
+
+    //     // Create an authenticated user for this restaurant
+    //     const password = place.email + "1234";
+    //     const { user: authUser } = await auth.createUserWithEmailAndPassword(
+    //       place.email,
+    //       password
+    //     );
+
+    //     // Add the user object to the users collection
+    //     await addDoc(doc(db, "users", authUser.uid), user);
 
     return {
       id: docRef.id,
@@ -67,3 +97,4 @@ export const getPlaces = async () => {
 };
 
 // call function to reseed
+// getPlaces();
