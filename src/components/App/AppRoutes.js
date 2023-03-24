@@ -26,6 +26,8 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
+import Cart from "../Cart/Cart"
+
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
@@ -81,6 +83,7 @@ const AppRoutes = () => {
         </Routes>
       </AuthProvider> */}
       <Routes>
+        <Route path="/cart" element={<Cart/>}/>
               <Route path="/admin" element={<AdminHome/>}/>
         <Route path="/admin/manage-restaurants" element={<AdminManageRestaurants/>}/>
         <Route path="/admin/manage-users" element={<AdminManageUsers/>}/>

@@ -3,16 +3,30 @@ import {
   fetchAllRestaurants,
   selectRestaurants,
 } from "../AllRestaurants/allRestaurantsSlice";
-import { approveStatusRestaurantAsync, denyStatusRestaurantAsync } from "../SingleRestaurantUserView/singleRestaurantSlice";
+import {
+  approveStatusRestaurantAsync,
+  denyStatusRestaurantAsync,
+  deleteRestaurantAsync
+} from "../SingleRestaurantUserView/singleRestaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { ListGroup, Stack, Button, Alert, Accordion } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import {
+  ListGroup,
+  Stack,
+  Button,
+  Alert,
+  Accordion,
+  Modal,
+} from "react-bootstrap";
 
 const AdminManageRestaurants = () => {
   const dispatch = useDispatch();
   const restaurants = useSelector(selectRestaurants);
-  const navigate = useNavigate();
+
+  const [restaurantsList, setRestaurantsList] = useState(restaurants);
+  const [showSuspend, setShowSuspend] = useState(false);
+  const [modalData, setModalData] = useState(null);
+  const [showDelete, setShowDelete] = useState(false);
 
   const pendingRestaurants = [];
   for (const rest of restaurants) {
@@ -23,7 +37,13 @@ const AdminManageRestaurants = () => {
 
   useEffect(() => {
     dispatch(fetchAllRestaurants());
-  }, [dispatch]);
+  }, [dispatch, restaurantsList]);
+
+  const handleCloseSuspend = () => setShowSuspend(false);
+  const handleOpenSuspend = () => setShowSuspend(true);
+
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleOpenDelete = () => setShowDelete(true);
 
   // TODO:
   // functions for edit & suspend
@@ -33,12 +53,21 @@ const AdminManageRestaurants = () => {
 
   const handleSuspend = async (restaurantId) => {
     await dispatch(denyStatusRestaurantAsync(restaurantId));
+    setRestaurantsList(restaurants);
+    setShowSuspend(false);
   };
 
   const handleApprove = async (restaurantId) => {
     await dispatch(approveStatusRestaurantAsync(restaurantId));
+    setRestaurantsList(restaurants);
     // navigate('/admin/manage-restaurants')
   };
+
+  const handleDelete = async (restaurantId) => {
+    await dispatch(deleteRestaurantAsync(restaurantId));
+    setRestaurantsList(restaurants);
+    setShowDelete(false);
+  }
 
   return (
     <>
@@ -49,25 +78,36 @@ const AdminManageRestaurants = () => {
             {pendingRestaurants.length} restuarant(s) are waiting for approval.
           </h2>
           {restaurants.length > 0
-          ? restaurants.map((rest) => { 
-            let key = 0;
-            if (rest.status === 'pending') {
-              return (
-                  <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
-                    <Accordion.Header>{rest.restaurantName}</Accordion.Header>
-                    <Accordion.Body>
-                      <p>Address: {rest.address}</p>
-                      <p>Cuisine: {rest.cuisine}</p>
-                      <p>Phone: {rest.phoneNumber}</p>
-                      <p>Description: {rest.description}</p>
-                      <p>EIN: {rest.EIN}</p>
-                      <div>
-                        <Button variant="success" onClick={() => handleApprove(rest.id)}>Approve</Button>
-                        <Button variant="danger" onClick={() => handleSuspend(rest.id)}>Deny</Button>
-                      </div>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                );}
+            ? restaurants.map((rest) => {
+                let key = 0;
+                if (rest.status === "pending") {
+                  return (
+                    <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
+                      <Accordion.Header>{rest.restaurantName}</Accordion.Header>
+                      <Accordion.Body>
+                        <p>Address: {rest.address}</p>
+                        <p>Cuisine: {rest.cuisine}</p>
+                        <p>Phone: {rest.phoneNumber}</p>
+                        <p>Description: {rest.description}</p>
+                        <p>EIN: {rest.EIN}</p>
+                        <div>
+                          <Button
+                            variant="success"
+                            onClick={() => handleApprove(rest.id)}
+                          >
+                            Approve
+                          </Button>
+                          <Button
+                            variant="danger"
+                            onClick={() => handleSuspend(rest.id)}
+                          >
+                            Deny
+                          </Button>
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  );
+                }
               })
             : null}
         </Accordion>
@@ -94,7 +134,39 @@ const AdminManageRestaurants = () => {
                         <div>
                           <Button>Edit Restaurant</Button>
                           <div className="vr" />
-                          <Button>Suspend Restaurant</Button>
+                          <Button onClick={() => {
+                            setModalData(rest.id);
+                            handleOpenSuspend()}}>
+                            Suspend Restaurant
+                          </Button>
+                          <Modal
+                              show={showSuspend}
+                              onHide={handleCloseSuspend}
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title>Suspend Restaurant</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                Are you sure you want to suspend this
+                                restaurant?
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button
+                                  variant="secondary"
+                                  onClick={handleCloseSuspend}
+                                >
+                                  No, do not suspend.
+                                </Button>
+                                <Button
+                                  variant="primary"
+                                  onClick={() => {
+                                    // console.log(rest.id);
+                                    handleSuspend(modalData)}}
+                                >
+                                  Yes, suspend.
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
                         </div>
                       </Stack>
                     </ListGroup.Item>
@@ -106,26 +178,62 @@ const AdminManageRestaurants = () => {
       </ListGroup>
       <Alert variant={"danger"}>
         <Accordion defaultActiveKey="0">
-          <h2>
-            Suspended Restaurants:
-          </h2>
+          <h2>Suspended Restaurants:</h2>
           {restaurants.length > 0
-          ? restaurants.map((rest) => { 
-            if (rest.status === 'suspended') {
-              return (
-                  <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
-                    <Accordion.Header>{rest.restaurantName}</Accordion.Header>
-                    <Accordion.Body>
-                      <p>EIN: {rest.EIN}</p>
-                      <p>Phone: {rest.phoneNumber}</p>
-                      <p>Description: {rest.description}</p>
-                      <div>
-                        <Button variant="success">Un-suspend</Button>
-                        <Button variant="danger">Delete Restaurant</Button>
-                      </div>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                );}
+            ? restaurants.map((rest) => {
+                if (rest.status === "suspended") {
+                  return (
+                    <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
+                      <Accordion.Header>{rest.restaurantName}</Accordion.Header>
+                      <Accordion.Body>
+                        <p>EIN: {rest.EIN}</p>
+                        <p>Phone: {rest.phoneNumber}</p>
+                        <p>Description: {rest.description}</p>
+                        <div>
+                          <Button
+                            variant="success"
+                            onClick={() => handleApprove(rest.id)}
+                          >
+                            Un-suspend
+                          </Button>
+                          
+                          <Button variant="danger" onClick={() => {
+                            setModalData(rest.id);
+                            handleOpenDelete();
+                          }}>Delete Restaurant
+                          </Button>
+                          <Modal
+                            show={showDelete}
+                            onHide={handleCloseDelete}
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Delete Restaurant</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              Are you sure you want to delte this restaurant? This action cannot be undone.
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button
+                                variant="secondary"
+                                onClick={handleCloseDelete}
+                              >
+                                No, do not delete.
+                              </Button>
+                              <Button
+                                variant="danger"
+                                onClick={() => {
+                                  handleDelete(modalData)
+                                }}
+                              >
+                                Yes, delete.
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  );
+                }
               })
             : null}
         </Accordion>
