@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
-import { getSelected, changeForm } from "./appSlice";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { Link } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(changeForm());
-  }, [dispatch]);
   return (
     <div className="App">
+      <Link to={"/"} className="mx-3">
+        Home
+      </Link>
+      <Link to={"/userstart"} className="mx-3">
+        User
+      </Link>
+      <Link to={"/restaurantstart"} className="mx-3">
+        Restaurant
+      </Link>
       <AppRoutes />
     </div>
   );
