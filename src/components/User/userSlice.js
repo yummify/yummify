@@ -54,6 +54,22 @@ export const editUserImageAsync = createAsyncThunk(
   }
 );
 
+export const editUserAsync = createAsyncThunk(
+  "editUser",
+  async ({ userId, name, phoneNumber, zipcode }) => {
+    try {
+      const usersRef = doc(db, "users", userId);
+      console.log("UserId and payload:", userId, name, phoneNumber, zipcode);
+      const data = { name, phoneNumber, zipcode };
+      updateDoc(usersRef, data).then((usersRef) =>
+        console.log("Value of document has been updated")
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const initialState = {};
 export const userSlice = createSlice({
   name: "user",
@@ -65,6 +81,9 @@ export const userSlice = createSlice({
         return action.payload;
       })
       .addCase(fetchUserAsync.fulfilled, (state, action) => {
+        return action.payload;
+      })
+      .addCase(editUserAsync.fulfilled, (state, action) => {
         return action.payload;
       });
   },
