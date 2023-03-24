@@ -20,13 +20,13 @@ const firebaseConfig = {
   //credential: fs.credential.cert(serviceAccount),
 };
 
-const storage = getStorage(app);
 const googleMapsConfig = {
   apiMapsKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
 };
 
 const app = initializeApp(firebaseConfig, googleMapsConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
