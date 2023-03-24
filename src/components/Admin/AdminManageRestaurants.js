@@ -45,12 +45,6 @@ const AdminManageRestaurants = () => {
   const handleCloseDelete = () => setShowDelete(false);
   const handleOpenDelete = () => setShowDelete(true);
 
-  // TODO:
-  // functions for edit & suspend
-  // function to delete restaurant
-  // admin able to see previous orders!!!
-  // use different method for counting # of restaurants pending?
-
   const handleSuspend = async (restaurantId) => {
     await dispatch(denyStatusRestaurantAsync(restaurantId));
     setRestaurantsList(restaurants);
@@ -60,7 +54,6 @@ const AdminManageRestaurants = () => {
   const handleApprove = async (restaurantId) => {
     await dispatch(approveStatusRestaurantAsync(restaurantId));
     setRestaurantsList(restaurants);
-    // navigate('/admin/manage-restaurants')
   };
 
   const handleDelete = async (restaurantId) => {
@@ -160,7 +153,6 @@ const AdminManageRestaurants = () => {
                                 <Button
                                   variant="primary"
                                   onClick={() => {
-                                    // console.log(rest.id);
                                     handleSuspend(modalData)}}
                                 >
                                   Yes, suspend.
