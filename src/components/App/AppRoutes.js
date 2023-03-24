@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../../contexts/AuthContext";
-import { AuthResProvider } from "../../contexts/AuthResContext";
 import UserSignUp from "../Auth/UserSignUp";
 import UserStartPage from "./UserStartPage";
 import Login from "../Auth/Login";
@@ -34,84 +33,76 @@ const AppRoutes = () => {
   return (
     <div>
       <AuthProvider>
-        <AuthResProvider>
-          <Routes>
-            <Route path="/userstart" element={<UserStartPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/usersignup" element={<UserSignUp />} />
-            <Route
-              path="/authorizationerror"
-              element={<AuthorizationError />}
-            />
-            <Route
-              path="/userprofile"
-              element={
-                <PrivateUserRoute>
-                  <UserProfile />
-                </PrivateUserRoute>
-              }
-            />
-            <Route
-              path="/edituserprofile"
-              element={
-                <PrivateUserRoute>
-                  <EditUserProfile />
-                </PrivateUserRoute>
-              }
-            />
-            <Route path="/users" element={<Users />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/admin" element={<AdminHome />} />
-            <Route
-              path="/adminprofile"
-              element={
-                <PrivateAdminRoute>
-                  <AdminProfile />
-                </PrivateAdminRoute>
-              }
-            />
-            <Route
-              path="/editadminprofile"
-              element={
-                <PrivateAdminRoute>
-                  <EditAdminProfile />
-                </PrivateAdminRoute>
-              }
-            />
-            <Route
-              path="/admin/manage-restaurants"
-              element={<AdminManageRestaurants />}
-            />
-            <Route path="/admin/manage-users" element={<AdminManageUsers />} />
-            <Route
-              path="/admin/order-history"
-              element={<AdminOrderHistory />}
-            />
-            <Route path="/restaurantstart" element={<RestaurantStartPage />} />
-            <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
-            <Route
-              path="/editrestaurantprofile"
-              element={
-                <PrivateRestaurantRoute>
-                  <EditRestaurantProfile />
-                </PrivateRestaurantRoute>
-              }
-            />
-            <Route
-              path="/restaurantprofile"
-              element={
-                <PrivateRestaurantRoute>
-                  <RestaurantProfile />
-                </PrivateRestaurantRoute>
-              }
-            />
-            <Route path="/bag" element={<Bag />} />
-            <Route path="/bagform" element={<AddBagForm />} />
-            <Route path="/bageditform" element={<EditBagForm />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/restaurant" element={<SingleRestaurant />} />
-          </Routes>
-        </AuthResProvider>
+        <Routes>
+          <Route path="/userstart" element={<UserStartPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/usersignup" element={<UserSignUp />} />
+          <Route path="/authorizationerror" element={<AuthorizationError />} />
+          <Route
+            path="/userprofile"
+            element={
+              <PrivateUserRoute>
+                <UserProfile />
+              </PrivateUserRoute>
+            }
+          />
+          <Route
+            path="/edituserprofile"
+            element={
+              <PrivateUserRoute>
+                <EditUserProfile />
+              </PrivateUserRoute>
+            }
+          />
+          <Route path="/users" element={<Users />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/admin" element={<AdminHome />} />
+          <Route
+            path="/adminprofile"
+            element={
+              <PrivateAdminRoute>
+                <AdminProfile />
+              </PrivateAdminRoute>
+            }
+          />
+          <Route
+            path="/editadminprofile"
+            element={
+              <PrivateAdminRoute>
+                <EditAdminProfile />
+              </PrivateAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/manage-restaurants"
+            element={<AdminManageRestaurants />}
+          />
+          <Route path="/admin/manage-users" element={<AdminManageUsers />} />
+          <Route path="/admin/order-history" element={<AdminOrderHistory />} />
+          <Route path="/restaurantstart" element={<RestaurantStartPage />} />
+          <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
+          <Route
+            path="/editrestaurantprofile"
+            element={
+              <PrivateRestaurantRoute>
+                <EditRestaurantProfile />
+              </PrivateRestaurantRoute>
+            }
+          />
+          <Route
+            path="/restaurantprofile"
+            element={
+              <PrivateRestaurantRoute>
+                <RestaurantProfile />
+              </PrivateRestaurantRoute>
+            }
+          />
+          <Route path="/bag" element={<Bag />} />
+          <Route path="/bagform" element={<AddBagForm />} />
+          <Route path="/bageditform" element={<EditBagForm />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/restaurant" element={<SingleRestaurant />} />
+        </Routes>
       </AuthProvider>
     </div>
   );

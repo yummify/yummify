@@ -6,8 +6,8 @@ import {
   editRestaurantAsync,
   selectRestaurant,
 } from "./restaurantSlice";
-import { useAuthRes } from "../../contexts/AuthResContext";
 import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../contexts/AuthContext";
 
 const EditRestaurantProfile = () => {
   const [restaurantName, setRestaurantName] = useState("");
@@ -22,17 +22,16 @@ const EditRestaurantProfile = () => {
   const [website, setWebsite] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { restaurant } = useAuthRes();
+  const { user } = useAuth();
   const authRestaurant = useSelector(selectRestaurant);
 
   useEffect(() => {
-    if (restaurant?.restaurantId)
-      dispatch(fetchRestaurantAsync(restaurant?.restaurantId));
-  }, [dispatch, restaurant?.restaurantId]);
+    if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
+  }, [dispatch, user?.userId]);
 
   const editRestaurant = () => {
     const reqbody = {
-      restaurantId: restaurant.restaurantId,
+      restaurantId: user.userId,
       restaurantName: restaurantName
         ? restaurantName
         : authRestaurant.restaurantName,
