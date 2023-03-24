@@ -4,7 +4,16 @@ import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
   "addUser",
-  async ({ userId, name, email, image, phoneNumber, zipcode }) => {
+  async ({
+    userId,
+    name,
+    email,
+    image,
+    phoneNumber,
+    zipcode,
+    isAdmin,
+    isRestaurantOwner = false,
+  }) => {
     try {
       await setDoc(doc(db, "users", userId), {
         name,
@@ -12,7 +21,8 @@ export const addUserAsync = createAsyncThunk(
         image,
         phoneNumber,
         zipcode,
-        isAdmin: false,
+        isAdmin,
+        isRestaurantOwner,
       });
       console.log("after db insert");
     } catch (err) {
