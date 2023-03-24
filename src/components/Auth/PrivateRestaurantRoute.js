@@ -1,17 +1,12 @@
 import React from "react";
-import { Route, redirect, Navigate } from "react-router-dom";
-import { useAuthRes } from "../../contexts/AuthResContext";
-import { auth } from "../../firebase/config";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function PrivateRestaurantRoute({
-  //   component: Component,
-  //   ...rest
-  children,
-}) {
-  //const { restaurant } = useAuthRes();
+export default function PrivateRestaurantRoute({ children }) {
+  const { user } = useAuth();
   //console.log("Restaurant in Private router:", restaurant);
-  if (!auth?.currentUser) {
-    return <Navigate to="/restaurantstart" replace />;
+  if (!user || !user?.isRestaurantOwner) {
+    return <Navigate to="/authorizationerror" replace />;
   }
   return children;
 }

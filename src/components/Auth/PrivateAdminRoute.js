@@ -6,7 +6,7 @@ export default function PrivateAdminRoute({ children }) {
   const { user } = useAuth();
   console.log("User in Admin router:", user);
   if (!user || !user?.isAdmin || user?.isRestaurantOwner) {
-    return <Navigate to="/userstart" replace />;
+    return <Navigate to="/authorizationerror" replace />;
   }
   return children;
 }

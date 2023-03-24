@@ -7,7 +7,6 @@ import UserStartPage from "./UserStartPage";
 import Login from "../Auth/Login";
 import EditUserProfile from "../User/EditUserProfile";
 import Users from "../Users/Users";
-import RestaurantLogin from "../Auth/RestaurantLogin";
 import RestaurantProfile from "../Restaurant/RestaurantProfile";
 import RestaurantSignUp from "../Auth/RestaurantSignUp";
 import RestaurantStartPage from "./RestaurantStartPage";
@@ -29,6 +28,7 @@ import EditRestaurantProfile from "../Restaurant/EditRestaurantProfile";
 import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
 import AdminProfile from "../Admin/AdminProfile";
 import EditAdminProfile from "../Admin/EditAdminProfile";
+import AuthorizationError from "../Auth/AuthorizationError";
 
 const AppRoutes = () => {
   return (
@@ -39,6 +39,10 @@ const AppRoutes = () => {
             <Route path="/userstart" element={<UserStartPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/usersignup" element={<UserSignUp />} />
+            <Route
+              path="/authorizationerror"
+              element={<AuthorizationError />}
+            />
             <Route
               path="/userprofile"
               element={
@@ -84,7 +88,6 @@ const AppRoutes = () => {
               element={<AdminOrderHistory />}
             />
             <Route path="/restaurantstart" element={<RestaurantStartPage />} />
-            <Route path="/loginrestaurant" element={<RestaurantLogin />} />
             <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
             <Route
               path="/editrestaurantprofile"
