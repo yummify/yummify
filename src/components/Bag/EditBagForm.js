@@ -10,7 +10,10 @@ import Row from 'react-bootstrap/Row'
 
 
 //TODO: change pickup time AND expiration date inputs to a dropdown menu
-const EditBagForm = () =>{
+const EditBagForm = (props) =>{
+
+    const restId = props.restaurant;
+    console.log("in editbag:",restId);
 
     const [bagType, setBagType] = useState("");
     const [bagQuantity, setBagQuantity] = useState(1);

@@ -33,6 +33,7 @@ import AdminManageUsers from "../Admin/AdminManageUsers";
 import AdminOrderHistory from "../Admin/AdminOrderHistory";
 
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
+import RestaurantStore from "../Restaurant/RestaurantStore";
 
 const AppRoutes = () => {
   const user = useAuth();
@@ -98,6 +99,9 @@ const AppRoutes = () => {
           <Route path="/bageditform" element={<EditBagForm />} />
           <Route path="/map" element={<Map />} />
           <Route path="/restaurant" element={<SingleRestaurant />} />
+          <Route path="/restaurantstore-ov" element = {<RestaurantStore />} />
+
+
         </Routes>
       </AuthResProvider>
     </div>
