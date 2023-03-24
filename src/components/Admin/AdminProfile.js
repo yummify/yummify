@@ -15,7 +15,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
-const UserProfile = () => {
+const AdminProfile = () => {
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
   const [upload, setUpload] = useState(false);
@@ -105,7 +105,7 @@ const UserProfile = () => {
                     <p>Email :{authuser?.email}</p>
                     <p>PhoneNumber:{authuser?.phoneNumber}</p>
                     <p>Zipcode:{authuser.zipcode}</p>
-                    <Button onClick={() => navigate("/edituserprofile")}>
+                    <Button onClick={() => navigate("/editadminprofile")}>
                       Edit User Profile
                     </Button>
                   </div>
@@ -120,4 +120,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default AdminProfile;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserAsync, editUserAsync, selectUser } from "./userSlice";
+import { fetchUserAsync, editUserAsync, selectUser } from "../User/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-const EditUserProfile = () => {
+const EditAdminProfile = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -31,12 +31,12 @@ const EditUserProfile = () => {
       phoneNumber: phoneNumber ? phoneNumber : authuser.phoneNumber,
       zipcode: zipcode ? zipcode : authuser.zipcode,
     };
-    dispatch(editUserAsync(reqbody)).then(() => navigate("/userprofile"));
+    dispatch(editUserAsync(reqbody)).then(() => navigate("/adminprofile"));
   };
 
   return (
     <div>
-      <h2>User Profile :</h2>
+      <h2>Admin Profile :</h2>
       <Form>
         <Form.Group>
           <Form.Label>FirstName :</Form.Label>
@@ -77,4 +77,4 @@ const EditUserProfile = () => {
     </div>
   );
 };
-export default EditUserProfile;
+export default EditAdminProfile;

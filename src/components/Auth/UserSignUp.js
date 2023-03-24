@@ -12,7 +12,6 @@ const UserSignUp = () => {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [zipcode, setZipcode] = useState("");
-  //const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +28,7 @@ const UserSignUp = () => {
         image: "/Student_Profile.png",
         phoneNumber: phoneNumber,
         zipcode: zipcode,
+        isAdmin: false,
       };
       dispatch(addUserAsync(reqbody)).then(() => {
         console.log("before navigate");
@@ -36,13 +36,6 @@ const UserSignUp = () => {
       });
     });
   };
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //     console.log(currentUser);
-  //   });
-  // }, []);
 
   return (
     <div>

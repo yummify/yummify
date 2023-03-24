@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { fetchUserAsync } from "../components/User/userSlice";
-import { fetchRestaurantAsync } from "../components/Restaurant/restaurantSlice";
+
 import { auth } from "../firebase/config";
 import { useDispatch } from "react-redux";
 
@@ -12,8 +12,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
-  //const [restaurant, setRestaurant] = useState();
-  //const authUser = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const fetchUser = () => {
@@ -26,15 +24,6 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // const fetchRestaurant = () => {
-  //   if (auth?.currentUser?.uid) {
-  //     console.log("+++before db");
-  //     dispatch(fetchRestaurantAsync(auth.currentUser.uid)).then((res) =>
-  //       setRestaurant(res.payload)
-  //     );
-  //   }
-  // };
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       console.log("AuthUser in useeffect:", authUser);
@@ -44,11 +33,6 @@ export function AuthProvider({ children }) {
           console.log("++++++++++ubsubs" + data);
           setUser(data);
         });
-        // fetchRestaurant()?.then((res) => {
-        //   const data = res.payload;
-        //   console.log("++++++++++ubsubs" + data);
-        //   setRestaurant(data);
-        // });
       }
     });
     return unsubscribe;
