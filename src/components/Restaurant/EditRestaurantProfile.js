@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, FormCheck } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   fetchRestaurantAsync,
@@ -19,7 +19,6 @@ const EditRestaurantProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [EIN, setEIN] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [terms, setTerms] = useState("false");
   const [website, setWebsite] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ const EditRestaurantProfile = () => {
   useEffect(() => {
     if (restaurant?.restaurantId)
       dispatch(fetchRestaurantAsync(restaurant?.restaurantId));
-  }, [restaurant?.restaurantId]);
+  }, [dispatch, restaurant?.restaurantId]);
 
   const editRestaurant = () => {
     const reqbody = {

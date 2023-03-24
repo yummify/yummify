@@ -9,37 +9,29 @@ import {
   selectRestaurant,
   editRestaurantImageAsync,
 } from "./restaurantSlice";
-import { selectAuth } from "../Auth/authSlice";
-//import { useAuth } from "../../contexts/AuthContext";
-import { useAuthRes } from "../../contexts/AuthResContext";
-import { app } from "../../firebase/config";
+import { useAuth } from "../../contexts/AuthContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
 const RestaurantProfile = () => {
-  //const authUser = useSelector(selectAuth);
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
+  const [upload, setUpload] = useState(false);
+
   const authRestaurant = useSelector(selectRestaurant);
   console.log("authrestaurant:", authRestaurant);
-  //console.log("AuthUser id:", authUser.userId);
-  //const [loading, setLoading] = useState(true);
-  //console.log("Auth User:", auth.currentUser.uid);
-  const { restaurant } = useAuthRes();
-  console.log("restaurant from AuthContext:", restaurant);
-  // console.log("User from auth context:", user);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (restaurant?.restaurantId)
-      dispatch(fetchRestaurantAsync(restaurant?.restaurantId));
-  }, [restaurant?.restaurantId, fileUrl]);
+    if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
+  }, [dispatch, user?.userId, fileUrl]);
 
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/restaurantstart");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -50,29 +42,19 @@ const RestaurantProfile = () => {
     const imageRef = ref(storage, `restaurants/${imageFile.name}`);
     uploadBytes(imageRef, imageFile).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
+        setFileUrl(url);
         dispatch(editRestaurantImageAsync({ restaurantId, url })).then(() => {
           console.log("file updated");
-          setFileUrl(url);
         });
       });
     });
-    const restaurantId = restaurant.restaurantId;
+    const restaurantId = user?.userId;
     setUpload(false);
-    //________________________________//
-    // const file = event.target.files[0];
-    // console.log("FileName:", file.name);
-    // const storage = getStorage();
-    // const storageRef = ref(storage, file.name);
-    // const fileRef = storageRef.child(file.name);
-    // await fileRef.put(file);
-    // setFileUrl(await fileRef.getDownloadURL());
   };
-
-  const [upload, setUpload] = useState(false);
 
   return (
     <div>
-      {restaurant?.restaurantId && (
+      {user?.userId && (
         <div>
           <Container>
             <Row>

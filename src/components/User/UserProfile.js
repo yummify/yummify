@@ -9,35 +9,31 @@ import {
   editUserImageAsync,
   selectUser,
 } from "../User/userSlice";
-import { selectAuth } from "../Auth/authSlice";
+
 import { useAuth } from "../../contexts/AuthContext";
-import { app } from "../../firebase/config";
+
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
 const UserProfile = () => {
-  //const authUser = useSelector(selectAuth);
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
+  const [upload, setUpload] = useState(false);
   const authuser = useSelector(selectUser);
   console.log("authuser:", authuser);
-  //console.log("AuthUser id:", authUser.userId);
-  //const [loading, setLoading] = useState(true);
-  //console.log("Auth User:", auth.currentUser.uid);
   const { user } = useAuth();
   console.log("User from AuthContext:", user);
-  // console.log("User from auth context:", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
-  }, [user?.userId, fileUrl]);
+  }, [dispatch, user?.userId, fileUrl]);
 
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/userstart");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -48,24 +44,15 @@ const UserProfile = () => {
     const imageRef = ref(storage, `users/${imageFile.name}`);
     uploadBytes(imageRef, imageFile).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
+        setFileUrl(url);
         dispatch(editUserImageAsync({ userId, url })).then(() => {
           console.log("file updated");
-          setFileUrl(url);
         });
       });
     });
     const userId = user.userId;
     setUpload(false);
-    // const file = event.target.files[0];
-    // console.log("FileName:", file.name);
-    // const storage = getStorage();
-    // const storageRef = ref(storage, file.name);
-    // const fileRef = storageRef.child(file.name);
-    // await fileRef.put(file);
-    // setFileUrl(await fileRef.getDownloadURL());
   };
-
-  const [upload, setUpload] = useState(false);
 
   return (
     <div>

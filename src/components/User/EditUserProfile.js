@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import { addUserAsync } from "./userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, editUserAsync, selectUser } from "./userSlice";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,6 @@ const EditUserProfile = () => {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -20,25 +18,7 @@ const EditUserProfile = () => {
 
   useEffect(() => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
-  }, [user?.userId]);
-
-  //console.log("auth.currentuser+++++++" + auth.currentUser.email);
-  // const authenticate = useSelector(selectAuth);
-  // console.log("Authen:", authenticate);
-  // const createNewUser = () => {
-  //   const reqbody = {
-  //     userId: authenticate.userId,
-  //     name: authenticate.displayName
-  //       ? authenticate.displayName
-  //       : firstName + " " + lastName,
-  //     email: authenticate.email,
-  //     phoneNumber: authenticate.phoneNumber
-  //       ? authenticate.phoneNumber
-  //       : phoneNumber,
-  //     zipcode: zipcode,
-  //   };
-  //   dispatch(addUserAsync(reqbody)).then(() => navigate("/home"));
-  // };
+  }, [dispatch, user?.userId]);
 
   const editUser = () => {
     const fName =
