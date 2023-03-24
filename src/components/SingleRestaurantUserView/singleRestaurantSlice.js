@@ -2,16 +2,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-
 export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async (restaurantId) => {
     try {
-        const restaurantId = 'D1EEQluv6HmkAjs7Uvyv';
-        //console.log("RestaurantId:", restaurantId);
         const restRef = doc(db, "restaurants", restaurantId);
         const docSnap = await getDoc(restRef);
         if (docSnap.exists()) {
             const restaurant = docSnap.data();
-
             return {...restaurant, restaurantId: docSnap.id};
         } else {
             console.log("No restaurant found");
@@ -22,7 +18,7 @@ export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async 
 })
 
 export const singleRestaurantSlice = createSlice({
-    name: "restaurant",
+    name: "singleRestaurant",
     initialState: [],
     reducers: {},
     extraReducers: (builder) => {
@@ -32,7 +28,7 @@ export const singleRestaurantSlice = createSlice({
     },
 });
 
-export const selectRestaurant = (state) => state.restaurant;
+export const selectRestaurant = (state) => state.singleRestaurant;
 
 export default singleRestaurantSlice.reducer;
 

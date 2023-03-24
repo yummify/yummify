@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { fetchSignUpAuthAsync } from "./authSlice";
-import { addRestaurantAsync } from "../Restaurant/restaurantSlice";
 import { useNavigate } from "react-router-dom";
-import { addUserAsync } from "../User/userSlice";
+import {
+  fetchRestaurantAsync,
+  editRestaurantAsync,
+  selectRestaurant,
+} from "./restaurantSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../contexts/AuthContext";
 
-const RestaurantSignUp = () => {
-  const [signUpEmail, setSignUpEmail] = useState("");
-  const [signUpPwd, setSignUpPwd] = useState("");
+const EditRestaurantProfile = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [cuisine, setCuisine] = useState("");
   const [address, setAddress] = useState("");
@@ -18,74 +19,45 @@ const RestaurantSignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [EIN, setEIN] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [terms, setTerms] = useState("false");
   const [website, setWebsite] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const authRestaurant = useSelector(selectRestaurant);
 
-  const registerSignUp = async () => {
-    dispatch(
-      fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
-    ).then((res) => {
-      const user = res.payload;
-      console.log(res.payload);
-      const reqbody = {
-        userId: user.userId,
-        name: restaurantName,
-        email: user.email,
-        image: "/Student_Profile.png",
-        phoneNumber: phoneNumber,
-        zipcode: zipcode,
-        isAdmin: false,
-        isRestaurantOwner: true,
-      };
-      dispatch(addUserAsync(reqbody));
-      const reqResbody = {
-        restaurantId: user.userId,
-        restaurantName,
-        email: user.email,
-        image: "/Student_Profile.png",
-        cuisine,
-        description,
-        address,
-        open,
-        close,
-        website,
-        EIN,
-        role: "restaurant",
-        status: "pending",
-        phoneNumber: phoneNumber,
-        zipcode: zipcode,
-        terms,
-      };
-      dispatch(addRestaurantAsync(reqResbody)).then(() => {
-        console.log("restaurant added");
-        navigate("/restaurantprofile");
-      });
-    });
+  useEffect(() => {
+    if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
+  }, [dispatch, user?.userId]);
+
+  const editRestaurant = () => {
+    const reqbody = {
+      restaurantId: user.userId,
+      restaurantName: restaurantName
+        ? restaurantName
+        : authRestaurant.restaurantName,
+      cuisine: cuisine ? cuisine : authRestaurant.cuisine,
+      description: description ? description : authRestaurant.description,
+      address: address ? address : authRestaurant.address,
+      open: open ? open : authRestaurant.open,
+      close: close ? close : authRestaurant.close,
+      website: website ? website : authRestaurant.website,
+      EIN: EIN ? EIN : authRestaurant.EIN,
+      phoneNumber: phoneNumber ? phoneNumber : authRestaurant.phoneNumber,
+      zipcode: zipcode ? zipcode : authRestaurant.zipcode,
+    };
+    dispatch(editRestaurantAsync(reqbody)).then(() =>
+      navigate("/restaurantprofile")
+    );
   };
 
   return (
     <div>
       <Form>
         <Form.Group>
-          <Form.Label>SignUp Email :</Form.Label>
-          <Form.Control
-            type="email"
-            onChange={(event) => setSignUpEmail(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>SignUp Password :</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(event) => setSignUpPwd(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
           <Form.Label>Restaurant Name :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.restaurantName}
             onChange={(event) => setRestaurantName(event.target.value)}
           />
         </Form.Group>
@@ -93,6 +65,7 @@ const RestaurantSignUp = () => {
           <Form.Label>Cuisine :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.cuisine}
             onChange={(event) => setCuisine(event.target.value)}
           />
         </Form.Group>
@@ -101,6 +74,7 @@ const RestaurantSignUp = () => {
           <Form.Label>Description :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.description}
             onChange={(event) => setDescription(event.target.value)}
           />
         </Form.Group>
@@ -109,6 +83,7 @@ const RestaurantSignUp = () => {
           <Form.Label>Address :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.address}
             onChange={(event) => setAddress(event.target.value)}
           />
         </Form.Group>
@@ -116,6 +91,7 @@ const RestaurantSignUp = () => {
           <Form.Label>phoneNumber :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.phoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
           />
         </Form.Group>
@@ -123,6 +99,7 @@ const RestaurantSignUp = () => {
           <Form.Label>Opens at :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.open}
             onChange={(event) => setOpen(event.target.value)}
           />
         </Form.Group>
@@ -130,6 +107,7 @@ const RestaurantSignUp = () => {
           <Form.Label>Closes at :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.close}
             onChange={(event) => setClose(event.target.value)}
           />
         </Form.Group>
@@ -137,6 +115,7 @@ const RestaurantSignUp = () => {
           <Form.Label>zipcode :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.zipcode}
             onChange={(event) => setZipcode(event.target.value)}
           />
         </Form.Group>
@@ -144,6 +123,7 @@ const RestaurantSignUp = () => {
           <Form.Label>website :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.website}
             onChange={(event) => setWebsite(event.target.value)}
           />
         </Form.Group>
@@ -151,20 +131,14 @@ const RestaurantSignUp = () => {
           <Form.Label>EIN :</Form.Label>
           <Form.Control
             type="text"
+            placeholder={authRestaurant.EIN}
             onChange={(event) => setEIN(event.target.value)}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Terms and Conditions :</Form.Label>
-          <Form.Check
-            onChange={(event) => setTerms(event.target.checked)}
-            label="I agree"
-          ></Form.Check>
-        </Form.Group>
-        {terms && <Button onClick={registerSignUp}>Register</Button>}
+        <Button onClick={editRestaurant}>Save</Button>
+        <Button onClick={() => navigate("/restaurantprofile")}>Cancel</Button>
       </Form>
     </div>
   );
 };
-
-export default RestaurantSignUp;
+export default EditRestaurantProfile;

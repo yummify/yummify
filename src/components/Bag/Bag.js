@@ -8,19 +8,22 @@ import Button from 'react-bootstrap/Button';
 //TODO: able to fetch bag by specific bagID
 //Attach reserve button to cart
 
-const Bag = () =>{
+const Bag = (restaurant) =>{
+    // console.log(restaurant.bag);
+    const {expiration, image, newPrice, originalPrice, pickup, type} = restaurant.bag;
+    //console.log(expiration);
     const dispatch = useDispatch();
 
     //for testing only
 
-    const testingrest= "D1EEQluv6HmkAjs7Uvyv";
+    //const testingrest= "D1EEQluv6HmkAjs7Uvyv";
     
     const singlebag = useSelector(selectBag);
-    const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
+    //const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
     
-    useEffect(()=>{
-        dispatch(fetchSingleBagByRestAsync(testingrest));
-    },[dispatch]);
+    // useEffect(()=>{
+    //     dispatch(fetchSingleBagByRestAsync());
+    // },[dispatch]);
 
     return(
         <Card style={{width: '18rem'}}>
