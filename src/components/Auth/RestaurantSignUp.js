@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form, Button, FormCheck } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchSignUpAuthAsync } from "./authSlice";
 import { addRestaurantAsync } from "../Restaurant/restaurantSlice";
 import { useNavigate } from "react-router-dom";
+import { addUserAsync } from "../User/userSlice";
 
 const RestaurantSignUp = () => {
   const [signUpEmail, setSignUpEmail] = useState("");
@@ -26,12 +27,23 @@ const RestaurantSignUp = () => {
     dispatch(
       fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
     ).then((res) => {
-      const restaurant = res.payload;
-      console.log("Restaurant from fetchsignup:", res.payload);
+      const user = res.payload;
+      console.log(res.payload);
       const reqbody = {
-        restaurantId: restaurant.userId,
+        userId: user.userId,
+        name: restaurantName,
+        email: user.email,
+        image: "/Student_Profile.png",
+        phoneNumber: phoneNumber,
+        zipcode: zipcode,
+        isAdmin: false,
+        isRestaurantOwner: true,
+      };
+      dispatch(addUserAsync(reqbody));
+      const reqResbody = {
+        restaurantId: user.userId,
         restaurantName,
-        email: restaurant.email,
+        email: user.email,
         image: "/Student_Profile.png",
         cuisine,
         description,
@@ -46,7 +58,7 @@ const RestaurantSignUp = () => {
         zipcode: zipcode,
         terms,
       };
-      dispatch(addRestaurantAsync(reqbody)).then(() => {
+      dispatch(addRestaurantAsync(reqResbody)).then(() => {
         console.log("restaurant added");
         navigate("/restaurantprofile");
       });
