@@ -81,7 +81,7 @@ const UserProfile = () => {
                   >
                     <Image
                       fluid
-                      src={authuser.image}
+                      src={fileUrl ? fileUrl : authuser.image}
                       alt="image of user"
                       thumbnail
                       style={{ width: "100px", borderRadius: "10px" }}
@@ -118,6 +118,9 @@ const UserProfile = () => {
                     <p>Email :{authuser?.email}</p>
                     <p>PhoneNumber:{authuser?.phoneNumber}</p>
                     <p>Zipcode:{authuser.zipcode}</p>
+                    <Button onClick={() => navigate("/edituserprofile")}>
+                      Edit User Profile
+                    </Button>
                   </div>
                 </Col>
               </div>
