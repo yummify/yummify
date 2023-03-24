@@ -36,31 +36,7 @@ import TermsAndConditions from "../Footer/TermsAndConditions";
 const AppRoutes = () => {
   return (
     <div>
-      <Button
-        onClick={() => {
-          setUserBtn(true);
-          navigate("/userstart");
-        }}
-      >
-        User
-      </Button>
-      <Button
-        onClick={() => {
-          setRestaurantBtn(true);
-          navigate("/restaurantstart");
-        }}
-      >
-        Restaurant
-      </Button>
-
-      <Routes>
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-      </Routes>
-
-      {/* <AuthProvider>
       <AuthProvider>
-
         <Routes>
           <Route path="/userstart" element={<UserStartPage />} />
           <Route path="/login" element={<Login />} />

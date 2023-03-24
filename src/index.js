@@ -10,12 +10,11 @@ import Footer from "./components/Footer/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-
-  <Router>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Router>
+  // <Router>
+  //   <Provider store={store}>
+  //     <App />
+  //   </Provider>
+  // </Router>
 
   <Provider store={store}>
     <Router>
@@ -24,7 +23,6 @@ root.render(
       </Routes>
     </Router>
   </Provider>
-
 );
 
 //const root = ReactDOM.createRoot(document.getElementById("root"));
