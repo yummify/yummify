@@ -1,25 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { getSelected, changeForm } from "./appSlice";
+import { useDispatch } from "react-redux";
 import AppRoutes from "./AppRoutes";
 function App() {
-  //const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeForm());
+  }, [dispatch]);
   return (
     <div className="App">
-      {/* <Link className="d-block" to={"/restaurantstart"}>
-        Go to Restaurant Page
-      </Link>
-      <Link to={"/userstart"}>Go to User Page</Link> */}
       <AppRoutes />
-
-      {/* <Button onClick={() => navigate("/login")}>Login</Button>
-      <Button onClick={() => navigate("/loginrestaurant")}>
-        Login as Restaurant
-      </Button>
-      <Button onClick={() => navigate("/usersignup")}>SignUp as User</Button>
-      <Button onClick={() => navigate("/restaurantsignup")}>
-        SignUp as Restaurant
-      </Button> */}
     </div>
   );
 }
