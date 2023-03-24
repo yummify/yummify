@@ -4,7 +4,16 @@ import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
   "addUser",
-  async ({ userId, name, email, image, phoneNumber, zipcode }) => {
+  async ({
+    userId,
+    name,
+    email,
+    image,
+    phoneNumber,
+    zipcode,
+    isAdmin,
+    isRestaurantOwner = false,
+  }) => {
     try {
       await setDoc(doc(db, "users", userId), {
         name,
@@ -12,7 +21,8 @@ export const addUserAsync = createAsyncThunk(
         image,
         phoneNumber,
         zipcode,
-        isAdmin: false,
+        isAdmin,
+        isRestaurantOwner,
       });
       console.log("after db insert");
     } catch (err) {
@@ -54,6 +64,22 @@ export const editUserImageAsync = createAsyncThunk(
   }
 );
 
+export const editUserAsync = createAsyncThunk(
+  "editUser",
+  async ({ userId, name, phoneNumber, zipcode }) => {
+    try {
+      const usersRef = doc(db, "users", userId);
+      console.log("UserId and payload:", userId, name, phoneNumber, zipcode);
+      const data = { name, phoneNumber, zipcode };
+      updateDoc(usersRef, data).then((usersRef) =>
+        console.log("Value of document has been updated")
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const initialState = {};
 export const userSlice = createSlice({
   name: "user",
@@ -65,6 +91,9 @@ export const userSlice = createSlice({
         return action.payload;
       })
       .addCase(fetchUserAsync.fulfilled, (state, action) => {
+        return action.payload;
+      })
+      .addCase(editUserAsync.fulfilled, (state, action) => {
         return action.payload;
       });
   },
