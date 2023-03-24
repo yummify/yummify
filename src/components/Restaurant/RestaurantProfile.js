@@ -4,71 +4,57 @@ import { Button, Col, Image, Container, Row } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
-import { fetchRestaurantAsync, selectRestaurant } from "./restaurantSlice";
-import { selectAuth } from "../Auth/authSlice";
-//import { useAuth } from "../../contexts/AuthContext";
-import { useAuthRes } from "../../contexts/AuthResContext";
-import { app } from "../../firebase/config";
+import {
+  fetchRestaurantAsync,
+  selectRestaurant,
+  editRestaurantImageAsync,
+} from "./restaurantSlice";
+import { useAuth } from "../../contexts/AuthContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
 const RestaurantProfile = () => {
-  //const authUser = useSelector(selectAuth);
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
+  const [upload, setUpload] = useState(false);
+
   const authRestaurant = useSelector(selectRestaurant);
   console.log("authrestaurant:", authRestaurant);
-  //console.log("AuthUser id:", authUser.userId);
-  //const [loading, setLoading] = useState(true);
-  //console.log("Auth User:", auth.currentUser.uid);
-  const { restaurant } = useAuthRes();
-  console.log("restaurant from AuthContext:", restaurant);
-  // console.log("User from auth context:", user);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (restaurant?.restaurantId)
-      dispatch(fetchRestaurantAsync(restaurant?.restaurantId));
-  }, [restaurant?.restaurantId, fileUrl]);
+    if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
+  }, [dispatch, user?.userId, fileUrl]);
 
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/restaurantstart");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleImage = async (event) => {
-    // if (imageFile == null) return;
-    // const imageRef = ref(storage, `users/${imageFile.name}`);
-    // uploadBytes(imageRef, imageFile).then((snapshot) => {
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     dispatch(editUserImageAsync({ userId, url })).then(() => {
-    //       console.log("file updated");
-    //       setFileUrl(url);
-    //     });
-    //   });
-    // });
-    // const userId = user.userId;
-    // setUpload(false);
-    //________________________________//
-    // const file = event.target.files[0];
-    // console.log("FileName:", file.name);
-    // const storage = getStorage();
-    // const storageRef = ref(storage, file.name);
-    // const fileRef = storageRef.child(file.name);
-    // await fileRef.put(file);
-    // setFileUrl(await fileRef.getDownloadURL());
+    if (imageFile == null) return;
+    const imageRef = ref(storage, `restaurants/${imageFile.name}`);
+    uploadBytes(imageRef, imageFile).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setFileUrl(url);
+        dispatch(editRestaurantImageAsync({ restaurantId, url })).then(() => {
+          console.log("file updated");
+        });
+      });
+    });
+    const restaurantId = user?.userId;
+    setUpload(false);
   };
-
-  const [upload, setUpload] = useState(false);
 
   return (
     <div>
-      {restaurant?.restaurantId && (
+      {user?.userId && (
         <div>
           <Container>
             <Row>
@@ -80,8 +66,8 @@ const RestaurantProfile = () => {
                   >
                     <Image
                       fluid
-                      src={authRestaurant.image}
-                      alt="image of user"
+                      src={fileUrl ? fileUrl : authRestaurant.image}
+                      alt="image of restaurant"
                       thumbnail
                       style={{ width: "100px", borderRadius: "10px" }}
                     />
@@ -115,7 +101,6 @@ const RestaurantProfile = () => {
                   >
                     <h1>{authRestaurant?.restaurantName}</h1>
                     <p>Email :{authRestaurant?.email}</p>
-                    <p>Image :{authRestaurant?.image}</p>
                     <p>Cuisine :{authRestaurant?.cuisine}</p>
                     <p>Description :{authRestaurant?.description}</p>
                     <p>Address :{authRestaurant?.address}</p>
@@ -127,6 +112,9 @@ const RestaurantProfile = () => {
                     <p>PhoneNumber:{authRestaurant?.phoneNumber}</p>
                     <p>Zipcode:{authRestaurant.zipcode}</p>
                     <p>Terms :{authRestaurant?.terms}</p>
+                    <Button onClick={() => navigate("/editrestaurantprofile")}>
+                      Edit Restaurant Profile
+                    </Button>
                   </div>
                 </Col>
               </div>
