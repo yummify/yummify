@@ -4,7 +4,11 @@ import { Button, Col, Image, Container, Row } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
-import { fetchRestaurantAsync, selectRestaurant } from "./restaurantSlice";
+import {
+  fetchRestaurantAsync,
+  selectRestaurant,
+  editRestaurantImageAsync,
+} from "./restaurantSlice";
 import { selectAuth } from "../Auth/authSlice";
 //import { useAuth } from "../../contexts/AuthContext";
 import { useAuthRes } from "../../contexts/AuthResContext";
@@ -42,18 +46,18 @@ const RestaurantProfile = () => {
   };
 
   const handleImage = async (event) => {
-    // if (imageFile == null) return;
-    // const imageRef = ref(storage, `users/${imageFile.name}`);
-    // uploadBytes(imageRef, imageFile).then((snapshot) => {
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     dispatch(editUserImageAsync({ userId, url })).then(() => {
-    //       console.log("file updated");
-    //       setFileUrl(url);
-    //     });
-    //   });
-    // });
-    // const userId = user.userId;
-    // setUpload(false);
+    if (imageFile == null) return;
+    const imageRef = ref(storage, `restaurants/${imageFile.name}`);
+    uploadBytes(imageRef, imageFile).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        dispatch(editRestaurantImageAsync({ restaurantId, url })).then(() => {
+          console.log("file updated");
+          setFileUrl(url);
+        });
+      });
+    });
+    const restaurantId = restaurant.restaurantId;
+    setUpload(false);
     //________________________________//
     // const file = event.target.files[0];
     // console.log("FileName:", file.name);
@@ -80,8 +84,8 @@ const RestaurantProfile = () => {
                   >
                     <Image
                       fluid
-                      src={authRestaurant.image}
-                      alt="image of user"
+                      src={fileUrl ? fileUrl : authRestaurant.image}
+                      alt="image of restaurant"
                       thumbnail
                       style={{ width: "100px", borderRadius: "10px" }}
                     />
@@ -115,7 +119,6 @@ const RestaurantProfile = () => {
                   >
                     <h1>{authRestaurant?.restaurantName}</h1>
                     <p>Email :{authRestaurant?.email}</p>
-                    <p>Image :{authRestaurant?.image}</p>
                     <p>Cuisine :{authRestaurant?.cuisine}</p>
                     <p>Description :{authRestaurant?.description}</p>
                     <p>Address :{authRestaurant?.address}</p>
@@ -127,6 +130,9 @@ const RestaurantProfile = () => {
                     <p>PhoneNumber:{authRestaurant?.phoneNumber}</p>
                     <p>Zipcode:{authRestaurant.zipcode}</p>
                     <p>Terms :{authRestaurant?.terms}</p>
+                    <Button onClick={() => navigate("/editrestaurantprofile")}>
+                      Edit Restaurant Profile
+                    </Button>
                   </div>
                 </Col>
               </div>
