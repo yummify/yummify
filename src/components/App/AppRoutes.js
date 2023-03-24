@@ -28,6 +28,7 @@ import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
 import AdminProfile from "../Admin/AdminProfile";
 import EditAdminProfile from "../Admin/EditAdminProfile";
 import AuthorizationError from "../Auth/AuthorizationError";
+import App from "./App";
 
 const AppRoutes = () => {
   return (
