@@ -19,7 +19,7 @@ export const fetchAllRestaurants = createAsyncThunk("allRestaurants", async () =
         const querySnapshot = await getDocs(q);
         let restaurants = [];
         querySnapshot.forEach((query) => {
-            restaurants.push(query.data());
+            restaurants.push({...query.data(), id: query.id});
         })
         return restaurants;
     } catch (err) {
