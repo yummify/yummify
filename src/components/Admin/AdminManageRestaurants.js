@@ -3,7 +3,7 @@ import {
   fetchAllRestaurants,
   selectRestaurants,
 } from "../AllRestaurants/allRestaurantsSlice";
-import { approveStatusRestaurantAsync } from "../SingleRestaurantUserView/singleRestaurantSlice";
+import { approveStatusRestaurantAsync, denyStatusRestaurantAsync } from "../SingleRestaurantUserView/singleRestaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ListGroup, Stack, Button, Alert, Accordion } from "react-bootstrap";
@@ -31,13 +31,13 @@ const AdminManageRestaurants = () => {
   // admin able to see previous orders!!!
   // use different method for counting # of restaurants pending?
 
-  const handleSuspend = async () => {
-
+  const handleSuspend = async (restaurantId) => {
+    await dispatch(denyStatusRestaurantAsync(restaurantId));
   };
 
   const handleApprove = async (restaurantId) => {
     await dispatch(approveStatusRestaurantAsync(restaurantId));
-    navigate('/')
+    // navigate('/admin/manage-restaurants')
   };
 
   return (
@@ -63,7 +63,7 @@ const AdminManageRestaurants = () => {
                       <p>EIN: {rest.EIN}</p>
                       <div>
                         <Button variant="success" onClick={() => handleApprove(rest.id)}>Approve</Button>
-                        <Button variant="danger">Deny</Button>
+                        <Button variant="danger" onClick={() => handleSuspend(rest.id)}>Deny</Button>
                       </div>
                     </Accordion.Body>
                   </Accordion.Item>

@@ -26,6 +26,17 @@ export const approveStatusRestaurantAsync = createAsyncThunk("updateStatusRestau
     } catch(err) {
         console.error(err)
     }
+});
+
+export const denyStatusRestaurantAsync = createAsyncThunk("updateStatusRestaurant", async (restId) => {
+    try {
+        const docRef = doc(db, "restaurants", restId);
+        await updateDoc(docRef, {
+            status: 'suspended'
+        })
+    } catch(err) {
+        console.error(err)
+    }
 })
 
 export const singleRestaurantSlice = createSlice({
