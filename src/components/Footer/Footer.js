@@ -10,30 +10,56 @@ function Footer() {
           <div className="footer-content">
             <ul className="social-icons">
               <li>
-                <a href="https://www.facebook.com/">
+                <a
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="fab fa-facebook-f"></i>
                 </a>
               </li>
               <li>
-                <a href="https://twitter.com/">
+                <a
+                  href="https://twitter.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="fab fa-twitter"></i>
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/">
+                <a
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="fab fa-instagram"></i>
                 </a>
               </li>
             </ul>
             <ul className="footer-links">
               <li>
-                <Link to="/privacy-policy">Privacy Policy</Link>
+                <Link
+                  to="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </Link>
               </li>
               <li>
-                <Link to="/cookie-policy">Cookie Policy</Link>
+                <Link
+                  to="/terms-and-conditions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Terms &amp; Conditions
+                </Link>
               </li>
               <li>
-                <Link to="/terms-conditions">Terms &amp; Conditions</Link>
+                <Link to="/map" target="_blank" rel="noopener noreferrer">
+                  Locations
+                </Link>
               </li>
             </ul>
             <div className="copy-right">
