@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import AppRoutes from "./AppRoutes";
 import NavBar from "../Navbar/Navbar";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Footer from "../Footer/Footer";
 
