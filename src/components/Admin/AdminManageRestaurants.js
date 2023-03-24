@@ -3,16 +3,16 @@ import {
   fetchAllRestaurants,
   selectRestaurants,
 } from "../AllRestaurants/allRestaurantsSlice";
-import { updateStatusRestaurantAsync } from "../SingleRestaurantUserView/singleRestaurantSlice";
+import { approveStatusRestaurantAsync } from "../SingleRestaurantUserView/singleRestaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ListGroup, Stack, Button, Alert, Accordion } from "react-bootstrap";
-import { documentId } from "firebase/firestore";
-import { useAuthRes } from "../../contexts/AuthResContext";
+import { useNavigate } from "react-router-dom";
 
 const AdminManageRestaurants = () => {
   const dispatch = useDispatch();
   const restaurants = useSelector(selectRestaurants);
+  const navigate = useNavigate();
 
   const pendingRestaurants = [];
   for (const rest of restaurants) {
@@ -35,14 +35,9 @@ const AdminManageRestaurants = () => {
 
   };
 
-  const HandleApprove = async () => {
-    // const {restaurant} = useAuthRes();
-    // console.log(restaurant.restaurantId);
-
-    // fetch single somehow when clicked, then modal shows up? and clicking confirm actually runs the approve function? 
-    // still need the id to fetch a single. 
-  
-    // dispatch(updateStatusRestaurantAsync(restaurantId, 'approved'))
+  const handleApprove = async (restaurantId) => {
+    await dispatch(approveStatusRestaurantAsync(restaurantId));
+    navigate('/')
   };
 
   return (
@@ -57,7 +52,6 @@ const AdminManageRestaurants = () => {
           ? restaurants.map((rest) => { 
             let key = 0;
             if (rest.status === 'pending') {
-              console.log(rest.documentId, 'id');
               return (
                   <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
                     <Accordion.Header>{rest.restaurantName}</Accordion.Header>
@@ -68,7 +62,7 @@ const AdminManageRestaurants = () => {
                       <p>Description: {rest.description}</p>
                       <p>EIN: {rest.EIN}</p>
                       <div>
-                        <Button variant="success">Approve</Button>
+                        <Button variant="success" onClick={() => handleApprove(rest.id)}>Approve</Button>
                         <Button variant="danger">Deny</Button>
                       </div>
                     </Accordion.Body>
@@ -91,7 +85,7 @@ const AdminManageRestaurants = () => {
                             className="fw-bold"
                             style={{ fontSize: "1.5rem" }}
                           >
-                            {rest.name}
+                            {rest.restaurantName}
                           </div>
                           <h5>{rest.cuisine}</h5>
                           <h6>{rest.address}</h6>

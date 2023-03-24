@@ -17,11 +17,12 @@ export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async 
     }
 })
 
-export const updateStatusRestaurantAsync = createAsyncThunk("updateStatusRestaurant", async (restId, newStatus) => {
+export const approveStatusRestaurantAsync = createAsyncThunk("updateStatusRestaurant", async (restId) => {
     try {
-        const restRef = doc(db, "restaurants", restId);
-        const data = {status: newStatus};
-        updateDoc(restRef, data).then((restRef) => console.log('rest updated'));
+        const docRef = doc(db, "restaurants", restId);
+        await updateDoc(docRef, {
+            status: 'approved'
+        })
     } catch(err) {
         console.error(err)
     }
