@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion'
 
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
@@ -37,16 +38,24 @@ return(
             <Card.Text>
                 this is where I would put active bags
             </Card.Text>
+            <Card>
+
+            </Card>
         </Card>
 
         <Card style={{backgroundColor: "lightpink"}}>
             <Card.Title> Inactive Bags</Card.Title>
             <Card.Text>
-                this is where I would put active bags
+                this is where I would put inactive bags
             </Card.Text>
         </Card>
-
-        <EditBagForm restaurant={testrest}/>
+        <Accordion defaultActiveKey="0">
+            <Accordion.Header>Edit Bag</Accordion.Header>
+            <Accordion.Body>
+            <   EditBagForm restaurant={testrest}/>
+            </Accordion.Body>
+            
+        </Accordion>
     </Card>
 )}
 

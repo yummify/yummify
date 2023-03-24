@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleBagByRestAsync, selectBag, addBagAsync } from "./bagSlice";
 
+import { Timestamp, fromDate } from 'firebase/firestore';
+
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -24,6 +26,10 @@ const AddBagForm = (props) =>{
     const [bagImage, setBagImage] = useState("nope.jpg");
     
     const dispatch = useDispatch();
+    //testing
+
+    let currentDate = new Date().toJSON().slice(0, 10);
+    console.log("current:",currentDate); 
 
         //xpir, image, newprice, originalprice, pickup, type
     const handleSubmit = (event)=>{
@@ -38,9 +44,13 @@ const AddBagForm = (props) =>{
             quantity: bagQuantity,
             type: bagType,
         }
+        console.log(bag.expiration);
+        //console.log("datetype:", Date.parse(bag.expiration));
+        const date = Date.parse(bag.expiration);
+        const myTimestamp = Timestamp.fromDate(date);
+        console.log(myTimestamp);    
 
-
-        dispatch(addBagAsync(bag));
+        //dispatch(addBagAsync(bag));
         setBagType("");
         setBagQuantity(1);
         setBagOPrice(0);
@@ -74,7 +84,7 @@ const AddBagForm = (props) =>{
                 </Form.Group>
 
                 <Form.Group className="expiration-input">
-                    <Form.Control type="string" placeholder="Expiration Date/Time" onChange={(event)=> setBagExpire(event.target.value)}></Form.Control>
+                    <Form.Control type="date" placeholder="Expiration Date" onChange={(event)=> setBagExpire(event.target.value)}></Form.Control>
                 </Form.Group>
                 <Button onClick={handleSubmit} variant="primary" type="submit">Submit</Button>
             </Form>
