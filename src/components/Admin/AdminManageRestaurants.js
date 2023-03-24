@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ListGroup, Stack, Button, Alert, Accordion } from "react-bootstrap";
 import { documentId } from "firebase/firestore";
+import { useAuthRes } from "../../contexts/AuthResContext";
 
 const AdminManageRestaurants = () => {
   const dispatch = useDispatch();
@@ -34,8 +35,14 @@ const AdminManageRestaurants = () => {
 
   };
 
-  const handleApprove = async (restaurantId) => {
-    dispatch(updateStatusRestaurantAsync(restaurantId, 'approved'))
+  const HandleApprove = async () => {
+    // const {restaurant} = useAuthRes();
+    // console.log(restaurant.restaurantId);
+
+    // fetch single somehow when clicked, then modal shows up? and clicking confirm actually runs the approve function? 
+    // still need the id to fetch a single. 
+  
+    // dispatch(updateStatusRestaurantAsync(restaurantId, 'approved'))
   };
 
   return (
