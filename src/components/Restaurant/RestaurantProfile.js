@@ -107,11 +107,15 @@ const RestaurantProfile = () => {
                     <p>Open :{authRestaurant?.open}</p>
                     <p>Close :{authRestaurant?.close}</p>
                     <p>EIN :{authRestaurant?.EIN}</p>
-                    <p>Role :{authRestaurant?.role}</p>
-                    <p>Status :{authRestaurant?.status}</p>
+                    <p>
+                      Status :
+                      {authRestaurant?.status === "pending" ||
+                      authRestaurant?.status === "editpending"
+                        ? "Request sent to Admin for approval"
+                        : "Restaurant got added/updated in Yummify"}
+                    </p>
                     <p>PhoneNumber:{authRestaurant?.phoneNumber}</p>
                     <p>Zipcode:{authRestaurant.zipcode}</p>
-                    <p>Terms :{authRestaurant?.terms}</p>
                     <Button onClick={() => navigate("/editrestaurantprofile")}>
                       Edit Restaurant Profile
                     </Button>
