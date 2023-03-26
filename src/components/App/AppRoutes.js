@@ -16,6 +16,8 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
+import Cart from "../Cart/Cart"
+
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
@@ -28,7 +30,6 @@ import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
 import AdminProfile from "../Admin/AdminProfile";
 import EditAdminProfile from "../Admin/EditAdminProfile";
 import AuthorizationError from "../Auth/AuthorizationError";
-import App from "./App";
 
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
@@ -69,6 +70,7 @@ const AppRoutes = () => {
               </PrivateAdminRoute>
             }
           />
+          <Route path="/cart" element={<Cart/>}/>
           <Route
             path="/editadminprofile"
             element={
@@ -106,6 +108,9 @@ const AppRoutes = () => {
           <Route path="/bageditform" element={<EditBagForm />} />
           <Route path="/map" element={<Map />} />
           <Route path="/restaurant" element={<SingleRestaurant />} />
+
+          <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
+          <Route path='/terms-and-conditions' element={<TermsAndConditions/>}/>
         </Routes>
       </AuthProvider>
     </div>
