@@ -96,6 +96,7 @@ export const editRestaurantAsync = createAsyncThunk(
     EIN,
     phoneNumber,
     zipcode,
+    status,
   }) => {
     try {
       console.log(
@@ -110,7 +111,8 @@ export const editRestaurantAsync = createAsyncThunk(
         website,
         EIN,
         phoneNumber,
-        zipcode
+        zipcode,
+        status
       );
       const restaurantsRef = doc(db, "restaurants", restaurantId);
       const data = {
@@ -125,6 +127,7 @@ export const editRestaurantAsync = createAsyncThunk(
         EIN,
         phoneNumber,
         zipcode,
+        status,
       };
       updateDoc(restaurantsRef, data).then((restaurantsRef) =>
         console.log("Value of document has been updated")

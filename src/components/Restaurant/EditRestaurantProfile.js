@@ -44,6 +44,7 @@ const EditRestaurantProfile = () => {
       EIN: EIN ? EIN : authRestaurant.EIN,
       phoneNumber: phoneNumber ? phoneNumber : authRestaurant.phoneNumber,
       zipcode: zipcode ? zipcode : authRestaurant.zipcode,
+      status: "editpending",
     };
     dispatch(editRestaurantAsync(reqbody)).then(() =>
       navigate("/restaurantprofile")
