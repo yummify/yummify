@@ -32,6 +32,8 @@ import App from "./App";
 
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
+import ForgotPassword from "../Auth/ForgotPassword";
+import UpdatePassword from "../Auth/UpdatePassword";
 
 const AppRoutes = () => {
   return (
@@ -42,6 +44,8 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/usersignup" element={<UserSignUp />} />
           <Route path="/authorizationerror" element={<AuthorizationError />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/updatepassword" element={<UpdatePassword />} />
           <Route
             path="/userprofile"
             element={
