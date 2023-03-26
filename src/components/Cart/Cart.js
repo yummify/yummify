@@ -34,6 +34,7 @@ const Cart = () => {
                         </Stack>
                     </Card.Footer>
                 </Card>
+                <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
                 <p>Total Savings: ______</p>
                 <div></div>
