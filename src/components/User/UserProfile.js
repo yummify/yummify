@@ -108,6 +108,9 @@ const UserProfile = () => {
                     <Button onClick={() => navigate("/edituserprofile")}>
                       Edit User Profile
                     </Button>
+                    <Button onClick={() => navigate("/updatepassword")}>
+                      Update password
+                    </Button>
                   </div>
                 </Col>
               </div>
