@@ -23,7 +23,6 @@ export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({ex
             restaurantId,
             status: "shopping",
             userId
-
         });
     }catch(err){
         console.log(err);

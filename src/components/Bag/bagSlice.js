@@ -37,15 +37,9 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
         // console.log('querySnap.docs[0].data:', querySnap.docs[0].data());
         if (querySnap.empty) {
             console.error('No matching documents.');
-            //return;
           }  
-          
-        //   querySnap.forEach((doc) => {
-        //     console.log('doc.data', doc.data());
-        //     return (doc.data());
-        //   });
-        return querySnap.docs[0].data();
         
+        return querySnap.docs[0].data();
         
     }catch(err){
         console.log(err);
@@ -79,7 +73,7 @@ export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", 
 
 
 
-export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId})=>{
+export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId, status})=>{
     try{
         
         //creating auto-gen doc reference
@@ -95,7 +89,6 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
             type,
             restaurantId,
             status,
-
         });
 
 
@@ -152,7 +145,6 @@ export const bagSlice = createSlice({
 
 
 export const selectBag = (state) => {
-    //console.log(state.bag);
     return state.bag;
 };
 export default bagSlice.reducer;

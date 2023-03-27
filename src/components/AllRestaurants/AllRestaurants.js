@@ -13,8 +13,7 @@ const AllRestaurants = () => {
     useEffect(() => {
         dispatch(fetchAllRestaurants());
       }, [dispatch]);
-
-    //ONLY RETURN ACCEPTED RESTAURANTS
+      
     return (
         <>
         <h1>Yummify</h1>
@@ -24,7 +23,7 @@ const AllRestaurants = () => {
             return <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/restaurant/${restaurant.id}` }>
             <Card
                 key={restaurant.id}
-                style={{ width: '25rem', backgroundColor: '#E5D4CE' }}
+                style={{ width: '30rem', backgroundColor: '#E5D4CE' }}
                             className="mb-2"
             >
                 <Card.Header>{restaurant.restaurantName}</Card.Header>

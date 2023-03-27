@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 import Bag from '../Bag/Bag';
 import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
-import { useAuth } from '../../contexts/AuthContext';
+//import { useAuth } from '../../contexts/AuthContext';
 
 
 const SingleRestaurant = () => {
