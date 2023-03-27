@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
+import { placeBagInCartAsync } from "../Cart/cartBagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -10,13 +11,11 @@ import Button from 'react-bootstrap/Button';
 
 const Bag = (restaurant) =>{
     // console.log(restaurant.bag);
-    const {expiration, image, newPrice, originalPrice, pickup, type} = restaurant.bag;
+    const {expiration, image, newPrice, originalPrice, pickup, type, restaurantId} = restaurant.bag;
     //console.log(expiration);
     const dispatch = useDispatch();
 
     //for testing only
-
-    //const testingrest= "D1EEQluv6HmkAjs7Uvyv";
     
     const singlebag = useSelector(selectBag);
     //const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
@@ -24,6 +23,10 @@ const Bag = (restaurant) =>{
     // useEffect(()=>{
     //     dispatch(fetchSingleBagByRestAsync());
     // },[dispatch]);
+    
+    const handleAdd = async (bagId) => {
+        dispatch(placeBagInCartAsync(restaurant.bag))
+    };
 
     return(
         <Card style={{width: '18rem'}}>
@@ -38,7 +41,7 @@ const Bag = (restaurant) =>{
                 <Card.Text>
                     Price: ${Number(newPrice).toFixed(2)} - Original: $ {Number(originalPrice).toFixed(2)}
                 </Card.Text>
-                <Button variant="primary">Reserve</Button>
+                <Button variant="primary" onClick={() => handleAdd(restaurant.bag)}>Reserve</Button>
             </Card.Body>
         </Card>
         

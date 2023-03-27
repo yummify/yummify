@@ -30,10 +30,11 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
     try{
         //const bagCollectionRef = db.collection('bags');
         const bagCollectionRef = collection(db, 'bags');
+        // console.log('id from bagSlice', id)
         const q = query(bagCollectionRef, where('restaurantId', "==", id ), limit(1));
         const querySnap = await getDocs(q);
-        // console.log(doc.data());
-        console.log('querySnap:', querySnap.docs[0].data());
+        // console.log('querySnap', querySnap);
+        // console.log('querySnap.docs[0].data:', querySnap.docs[0].data());
         if (querySnap.empty) {
             console.error('No matching documents.');
             //return;
@@ -112,7 +113,7 @@ export const bagSlice = createSlice({
                 return action.payload;
             })
             .addCase(fetchSingleBagByRestAsync.fulfilled, (state, action)=>{
-                console.log('action.payload:', action.payload);
+                console.log('action:', action);
                 return action.payload;
             })
     }

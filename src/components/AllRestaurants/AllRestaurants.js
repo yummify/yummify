@@ -17,12 +17,12 @@ const AllRestaurants = () => {
     //ONLY RETURN ACCEPTED RESTAURANTS
     return (
         <>
-        <h1>Yum</h1>
+        <h1>Yummify</h1>
         {/* add filter/search bar here */}
         {restaurants.map((restaurant) => {
             return <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/restaurant/${restaurant.id}` }>
             <Card
-                key={restaurant}
+                key={restaurant.id}
                 style={{ width: '25rem', backgroundColor: '#E5D4CE' }}
                             className="mb-2"
             >
@@ -30,7 +30,7 @@ const AllRestaurants = () => {
                 <Card.Body>
                     <Card.Title>{restaurant.description}</Card.Title>
                     <Card.Text>Address: {restaurant.address}</Card.Text>
-                    <Card.Img src={restaurant.image[3].photo_reference} />
+                    {/* <Card.Img src={restaurant.image} /> */}
                     <Card.Text></Card.Text>
                 </Card.Body>
               </Card>
