@@ -1,6 +1,7 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./config";
+import { collection, setDoc, doc } from "firebase/firestore";
+import { auth, db } from "./config";
 import { faker } from "@faker-js/faker";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 // Google Places API to fetch places and seed firestore
 export const getPlaces = async () => {
@@ -62,30 +63,39 @@ export const getPlaces = async () => {
       zipcode: "10014",
     };
 
-    // Add the restaurant to the restaurants collection
+    // // Add the restaurant to the restaurants collection
+    // const placesCollection = collection(db, "restaurants");
+    // const docRef = await addDoc(placesCollection, place);
+
+    // Add the restaurant to the restaurants collection with a custom ID
     const placesCollection = collection(db, "restaurants");
-    const docRef = await addDoc(placesCollection, place);
+    const docRef = doc(placesCollection, result.place_id); // use place_id as the custom ID
+    await setDoc(docRef, place); // use setDoc instead of addDoc
 
-    //     // Create the user object to be added to the users collection
-    //     const user = {
-    //       isRestaurantOwner: true,
-    //       email: place.email,
-    //       image: place.image,
-    //       isAdmin: false,
-    //       name: place.restaurantName,
-    //       phoneNumber: place.phoneNumber,
-    //       zipcode: place.zipcode,
-    //     };
+    // Create the user account with Firebase authentication
+    const email = place.email;
+    const password = place.email + "1234";
 
-    //     // Create an authenticated user for this restaurant
-    //     const password = place.email + "1234";
-    //     const { user: authUser } = await auth.createUserWithEmailAndPassword(
-    //       place.email,
-    //       password
-    //     );
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    //     // Add the user object to the users collection
-    //     await addDoc(doc(db, "users", authUser.uid), user);
+    // Add restaurant user data to users collection
+    const userData = {
+      isRestaurantOwner: true,
+      email: place.email,
+      image: "/Student_Profile.png",
+      isAdmin: false,
+      name: place.restaurantName,
+      phoneNumber: place.phoneNumber,
+      zipcode: place.zipcode,
+    };
+
+    // UID in Authentication === Doc ID in users collection
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, userData);
 
     return {
       id: docRef.id,
@@ -97,4 +107,3 @@ export const getPlaces = async () => {
 };
 
 // call function to reseed
-// getPlaces();
