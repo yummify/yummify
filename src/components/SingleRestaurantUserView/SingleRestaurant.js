@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 import Bag from '../Bag/Bag';
 import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 const SingleRestaurant = () => {
@@ -22,7 +23,6 @@ const SingleRestaurant = () => {
 
     //useParams to get bagId
     const { id } = useParams();
-    console.log('id from SingleRest Component:', id);
 
     useEffect(() => {
         dispatch(fetchSingleRestaurant(id));
@@ -30,6 +30,10 @@ const SingleRestaurant = () => {
         //console.log('bag:', bag);
       }, [dispatch, id]);
       
+    //get userId from auth context
+    // const { user } = useAuth();
+    // console.log('user.userId', user);
+    // const userIdFromAuth = user.userId;
 
     //for Bootstrap modal
     const [show, setShow] = useState(false);
@@ -70,8 +74,7 @@ const SingleRestaurant = () => {
         </ListGroup>
         <Card.Body>
             Order a Surprise Bag from {restaurant.name}:
-            {/* add onClick */}
-            <Bag bag={bag}/>
+            <Bag bag={bag} />
         </Card.Body>
         <Card.Body>
             <Card.Link href={restaurant.website}>Website</Card.Link>

@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
 import { query,addDoc, setDoc, getDoc, getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
+import { useAuth } from "../../contexts/AuthContext";
 
 //post request - put bag in cart
 //cart/order connects to User and Restaurant
-export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId}) => {
+export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId, status, userId}) => {
+    //following line breaks thunk
+    //const { user } = useAuth();
+    //const userIdFromAuth = user.userId;
     try {
         const newOrder = doc(collection(db, "orders"));
 
@@ -16,9 +20,9 @@ export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({ex
             pickup,
             quantity,
             type,
-            status: "pending",
             restaurantId,
-            //userId
+            status: "shopping",
+            userId
 
         });
     }catch(err){

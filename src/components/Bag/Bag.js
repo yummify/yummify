@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 
 const Bag = (restaurant) =>{
     // console.log(restaurant.bag);
+
     const {expiration, image, newPrice, originalPrice, pickup, type, restaurantId} = restaurant.bag;
     //console.log(expiration);
     const dispatch = useDispatch();
