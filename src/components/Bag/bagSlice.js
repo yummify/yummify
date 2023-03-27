@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
+import { query, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit, deleteDoc } from "firebase/firestore";
 
 
  //fetch by doc reference
@@ -51,7 +51,7 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
     }
 });
 
-//fetch by restID --- NOT FETCHING MULTIPLE DOCS. must fix
+//fetch by restID
 export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (rid)=>{
     try{
         
@@ -121,6 +121,14 @@ export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, 
         console.log(err);
     }
 })
+
+
+export const deleteBagAsync = createAsyncThunk("deletebag", async (bagId)=>{
+    console.log(bagId);
+    const bagByDocRef = doc(db, 'bags', `${bagId}`)
+    await deleteDoc(bagByDocRef)
+})
+
 
 
 const initialState = [];

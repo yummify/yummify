@@ -7,7 +7,7 @@ import { fetchUserAsync, selectUser } from "../User/userSlice";
 
 import { fetchRestaurantAsync, selectRestaurant } from "./restaurantSlice";
 import { useAuth } from "../../contexts/AuthContext";
-import { fetchGroupBagByRestAsync, selectBag, addBagAsync } from "../Bag/bagSlice";
+import { fetchGroupBagByRestAsync, selectBag, deleteBagAsync } from "../Bag/bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -54,6 +54,15 @@ const RestaurantStore = () => {
 
     const restaurantId = user?.userId; */
 
+    const deletethisbag = async (bagId)=>{
+        try{
+            await dispatch(deleteBagAsync(bagId));
+            dispatch(fetchGroupBagByRestAsync(testrest))
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const bags = useSelector(selectBag);
     
 
@@ -96,12 +105,23 @@ return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
                             {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / {bag.restaurantId}
-                            <Accordion defaultActiveKey="0">
-                            <Accordion.Header>Edit Bag</Accordion.Header>
-                            <Accordion.Body>
-                                <EditBagForm bag={bag}/>
-                            </Accordion.Body>
-            
+                            <Accordion>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Edit Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <EditBagForm bag={bag}/>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>Delete Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <Button onClick={()=>{
+                                            let id = bag.id;
+                                            deletethisbag(id)}}>Delete Bag</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
                             </Accordion>
                         </ListGroup.Item>
                     )}
@@ -119,12 +139,23 @@ return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
                             {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / / {bag.restaurantId}
-                            <Accordion defaultActiveKey="0">
-                            <Accordion.Header>Edit Bag</Accordion.Header>
-                            <Accordion.Body>
-                                <EditBagForm bag={bag}/>
-                            </Accordion.Body>
-            
+                            <Accordion>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Edit Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <EditBagForm bag={bag}/>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>Delete Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <Button onClick={()=>{
+                                            let id = bag.id;
+                                            deletethisbag(id)}}>Delete Bag</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
                             </Accordion>
                         </ListGroup.Item>
                     )}
