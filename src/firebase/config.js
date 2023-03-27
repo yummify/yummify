@@ -32,6 +32,7 @@ const googleMapsConfig = {
 
 const app = initializeApp(firebaseConfig, googleMapsConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
 // Initialize Firebase Analytics
@@ -39,6 +40,5 @@ getAnalytics(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-const storage = getStorage(app);
 
 export { db, auth, analytics, storage, app };

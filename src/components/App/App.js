@@ -1,28 +1,29 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+
+import AppRoutes from "./AppRoutes";
+import NavBar from "../Navbar/Navbar";
+import { useNavigate} from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Footer from "../Footer/Footer";
-import AppRoutes from "./AppRoutes";
 
 function App() {
-  //const navigate = useNavigate();
   return (
     <div className="App">
-      {/* <Link className="d-block" to={"/restaurantstart"}>
-        Go to Restaurant Page
+
+      <Link to={"/"} className="mx-3">
+        Home
       </Link>
-      <Link to={"/userstart"}>Go to User Page</Link> */}
+      <Link to={"/userstart"} className="mx-3">
+        User
+      </Link>
+      <Link to={"/restaurantstart"} className="mx-3">
+        Restaurant
+      </Link>
+      <NavBar />
       <AppRoutes />
       <Footer />
-
-      {/* <Button onClick={() => navigate("/login")}>Login</Button>
-      <Button onClick={() => navigate("/loginrestaurant")}>
-        Login as Restaurant
-      </Button>
-      <Button onClick={() => navigate("/usersignup")}>SignUp as User</Button>
-      <Button onClick={() => navigate("/restaurantsignup")}>
-        SignUp as Restaurant
-      </Button> */}
     </div>
   );
 }
