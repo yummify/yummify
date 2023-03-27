@@ -22,31 +22,33 @@ export default function Map() {
       const restaurantsCollection = collection(db, "restaurants");
       const snapshot = await getDocs(restaurantsCollection);
       const results = await Promise.all(
-        snapshot.docs.map(async (doc) => {
-          const data = doc.data();
-          // makes a call to the Google Maps API to get the lat and lng coordinates for the restaurant's address
-          const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-              data.address
-            )}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
-          );
-          const result = await response.json();
-          const location =
-            result.results && result.results.length > 0
-              ? result.results[0].geometry.location
-              : { lat: 0, lng: 0 };
+        snapshot.docs
+          .filter((doc) => doc.data().status === "approved") // only get restaurants with status set to "approved"
+          .map(async (doc) => {
+            const data = doc.data();
+            // makes a call to the Google Maps API to get the lat and lng coordinates for the restaurant's address
+            const response = await fetch(
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+                data.address
+              )}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+            );
+            const result = await response.json();
+            const location =
+              result.results && result.results.length > 0
+                ? result.results[0].geometry.location
+                : { lat: 0, lng: 0 };
 
-          return {
-            id: doc.id,
-            name: data.restaurantName,
-            address: data.address,
-            phone: data.phoneNumber,
-            website: data.website,
-            cuisine: data.cuisine,
-            lat: location.lat,
-            lng: location.lng,
-          };
-        })
+            return {
+              id: doc.id,
+              name: data.restaurantName,
+              address: data.address,
+              phone: data.phoneNumber,
+              website: data.website,
+              cuisine: data.cuisine,
+              lat: location.lat,
+              lng: location.lng,
+            };
+          })
       );
       setRestaurants(results);
     }
