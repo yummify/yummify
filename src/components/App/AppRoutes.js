@@ -25,14 +25,13 @@ import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
 import AdminManageUsers from "../Admin/AdminManageUsers";
 import AdminOrderHistory from "../Admin/AdminOrderHistory";
-
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
 import EditRestaurantProfile from "../Restaurant/EditRestaurantProfile";
 import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
 import AdminProfile from "../Admin/AdminProfile";
 import EditAdminProfile from "../Admin/EditAdminProfile";
 import AuthorizationError from "../Auth/AuthorizationError";
-
+import App from "./App";
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
 import ForgotPassword from "../Auth/ForgotPassword";
@@ -97,7 +96,6 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
-
         <Route
           path="/adminprofile"
           element={
@@ -138,7 +136,6 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
-
         <Route
           path="/editrestaurantprofile"
           element={
@@ -159,7 +156,6 @@ const AppRoutes = () => {
         <Route path="/bagform" element={<AddBagForm />} />
         <Route path="/bageditform" element={<EditBagForm />} />
         <Route path="/map" element={<Map />} />
-
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
