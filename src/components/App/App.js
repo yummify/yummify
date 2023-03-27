@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 import NavBar from "../NavBar/NavBar";
 
-import { useNavigate } from "react-router-dom";
-
-import { Button } from "react-bootstrap";
 import Footer from "../Footer/Footer";
+import ToggleView from "../ToggleView/ToggleView";
 
 function App() {
   return (
@@ -24,6 +22,7 @@ function App() {
       </Link>
       <NavBar />
       <AppRoutes />
+      <ToggleView />
       <Footer />
     </div>
   );
