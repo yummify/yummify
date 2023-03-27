@@ -16,7 +16,8 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
-import Cart from "../Cart/Cart"
+import Cart from "../Cart/Cart";
+import RestaurantStore from "../Restaurant/RestaurantStore";
 
 
 import AdminHome from "../Admin/Admin";
@@ -109,6 +110,8 @@ const AppRoutes = () => {
           <Route path="/bageditform" element={<EditBagForm />} />
           <Route path="/map" element={<Map />} />
           <Route path="/restaurant" element={<SingleRestaurant />} />
+          <Route path="/restaurantstore-ov" element = {<RestaurantStore />} />
+
 
           <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
           <Route path='/terms-and-conditions' element={<TermsAndConditions/>}/>

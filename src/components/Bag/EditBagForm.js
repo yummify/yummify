@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleBagByRestAsync, selectBag, editBagAsync } from "./bagSlice";
+import { fetchSingleBagByRestAsync, selectBag, editBagAsync, fetchSingleBagAsync, fetchGroupBagByRestAsync } from "./bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -9,29 +9,33 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'
 
 
-//TODO: change pickup time AND expiration date inputs to a dropdown menu
-const EditBagForm = () =>{
+//NOTE: expiration field is strictly date only
+//TODO: 
+//      image field needs adjustment -- doesn't take uploads; only string
+//      default bag image is needed
+const EditBagForm = (props) =>{
+    
+    const bagRef = props.bag.id;
+    const bagRID = props.bag.restaurantId;
 
-    const [bagType, setBagType] = useState("");
-    const [bagQuantity, setBagQuantity] = useState(1);
-    const [bagOPrice, setBagOPrice] = useState(0);
-    const [bagNPrice, setBagNPrice] = useState(0);
-    const [bagPickup, setBagPickup] = useState("");
-    const [bagExpire, setBagExpire] = useState("");
-    const [bagImage, setBagImage] = useState("nope.jpg");
+    const {expiration, image, newPrice, originalPrice,pickup,quantity,type} = props.bag;
+
+    const [bagType, setBagType] = useState(type);
+    const [bagQuantity, setBagQuantity] = useState(quantity);
+    const [bagOPrice, setBagOPrice] = useState(originalPrice);
+    const [bagNPrice, setBagNPrice] = useState(newPrice);
+    const [bagPickup, setBagPickup] = useState(pickup);
+    const [bagExpire, setBagExpire] = useState(expiration);
+    const [bagImage, setBagImage] = useState(image);
     
     const dispatch = useDispatch();
-    const singlebag = useSelector(selectBag)
 
-    //PLACEHOLDER bagref VARIABLE ---- must replace
-    useEffect(()=>{
-        //dispatch(fetchSingleBagAsync(bagref));
-    },[dispatch]);
-        
+   
+
     const handleSubmit = (event)=>{
         event.preventDefault();
       
-        const bag = {
+        const updatebag = {
             expiration: bagExpire,
             image: bagImage,
             newPrice: bagNPrice,
@@ -39,16 +43,17 @@ const EditBagForm = () =>{
             pickup: bagPickup,
             quantity: bagQuantity,
             type: bagType,
+            id: bagRef
         }
-
-        //PLACEHOLDER {data} VARIABLE --- must replace
-        //dispatch(editBagAsync({data}));
-        setBagType("");
-        setBagQuantity(1);
-        setBagOPrice(0);
-        setBagNPrice(0);
-        setBagPickup("");
-        setBagExpire("");
+        
+        dispatch(editBagAsync(updatebag ))
+        dispatch(fetchGroupBagByRestAsync(bagRID));
+        setBagType(type);
+        setBagQuantity(quantity);
+        setBagOPrice(originalPrice);
+        setBagNPrice(bagNPrice);
+        setBagPickup(bagPickup);
+        setBagExpire(bagExpire);
     }
 
     return(
@@ -57,6 +62,10 @@ const EditBagForm = () =>{
             <Form>
                 <Form.Group className="bag-type-input">
                     <Form.Control type="string" placeholder="Type" onChange={(event)=> setBagType(event.target.value)}></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="image-input">
+                    <Form.Control type="string" placeholder="Image PATH" onChange={(event)=> setBagImage(event.target.value)}></Form.Control>
                 </Form.Group>
 
                 <Form.Group className="bag-quantity-input">
@@ -76,7 +85,8 @@ const EditBagForm = () =>{
                 </Form.Group>
 
                 <Form.Group className="expiration-input">
-                    <Form.Control type="string" placeholder="Expiration Date/Time" onChange={(event)=> setBagExpire(event.target.value)}></Form.Control>
+                    <Form.Label>Expiration Date: </Form.Label>
+                    <Form.Control type="date" placeholder="Expiration Date" onChange={(event)=> setBagExpire(event.target.value)}></Form.Control>
                 </Form.Group>
                 <Button onClick={handleSubmit} variant="primary" type="submit">Submit</Button>
             </Form>
