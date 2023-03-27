@@ -16,13 +16,10 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
-<<<<<<< HEAD
+
 import Home from "../Home/Home";
-=======
 import Cart from "../Cart/Cart";
 import RestaurantStore from "../Restaurant/RestaurantStore";
-
->>>>>>> main
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
@@ -82,6 +79,14 @@ const AppRoutes = () => {
             </PrivateUserRoute>
           }
         />
+        <Route
+          path="/cart"
+          element={
+            <PrivateUserRoute>
+              <Cart />
+            </PrivateUserRoute>
+          }
+        />
         <Route path="/users" element={<Users />} />
         <Route path="/map" element={<Map />} />
         <Route
@@ -92,6 +97,7 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
+
         <Route
           path="/adminprofile"
           element={
@@ -163,6 +169,11 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
+
+        <Route path="/restaurantstore-ov" element={<RestaurantStore />} />
+
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
     </div>
   );
