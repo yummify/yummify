@@ -10,8 +10,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   console.log("AuthUser in Navbar:", authUser?.user);
 
-  //VS RESTAURANT - how to distinguish???
-
   const logout = async () => {
     try {
       await signOut(auth);
@@ -39,6 +37,7 @@ const NavBar = () => {
           </Nav>
         ) : authUser?.user?.isAdmin ? (
           <Nav>
+            <Nav.Link href="/admin">Dashboard</Nav.Link>
             <Nav.Link href="/adminprofile">Profile</Nav.Link>
             <Nav.Link href="/admin/manage-users">Manage Users</Nav.Link>
             <Nav.Link href="/admin/manage-restaurants">
@@ -49,27 +48,13 @@ const NavBar = () => {
           </Nav>
         ) : (
           <Nav>
+            <Nav.Link href="/restaurants">Home</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
             <Nav.Link href="/map">Map View</Nav.Link>
             <Nav.Link href="/">Cart</Nav.Link>
             <Button onClick={logout}>Logout</Button>
           </Nav>
         )}
-        {/* {user.isAdmin ? 
-                        <Nav>
-                        <Nav.Link href='/admin'>Dashboard</Nav.Link>
-                        <Nav.Link href='/admin/manage-users'>Manage Users</Nav.Link>
-                        <Nav.Link href='/admin/manage-restaurants'>Manage Restaurants</Nav.Link>
-                        <Nav.Link href='/admin/order-history'>Order History</Nav.Link>
-                        <Nav.Link href='/'>Customer View</Nav.Link>
-                        </Nav>
-                    : 
-                    <Nav>
-                    <Nav.Link href='/'>Home</Nav.Link>
-                    <Nav.Link href='/map'>Map View</Nav.Link>
-                    <Nav.Link href='/profile'>Profile</Nav.Link>
-                    <Nav.Link href='/cart'>Cart</Nav.Link>
-                    </Nav>} */}
       </Container>
     </Navbar>
   );
