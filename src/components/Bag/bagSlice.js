@@ -56,7 +56,7 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
 
 
 
-export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type})=>{
+export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId, status})=>{
     try{
         
         //creating auto-gen doc reference
@@ -70,6 +70,8 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
             pickup,
             quantity,
             type,
+            restaurantId,
+            status,
 
         });
 
@@ -79,7 +81,7 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
     }
 })
 
-export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type)=>{
+export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type, status)=>{
     try{
         const bagByDocRef = doc(db, 'bags', `${bagRef}`);
         await updateDoc(bagByDocRef, {
@@ -89,6 +91,7 @@ export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, ima
             originalPrice: originalprice,
             pickup: pickup,
             type: type,
+            status: status,
         });
     }catch(err){
         console.log(err);

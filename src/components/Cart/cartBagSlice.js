@@ -4,7 +4,7 @@ import { query,addDoc, setDoc, getDoc, getDocs, updateDoc, collection, doc, wher
 
 //post request - put bag in cart
 //cart/order connects to User and Restaurant
-export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type}) => {
+export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId}) => {
     try {
         const newOrder = doc(collection(db, "orders"));
 
@@ -16,16 +16,15 @@ export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({ex
             pickup,
             quantity,
             type,
-            //restaurantId
+            status: "pending",
+            restaurantId,
+            //userId
 
         });
     }catch(err){
         console.log(err);
     }
 })
-
-
-
 
 const initialState = {};
 export const orderSlice = createSlice({
