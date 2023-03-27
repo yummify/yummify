@@ -44,7 +44,6 @@ const EditRestaurantProfile = () => {
       EIN: EIN ? EIN : authRestaurant.EIN,
       phoneNumber: phoneNumber ? phoneNumber : authRestaurant.phoneNumber,
       zipcode: zipcode ? zipcode : authRestaurant.zipcode,
-      status: "editpending",
     };
     dispatch(editRestaurantAsync(reqbody)).then(() =>
       navigate("/restaurantprofile")
@@ -61,6 +60,7 @@ const EditRestaurantProfile = () => {
               type="text"
               placeholder={authRestaurant.restaurantName}
               onChange={(event) => setRestaurantName(event.target.value)}
+              disabled
             />
           </Form.Group>
           <Form.Group>
@@ -69,6 +69,7 @@ const EditRestaurantProfile = () => {
               type="text"
               placeholder={authRestaurant.cuisine}
               onChange={(event) => setCuisine(event.target.value)}
+              disabled
             />
           </Form.Group>
 
@@ -87,6 +88,7 @@ const EditRestaurantProfile = () => {
               type="text"
               placeholder={authRestaurant.address}
               onChange={(event) => setAddress(event.target.value)}
+              disabled
             />
           </Form.Group>
           <Form.Group>
@@ -119,6 +121,7 @@ const EditRestaurantProfile = () => {
               type="text"
               placeholder={authRestaurant.zipcode}
               onChange={(event) => setZipcode(event.target.value)}
+              disabled
             />
           </Form.Group>
           <Form.Group>
@@ -135,6 +138,7 @@ const EditRestaurantProfile = () => {
               type="text"
               placeholder={authRestaurant.EIN}
               onChange={(event) => setEIN(event.target.value)}
+              disabled
             />
           </Form.Group>
           <Button onClick={editRestaurant} className="my-3">
@@ -147,6 +151,12 @@ const EditRestaurantProfile = () => {
             Cancel
           </Button>
         </Form>
+        <p>
+          <strong>
+            For editing disabled fields, Please contact our team at
+            admin@yummify.com
+          </strong>
+        </p>
       </Container>
     </div>
   );
