@@ -82,6 +82,59 @@ export const editRestaurantImageAsync = createAsyncThunk(
   }
 );
 
+export const editRestaurantAsync = createAsyncThunk(
+  "editRestaurant",
+  async ({
+    restaurantId,
+    restaurantName,
+    cuisine,
+    description,
+    address,
+    open,
+    close,
+    website,
+    EIN,
+    phoneNumber,
+    zipcode,
+  }) => {
+    try {
+      console.log(
+        "restaurantId and payload:",
+        restaurantId,
+        restaurantName,
+        cuisine,
+        description,
+        address,
+        open,
+        close,
+        website,
+        EIN,
+        phoneNumber,
+        zipcode
+      );
+      const restaurantsRef = doc(db, "restaurants", restaurantId);
+      const data = {
+        restaurantId,
+        restaurantName,
+        cuisine,
+        description,
+        address,
+        open,
+        close,
+        website,
+        EIN,
+        phoneNumber,
+        zipcode,
+      };
+      updateDoc(restaurantsRef, data).then((restaurantsRef) =>
+        console.log("Value of document has been updated")
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const initialState = {};
 export const restaurantSlice = createSlice({
   name: "restaurant",

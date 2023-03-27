@@ -16,21 +16,21 @@
 
 // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
-import {getApp} from "@firebase/app";
-import { getStripePayments, getProducts } from "@stripe/firestore-stripe-payments";
+// import {getApp} from "@firebase/app";
+// import { getStripePayments, getProducts } from "@stripe/firestore-stripe-payments";
 
-const app = getApp();
-const payments = getStripePayments(app, {
-    bagsCollection: "bags",
-    usersCollection: "users"
-});
-const products = await getProducts(payments, {
-    includePrices: true,
-    activeOnly: true
-});
+// const CheckoutPage = async () => {
+//     const app = getApp();
+//     const payments = getStripePayments(app, {
+//         bagsCollection: "bags",
+//         usersCollection: "users"
+//     });
+//     // const products = await getProducts(payments, {
+//     //     includePrices: true,
+//     //     activeOnly: true
+//     // });
+    
+//     console.log(payments);
+// };
 
-const CheckoutPage = () => {
-
-};
-
-export default CheckoutPage;
+// export default CheckoutPage;

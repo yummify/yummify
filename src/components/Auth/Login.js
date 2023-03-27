@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchLoginAuthAsync } from "./authSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchUserAsync } from "../User/userSlice";
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -13,15 +14,20 @@ const Login = () => {
   const login = async () => {
     dispatch(
       fetchLoginAuthAsync({ email: loginEmail, password: loginpwd })
-    ).then(() => navigate("/userprofile"));
+    ).then((res) => {
+      const userId = res.payload.userId;
+      dispatch(fetchUserAsync(userId)).then((res) => {
+        const user = res.payload;
+        if (user?.isRestaurantOwner) {
+          navigate("/restaurantprofile");
+        } else if (!user?.isAdmin) {
+          navigate("/userprofile");
+        } else if (user?.isAdmin) {
+          navigate("/adminprofile");
+        }
+      });
+    });
   };
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //     console.log(currentUser);
-  //   });
-  // }, []);
 
   return (
     <div>
