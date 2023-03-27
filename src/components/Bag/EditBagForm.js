@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleBagByRestAsync, selectBag, editBagAsync, fetchSingleBagAsync } from "./bagSlice";
+import { fetchSingleBagByRestAsync, selectBag, editBagAsync, fetchSingleBagAsync, fetchGroupBagByRestAsync } from "./bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -15,6 +15,9 @@ import Row from 'react-bootstrap/Row'
 //      default bag image is needed
 const EditBagForm = (props) =>{
     
+    const bagRef = props.bag.id;
+    const bagRID = props.bag.restaurantId;
+
     const {expiration, image, newPrice, originalPrice,pickup,quantity,type} = props.bag;
 
     const [bagType, setBagType] = useState(type);
@@ -26,17 +29,13 @@ const EditBagForm = (props) =>{
     const [bagImage, setBagImage] = useState(image);
     
     const dispatch = useDispatch();
-    //const singlebag = useSelector(selectBag)
 
-   /* 
-    useEffect(()=>{
-        dispatch(fetchSingleBagAsync(bagId));
-    },[dispatch]); */
-        
+   
+
     const handleSubmit = (event)=>{
         event.preventDefault();
       
-        const bag = {
+        const updatebag = {
             expiration: bagExpire,
             image: bagImage,
             newPrice: bagNPrice,
@@ -44,13 +43,14 @@ const EditBagForm = (props) =>{
             pickup: bagPickup,
             quantity: bagQuantity,
             type: bagType,
+            id: bagRef
         }
-
         
-        dispatch(editBagAsync(bag));
-        setBagType(bagType);
-        setBagQuantity(bagQuantity);
-        setBagOPrice(bagOPrice);
+        dispatch(editBagAsync(updatebag ))
+        dispatch(fetchGroupBagByRestAsync(bagRID));
+        setBagType(type);
+        setBagQuantity(quantity);
+        setBagOPrice(originalPrice);
         setBagNPrice(bagNPrice);
         setBagPickup(bagPickup);
         setBagExpire(bagExpire);

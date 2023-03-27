@@ -102,16 +102,19 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
     }
 })
 
-export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type)=>{
+export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, image, newPrice, originalPrice, pickup, quantity, type})=>{
     try{
-        const bagByDocRef = doc(db, 'bags', `${bagRef}`);
+        
+        const bagByDocRef = doc(db, 'bags', `${id}`)
         await updateDoc(bagByDocRef, {
-            expiration: expir,
-            image: image,
-            newPrice: newprice,
-            originalPrice: originalprice,
-            pickup: pickup,
-            type: type,
+            expiration,
+            image,
+            newPrice,
+            originalPrice,
+            pickup,
+            quantity,
+            type,
+            
         });
     }catch(err){
         console.log(err);
