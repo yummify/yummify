@@ -16,7 +16,15 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
+<<<<<<< HEAD
 import Home from "../Home/Home";
+=======
+
+import Home from "../Home/Home";
+import Cart from "../Cart/Cart";
+import RestaurantStore from "../Restaurant/RestaurantStore";
+
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
 import AdminManageUsers from "../Admin/AdminManageUsers";
@@ -30,11 +38,20 @@ import AuthorizationError from "../Auth/AuthorizationError";
 import App from "./App";
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
+<<<<<<< HEAD
 //import ForgotPassword from "../Auth/ForgotPassword";
 //import UpdatePassword from "../Auth/UpdatePassword";
 import NavBar from "../NavBar/NavBar";
 //import PrivateRoute from "../Auth/PrivateRoute";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+=======
+import ForgotPassword from "../Auth/ForgotPassword";
+import UpdatePassword from "../Auth/UpdatePassword";
+import NavBar from "../NavBar/NavBar";
+import PrivateRoute from "../Auth/PrivateRoute";
+import AllRestaurants from "../AllRestaurants/AllRestaurants";
+
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
 const AppRoutes = () => {
   return (
     <div>
@@ -47,15 +64,25 @@ const AppRoutes = () => {
         <Route path="/usersignup" element={<UserSignUp />} />
         <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
         <Route path="/authorizationerror" element={<AuthorizationError />} />
+<<<<<<< HEAD
         {/* <Route path="/forgotpassword" element={<ForgotPassword />} /> */}
         {/* <Route
+=======
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+
+        <Route
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
           path="/updatepassword"
           element={
             <PrivateRoute>
               <UpdatePassword />
             </PrivateRoute>
           }
+<<<<<<< HEAD
         /> */}
+=======
+        />
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
         <Route
           path="/userprofile"
           element={
@@ -73,6 +100,7 @@ const AppRoutes = () => {
           }
         />
         <Route
+<<<<<<< HEAD
           path="/restaurants"
           element={
             <PrivateUserRoute>
@@ -89,6 +117,15 @@ const AppRoutes = () => {
         } 
         />
   
+=======
+          path="/cart"
+          element={
+            <PrivateUserRoute>
+              <Cart />
+            </PrivateUserRoute>
+          }
+        />
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
         <Route path="/users" element={<Users />} />
         <Route path="/map" element={<Map />} />
         <Route
@@ -99,6 +136,10 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
         <Route
           path="/adminprofile"
           element={
@@ -139,6 +180,10 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
         <Route
           path="/editrestaurantprofile"
           element={
@@ -159,15 +204,32 @@ const AppRoutes = () => {
         <Route path="/bagform" element={<AddBagForm />} />
         <Route path="/bageditform" element={<EditBagForm />} />
         <Route path="/map" element={<Map />} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
           element={
+<<<<<<< HEAD
             <PrivateUserRoute>
               <AllRestaurants />
             </PrivateUserRoute>
           }
         />
+=======
+            <PrivateRoute>
+              <AllRestaurants />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/restaurantstore-ov" element={<RestaurantStore />} />
+
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+>>>>>>> e81181a85d11f1ae23fefbf507c44f3aade0f481
       </Routes>
     </div>
   );

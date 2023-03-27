@@ -2,28 +2,28 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
 import { query,addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
 
-//do not delete -- old search single bag by bagRef
+
  //fetch by doc reference
-// export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
-//     try{
-//         const bagByDocRef = doc(db, 'bags', `${bagRef}`);
-//         const bagDocSnap = await getDoc(bagByDocRef);
-//         const bag = bagDocSnap.data();
+export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
+    try{
+        const bagByDocRef = doc(db, 'bags', `${bagRef}`);
+        const bagDocSnap = await getDoc(bagByDocRef);
+        const bag = bagDocSnap.data();
 
-//         const singlebag ={
-//             expiration: bag.expiration,
-//             image: bag.image,
-//             newPrice: bag.newPrice,
-//             originalPrice: bag.originalPrice,
-//             pickup: bag.pickup,
-//             type: bag.type,
-//         }
+        const singlebag ={
+            expiration: bag.expiration,
+            image: bag.image,
+            newPrice: bag.newPrice,
+            originalPrice: bag.originalPrice,
+            pickup: bag.pickup,
+            type: bag.type,
+        }
 
-//         return {...singlebag, bagId: bagDocSnap.id}
-//     }catch(err){
-//         console.log(err);
-//     }
-// }); 
+        return {...singlebag, bagId: bagDocSnap.id}
+    }catch(err){
+        console.log(err);
+    }
+}); 
 
 //fetch by restID 
 export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", async (id)=>{
@@ -52,11 +52,34 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
     }
 });
 
+//fetch by restID --- NOT FETCHING MULTIPLE DOCS. must fix
+export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (id)=>{
+    try{
+        const bagCollectionRef = collection(db, 'bags');
+        const q = query(bagCollectionRef, where('restaurantId', "==", id ));
+        const querySnap = await getDocs(q);
+        const allbags = [];
+        
+        if (querySnap.empty) {
+            console.error('No matching documents.');
+        }  
+        
+        querySnap.forEach((doc)=>{
+           
+            allbags.push({...doc.data(), id: doc.id});
+        })
+        
+        return allbags;
+        
+        
+    }catch(err){
+        console.log(err);
+    }
+});
 
 
 
-
-export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId, status})=>{
+export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId})=>{
     try{
         
         //creating auto-gen doc reference
@@ -81,16 +104,19 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
     }
 })
 
-export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, image, newprice, originalprice, pickup, type, status)=>{
+export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, image, newPrice, originalPrice, pickup, quantity, type, status})=>{
     try{
-        const bagByDocRef = doc(db, 'bags', `${bagRef}`);
+        
+        const bagByDocRef = doc(db, 'bags', `${id}`)
         await updateDoc(bagByDocRef, {
-            expiration: expir,
-            image: image,
-            newPrice: newprice,
-            originalPrice: originalprice,
-            pickup: pickup,
-            type: type,
+            expiration,
+            image,
+            newPrice,
+            originalPrice,
+            pickup,
+            quantity,
+            type,
+            
             status: status,
         });
     }catch(err){
@@ -99,16 +125,16 @@ export const editBagAsync = createAsyncThunk("editBag", async (bagRef,expir, ima
 })
 
 
-const initialState = {};
+const initialState = [];
 export const bagSlice = createSlice({
     name: "bag",
     initialState,
     reducers: {},
     extraReducers: (builder)=> {
         builder
-            /* .addCase(fetchSingleBagAsync.fulfilled, (state, action)=>{
+            .addCase(fetchSingleBagAsync.fulfilled, (state, action)=>{
                 return action.payload;
-            }) */
+            })
             .addCase(addBagAsync.fulfilled, (state, action)=>{
                 return action.payload;
             })
@@ -116,7 +142,9 @@ export const bagSlice = createSlice({
                 return action.payload;
             })
             .addCase(fetchSingleBagByRestAsync.fulfilled, (state, action)=>{
-                console.log('action:', action);
+                return action.payload;
+            })
+            .addCase(fetchGroupBagByRestAsync.fulfilled, (state, action)=>{
                 return action.payload;
             })
     }

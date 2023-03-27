@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleBagByRestAsync, selectBag, addBagAsync } from "./bagSlice";
 
+
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,23 +10,29 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'
 
 
-//TODO: change pickup time AND expiration date inputs to a dropdown menu
-//Still need adjustments b/c of thunk change
-const AddBagForm = () =>{
+//NOTE: expiration field is strictly date only
+//TODO: 
+//      image field needs adjustment -- doesn't take uploads; only string
+//      default bag image is needed
+
+
+
+const AddBagForm = (props) =>{
+
+    const restId = props.restaurant;
     const [bagType, setBagType] = useState("");
     const [bagQuantity, setBagQuantity] = useState(1);
     const [bagOPrice, setBagOPrice] = useState(0);
     const [bagNPrice, setBagNPrice] = useState(0);
     const [bagPickup, setBagPickup] = useState("");
     const [bagExpire, setBagExpire] = useState("");
-    const [bagImage, setBagImage] = useState("nope.jpg");
+    const [bagImage, setBagImage] = useState("");
     
     const dispatch = useDispatch();
-
-        //xpir, image, newprice, originalprice, pickup, type
+  
+ 
     const handleSubmit = (event)=>{
         event.preventDefault();
-        //console.log(bagExpire, bagImage, bagNPrice, bagOPrice, bagPickup, bagType);
         const bag = {
             expiration: bagExpire,
             image: bagImage,
@@ -34,24 +41,33 @@ const AddBagForm = () =>{
             pickup: bagPickup,
             quantity: bagQuantity,
             type: bagType,
+            restaurantId: restId,
         }
-
-
+        
+       
         dispatch(addBagAsync(bag));
         setBagType("");
+        setBagImage("");
         setBagQuantity(1);
         setBagOPrice(0);
         setBagNPrice(0);
         setBagPickup("");
         setBagExpire("");
+        
     }
 
+
+  
     return(
         <Card style={{width: "25rem"}}>
             <Card.Header>Add Bag</Card.Header>
             <Form>
                 <Form.Group className="bag-type-input">
                     <Form.Control type="string" placeholder="Type" onChange={(event)=> setBagType(event.target.value)}></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="image-input">
+                    <Form.Control type="string" placeholder="Image PATH" onChange={(event)=> setBagImage(event.target.value)}></Form.Control>
                 </Form.Group>
 
                 <Form.Group className="bag-quantity-input">
@@ -71,7 +87,8 @@ const AddBagForm = () =>{
                 </Form.Group>
 
                 <Form.Group className="expiration-input">
-                    <Form.Control type="string" placeholder="Expiration Date/Time" onChange={(event)=> setBagExpire(event.target.value)}></Form.Control>
+                    <Form.Label>Expiration Date: </Form.Label>
+                    <Form.Control type="date" placeholder="Expiration Date" onChange={(event)=> setBagExpire(event.target.value)}></Form.Control>
                 </Form.Group>
                 <Button onClick={handleSubmit} variant="primary" type="submit">Submit</Button>
             </Form>

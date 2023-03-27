@@ -28,15 +28,6 @@ const RestaurantProfile = () => {
     if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
   }, [dispatch, user?.userId, fileUrl]);
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `restaurants/${imageFile.name}`);
@@ -56,73 +47,75 @@ const RestaurantProfile = () => {
     <div>
       {user?.userId && (
         <div>
-          <Container>
+          <Container className="border my-3">
             <Row>
-              <div className="d-flex text-black">
-                <Col>
-                  <div
-                    className="flex-shrink-0 d-flex flex-column"
-                    style={{ marginTop: "5rem", marginLeft: "1rem" }}
+              <Col className="text-center my-3 mx-3 border">
+                <Image
+                  fluid
+                  src={fileUrl ? fileUrl : authRestaurant.image}
+                  alt="image of restaurant"
+                  thumbnail
+                  className="my-3"
+                  style={{ width: "150px", borderRadius: "10px" }}
+                />
+
+                {!upload && (
+                  <Button
+                    onClick={() => setUpload(true)}
+                    style={{ padding: "0.2rem", marginTop: "1rem" }}
+                    className="d-block my-3"
                   >
-                    <Image
-                      fluid
-                      src={fileUrl ? fileUrl : authRestaurant.image}
-                      alt="image of restaurant"
-                      thumbnail
-                      style={{ width: "100px", borderRadius: "10px" }}
+                    Upload Photo
+                  </Button>
+                )}
+
+                {upload && (
+                  <Col className="my-3 d-block">
+                    <input
+                      type="file"
+                      onChange={(event) => setImageFile(event.target.files[0])}
                     />
-                    {!upload && (
-                      <Button
-                        onClick={() => setUpload(true)}
-                        style={{ padding: "0.2rem", marginTop: "1rem" }}
-                      >
-                        Upload Photo
-                      </Button>
-                    )}
-                    {upload && (
-                      <div className="my-3 d-block">
-                        <input
-                          type="file"
-                          onChange={(event) =>
-                            setImageFile(event.target.files[0])
-                          }
-                        />
-                        <Button className="my-3" onClick={handleImage}>
-                          Add Photo
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </Col>
-                <Col>
-                  <div
-                    className="flex-grow-1 ms-3"
-                    style={{ marginTop: "5rem" }}
-                  >
-                    <h1>{authRestaurant?.restaurantName}</h1>
-                    <p>Email :{authRestaurant?.email}</p>
-                    <p>Cuisine :{authRestaurant?.cuisine}</p>
-                    <p>Description :{authRestaurant?.description}</p>
-                    <p>Address :{authRestaurant?.address}</p>
-                    <p>Open :{authRestaurant?.open}</p>
-                    <p>Close :{authRestaurant?.close}</p>
-                    <p>EIN :{authRestaurant?.EIN}</p>
-                    <p>Role :{authRestaurant?.role}</p>
-                    <p>Status :{authRestaurant?.status}</p>
-                    <p>PhoneNumber:{authRestaurant?.phoneNumber}</p>
-                    <p>Zipcode:{authRestaurant.zipcode}</p>
-                    <p>Terms :{authRestaurant?.terms}</p>
-                    <Button onClick={() => navigate("/editrestaurantprofile")}>
-                      Edit Restaurant Profile
+                    <Button className="my-3" onClick={handleImage}>
+                      Add Photo
                     </Button>
-                  </div>
-                </Col>
-              </div>
+                  </Col>
+                )}
+              </Col>
+              <Col className="border my-3 mx-3 text-center">
+                <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
+                <p>Email :{authRestaurant?.email}</p>
+                <p>Cuisine :{authRestaurant?.cuisine}</p>
+                <p>Description :{authRestaurant?.description}</p>
+                <p>Address :{authRestaurant?.address}</p>
+                <p>Open :{authRestaurant?.open}</p>
+                <p>Close :{authRestaurant?.close}</p>
+                <p>EIN :{authRestaurant?.EIN}</p>
+                <p>
+                  Status :
+                  {authRestaurant?.status === "pending" ||
+                  authRestaurant?.status === "editpending"
+                    ? "Request sent to Admin for approval"
+                    : "Restaurant got added/updated in Yummify"}
+                </p>
+                <p>PhoneNumber :{authRestaurant?.phoneNumber}</p>
+                <p>Zipcode :{authRestaurant.zipcode}</p>
+                <Button
+                  className="mx-3"
+                  onClick={() => navigate("/editrestaurantprofile")}
+                >
+                  Edit Restaurant Profile
+                </Button>
+                <Button
+                  className="mx-3 my-3"
+                  onClick={() => navigate("/updatepassword")}
+                >
+                  Update password
+                </Button>
+              </Col>
             </Row>
           </Container>
         </div>
       )}
-      <Button onClick={logout}>Logout</Button>
     </div>
   );
 };

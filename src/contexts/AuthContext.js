@@ -12,15 +12,17 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const fetchUser = () => {
     console.log("+++entering fetchuser");
     if (auth?.currentUser?.uid) {
       console.log("+++before db");
-      dispatch(fetchUserAsync(auth.currentUser.uid)).then((res) =>
-        setUser(res.payload)
-      );
+      dispatch(fetchUserAsync(auth.currentUser.uid)).then((res) => {
+        setUser(res.payload);
+        setLoading(false);
+      });
     }
   };
 
@@ -28,16 +30,20 @@ export function AuthProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       console.log("AuthUser in useeffect:", authUser);
       if (authUser) {
-        fetchUser()?.then((res) => {
-          const data = res.payload;
-          console.log("++++++++++ubsubs" + data);
-          setUser(data);
-        });
+        fetchUser();
+      } else {
+        setUser();
+        setLoading(false);
       }
     });
     return unsubscribe;
   }, []);
 
-  const value = { user };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  const value = { user, loading };
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+      {/* {children} */}
+    </AuthContext.Provider>
+  );
 }
