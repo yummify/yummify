@@ -16,7 +16,8 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
-import Cart from "../Cart/Cart"
+import Cart from "../Cart/Cart";
+import RestaurantStore from "../Restaurant/RestaurantStore";
 
 
 import AdminHome from "../Admin/Admin";
