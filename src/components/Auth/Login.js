@@ -62,9 +62,9 @@ const Login = () => {
             if (user?.isRestaurantOwner) {
               navigate("/restaurantprofile");
             } else if (!user?.isAdmin) {
-              navigate("/userprofile");
+              navigate("/restaurants");
             } else if (user?.isAdmin) {
-              navigate("/adminprofile");
+              navigate("/admin");
             }
           });
         }
