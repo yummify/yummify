@@ -28,7 +28,7 @@
     "webpack-cli": "^5.0.1"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "seed": "node script/seed.js",
     "test": "react-scripts test",
