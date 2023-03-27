@@ -36,32 +36,29 @@ import TermsAndConditions from "../Footer/TermsAndConditions";
 import ForgotPassword from "../Auth/ForgotPassword";
 import UpdatePassword from "../Auth/UpdatePassword";
 import NavBar from "../NavBar/NavBar";
+import PrivateRoute from "../Auth/PrivateRoute";
+import AllRestaurants from "../AllRestaurants/AllRestaurants";
 
 const AppRoutes = () => {
   return (
     <div>
-      {/* <AuthProvider> */}
       <Routes>
+        {/* All users access */}
         <Route path="/" element={<Home />} />
         <Route path="/userstart" element={<UserStartPage />} />
+        <Route path="/restaurantstart" element={<RestaurantStartPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/usersignup" element={<UserSignUp />} />
+        <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
         <Route path="/authorizationerror" element={<AuthorizationError />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+
         <Route
           path="/updatepassword"
           element={
-            <PrivateUserRoute>
+            <PrivateRoute>
               <UpdatePassword />
-            </PrivateUserRoute>
-          }
-        />
-        <Route
-          path="/updatepassword"
-          element={
-            <PrivateRestaurantRoute>
-              <UpdatePassword />
-            </PrivateRestaurantRoute>
+            </PrivateRoute>
           }
         />
         <Route
@@ -82,7 +79,14 @@ const AppRoutes = () => {
         />
         <Route path="/users" element={<Users />} />
         <Route path="/map" element={<Map />} />
-        <Route path="/admin" element={<AdminHome />} />
+        <Route
+          path="/admin"
+          element={
+            <PrivateAdminRoute>
+              <AdminHome />
+            </PrivateAdminRoute>
+          }
+        />
         <Route
           path="/adminprofile"
           element={
@@ -101,12 +105,29 @@ const AppRoutes = () => {
         />
         <Route
           path="/admin/manage-restaurants"
-          element={<AdminManageRestaurants />}
+          element={
+            <PrivateAdminRoute>
+              <AdminManageRestaurants />
+            </PrivateAdminRoute>
+          }
         />
-        <Route path="/admin/manage-users" element={<AdminManageUsers />} />
-        <Route path="/admin/order-history" element={<AdminOrderHistory />} />
-        <Route path="/restaurantstart" element={<RestaurantStartPage />} />
-        <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
+        <Route
+          path="/admin/manage-users"
+          element={
+            <PrivateAdminRoute>
+              <AdminManageUsers />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/order-history"
+          element={
+            <PrivateAdminRoute>
+              <AdminOrderHistory />
+            </PrivateAdminRoute>
+          }
+        />
+
         <Route
           path="/editrestaurantprofile"
           element={
@@ -127,9 +148,17 @@ const AppRoutes = () => {
         <Route path="/bagform" element={<AddBagForm />} />
         <Route path="/bageditform" element={<EditBagForm />} />
         <Route path="/map" element={<Map />} />
-        <Route path="/restaurant" element={<SingleRestaurant />} />
+
+        <Route path="/restaurant/:id" element={<SingleRestaurant />} />
+        <Route
+          path="/restaurants"
+          element={
+            <PrivateRoute>
+              <AllRestaurants />
+            </PrivateRoute>
+          }
+        />
       </Routes>
-      {/* </AuthProvider> */}
     </div>
   );
 };
