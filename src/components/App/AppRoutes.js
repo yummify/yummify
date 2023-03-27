@@ -103,6 +103,7 @@ const AppRoutes = () => {
               </PrivateRestaurantRoute>
             }
           />
+          {/* new routes */}
           <Route path="/bag" element={<Bag />} />
           <Route path="/bagform" element={<AddBagForm />} />
           <Route path="/bageditform" element={<EditBagForm />} />
