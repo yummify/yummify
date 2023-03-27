@@ -23,13 +23,15 @@ import EditBagForm from "../Bag/EditBagForm";
 //      thunk: legacy fetchSingleBagByRestAsync still remains
 
 const RestaurantStore = () => {
-    /* // for testing only: edit AddBagForm to reflect correct restID variable
-    const testrest = "1iPuXMXLQiICpJ8zBhiB"
+    // for testing only: edit AddBagForm to reflect correct restID variable
+    const testrest = "ChIJ10EpKJJZwokRUjIWaunOQbI"
+    const dispatch = useDispatch();
+/* 
     useEffect(()=>{
         dispatch(fetchGroupBagByRestAsync(testrest));
     },[dispatch]); */
 
-    //auth code: incomplete --- testing required.
+    /* //auth code: incomplete --- testing required.
     const authRestaurant = useSelector(selectRestaurant);
     console.log("authrestaurant:", authRestaurant);
     const { user } = useAuth();
@@ -50,8 +52,10 @@ const RestaurantStore = () => {
     };
     
 
-    const restaurantId = user?.userId;
+    const restaurantId = user?.userId; */
+
     const bags = useSelector(selectBag);
+    
 
     //to sort bags from array from active/inactive
     const checkActive = (expir, quant) =>{
@@ -68,16 +72,20 @@ const RestaurantStore = () => {
     }
 
     
+    useEffect(()=>{
+        dispatch(fetchGroupBagByRestAsync(testrest));
+    },[dispatch]);
 
 return(
     <Card>
         <Card.Title>Restaurant - Owner View</Card.Title>
         <Card.Text>
             hi. test card!
-            <Button onClick={logout}>Logout</Button>
+            {/* <Button onClick={logout}>Logout</Button> */}
         </Card.Text>
-        <AddBagForm restaurant={restaurantId}/>
-
+        <AddBagForm restaurant={testrest}/>
+        {/* <AddBagForm restaurant={restaurantId}/>
+ */}
         <Card style={{backgroundColor: "lightblue"}}>
             <Card.Title>Active Bags</Card.Title>
             
@@ -87,7 +95,7 @@ return(
                         return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
-                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity}
+                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / {bag.restaurantId}
                             <Accordion defaultActiveKey="0">
                             <Accordion.Header>Edit Bag</Accordion.Header>
                             <Accordion.Body>
@@ -110,7 +118,7 @@ return(
                         return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
-                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity}
+                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / / {bag.restaurantId}
                             <Accordion defaultActiveKey="0">
                             <Accordion.Header>Edit Bag</Accordion.Header>
                             <Accordion.Body>

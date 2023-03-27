@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query,addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
+import { query, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
 
 
  //fetch by doc reference
@@ -52,23 +52,24 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
 });
 
 //fetch by restID --- NOT FETCHING MULTIPLE DOCS. must fix
-export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (id)=>{
+export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (rid)=>{
     try{
-        const bagCollectionRef = collection(db, 'bags');
-        const q = query(bagCollectionRef, where('restaurantId', "==", id ));
-        const querySnap = await getDocs(q);
-        const allbags = [];
         
+        const bagCollectionRef = collection(db, 'bags');
+        const q = query(bagCollectionRef, where('restaurantId', "==", rid ));
+        let querySnap = await getDocs(q);
+        let allbags = [];
+      
         if (querySnap.empty) {
             console.error('No matching documents.');
         }  
         
         querySnap.forEach((doc)=>{
-           
             allbags.push({...doc.data(), id: doc.id});
         })
         
         return allbags;
+       
         
         
     }catch(err){
