@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchLoginAuthAsync } from "./authSlice";
 import { useNavigate, Link } from "react-router-dom";
@@ -9,6 +9,7 @@ const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginpwd, setLoginPwd] = useState("");
   const [formError, setFormError] = useState({});
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -73,7 +74,7 @@ const Login = () => {
 
   return (
     <div>
-      <div>
+      <Container>
         <Form>
           <Form.Group>
             <Form.Label>Email :</Form.Label>
@@ -103,14 +104,16 @@ const Login = () => {
           {formError.pwd && (
             <p className="text-danger-emphasis my-3">{formError.pwd}</p>
           )}
-          <Button onClick={login} className="my-3">
-            Login
-          </Button>
-          <Link to={"/forgotpassword"} className="mx-3">
-            Forgot Password
-          </Link>
+          <Col className="text-center">
+            <Button onClick={login} className="my-3">
+              Login
+            </Button>
+            <Link to={"/forgotpassword"} className="mx-3">
+              Forgot Password
+            </Link>
+          </Col>
         </Form>
-      </div>
+      </Container>
     </div>
   );
 };

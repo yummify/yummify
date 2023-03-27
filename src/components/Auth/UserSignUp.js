@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchSignUpAuthAsync } from "./authSlice";
 import { addUserAsync } from "../User/userSlice";
@@ -95,95 +95,99 @@ const UserSignUp = () => {
 
   return (
     <div>
-      <Form>
-        <Form.Group>
-          <Form.Label>SignUp Email :</Form.Label>
-          <Form.Control
-            type="email"
-            onChange={(event) => {
-              setSignUpEmail(event.target.value);
-              setFormError({});
-            }}
-            required
-          />
-        </Form.Group>
-        {formError.email && (
-          <p className="text-danger-emphasis my-3">{formError.email}</p>
-        )}
-        <Form.Group>
-          <Form.Label>SignUp Password :</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(event) => {
-              setSignUpPwd(event.target.value);
-              setFormError({});
-            }}
-            required
-          />
-        </Form.Group>
-        {formError.pwd && (
-          <p className="text-danger-emphasis my-3">{formError.pwd}</p>
-        )}
-        <Form.Group>
-          <Form.Label>FirstName :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setFirstName(event.target.value);
-              setFormError({});
-            }}
-            required
-          />
-        </Form.Group>
-        {formError.firstName && (
-          <p className="text-danger-emphasis my-3">{formError.firstName}</p>
-        )}
-        <Form.Group>
-          <Form.Label>LastName :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setLastName(event.target.value);
-              setFormError({});
-            }}
-            required
-          />
-        </Form.Group>
-        {formError.lastName && (
-          <p className="text-danger-emphasis my-3">{formError.lastName}</p>
-        )}
-        <Form.Group>
-          <Form.Label>PhoneNumber :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setPhoneNumber(event.target.value);
-              setFormError({});
-            }}
-            required
-          />
-        </Form.Group>
-        {formError.phoneNumber && (
-          <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
-        )}
-        <Form.Group>
-          <Form.Label>Zipcode :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setZipcode(event.target.value);
-              setFormError({});
-            }}
-            required
-          />
-        </Form.Group>
-        {formError.zipcode && (
-          <p className="text-danger-emphasis my-3">{formError.zipcode}</p>
-        )}
-        <Button onClick={registerSignUp} className="my-3">
-          Register
-        </Button>
-      </Form>
+      <Container>
+        <Form>
+          <Form.Group>
+            <Form.Label>SignUp Email :</Form.Label>
+            <Form.Control
+              type="email"
+              onChange={(event) => {
+                setSignUpEmail(event.target.value);
+                setFormError({});
+              }}
+              required
+            />
+          </Form.Group>
+          {formError.email && (
+            <p className="text-danger-emphasis my-3">{formError.email}</p>
+          )}
+          <Form.Group>
+            <Form.Label>SignUp Password :</Form.Label>
+            <Form.Control
+              type="password"
+              onChange={(event) => {
+                setSignUpPwd(event.target.value);
+                setFormError({});
+              }}
+              required
+            />
+          </Form.Group>
+          {formError.pwd && (
+            <p className="text-danger-emphasis my-3">{formError.pwd}</p>
+          )}
+          <Form.Group>
+            <Form.Label>FirstName :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setFirstName(event.target.value);
+                setFormError({});
+              }}
+              required
+            />
+          </Form.Group>
+          {formError.firstName && (
+            <p className="text-danger-emphasis my-3">{formError.firstName}</p>
+          )}
+          <Form.Group>
+            <Form.Label>LastName :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setLastName(event.target.value);
+                setFormError({});
+              }}
+              required
+            />
+          </Form.Group>
+          {formError.lastName && (
+            <p className="text-danger-emphasis my-3">{formError.lastName}</p>
+          )}
+          <Form.Group>
+            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setPhoneNumber(event.target.value);
+                setFormError({});
+              }}
+              required
+            />
+          </Form.Group>
+          {formError.phoneNumber && (
+            <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
+          )}
+          <Form.Group>
+            <Form.Label>Zipcode :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setZipcode(event.target.value);
+                setFormError({});
+              }}
+              required
+            />
+          </Form.Group>
+          {formError.zipcode && (
+            <p className="text-danger-emphasis my-3">{formError.zipcode}</p>
+          )}
+          <Col className="text-center">
+            <Button onClick={registerSignUp} className="my-3">
+              Register
+            </Button>
+          </Col>
+        </Form>
+      </Container>
     </div>
   );
 };

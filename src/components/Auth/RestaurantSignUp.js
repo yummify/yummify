@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, InputGroup } from "react-bootstrap";
+import { Form, Button, InputGroup, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchSignUpAuthAsync } from "./authSlice";
 import { addRestaurantAsync } from "../Restaurant/restaurantSlice";
@@ -160,221 +160,229 @@ const RestaurantSignUp = () => {
 
   return (
     <div>
-      <Form>
-        <Form.Group>
-          <Form.Label>SignUp Email :</Form.Label>
-          <Form.Control
-            type="email"
-            onChange={(event) => {
-              setSignUpEmail(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.email && (
-          <p className="text-danger-emphasis my-3">{formError.email}</p>
-        )}
-        <Form.Group>
-          <Form.Label>SignUp Password :</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(event) => {
-              setSignUpPwd(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.pwd && (
-          <p className="text-danger-emphasis my-3">{formError.pwd}</p>
-        )}
-        <Form.Group>
-          <Form.Label>Restaurant Name :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setRestaurantName(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.restaurantName && (
-          <p className="text-danger-emphasis my-3">
-            {formError.restaurantName}
-          </p>
-        )}
-        <Form.Group>
-          <Form.Label>Cuisine :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setCuisine(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.cuisine && (
-          <p className="text-danger-emphasis my-3">{formError.cuisine}</p>
-        )}
-
-        <Form.Group>
-          <Form.Label>Description :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setDescription(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.description && (
-          <p className="text-danger-emphasis my-3">{formError.description}</p>
-        )}
-
-        <Form.Group>
-          <Form.Label>Address :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setAddress(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.address && (
-          <p className="text-danger-emphasis my-3">{formError.address}</p>
-        )}
-        <Form.Group>
-          <Form.Label>PhoneNumber :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setPhoneNumber(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.phoneNumber && (
-          <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
-        )}
-        <Form.Group>
-          <Form.Label>Opens at:</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            onChange={(event) => {
-              setOpenTime(event.target.value);
-            }}
-          >
-            <option>1-12</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </Form.Select>
-          <Form.Select
-            aria-label="Default select example"
-            onChange={(event) => {
-              setOpenAMPM(event.target.value);
-            }}
-          >
-            <option>AM/PM</option>
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Closes at :</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            onChange={(event) => {
-              setCloseTime(event.target.value);
-            }}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </Form.Select>
-          <Form.Select
-            aria-label="Default select example"
-            onChange={(event) => {
-              setCloseAMPM(event.target.value);
-            }}
-          >
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Zipcode :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setZipcode(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.zipcode && (
-          <p className="text-danger-emphasis my-3">{formError.zipcode}</p>
-        )}
-        <Form.Group>
-          <Form.Label>Website :</Form.Label>
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon3">https://</InputGroup.Text>
+      <Container>
+        <Form>
+          <Form.Group>
+            <Form.Label>SignUp Email :</Form.Label>
             <Form.Control
-              type="text"
+              type="email"
               onChange={(event) => {
-                setWebsite("https://" + event.target.value);
+                setSignUpEmail(event.target.value);
                 setFormError({});
               }}
             />
-          </InputGroup>
-        </Form.Group>
-        {formError.website && (
-          <p className="text-danger-emphasis my-3">{formError.website}</p>
-        )}
-        <Form.Group>
-          <Form.Label>EIN :</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(event) => {
-              setEIN(event.target.value);
-              setFormError({});
-            }}
-          />
-        </Form.Group>
-        {formError.EIN && (
-          <p className="text-danger-emphasis my-3">{formError.EIN}</p>
-        )}
-        <Form.Group>
-          <Form.Label>Terms and Conditions :</Form.Label>
-          <Form.Check
-            onChange={(event) => setTerms(event.target.checked)}
-            label="I agree"
-          ></Form.Check>
-        </Form.Group>
-        {terms && (
-          <Button className="my-3" onClick={registerSignUp}>
-            Register
-          </Button>
-        )}
-      </Form>
+          </Form.Group>
+          {formError.email && (
+            <p className="text-danger-emphasis my-3">{formError.email}</p>
+          )}
+          <Form.Group>
+            <Form.Label>SignUp Password :</Form.Label>
+            <Form.Control
+              type="password"
+              onChange={(event) => {
+                setSignUpPwd(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.pwd && (
+            <p className="text-danger-emphasis my-3">{formError.pwd}</p>
+          )}
+          <Form.Group>
+            <Form.Label>Restaurant Name :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setRestaurantName(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.restaurantName && (
+            <p className="text-danger-emphasis my-3">
+              {formError.restaurantName}
+            </p>
+          )}
+          <Form.Group>
+            <Form.Label>Cuisine :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setCuisine(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.cuisine && (
+            <p className="text-danger-emphasis my-3">{formError.cuisine}</p>
+          )}
+
+          <Form.Group>
+            <Form.Label>Description :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setDescription(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.description && (
+            <p className="text-danger-emphasis my-3">{formError.description}</p>
+          )}
+
+          <Form.Group>
+            <Form.Label>Address :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setAddress(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.address && (
+            <p className="text-danger-emphasis my-3">{formError.address}</p>
+          )}
+          <Form.Group>
+            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setPhoneNumber(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.phoneNumber && (
+            <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
+          )}
+          <Form.Group>
+            <Form.Label>Opens at:</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(event) => {
+                setOpenTime(event.target.value);
+              }}
+              style={{ maxWidth: "100px" }}
+            >
+              <option>1-12</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </Form.Select>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(event) => {
+                setOpenAMPM(event.target.value);
+              }}
+              style={{ maxWidth: "100px" }}
+            >
+              <option>AM/PM</option>
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Closes at :</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(event) => {
+                setCloseTime(event.target.value);
+              }}
+              style={{ maxWidth: "100px" }}
+            >
+              <option>1-12</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </Form.Select>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(event) => {
+                setCloseAMPM(event.target.value);
+              }}
+              style={{ maxWidth: "100px" }}
+            >
+              <option>AM/PM</option>
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Zipcode :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setZipcode(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.zipcode && (
+            <p className="text-danger-emphasis my-3">{formError.zipcode}</p>
+          )}
+          <Form.Group>
+            <Form.Label>Website :</Form.Label>
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon3">https://</InputGroup.Text>
+              <Form.Control
+                type="text"
+                onChange={(event) => {
+                  setWebsite("https://" + event.target.value);
+                  setFormError({});
+                }}
+              />
+            </InputGroup>
+          </Form.Group>
+          {formError.website && (
+            <p className="text-danger-emphasis my-3">{formError.website}</p>
+          )}
+          <Form.Group>
+            <Form.Label>EIN :</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(event) => {
+                setEIN(event.target.value);
+                setFormError({});
+              }}
+            />
+          </Form.Group>
+          {formError.EIN && (
+            <p className="text-danger-emphasis my-3">{formError.EIN}</p>
+          )}
+          <Form.Group>
+            <Form.Label>Terms and Conditions :</Form.Label>
+            <Form.Check
+              onChange={(event) => setTerms(event.target.checked)}
+              label="I agree"
+            ></Form.Check>
+          </Form.Group>
+          {terms && (
+            <Button className="my-3" onClick={registerSignUp}>
+              Register
+            </Button>
+          )}
+        </Form>
+      </Container>
     </div>
   );
 };

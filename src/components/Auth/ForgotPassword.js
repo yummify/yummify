@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { resetPasswordAsync } from "./authSlice";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   };
   return (
     <div>
-      <div>
+      <Container>
         <Form>
           <Form.Group>
             <Form.Label>Email :</Form.Label>
@@ -27,11 +27,11 @@ const ForgotPassword = () => {
           <Button onClick={handleReset} className="my-3">
             Reset Password
           </Button>
-          <Link className="d-block" to={"/login"}>
+          <Link className="mx-3" to={"/login"}>
             Login
           </Link>
         </Form>
-      </div>
+      </Container>
     </div>
   );
 };

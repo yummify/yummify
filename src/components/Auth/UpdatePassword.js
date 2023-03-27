@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Alert, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { reAuthenticateAsync, updatePasswordAsync } from "./authSlice";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ const UpdatePassword = () => {
   };
   return (
     <div>
-      <div>
+      <Container>
         <Form>
           {updateStatus === "updated" && (
             <Alert variant="success">Updated password</Alert>
@@ -72,9 +72,11 @@ const UpdatePassword = () => {
           <Button onClick={handleUpdate} className="my-3">
             Update Password
           </Button>
-          <Link to={"/userprofile"}>Back to profile</Link>
+          <Link to={-1} className="mx-3">
+            Back to profile
+          </Link>
         </Form>
-      </div>
+      </Container>
     </div>
   );
 };
