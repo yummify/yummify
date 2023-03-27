@@ -16,7 +16,13 @@ import Bag from "../Bag/Bag";
 import AddBagForm from "../Bag/AddBagForm";
 import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
+<<<<<<< HEAD
 import Home from "../Home/Home";
+=======
+import Cart from "../Cart/Cart";
+import RestaurantStore from "../Restaurant/RestaurantStore";
+
+>>>>>>> main
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
@@ -29,7 +35,6 @@ import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
 import AdminProfile from "../Admin/AdminProfile";
 import EditAdminProfile from "../Admin/EditAdminProfile";
 import AuthorizationError from "../Auth/AuthorizationError";
-import App from "./App";
 
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";

@@ -24,3 +24,4 @@ SRC Folder:
 Issues: 
 # learning firebase
 # dotenv & react combination
+# limit with DB calls in Firestore
