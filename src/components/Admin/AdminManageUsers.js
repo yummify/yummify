@@ -29,23 +29,13 @@ const AdminManageUsers = () => {
         setShowOrders(true);}
     const handleCloseOrderHistory = () => setShowOrders(false);
 
-    // const handleSuspend = async (userId) => {
-    //     await dispatch(denyStatusRestaurantAsync(userId));
-    //     setRestaurantsList(restaurants);
-    //     setShowSuspend(false);
-    //   };
+    const handleOpenSuspend = () => setShowSuspend(true);
+    const handleCloseSuspend = () => setShowSuspend(false);
 
-    // const prevOrders = (userId) => {
-    //     dispatch(fetchUserOrdersAsync(userId));
-    //     return (
-    //         <Accordion>
-    //             <Accordion.Header>Order History</Accordion.Header>
-    //         </Accordion>
-    //     )
-    // };
-    // const userOrders = dispatch(fetchUserOrdersAsync(userId));
-    // when the load previous orders button is clicked, I want to call a function that takes in the userId and finds all orders with that userId.
-    // then that function should return accordion items for each of those orders. 
+    const handleSuspend = async (userId) => {
+        // ADD THUNK TO UPDATE USER STATUS TO SUSPENDED
+    }
+    /// IF WE WANT TO BE ABLE TO SUSPEND USERS, HAVE TO ADD USER STATUS TO DB
 
     return (
         <>
@@ -81,7 +71,6 @@ const AdminManageUsers = () => {
                                 )
                             }) : 'No previous orders'}
                         </Accordion>
-
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
@@ -90,9 +79,39 @@ const AdminManageUsers = () => {
                         </Modal.Footer>
                    </Modal>
                     <div>
-                        <Button>Edit User</Button>
                         <div className="vr" />
-                        <Button>Suspend User</Button>
+                        <Button onClick={() => {
+                            setUserData(user.id);
+                            handleOpenSuspend()
+                            }}
+                        >Suspend User</Button>
+                        <Modal
+                            show={showSuspend}
+                            onHide={handleCloseSuspend}
+                        >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Suspend User</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Are you sure you want to suspend this user?
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button
+                               variant="secondary"
+                               onClick={handleCloseSuspend} 
+                            >
+                                No, do not suspend.
+                            </Button>
+                            <Button
+                                variant="primary"
+                                onClick={() => {
+                                    handleSuspend(userData)
+                                }}
+                            >
+                                Yes, suspend.
+                            </Button>
+                        </Modal.Footer>
+                        </Modal>
                       </div>
                     </Card>
                 )

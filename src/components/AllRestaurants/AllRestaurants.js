@@ -20,7 +20,7 @@ const AllRestaurants = () => {
         {/* add filter/search bar here */}
         {restaurants.map((restaurant) => {
             return <Card
-                key={restaurant}
+                key={restaurant.id}
                 // text={restaurant.toLowerCase() === 'light' ? 'dark' : 'white'}
                 style={{ width: '25rem', backgroundColor: '#E5D4CE' }}
                             className="mb-2"
