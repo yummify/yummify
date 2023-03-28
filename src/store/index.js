@@ -6,6 +6,7 @@ import restaurantsSlice from "../components/AllRestaurants/allRestaurantsSlice";
 import restaurantSlice from "../components/Restaurant/restaurantSlice";
 import singleRestaurantSlice from "../components/SingleRestaurantUserView/singleRestaurantSlice";
 import bagSlice from "../components/Bag/bagSlice";
+import orderSlice from "../components/Order/orderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     restaurant: restaurantSlice,
     singleRestaurant: singleRestaurantSlice,
     bag: bagSlice,
+    orders: orderSlice
   },
 });
 export default store;

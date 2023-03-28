@@ -25,6 +25,7 @@ import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
 import AdminManageUsers from "../Admin/AdminManageUsers";
 import AdminOrderHistory from "../Admin/AdminOrderHistory";
 
+import AllRestaurants from "../AllRestaurants/AllRestaurants";
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
 import EditRestaurantProfile from "../Restaurant/EditRestaurantProfile";
 import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
@@ -111,7 +112,8 @@ const AppRoutes = () => {
           <Route path="/restaurant" element={<SingleRestaurant />} />
           <Route path="/restaurantstore-ov" element = {<RestaurantStore />} />
 
-
+          <Route path="/restaurant/:id" element={<SingleRestaurant />} />
+          <Route path="/restaurants" element={<AllRestaurants />}/>   
           <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
           <Route path='/terms-and-conditions' element={<TermsAndConditions/>}/>
         </Routes>
