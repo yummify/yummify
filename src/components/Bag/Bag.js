@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
 import { placeBagInCartAsync, fetchOrderByStatusAsync } from "../Cart/cartBagSlice";
 import { selectUser } from "../User/userSlice";
@@ -16,12 +17,13 @@ const Bag = (restaurant) =>{
     const singlebag = useSelector(selectBag);
     const userInfo = useSelector(selectUser);
     
-    //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info
+    const navigate = useNavigate();
+
+    //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info and navigate to Cart
     const handleAdd = async () => {
         await dispatch(placeBagInCartAsync({...restaurant.bag, userId: userInfo.userId}))
-        
         dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"))
-        console.log('working');
+        navigate("/cart");
     };
 
     return(
