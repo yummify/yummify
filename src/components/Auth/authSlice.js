@@ -3,6 +3,10 @@ import { auth } from "../../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  reauthenticateWithCredential,
+  updatePassword,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 export const fetchSignUpAuthAsync = createAsyncThunk(
@@ -21,7 +25,7 @@ export const fetchSignUpAuthAsync = createAsyncThunk(
       console.log("AuthUser:", authUser);
       return authUser;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 );
@@ -42,7 +46,41 @@ export const fetchLoginAuthAsync = createAsyncThunk(
       console.log("AuthUser:", authUser);
       return authUser;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
+    }
+  }
+);
+
+export const resetPasswordAsync = createAsyncThunk(
+  "resetpassword",
+  async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const reAuthenticateAsync = createAsyncThunk(
+  "reAuthenticate",
+  async ({ email, password }) => {
+    try {
+      const credential = EmailAuthProvider.credential(email, password);
+      await reauthenticateWithCredential(auth.currentUser, credential);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+);
+
+export const updatePasswordAsync = createAsyncThunk(
+  "updatepassword",
+  async (newPassword) => {
+    try {
+      await updatePassword(auth.currentUser, newPassword);
+    } catch (err) {
+      console.log(err);
     }
   }
 );
@@ -60,6 +98,17 @@ export const authSlice = createSlice({
       })
       .addCase(fetchLoginAuthAsync.fulfilled, (state, action) => {
         return action.payload;
+      })
+      .addCase(fetchSignUpAuthAsync.rejected, (state, action) => {
+        console.log(action.error);
+        return action.error;
+      })
+      .addCase(fetchLoginAuthAsync.rejected, (state, action) => {
+        console.log(action.error);
+        return action.error;
+      })
+      .addCase(reAuthenticateAsync.rejected, (state, action) => {
+        return action.error;
       });
   },
 });
