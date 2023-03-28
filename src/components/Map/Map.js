@@ -8,6 +8,7 @@ import {
 import { db } from "../../firebase/config";
 import "./map.css";
 import { collection, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 export default function Map() {
   const { isLoaded } = useLoadScript({
@@ -130,9 +131,12 @@ function MapContent({ restaurants }) {
                 <p className="mb-0">{selectedRestaurant.cuisine}</p>
                 <div className="row">
                   <div className="col-md-12 mt-3">
-                    <button className="btn btn-success btn-sm">
+                    <Link
+                      to={`/restaurant/${selectedRestaurant.id}`}
+                      className="btn btn-success btn-sm"
+                    >
                       Reserve a Bag
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

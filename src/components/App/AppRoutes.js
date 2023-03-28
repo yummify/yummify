@@ -19,7 +19,6 @@ import Map from "../Map/Map";
 import Cart from "../Cart/Cart";
 import RestaurantStore from "../Restaurant/RestaurantStore";
 
-
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
 import AdminManageUsers from "../Admin/AdminManageUsers";
@@ -71,7 +70,7 @@ const AppRoutes = () => {
               </PrivateAdminRoute>
             }
           />
-          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/cart" element={<Cart />} />
           <Route
             path="/editadminprofile"
             element={
@@ -110,11 +109,13 @@ const AppRoutes = () => {
           <Route path="/bageditform" element={<EditBagForm />} />
           <Route path="/map" element={<Map />} />
           <Route path="/restaurant" element={<SingleRestaurant />} />
-          <Route path="/restaurantstore-ov" element = {<RestaurantStore />} />
+          <Route path="/restaurantstore-ov" element={<RestaurantStore />} />
 
-
-          <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
-          <Route path='/terms-and-conditions' element={<TermsAndConditions/>}/>
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
         </Routes>
       </AuthProvider>
     </div>
