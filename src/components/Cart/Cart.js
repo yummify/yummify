@@ -14,18 +14,10 @@ const Cart = () => {
     
     const dispatch = useDispatch();
 
-    // on the singlerestaurant page, will need to add a bag to a piece of state. 
-    // then will pull that from here. 
-
-    // MAY JUST USE BAG SLICE? NOT SURE IF WE ALSO NEED A CART SLICE OR NOT
-
-    // in modal -> remind to bring their own bag!
-
-    //dispatch bag thunk - pass bagId to cart
-
     //const orders = useSelector(selectCartBag);
     //const userInfo = useSelector(selectUser);
-    //const restaurant = useSelector(selectRestaurant);
+    const restaurant = useSelector(selectRestaurant);
+    console.log('restaurant', restaurant);
 
     const { user } = useAuth();
     const userId = user.userId;
@@ -34,7 +26,7 @@ const Cart = () => {
         dispatch(fetchOrderByStatusAsync(userId, 'shopping'));
     }, [dispatch])
 
-    const bags = useSelector(selectCartBag);
+    const bag = useSelector(selectCartBag);
 
     return (
         <>
@@ -53,14 +45,14 @@ const Cart = () => {
                     </Stack>
                     <Card.Footer style={{textAlign: 'right'}}>
                         <Stack direction='horizontal'>
-                            <Card.Text style={{margin: '5px'}}>Original Price</Card.Text>
-                            <Card.Text style={{margin: '5px'}}>New Price</Card.Text>
+                            <Card.Text style={{margin: '5px'}}><s>Original Price: {bag[0]?.[0]?.originalPrice}</s></Card.Text>
+                            <Card.Text style={{margin: '5px'}}>New Price: {bag[0]?.[0]?.newPrice}</Card.Text>
                         </Stack>
                     </Card.Footer>
                 </Card>
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
-                <p>Total Savings: ______</p>
+                {/* <p>Total Savings: ({bag[0]?.[0]?.originalPrice} - {bag[0]?.[0]?.newPrice})</p> */}
                 <div></div>
             </Stack>
             <h2>Checkout</h2>
