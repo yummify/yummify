@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Image, Container, Row } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   fetchRestaurantAsync,
   selectRestaurant,
@@ -52,7 +52,7 @@ const RestaurantProfile = () => {
               <Col className="text-center my-3 mx-3 border">
                 <Image
                   fluid
-                  src={fileUrl ? fileUrl : authRestaurant.image}
+                  src={fileUrl ? fileUrl : authRestaurant.image?.[0]}
                   alt="image of restaurant"
                   thumbnail
                   className="my-3"
@@ -99,6 +99,9 @@ const RestaurantProfile = () => {
                 </p>
                 <p>PhoneNumber :{authRestaurant?.phoneNumber}</p>
                 <p>Zipcode :{authRestaurant.zipcode}</p>
+                <p>
+                  Website :<Link to={"#"}>{authRestaurant.website}</Link>
+                </p>
                 <Button
                   className="mx-3"
                   onClick={() => navigate("/editrestaurantprofile")}
