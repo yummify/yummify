@@ -7,7 +7,7 @@ import { fetchUserAsync, selectUser } from "../User/userSlice";
 
 import { fetchRestaurantAsync, selectRestaurant } from "./restaurantSlice";
 import { useAuth } from "../../contexts/AuthContext";
-import { fetchGroupBagByRestAsync, selectBag, addBagAsync } from "../Bag/bagSlice";
+import { fetchGroupBagByRestAsync, selectBag, deleteBagAsync } from "../Bag/bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -23,13 +23,15 @@ import EditBagForm from "../Bag/EditBagForm";
 //      thunk: legacy fetchSingleBagByRestAsync still remains
 
 const RestaurantStore = () => {
-    /* // for testing only: edit AddBagForm to reflect correct restID variable
-    const testrest = "1iPuXMXLQiICpJ8zBhiB"
+    // for testing only: edit AddBagForm to reflect correct restID variable
+    const testrest = "ChIJ10EpKJJZwokRUjIWaunOQbI"
+    const dispatch = useDispatch();
+/* 
     useEffect(()=>{
         dispatch(fetchGroupBagByRestAsync(testrest));
     },[dispatch]); */
 
-    //auth code: incomplete --- testing required.
+    /* //auth code: incomplete --- testing required.
     const authRestaurant = useSelector(selectRestaurant);
     console.log("authrestaurant:", authRestaurant);
     const { user } = useAuth();
@@ -50,8 +52,19 @@ const RestaurantStore = () => {
     };
     
 
-    const restaurantId = user?.userId;
+    const restaurantId = user?.userId; */
+
+    const deletethisbag = async (bagId)=>{
+        try{
+            await dispatch(deleteBagAsync(bagId));
+            dispatch(fetchGroupBagByRestAsync(testrest))
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const bags = useSelector(selectBag);
+    
 
     //to sort bags from array from active/inactive
     const checkActive = (expir, quant) =>{
@@ -68,16 +81,20 @@ const RestaurantStore = () => {
     }
 
     
+    useEffect(()=>{
+        dispatch(fetchGroupBagByRestAsync(testrest));
+    },[dispatch]);
 
 return(
     <Card>
         <Card.Title>Restaurant - Owner View</Card.Title>
         <Card.Text>
             hi. test card!
-            <Button onClick={logout}>Logout</Button>
+            {/* <Button onClick={logout}>Logout</Button> */}
         </Card.Text>
-        <AddBagForm restaurant={restaurantId}/>
-
+        <AddBagForm restaurant={testrest}/>
+        {/* <AddBagForm restaurant={restaurantId}/>
+ */}
         <Card style={{backgroundColor: "lightblue"}}>
             <Card.Title>Active Bags</Card.Title>
             
@@ -87,13 +104,24 @@ return(
                         return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
-                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity}
-                            <Accordion defaultActiveKey="0">
-                            <Accordion.Header>Edit Bag</Accordion.Header>
-                            <Accordion.Body>
-                                <EditBagForm bag={bag}/>
-                            </Accordion.Body>
-            
+                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / {bag.restaurantId}
+                            <Accordion>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Edit Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <EditBagForm bag={bag}/>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>Delete Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <Button onClick={()=>{
+                                            let id = bag.id;
+                                            deletethisbag(id)}}>Delete Bag</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
                             </Accordion>
                         </ListGroup.Item>
                     )}
@@ -110,13 +138,24 @@ return(
                         return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
-                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity}
-                            <Accordion defaultActiveKey="0">
-                            <Accordion.Header>Edit Bag</Accordion.Header>
-                            <Accordion.Body>
-                                <EditBagForm bag={bag}/>
-                            </Accordion.Body>
-            
+                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / / {bag.restaurantId}
+                            <Accordion>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Edit Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <EditBagForm bag={bag}/>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>Delete Bag </Accordion.Header>
+                                    <Accordion.Body>
+                                        <Button onClick={()=>{
+                                            let id = bag.id;
+                                            deletethisbag(id)}}>Delete Bag</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
                             </Accordion>
                         </ListGroup.Item>
                     )}

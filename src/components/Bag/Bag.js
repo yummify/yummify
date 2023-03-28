@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
 import { placeBagInCartAsync } from "../Cart/cartBagSlice";
 import { selectUser } from "../User/userSlice";
 
@@ -14,18 +13,10 @@ const Bag = (restaurant) =>{
     // console.log(restaurant.bag);
 
     const {expiration, image, newPrice, originalPrice, pickup, type, restaurantId} = restaurant.bag;
-    //console.log(expiration);
+    
     const dispatch = useDispatch();
-
-    //for testing only
-    
-    const singlebag = useSelector(selectBag);
     const userInfo = useSelector(selectUser);
-    //const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
     
-    // useEffect(()=>{
-    //     dispatch(fetchSingleBagByRestAsync());
-    // },[dispatch]);
     
     const handleAdd = async () => {
         console.log(userInfo.userId);

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query,addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
+import { query, setDoc, getDoc,getDocs, updateDoc, collection, doc, where,  deleteDoc } from "firebase/firestore";
 
 
  //fetch by doc reference
@@ -25,45 +25,27 @@ export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>
     }
 }); 
 
-//fetch by restID 
-export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", async (id)=>{
-    try{
-        //const bagCollectionRef = db.collection('bags');
-        const bagCollectionRef = collection(db, 'bags');
-        // console.log('id from bagSlice', id)
-        const q = query(bagCollectionRef, where('restaurantId', "==", id ), limit(1));
-        const querySnap = await getDocs(q);
-        // console.log('querySnap', querySnap);
-        // console.log('querySnap.docs[0].data:', querySnap.docs[0].data());
-        if (querySnap.empty) {
-            console.error('No matching documents.');
-          }  
-        
-        return querySnap.docs[0].data();
-        
-    }catch(err){
-        console.log(err);
-    }
-});
 
-//fetch by restID --- NOT FETCHING MULTIPLE DOCS. must fix
-export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (id)=>{
+
+//fetch by restID
+export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (rid)=>{
     try{
-        const bagCollectionRef = collection(db, 'bags');
-        const q = query(bagCollectionRef, where('restaurantId', "==", id ));
-        const querySnap = await getDocs(q);
-        const allbags = [];
         
+        const bagCollectionRef = collection(db, 'bags');
+        const q = query(bagCollectionRef, where('restaurantId', "==", rid ));
+        let querySnap = await getDocs(q);
+        let allbags = [];
+      
         if (querySnap.empty) {
             console.error('No matching documents.');
         }  
         
         querySnap.forEach((doc)=>{
-           
             allbags.push({...doc.data(), id: doc.id});
         })
         
         return allbags;
+       
         
         
     }catch(err){
@@ -73,7 +55,7 @@ export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", 
 
 
 
-export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId, status})=>{
+export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId})=>{
     try{
         
         //creating auto-gen doc reference
@@ -88,7 +70,7 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
             quantity,
             type,
             restaurantId,
-            status,
+            
         });
 
 
@@ -97,7 +79,7 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
     }
 })
 
-export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, image, newPrice, originalPrice, pickup, quantity, type, status})=>{
+export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, image, newPrice, originalPrice, pickup, quantity, type})=>{
     try{
         
         const bagByDocRef = doc(db, 'bags', `${id}`)
@@ -110,12 +92,19 @@ export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, 
             quantity,
             type,
             
-            status: status,
         });
     }catch(err){
         console.log(err);
     }
 })
+
+
+export const deleteBagAsync = createAsyncThunk("deletebag", async (bagId)=>{
+    console.log(bagId);
+    const bagByDocRef = doc(db, 'bags', `${bagId}`)
+    await deleteDoc(bagByDocRef)
+})
+
 
 
 const initialState = [];
@@ -132,9 +121,6 @@ export const bagSlice = createSlice({
                 return action.payload;
             })
             .addCase(editBagAsync.fulfilled, (state, action)=>{
-                return action.payload;
-            })
-            .addCase(fetchSingleBagByRestAsync.fulfilled, (state, action)=>{
                 return action.payload;
             })
             .addCase(fetchGroupBagByRestAsync.fulfilled, (state, action)=>{
