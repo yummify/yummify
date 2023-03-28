@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
 import { getPlaces } from "./getPlaces";
+// import { seedUsers } from "./usersSeed";
 
 import { getStorage } from "firebase/storage";
 
@@ -27,7 +28,6 @@ const firebaseConfig = {
 };
 
 // Google Maps configuration
-
 const googleMapsConfig = {
   apiMapsKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
 };
@@ -44,5 +44,8 @@ getAnalytics(app);
 const auth = getAuth(app);
 
 getPlaces();
+// seedUsers();
+
+// getPlaces(dummyRestaurant);
 
 export { db, auth, analytics, storage, app };

@@ -38,6 +38,12 @@ export default function Map() {
                 ? result.results[0].geometry.location
                 : { lat: 0, lng: 0 };
 
+            const photos =
+              data.image && data.image.length > 0 ? data.image : null;
+            const photoUrl = photos
+              ? photos[1]
+              : "https://via.placeholder.com/150";
+
             return {
               id: doc.id,
               name: data.restaurantName,
@@ -47,6 +53,7 @@ export default function Map() {
               cuisine: data.cuisine,
               lat: location.lat,
               lng: location.lng,
+              image: photoUrl,
             };
           })
       );
@@ -92,26 +99,44 @@ function MapContent({ restaurants }) {
           }}
           onCloseClick={handleCloseClick}
         >
-          <div>
-            <h3>{selectedRestaurant.name}</h3>
-            <p>{selectedRestaurant.address}</p>
-            <p>
-              Phone:{" "}
-              <a href={`tel:${selectedRestaurant.phone}`}>
-                {selectedRestaurant.phone}
-              </a>
-            </p>
-            <p>
-              Website:{" "}
-              <a
-                href={selectedRestaurant.website}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {selectedRestaurant.website}
-              </a>
-            </p>
-            <p>{selectedRestaurant.cuisine}</p>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4">
+                <img
+                  src={selectedRestaurant.image}
+                  alt="restaurant"
+                  className="img-fluid"
+                />
+              </div>
+              <div className="col-md-8">
+                <h3 className="mb-0">{selectedRestaurant.name}</h3>
+                <p className="mb-0">{selectedRestaurant.address}</p>
+                <p className="mb-0">
+                  Phone:{" "}
+                  <a href={`tel:${selectedRestaurant.phone}`}>
+                    {selectedRestaurant.phone}
+                  </a>
+                </p>
+                <p className="mb-0">
+                  Website:{" "}
+                  <a
+                    href={selectedRestaurant.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {selectedRestaurant.website}
+                  </a>
+                </p>
+                <p className="mb-0">{selectedRestaurant.cuisine}</p>
+                <div className="row">
+                  <div className="col-md-12 mt-3">
+                    <button className="btn btn-success btn-sm">
+                      Reserve a Bag
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </InfoWindow>
       )}

@@ -63,14 +63,25 @@ export const getPlaces = async () => {
       zipcode: "10014",
     };
 
-    // // Add the restaurant to the restaurants collection
-    // const placesCollection = collection(db, "restaurants");
-    // const docRef = await addDoc(placesCollection, place);
-
     // Add the restaurant to the restaurants collection with a custom ID
-    const placesCollection = collection(db, "restaurants");
-    const docRef = doc(placesCollection, result.place_id); // use place_id as the custom ID
-    await setDoc(docRef, place); // use setDoc instead of addDoc
+    const restaurantCollection = collection(db, "restaurants");
+    const restaurantDocRef = doc(restaurantCollection, result.place_id); // use place_id as the custom ID
+    await setDoc(restaurantDocRef, place); // use setDoc instead of addDoc
+
+    // Add restaurant user data to users collection with the same custom ID
+    const userCollection = collection(db, "users");
+    const userDocRef = doc(userCollection, result.place_id); // use place_id as the custom ID
+    const userData = {
+      isRestaurantOwner: true,
+      email: place.email,
+      image: "/Student_Profile.png",
+      isAdmin: false,
+      name: place.restaurantName,
+      phoneNumber: place.phoneNumber,
+      zipcode: place.zipcode,
+    };
+
+    await setDoc(userDocRef, userData);
 
     // Create the user account with Firebase authentication
     const email = place.email;
@@ -82,23 +93,11 @@ export const getPlaces = async () => {
       password
     );
 
-    // Add restaurant user data to users collection
-    const userData = {
-      isRestaurantOwner: true,
-      email: place.email,
-      image: "/Student_Profile.png",
-      isAdmin: false,
-      name: place.restaurantName,
-      phoneNumber: place.phoneNumber,
-      zipcode: place.zipcode,
-    };
-
-    // UID in Authentication === Doc ID in users collection
-    const userRef = doc(db, "users", user.uid);
-    await setDoc(userRef, userData);
+    // Update user document with UID from Firebase authentication
+    await setDoc(userDocRef, { ...userData, uid: user.uid });
 
     return {
-      id: docRef.id,
+      id: result.place_id,
       ...place,
     };
   });
