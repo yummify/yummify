@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   fetchRestaurantAsync,
@@ -52,92 +52,112 @@ const EditRestaurantProfile = () => {
 
   return (
     <div>
-      <Form>
-        <Form.Group>
-          <Form.Label>Restaurant Name :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.restaurantName}
-            onChange={(event) => setRestaurantName(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Cuisine :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.cuisine}
-            onChange={(event) => setCuisine(event.target.value)}
-          />
-        </Form.Group>
+      <Container>
+        <Form>
+          <Form.Group>
+            <Form.Label>Restaurant Name :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.restaurantName}
+              onChange={(event) => setRestaurantName(event.target.value)}
+              disabled
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Cuisine :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.cuisine}
+              onChange={(event) => setCuisine(event.target.value)}
+              disabled
+            />
+          </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Description :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
-        </Form.Group>
+          <Form.Group>
+            <Form.Label>Description :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.description}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+          </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Address :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.address}
-            onChange={(event) => setAddress(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>phoneNumber :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.phoneNumber}
-            onChange={(event) => setPhoneNumber(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Opens at :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.open}
-            onChange={(event) => setOpen(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Closes at :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.close}
-            onChange={(event) => setClose(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>zipcode :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.zipcode}
-            onChange={(event) => setZipcode(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>website :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.website}
-            onChange={(event) => setWebsite(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>EIN :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authRestaurant.EIN}
-            onChange={(event) => setEIN(event.target.value)}
-          />
-        </Form.Group>
-        <Button onClick={editRestaurant}>Save</Button>
-        <Button onClick={() => navigate("/restaurantprofile")}>Cancel</Button>
-      </Form>
+          <Form.Group>
+            <Form.Label>Address :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.address}
+              onChange={(event) => setAddress(event.target.value)}
+              disabled
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>phoneNumber :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.phoneNumber}
+              onChange={(event) => setPhoneNumber(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Opens at :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.open}
+              onChange={(event) => setOpen(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Closes at :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.close}
+              onChange={(event) => setClose(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>zipcode :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.zipcode}
+              onChange={(event) => setZipcode(event.target.value)}
+              disabled
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>website :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.website}
+              onChange={(event) => setWebsite(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>EIN :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authRestaurant.EIN}
+              onChange={(event) => setEIN(event.target.value)}
+              disabled
+            />
+          </Form.Group>
+          <Button onClick={editRestaurant} className="my-3">
+            Save
+          </Button>
+          <Button
+            onClick={() => navigate("/restaurantprofile")}
+            className="mx-3"
+          >
+            Cancel
+          </Button>
+        </Form>
+        <p>
+          <strong>
+            For editing disabled fields, Please contact our team at
+            admin@yummify.com
+          </strong>
+        </p>
+      </Container>
     </div>
   );
 };
