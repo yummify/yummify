@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Image, Container, Row } from "react-bootstrap";
+import { Button, Col, Image, Container, Row, Spinner } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ const UserProfile = () => {
   const [upload, setUpload] = useState(false);
   const authuser = useSelector(selectUser);
   console.log("authuser:", authuser);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   console.log("User from AuthContext:", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,6 +47,12 @@ const UserProfile = () => {
 
   return (
     <div>
+      {loading && (
+        <div>
+          Loading...
+          <Spinner animation="border" />
+        </div>
+      )}
       {user?.userId && (
         <div>
           <Container className="border my-3">
