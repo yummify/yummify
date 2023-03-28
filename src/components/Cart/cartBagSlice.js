@@ -1,14 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query,addDoc, setDoc, getDoc, getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
-import { useAuth } from "../../contexts/AuthContext";
+import { setDoc, getDocs, where, query, collection, doc, } from "firebase/firestore";
 
 //post request - put bag in cart
 //cart/order connects to User and Restaurant
 export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId, status, userId}) => {
-    //following line breaks thunk
-    //const { user } = useAuth();
-    //const userIdFromAuth = user.userId;
     try {
         const newOrder = doc(collection(db, "orders"));
 
@@ -22,30 +18,66 @@ export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({ex
             type,
             restaurantId,
             status: "shopping",
-            userId
+            userId,
         });
     }catch(err){
         console.log(err);
     }
 })
 
-const initialState = {};
-export const orderSlice = createSlice({
-    name: "order",
+export const fetchOrderByStatusAsync = createAsyncThunk("cart", async (userId, status) => {
+    try {
+    // pass in the userId, and then fetch all ORDERS with that specific userId.
+        const ordersRef = collection(db, "orders")
+
+        const q = query(ordersRef, where ("userId", "==", userId), where ("status", "==", "shopping"))
+        console.log('q', q);
+
+        const querySnapshot = await getDocs(q);
+        const orders = [];
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            orders.push(doc.data())});
+        
+        return orders;
+        // const q = query(collection(db, "orders"), where("userId", "==", userId));
+    //     const querySnap = await getDoc(q);
+    //     console.log(querySnap);
+    //     if (querySnap.exists()) {
+    
+    //         const order = querySnap.data();
+    //             console.log('order', order)
+    //             return {...order, orderId: querySnap.id};
+    //     } else {
+    //         console.log('No orders found.')
+    //     }
+
+    } catch(err) {
+    console.error(err);
+    }
+    })
+
+
+
+const initialState = [];
+export const cartBagSlice = createSlice({
+    name: "cartBag",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(placeBagInCartAsync.fulfilled, (state, action) => {
-                //add bag to state
                 return action.payload;
+            })
+            .addCase(fetchOrderByStatusAsync.fulfilled, (state, action) =>{
+                state.push(action.payload);
             })
     }
 })
 
-export const selectOrder = (state) => {
+export const selectCartBag = (state) => {
     //retrieve bag from state
-    return state.order;
+    return state.cartBag;
 }
 
-export default orderSlice.reducer;
+export default cartBagSlice.reducer;

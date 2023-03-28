@@ -1,40 +1,31 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
-import { placeBagInCartAsync } from "../Cart/cartBagSlice";
+import { placeBagInCartAsync, fetchOrderByStatusAsync } from "../Cart/cartBagSlice";
 import { selectUser } from "../User/userSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+//import BagInCartAlert from "../Cart/bagInCartAlert";
 
-//TODO: able to fetch bag by specific bagID
-//Attach reserve button to cart
 
 const Bag = (restaurant) =>{
-    // console.log(restaurant.bag);
 
     const {expiration, image, newPrice, originalPrice, pickup, type, restaurantId} = restaurant.bag;
-    //console.log(expiration);
     const dispatch = useDispatch();
-
-    //for testing only
-    
     const singlebag = useSelector(selectBag);
     const userInfo = useSelector(selectUser);
-    //const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
     
-    // useEffect(()=>{
-    //     dispatch(fetchSingleBagByRestAsync());
-    // },[dispatch]);
-    
+    //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info
     const handleAdd = async () => {
-        console.log(userInfo.userId);
-        dispatch(placeBagInCartAsync({...restaurant.bag, userId: userInfo.userId}))
+        await dispatch(placeBagInCartAsync({...restaurant.bag, userId: userInfo.userId}))
+        
+        dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"))
+        console.log('working');
     };
 
     return(
         <Card style={{width: '18rem'}}>
-            <Card.Img variant="top" src={image} />
             <Card.Body>
                 <Card.Title>
                     {type} Surprise Bag
@@ -51,6 +42,5 @@ const Bag = (restaurant) =>{
         
     );
 }
-
 
 export default Bag;

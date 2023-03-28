@@ -1,19 +1,22 @@
 import React, {useEffect} from 'react';  
-import { fetchAllRestaurants, selectRestaurants } from './allRestaurantsSlice';
 import { useSelector, useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import { fetchAllRestaurants, selectRestaurants } from './allRestaurantsSlice';
+
 
 const AllRestaurants = () => {
-    const dispatch = useDispatch();
-
+    //select the restaurants currently reflected in state
     const restaurants = useSelector(selectRestaurants);
 
+    //dispatch thunk to fetch restaurants from db
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAllRestaurants());
       }, [dispatch]);
       
+    //component
     return (
         <>
         <h1>Yummify</h1>
@@ -30,7 +33,7 @@ const AllRestaurants = () => {
                 <Card.Body>
                     <Card.Title>{restaurant.description}</Card.Title>
                     <Card.Text>Address: {restaurant.address}</Card.Text>
-                    {/* <Card.Img src={restaurant.image} /> */}
+                    <Card.Img src={restaurant.image?.[1]} />
                     <Card.Text></Card.Text>
                 </Card.Body>
               </Card>

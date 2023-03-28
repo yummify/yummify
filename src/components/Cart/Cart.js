@@ -1,9 +1,18 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useAuth } from "../../contexts/AuthContext"
 import { Alert, Card, Modal, Stack, Button, Badge } from "react-bootstrap";
+import { selectBag } from "../Bag/bagSlice";
+import { selectRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
+import { selectOrders } from "../Order/orderSlice";
+import { selectCartBag } from "./cartBagSlice";
+import { fetchOrderByStatusAsync } from "./cartBagSlice";
 
 const Cart = () => {
 
     const [confirmation, setConfirmation] = useState(false);
+    
+    const dispatch = useDispatch();
 
     // on the singlerestaurant page, will need to add a bag to a piece of state. 
     // then will pull that from here. 
@@ -11,6 +20,21 @@ const Cart = () => {
     // MAY JUST USE BAG SLICE? NOT SURE IF WE ALSO NEED A CART SLICE OR NOT
 
     // in modal -> remind to bring their own bag!
+
+    //dispatch bag thunk - pass bagId to cart
+
+    //const orders = useSelector(selectCartBag);
+    //const userInfo = useSelector(selectUser);
+    //const restaurant = useSelector(selectRestaurant);
+
+    const { user } = useAuth();
+    const userId = user.userId;
+
+    useEffect(() => {
+        dispatch(fetchOrderByStatusAsync(userId, 'shopping'));
+    }, [dispatch])
+
+    const bags = useSelector(selectCartBag);
 
     return (
         <>
@@ -24,7 +48,7 @@ const Cart = () => {
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>Restaurant Name</Card.Title>
-                        <Card.Text>Pickup Window, address</Card.Text>
+                        {/* <Card.Text>Pickup Window: {bag.pickup}, {bag.address}</Card.Text> */}
                     </Card.Body>
                     </Stack>
                     <Card.Footer style={{textAlign: 'right'}}>
