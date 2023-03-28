@@ -109,6 +109,8 @@ const AppRoutes = () => {
           <Route path="/bageditform" element={<EditBagForm />} />
           <Route path="/map" element={<Map />} />
           <Route path="/restaurant" element={<SingleRestaurant />} />
+          <Route path="/restaurant/:id" element={<SingleRestaurant />} />
+
           <Route path="/restaurantstore-ov" element={<RestaurantStore />} />
 
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

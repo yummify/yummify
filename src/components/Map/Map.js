@@ -21,7 +21,9 @@ export default function Map() {
   useEffect(() => {
     async function fetchRestaurants() {
       const restaurantsCollection = collection(db, "restaurants");
+
       const snapshot = await getDocs(restaurantsCollection);
+
       const results = await Promise.all(
         snapshot.docs
           .filter((doc) => doc.data().status === "approved") // only get restaurants with status set to "approved"
@@ -33,6 +35,7 @@ export default function Map() {
                 data.address
               )}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
             );
+
             const result = await response.json();
             const location =
               result.results && result.results.length > 0
@@ -107,6 +110,12 @@ function MapContent({ restaurants }) {
                   src={selectedRestaurant.image}
                   alt="restaurant"
                   className="img-fluid"
+                  style={{
+                    width: "120px",
+                    height: "120px",
+                    float: "left",
+                    marginRight: "30px",
+                  }}
                 />
               </div>
               <div className="col-md-8">
@@ -128,7 +137,6 @@ function MapContent({ restaurants }) {
                     {selectedRestaurant.website}
                   </a>
                 </p>
-                <p className="mb-0">{selectedRestaurant.cuisine}</p>
                 <div className="row">
                   <div className="col-md-12 mt-3">
                     <Link

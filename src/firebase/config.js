@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
-import { getPlaces } from "./getPlaces";
+// import { getPlaces } from "./getPlaces";
 // import { seedUsers } from "./usersSeed";
 
 import { getStorage } from "firebase/storage";
@@ -43,7 +43,7 @@ getAnalytics(app);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-getPlaces();
+// getPlaces();
 // seedUsers();
 
 // getPlaces(dummyRestaurant);
