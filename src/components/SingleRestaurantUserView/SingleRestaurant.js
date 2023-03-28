@@ -8,7 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import Bag from '../Bag/Bag';
-import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
+import { fetchSingleBagByRestAsync, selectBag, fetchGroupBagByRestAsync } from '../Bag/bagSlice';
 //import { useAuth } from '../../contexts/AuthContext';
 
 
@@ -16,8 +16,8 @@ const SingleRestaurant = () => {
     const dispatch = useDispatch();
 
     const restaurant = useSelector(selectRestaurant);
-    const bag = useSelector(selectBag);
-    const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
+    const bags = useSelector(selectBag);
+    //const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
     //console.log(expiration);
     
 
@@ -26,14 +26,28 @@ const SingleRestaurant = () => {
 
     useEffect(() => {
         dispatch(fetchSingleRestaurant(id));
-        dispatch(fetchSingleBagByRestAsync(id));
-        //console.log('bag:', bag);
+        
+        dispatch(fetchGroupBagByRestAsync(id));
       }, [dispatch, id]);
       
     //get userId from auth context
     // const { user } = useAuth();
     // console.log('user.userId', user);
     // const userIdFromAuth = user.userId;
+
+    //to sort bags from fetchGroupBag array from active/inactive
+    const checkActive = (expir, quant) =>{
+      const parts = expir.split('-');
+      const expdate = new Date(parts[0], parts[1]-1, parts[2]);
+      const today = new Date();
+      if(expdate.getTime() >= today.getTime() && quant > 0){
+         return true;
+      }
+      else{
+          return false;
+      }
+       
+  }
 
     //for Bootstrap modal
     const [show, setShow] = useState(false);
@@ -74,7 +88,14 @@ const SingleRestaurant = () => {
         </ListGroup>
         <Card.Body>
             Order a Surprise Bag from {restaurant.name}:
-            <Bag bag={bag} />
+            
+            {bags.length > 0 ? bags.map((bag)=>{
+                    if(checkActive(bag.expiration,bag.quantity)===true){
+                        return(
+                          <Bag bag={bag} />
+                        )}
+                        }): "No bags available"}
+                        
         </Card.Body>
         <Card.Body>
             <Card.Link href={restaurant.website}>Website</Card.Link>
