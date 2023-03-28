@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 import Bag from '../Bag/Bag';
 import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
+//import { useAuth } from '../../contexts/AuthContext';
 
 
 const SingleRestaurant = () => {
@@ -22,14 +23,17 @@ const SingleRestaurant = () => {
 
     //useParams to get bagId
     const { id } = useParams();
-    //console.log('id:', id);
 
     useEffect(() => {
         dispatch(fetchSingleRestaurant(id));
         dispatch(fetchSingleBagByRestAsync(id));
-        console.log('bag:', bag);
+        //console.log('bag:', bag);
       }, [dispatch, id]);
       
+    //get userId from auth context
+    // const { user } = useAuth();
+    // console.log('user.userId', user);
+    // const userIdFromAuth = user.userId;
 
     //for Bootstrap modal
     const [show, setShow] = useState(false);
@@ -57,26 +61,24 @@ const SingleRestaurant = () => {
       </Modal>
         <Card style={{ width: '25rem' }}>
         <Card.Img variant="top" src="image-here" />
-        <Card.Header className="text-center">{restaurant.name}</Card.Header>
+        <Card.Header className="text-center">{restaurant.restaurantName}</Card.Header>
         <Card.Body>
             <Card.Text>
-                Surprise bags from {restaurant.name} may include: {restaurant.description}
+                Surprise bags from {restaurant.restaurantName} may include: {restaurant.description}
             </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
             <ListGroup.Item>Cuisine: {restaurant.cuisine}</ListGroup.Item>
             <ListGroup.Item>Address: {restaurant.address}</ListGroup.Item>
-            {/* <ListGroup.Item>Open: {restaurant.open}</ListGroup.Item>
-            <ListGroup.Item>Close: {restaurant.close}</ListGroup.Item> */}
+            <ListGroup.Item>Phone: {restaurant.phoneNumber}</ListGroup.Item>
         </ListGroup>
         <Card.Body>
             Order a Surprise Bag from {restaurant.name}:
-            {/* add onClick */}
-            <Bag bag={bag}/>
+            <Bag bag={bag} />
         </Card.Body>
         <Card.Body>
             <Card.Link href={restaurant.website}>Website</Card.Link>
-            <Card.Link href="#">Back to Restaurants</Card.Link> 
+            <Card.Link href="/restaurants">Back to Restaurants</Card.Link> 
         </Card.Body>
         </Card>
         </>
