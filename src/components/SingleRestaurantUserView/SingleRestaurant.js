@@ -12,6 +12,7 @@ import {
   fetchSingleRestaurant,
   selectRestaurant,
 } from "./singleRestaurantSlice";
+import { fetchGroupBagByRestAsync, selectBag } from "../Bag/bagSlice";
 
 
 const SingleRestaurant = () => {

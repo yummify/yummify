@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectBag } from "./bagSlice";
+//import { selectBag } from "./bagSlice";
 import {
   placeBagInCartAsync,
   fetchOrderByStatusAsync,
@@ -13,16 +13,16 @@ import Button from "react-bootstrap/Button";
 
 const Bag = (restaurant) => {
   const {
-    expiration,
-    image,
+    //expiration,
+    //image,
     newPrice,
     originalPrice,
     pickup,
     type,
-    restaurantId,
+    //restaurantId,
   } = restaurant.bag;
   const dispatch = useDispatch();
-  const singlebag = useSelector(selectBag);
+  //const singlebag = useSelector(selectBag);
   const userInfo = useSelector(selectUser);
 
   const navigate = useNavigate();

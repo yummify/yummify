@@ -19,7 +19,7 @@ import EditBagForm from "../Bag/EditBagForm";
 
 const RestaurantStore = () => {
 
-    //auth code: incomplete --- testing required.
+   
     const authRestaurant = useSelector(selectRestaurant);
     console.log("authrestaurant:", authRestaurant);
     const { user } = useAuth();
