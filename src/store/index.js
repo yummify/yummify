@@ -6,11 +6,8 @@ import restaurantsSlice from "../components/AllRestaurants/allRestaurantsSlice";
 import restaurantSlice from "../components/Restaurant/restaurantSlice";
 import singleRestaurantSlice from "../components/SingleRestaurantUserView/singleRestaurantSlice";
 import bagSlice from "../components/Bag/bagSlice";
-<<<<<<< HEAD
 import cartBagSlice from "../components/Cart/cartBagSlice";
-=======
-import orderSlice  from "../components/Cart/cartBagSlice";
->>>>>>> 75f432f677227343c0fe57ea3c6afcccdccbc20e
+import orderSlice from "../components/Cart/cartBagSlice";
 import ordersSlice from "../components/Order/orderSlice";
 
 export const store = configureStore({
@@ -22,12 +19,9 @@ export const store = configureStore({
     restaurant: restaurantSlice,
     singleRestaurant: singleRestaurantSlice,
     bag: bagSlice,
-<<<<<<< HEAD
-    cartBag: cartBagSlice,
-=======
     order: orderSlice,
->>>>>>> 75f432f677227343c0fe57ea3c6afcccdccbc20e
-    orders: ordersSlice
+    orders: ordersSlice,
+    cartBag: cartBagSlice,
   },
 });
 export default store;
