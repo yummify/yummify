@@ -90,18 +90,19 @@ const RestaurantSignUp = () => {
   const registerSignUp = async () => {
     const error = validate(signUpEmail, signUpPwd);
 
-    if (
-      !error.hasOwnProperty("email") &&
-      !error.hasOwnProperty("pwd") &&
-      !error.hasOwnProperty("restaurantName") &&
-      !error.hasOwnProperty("cuisine") &&
-      !error.hasOwnProperty("description") &&
-      !error.hasOwnProperty("address") &&
-      !error.hasOwnProperty("phoneNumber") &&
-      !error.hasOwnProperty("zipcode") &&
-      !error.hasOwnProperty("website") &&
-      !error.hasOwnProperty("EIN")
-    ) {
+    // if (
+    //   !error.hasOwnProperty("email") &&
+    //   !error.hasOwnProperty("pwd") &&
+    //   !error.hasOwnProperty("restaurantName") &&
+    //   !error.hasOwnProperty("cuisine") &&
+    //   !error.hasOwnProperty("description") &&
+    //   !error.hasOwnProperty("address") &&
+    //   !error.hasOwnProperty("phoneNumber") &&
+    //   !error.hasOwnProperty("zipcode") &&
+    //   !error.hasOwnProperty("website") &&
+    //   !error.hasOwnProperty("EIN")
+    // ) 
+    // {
       dispatch(
         fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
       ).then((res) => {
@@ -155,7 +156,7 @@ const RestaurantSignUp = () => {
           });
         }
       });
-    }
+    // }
   };
 
   return (
