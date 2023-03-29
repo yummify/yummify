@@ -9,6 +9,7 @@ import { db } from "../../firebase/config";
 import "./map.css";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import SearchBar from "../ToggleView/SearchBar";
 
 export default function Map() {
   const { isLoaded } = useLoadScript({
@@ -72,10 +73,10 @@ export default function Map() {
 }
 
 function MapContent({ restaurants }) {
-  console.log(restaurants);
   const center = useMemo(() => ({ lat: 40.7075, lng: -74.0113 }), []);
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleMarkerClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
@@ -85,73 +86,91 @@ function MapContent({ restaurants }) {
     setSelectedRestaurant(null);
   };
 
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
+
+  // Filter based on search
+  const filteredRestaurants = restaurants.filter(
+    (restaurant) =>
+      restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      restaurant.address.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <GoogleMap zoom={14} center={center} mapContainerClassName="map-container">
-      {restaurants.map((restaurant) => (
-        <Marker
-          key={restaurant.id}
-          position={{ lat: restaurant.lat, lng: restaurant.lng }}
-          title={restaurant.name}
-          onClick={() => handleMarkerClick(restaurant)}
-        />
-      ))}
-      {selectedRestaurant && (
-        <InfoWindow
-          position={{
-            lat: selectedRestaurant.lat,
-            lng: selectedRestaurant.lng,
-          }}
-          onCloseClick={handleCloseClick}
-        >
-          <div className="container">
-            <div className="row">
-              <div className="col-md-4">
-                <img
-                  src={selectedRestaurant.image}
-                  alt="restaurant"
-                  className="img-fluid"
-                  style={{
-                    width: "120px",
-                    height: "120px",
-                    float: "left",
-                    marginRight: "30px",
-                  }}
-                />
-              </div>
-              <div className="col-md-8">
-                <h3 className="mb-0">{selectedRestaurant.name}</h3>
-                <p className="mb-0">{selectedRestaurant.address}</p>
-                <p className="mb-0">
-                  Phone:{" "}
-                  <a href={`tel:${selectedRestaurant.phone}`}>
-                    {selectedRestaurant.phone}
-                  </a>
-                </p>
-                <p className="mb-0">
-                  Website:{" "}
-                  <a
-                    href={selectedRestaurant.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {selectedRestaurant.website}
-                  </a>
-                </p>
-                <div className="row">
-                  <div className="col-md-12 mt-3">
-                    <Link
-                      to={`/restaurant/${selectedRestaurant.id}`}
-                      className="btn btn-success btn-sm"
+    <div>
+      <SearchBar handleSearch={handleSearch} />
+      <GoogleMap
+        zoom={14}
+        center={center}
+        mapContainerClassName="map-container"
+      >
+        {filteredRestaurants.map((restaurant) => (
+          <Marker
+            key={restaurant.id}
+            position={{ lat: restaurant.lat, lng: restaurant.lng }}
+            title={restaurant.name}
+            onClick={() => handleMarkerClick(restaurant)}
+          />
+        ))}
+        {selectedRestaurant && (
+          <InfoWindow
+            position={{
+              lat: selectedRestaurant.lat,
+              lng: selectedRestaurant.lng,
+            }}
+            onCloseClick={handleCloseClick}
+          >
+            <div className="container">
+              <div className="row">
+                <div className="col-md-4">
+                  <img
+                    src={selectedRestaurant.image}
+                    alt="restaurant"
+                    className="img-fluid"
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      float: "left",
+                      marginRight: "30px",
+                    }}
+                  />
+                </div>
+                <div className="col-md-8">
+                  <h3 className="mb-0">{selectedRestaurant.name}</h3>
+                  <p className="mb-0">{selectedRestaurant.address}</p>
+                  <p className="mb-0">
+                    Phone:{" "}
+                    <a href={`tel:${selectedRestaurant.phone}`}>
+                      {selectedRestaurant.phone}
+                    </a>
+                  </p>
+                  <p className="mb-0">
+                    Website:{" "}
+                    <a
+                      href={selectedRestaurant.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Reserve a Bag
-                    </Link>
+                      {selectedRestaurant.website}
+                    </a>
+                  </p>
+                  <div className="row">
+                    <div className="col-md-12 mt-3">
+                      <Link
+                        to={`/restaurant/${selectedRestaurant.id}`}
+                        className="btn btn-success btn-sm"
+                      >
+                        Reserve a Bag
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </InfoWindow>
-      )}
-    </GoogleMap>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    </div>
   );
 }

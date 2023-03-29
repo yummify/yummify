@@ -66,7 +66,7 @@ export const getPlaces = async () => {
     // Add the restaurant to the restaurants collection with a custom ID
     const restaurantCollection = collection(db, "restaurants");
     const restaurantDocRef = doc(restaurantCollection, result.place_id); // use place_id as the custom ID
-    await setDoc(restaurantDocRef, place); // use setDoc instead of addDoc
+    await setDoc(restaurantDocRef, place)
 
     // Add restaurant user data to users collection with the same custom ID
     const userCollection = collection(db, "users");
