@@ -1,13 +1,13 @@
-#Yummify
+# Yummify
 
 Full stack e-commerce app - allows users to reserve surprise bags of leftover food from local restaurants
 
-##Features
+## Features
 
 - Map and List view of participating restaurants
 - User/Restaurant/Admin Login, Account Creation, Authentication
 
-##Technologies Used
+## Technologies Used
 
 - React
 - Redux
@@ -20,7 +20,7 @@ Full stack e-commerce app - allows users to reserve surprise bags of leftover fo
 - CSS
 - HTML
 
-##Collaborators
+## Collaborators
 
 - Jacqueline Basanta: [Github](https://github.com/orgs/yummify/people/slightdevastation)
 - Caroline Boyle: [Github](https://github.com/orgs/yummify/people/caroline-boyle) [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
@@ -28,7 +28,7 @@ Full stack e-commerce app - allows users to reserve surprise bags of leftover fo
 - Monique Hayes: [Github](https://github.com/orgs/yummify/people/moniquehayes) [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
 - Manimala Sivasubramanian: [Github](https://github.com/orgs/yummify/people/msiva06)
 
-###Structure
+### Structure
 
 SRC Folder: 
 
@@ -46,7 +46,7 @@ SRC Folder:
     - compiles Redux slices
 
 
-###Database
+### Database
 
 Yummify uses Firebase (Firestore Database) from Google
 
@@ -66,6 +66,6 @@ Collections:
 
 
 Issues: 
-# learning firebase
-# dotenv & react combination
-# limit with DB calls in Firestore
+-learning firebase
+-dotenv & react combination
+-limit with DB calls in Firestore
