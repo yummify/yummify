@@ -6,8 +6,7 @@ import { selectUser } from "../User/userSlice";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-//TODO: able to fetch bag by specific bagID
-//Attach reserve button to cart
+//TODO: double-check reserve button functionality
 
 const Bag = (restaurant) =>{
     // console.log(restaurant.bag);

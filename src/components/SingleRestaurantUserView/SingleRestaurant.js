@@ -94,7 +94,10 @@ const SingleRestaurant = () => {
                         return(
                           <Bag bag={bag} />
                         )}
-                        }): "No bags available"}
+                    else{
+                      return null;
+                    }
+            }): "No bags available"}
                         
         </Card.Body>
         <Card.Body>
