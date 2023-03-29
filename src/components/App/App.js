@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { AuthProvider } from "../../contexts/AuthContext";
 
 import AppRoutes from "./AppRoutes";
-
 import NavBar from "../NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";

@@ -5,12 +5,12 @@ import { Card } from "react-bootstrap";
 import SearchBar from "../ToggleView/SearchBar";
 import { Link } from "react-router-dom";
 
-import { fetchAllRestaurants, selectRestaurants } from './allRestaurantsSlice';
-
 const AllRestaurants = () => {
   //select the restaurants currently reflected in state  const [searchTerm, setSearchTerm] = useState("");
   const restaurants = useSelector(selectRestaurants);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllRestaurants());
@@ -54,10 +54,10 @@ const AllRestaurants = () => {
               >
                 <Card.Header>{restaurant.restaurantName}</Card.Header>
                 <Card.Body>
-                    <Card.Title>{restaurant.description}</Card.Title>
-                    <Card.Text>Address: {restaurant.address}</Card.Text>
-                    <Card.Img src={restaurant.image?.[1]} />
-                    <Card.Text></Card.Text>
+                  <Card.Title>{restaurant.description}</Card.Title>
+                  <Card.Text>Address: {restaurant.address}</Card.Text>
+                  <Card.Img src={restaurant.image?.[1]} />
+                  <Card.Text></Card.Text>
                 </Card.Body>
               </Card>
             </Link>
