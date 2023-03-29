@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleBagByRestAsync, selectBag, addBagAsync } from "./bagSlice";
+import { fetchGroupBagByRestAsync, selectBag, addBagAsync } from "./bagSlice";
 
 
 import Card from 'react-bootstrap/Card';
@@ -46,6 +46,7 @@ const AddBagForm = (props) =>{
         
        
         dispatch(addBagAsync(bag));
+        dispatch(fetchGroupBagByRestAsync(restId));
         setBagType("");
         setBagImage("");
         setBagQuantity(1);

@@ -30,15 +30,6 @@ const UserProfile = () => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
   }, [dispatch, user?.userId, fileUrl]);
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `users/${imageFile.name}`);
@@ -58,64 +49,60 @@ const UserProfile = () => {
     <div>
       {user?.userId && (
         <div>
-          <Container>
+          <Container className="border my-3">
             <Row>
-              <div className="d-flex text-black">
-                <Col>
-                  <div
-                    className="flex-shrink-0 d-flex flex-column"
-                    style={{ marginTop: "5rem", marginLeft: "1rem" }}
+              <Col className="text-center my-3 mx-3 border">
+                <Image
+                  fluid
+                  src={fileUrl ? fileUrl : authuser.image}
+                  alt="image of user"
+                  thumbnail
+                  className="my-3"
+                  style={{ width: "150px", borderRadius: "10px" }}
+                />
+                {!upload && (
+                  <Button
+                    onClick={() => setUpload(true)}
+                    style={{ padding: "0.2rem", marginTop: "1rem" }}
+                    className="d-block my-3"
                   >
-                    <Image
-                      fluid
-                      src={fileUrl ? fileUrl : authuser.image}
-                      alt="image of user"
-                      thumbnail
-                      style={{ width: "100px", borderRadius: "10px" }}
+                    Upload Photo
+                  </Button>
+                )}
+                {upload && (
+                  <Col className="my-3 text-center">
+                    <input
+                      type="file"
+                      onChange={(event) => setImageFile(event.target.files[0])}
                     />
-                    {!upload && (
-                      <Button
-                        onClick={() => setUpload(true)}
-                        style={{ padding: "0.2rem", marginTop: "1rem" }}
-                      >
-                        Upload Photo
-                      </Button>
-                    )}
-                    {upload && (
-                      <div className="my-3 d-block">
-                        <input
-                          type="file"
-                          onChange={(event) =>
-                            setImageFile(event.target.files[0])
-                          }
-                        />
-                        <Button className="my-3" onClick={handleImage}>
-                          Add Photo
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </Col>
-                <Col>
-                  <div
-                    className="flex-grow-1 ms-3"
-                    style={{ marginTop: "5rem" }}
-                  >
-                    <h1>{authuser?.name}</h1>
-                    <p>Email :{authuser?.email}</p>
-                    <p>PhoneNumber:{authuser?.phoneNumber}</p>
-                    <p>Zipcode:{authuser.zipcode}</p>
-                    <Button onClick={() => navigate("/edituserprofile")}>
-                      Edit User Profile
+                    <Button className="my-3 d-block" onClick={handleImage}>
+                      Add Photo
                     </Button>
-                  </div>
-                </Col>
-              </div>
+                  </Col>
+                )}
+              </Col>
+              <Col className="border my-3 mx-3 text-center">
+                <h1 className="my-3">{authuser?.name}</h1>
+                <p>Email :{authuser?.email}</p>
+                <p>PhoneNumber :{authuser?.phoneNumber}</p>
+                <p>Zipcode :{authuser.zipcode}</p>
+                <Button
+                  className="mx-3"
+                  onClick={() => navigate("/edituserprofile")}
+                >
+                  Edit User Profile
+                </Button>
+                <Button
+                  className="mx-3 my-3"
+                  onClick={() => navigate("/updatepassword")}
+                >
+                  Update password
+                </Button>
+              </Col>
             </Row>
           </Container>
         </div>
       )}
-      <Button onClick={logout}>Logout</Button>
     </div>
   );
 };

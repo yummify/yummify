@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async (restaurantId) => {
     try {
+
         const restRef = doc(db, "restaurants", restaurantId);
         const docSnap = await getDoc(restRef);
         if (docSnap.exists()) {

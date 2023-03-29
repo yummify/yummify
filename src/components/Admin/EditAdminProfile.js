@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, editUserAsync, selectUser } from "../User/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -36,44 +36,50 @@ const EditAdminProfile = () => {
 
   return (
     <div>
-      <h2>Admin Profile :</h2>
-      <Form>
-        <Form.Group>
-          <Form.Label>FirstName :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={name[0]}
-            onChange={(event) => setFirstName(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>LastName :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={name[1]}
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>PhoneNumber :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authuser.phoneNumber}
-            onChange={(event) => setPhoneNumber(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Zipcode :</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={authuser.zipcode}
-            onChange={(event) => setZipcode(event.target.value)}
-          />
-        </Form.Group>
+      <Container>
+        <h2>Admin Profile :</h2>
+        <Form>
+          <Form.Group>
+            <Form.Label>FirstName :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={name[0]}
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>LastName :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={name[1]}
+              onChange={(event) => setLastName(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authuser.phoneNumber}
+              onChange={(event) => setPhoneNumber(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Zipcode :</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={authuser.zipcode}
+              onChange={(event) => setZipcode(event.target.value)}
+            />
+          </Form.Group>
 
-        <Button onClick={editUser}>Save</Button>
-        <Button onClick={() => navigate("/userprofile")}>Cancel</Button>
-      </Form>
+          <Button className="my-3" onClick={editUser}>
+            Save
+          </Button>
+          <Button className="mx-3" onClick={() => navigate("/userprofile")}>
+            Cancel
+          </Button>
+        </Form>
+      </Container>
     </div>
   );
 };

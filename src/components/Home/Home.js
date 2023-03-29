@@ -6,43 +6,18 @@ import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import { fetchUserAsync, selectUser } from "../User/userSlice";
 import { selectAuth } from "../Auth/authSlice";
-//import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Home = () => {
-  const authUser = useSelector(selectAuth);
-  const user = useSelector(selectUser);
-  //console.log("User:", user);
-  //console.log("AuthUser id:", authUser.userId);
-  //const [loading, setLoading] = useState(true);
-  //console.log("Auth User:", auth.currentUser.uid);
-  // const { fetchUser, user } = useAuth();
-  // console.log("User from auth context:", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const authUser = useAuth();
 
   useEffect(() => {
-    dispatch(fetchUserAsync(authUser.userId));
-  }, [authUser.userId]);
+    dispatch(fetchUserAsync(authUser?.user?.userId));
+  }, [authUser?.user?.userId]);
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/login");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  return (
-    <div>
-      {user?.userId && (
-        <div>
-          <h1>Welcome {user?.name}</h1>
-          <p>Email :{user?.email}</p>
-        </div>
-      )}
-      <Button onClick={logout}>Logout</Button>
-    </div>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;
