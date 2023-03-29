@@ -6,8 +6,8 @@ import restaurantsSlice from "../components/AllRestaurants/allRestaurantsSlice";
 import restaurantSlice from "../components/Restaurant/restaurantSlice";
 import singleRestaurantSlice from "../components/SingleRestaurantUserView/singleRestaurantSlice";
 import bagSlice from "../components/Bag/bagSlice";
-import  orderSlice  from "../components/Cart/cartBagSlice";
-import orderSlice from "../components/Order/orderSlice";
+import orderSlice  from "../components/Cart/cartBagSlice";
+import ordersSlice from "../components/Order/orderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +19,7 @@ export const store = configureStore({
     singleRestaurant: singleRestaurantSlice,
     bag: bagSlice,
     order: orderSlice,
-    orders: orderSlice
+    orders: ordersSlice
   },
 });
 export default store;

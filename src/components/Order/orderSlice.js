@@ -8,7 +8,7 @@ export const fetchAllOrdersAsync = createAsyncThunk("orders", async () => {
         const querySnapshot = await getDocs(collection(db, "orders"));
         const orders = [];
         querySnapshot.forEach((doc) => {
-            orders.push(doc.data());
+            orders.push({...doc.data(), id: doc.id});
         })
         return orders;
     } catch(err) {
