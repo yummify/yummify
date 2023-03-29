@@ -52,7 +52,13 @@ const RestaurantProfile = () => {
               <Col className="text-center my-3 mx-3 border">
                 <Image
                   fluid
-                  src={fileUrl ? fileUrl : authRestaurant.image?.[0]}
+                  src={
+                    fileUrl
+                      ? fileUrl
+                      : authRestaurant.image
+                      ? authRestaurant.image
+                      : authRestaurant.image?.[0]
+                  }
                   alt="image of restaurant"
                   thumbnail
                   className="my-3"
