@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from 'react';  
 import { useParams } from "react-router-dom";
-import { fetchSingleRestaurant, selectRestaurant } from './singleRestaurantSlice';
 import { useSelector, useDispatch } from "react-redux";
+
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import Bag from '../Bag/Bag';
+import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
+import { fetchSingleRestaurant, selectRestaurant } from './singleRestaurantSlice';
 import { fetchSingleBagByRestAsync, selectBag, fetchGroupBagByRestAsync } from '../Bag/bagSlice';
 //import { useAuth } from '../../contexts/AuthContext';
 
 
 const SingleRestaurant = () => {
     const dispatch = useDispatch();
-
+    //select restaurant currently in state
     const restaurant = useSelector(selectRestaurant);
-    const bags = useSelector(selectBag);
-    //const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
-    //console.log(expiration);
+    //select bag connected to restaurant
+    const bag = useSelector(selectBag);
+    //destructure bag
+    const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
     
-
-    //useParams to get bagId
+    //useParams, restaurantId, to get bagId
     const { id } = useParams();
 
+    //dispatch thunks with restaurantId to grab restaurant and bag
     useEffect(() => {
         dispatch(fetchSingleRestaurant(id));
         
@@ -74,7 +77,7 @@ const SingleRestaurant = () => {
         </Modal.Footer>
       </Modal>
         <Card style={{ width: '25rem' }}>
-        <Card.Img variant="top" src="image-here" />
+        <Card.Img variant="top" src={restaurant.image?.[0]} />
         <Card.Header className="text-center">{restaurant.restaurantName}</Card.Header>
         <Card.Body>
             <Card.Text>

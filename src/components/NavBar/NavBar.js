@@ -51,7 +51,7 @@ const NavBar = () => {
             <Nav.Link href="/restaurants">Home</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
             <Nav.Link href="/map">Map View</Nav.Link>
-            <Nav.Link href="/">Cart</Nav.Link>
+            <Nav.Link href="/cart">Cart</Nav.Link>
             <Button onClick={logout}>Logout</Button>
           </Nav>
         )}
