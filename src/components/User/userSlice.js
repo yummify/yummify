@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
   "addUser",
@@ -74,6 +82,19 @@ export const editUserAsync = createAsyncThunk(
       updateDoc(usersRef, data).then((usersRef) =>
         console.log("Value of document has been updated")
       );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const fetchUserOrdersAsync = createAsyncThunk(
+  "fetchorder",
+  async (userId) => {
+    try {
+      const orders = [];
+      const ordersRef = collection(db, "orders");
+      const querySnapshot = query(ordersRef, where("userId", "==", userId));
     } catch (err) {
       console.log(err);
     }
