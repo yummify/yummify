@@ -8,9 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import Bag from '../Bag/Bag';
-import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
 import { fetchSingleRestaurant, selectRestaurant } from './singleRestaurantSlice';
-import { fetchSingleBagByRestAsync, selectBag, fetchGroupBagByRestAsync } from '../Bag/bagSlice';
+import { selectBag, fetchGroupBagByRestAsync } from '../Bag/bagSlice';
 //import { useAuth } from '../../contexts/AuthContext';
 
 
@@ -19,10 +18,7 @@ const SingleRestaurant = () => {
     //select restaurant currently in state
     const restaurant = useSelector(selectRestaurant);
     //select bag connected to restaurant
-    const bag = useSelector(selectBag);
-    //destructure bag
-    const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
-    
+    const bags = useSelector(selectBag);
     //useParams, restaurantId, to get bagId
     const { id } = useParams();
 
@@ -90,14 +86,18 @@ const SingleRestaurant = () => {
             <ListGroup.Item>Phone: {restaurant.phoneNumber}</ListGroup.Item>
         </ListGroup>
         <Card.Body>
-            Order a Surprise Bag from {restaurant.name}:
+            Order a Surprise Bag from: {restaurant.name}
             
             {bags.length > 0 ? bags.map((bag)=>{
                     if(checkActive(bag.expiration,bag.quantity)===true){
                         return(
                           <Bag bag={bag} />
                         )}
-                        }): "No bags available"}
+                        else {
+                          return null;
+                        }
+                    }): "No bags available"}
+                    
                         
         </Card.Body>
         <Card.Body>

@@ -5,9 +5,8 @@ import { Card } from "react-bootstrap";
 import SearchBar from "../ToggleView/SearchBar";
 import { Link } from "react-router-dom";
 
-import { fetchAllRestaurants, selectRestaurants } from './allRestaurantsSlice';
-
 const AllRestaurants = () => {
+  const dispatch = useDispatch();
   //select the restaurants currently reflected in state  const [searchTerm, setSearchTerm] = useState("");
   const restaurants = useSelector(selectRestaurants);
   const [searchTerm, setSearchTerm] = useState("");

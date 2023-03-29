@@ -16,7 +16,7 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const restaurant = useSelector(selectRestaurant);
-    console.log('restaurant', restaurant);
+    // console.log('restaurant', restaurant);
 
     //get id of logged-in user
     const { user } = useAuth();
@@ -29,6 +29,17 @@ const Cart = () => {
 
     const bag = useSelector(selectCartBag);
 
+    //calculate NYC sales tax and find total price
+    const totalPrice = (price) => {
+        let tax = (price * .0875)
+        return (tax + price).toFixed(2);
+    }
+
+    //calculate savings
+    const savings = (oldPrice, newPrice) => {
+        let savings = oldPrice - newPrice;
+        return savings.toFixed(2);
+    };
 
     return (
         <>
@@ -54,10 +65,11 @@ const Cart = () => {
                 </Card>
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
-                {/* <p>Total Savings: ({bag[0]?.[0]?.originalPrice} - {bag[0]?.[0]?.newPrice})</p> */}
+                <p>Total Savings: {savings(bag[0]?.[0]?.originalPrice, bag[0]?.[0]?.newPrice)}</p>
                 <div></div>
+                <p>Checkout: {totalPrice(bag[0]?.[0]?.newPrice)}</p>
             </Stack>
-            <h2>Checkout</h2>
+            
         </>
     )
 };
