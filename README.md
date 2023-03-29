@@ -6,6 +6,7 @@ Full stack e-commerce app - allows users to reserve surprise bags of leftover fo
 
 - Map and List view of participating restaurants
 - User/Restaurant/Admin Login, Account Creation, Authentication
+- Designed for mobile view first
 
 ## Technologies Used
 
