@@ -27,30 +27,17 @@ export const placeBagInCartAsync = createAsyncThunk("placeBagInCart", async ({ex
 
 export const fetchOrderByStatusAsync = createAsyncThunk("cart", async (userId, status) => {
     try {
-    // pass in the userId, and then fetch all ORDERS with that specific userId.
+        //fetch based on userId and "shopping" status
         const ordersRef = collection(db, "orders")
 
         const q = query(ordersRef, where ("userId", "==", userId), where ("status", "==", "shopping"))
-        console.log('q', q);
 
         const querySnapshot = await getDocs(q);
         const orders = [];
         querySnapshot.forEach((doc) => {
-            console.log(doc.data())
             orders.push(doc.data())});
         
         return orders;
-        // const q = query(collection(db, "orders"), where("userId", "==", userId));
-    //     const querySnap = await getDoc(q);
-    //     console.log(querySnap);
-    //     if (querySnap.exists()) {
-    
-    //         const order = querySnap.data();
-    //             console.log('order', order)
-    //             return {...order, orderId: querySnap.id};
-    //     } else {
-    //         console.log('No orders found.')
-    //     }
 
     } catch(err) {
     console.error(err);

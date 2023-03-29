@@ -20,7 +20,7 @@ const AllRestaurants = () => {
     return (
         <>
         <h1>Yummify</h1>
-        {/* add filter/search bar here */}
+        
         {restaurants.map((restaurant) => {
             if(restaurant.status === 'approved')
             return <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/restaurant/${restaurant.id}` }>

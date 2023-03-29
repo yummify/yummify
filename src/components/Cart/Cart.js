@@ -7,6 +7,7 @@ import { selectRestaurant } from "../SingleRestaurantUserView/singleRestaurantSl
 import { selectOrders } from "../Order/orderSlice";
 import { selectCartBag } from "./cartBagSlice";
 import { fetchOrderByStatusAsync } from "./cartBagSlice";
+import { fetchSingleRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
 
 const Cart = () => {
 
@@ -14,19 +15,20 @@ const Cart = () => {
     
     const dispatch = useDispatch();
 
-    //const orders = useSelector(selectCartBag);
-    //const userInfo = useSelector(selectUser);
     const restaurant = useSelector(selectRestaurant);
     console.log('restaurant', restaurant);
 
+    //get id of logged-in user
     const { user } = useAuth();
     const userId = user.userId;
 
     useEffect(() => {
         dispatch(fetchOrderByStatusAsync(userId, 'shopping'));
+        dispatch(fetchSingleRestaurant(restaurant));
     }, [dispatch])
 
     const bag = useSelector(selectCartBag);
+
 
     return (
         <>
