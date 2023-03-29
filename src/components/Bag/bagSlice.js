@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query, addDoc, setDoc, getDoc,getDocs, updateDoc, collection, doc, where, limit } from "firebase/firestore";
+import { query,  setDoc, getDoc,getDocs, updateDoc, collection, doc, where,  deleteDoc } from "firebase/firestore";
 
  //fetch by doc reference
 export const fetchSingleBagAsync = createAsyncThunk("fetchBag", async (bagRef)=>{
@@ -44,30 +44,30 @@ export const fetchSingleBagByRestAsync = createAsyncThunk("fetchBagByRest", asyn
     }
 });
 
-//fetch by restID --- NOT FETCHING MULTIPLE DOCS. must fix
-export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (id)=>{
+//fetch by restID
+export const fetchGroupBagByRestAsync = createAsyncThunk("fetchGroupBagByRest", async (rid)=>{
     try{
+        //const bagCollectionRef = db.collection('bags');        
         const bagCollectionRef = collection(db, 'bags');
-        const q = query(bagCollectionRef, where('restaurantId', "==", id ));
-        const querySnap = await getDocs(q);
-        const allbags = [];
-        
+        const q = query(bagCollectionRef, where('restaurantId', "==", rid ));
+        let querySnap = await getDocs(q);
+        let allbags = [];
+      
         if (querySnap.empty) {
             console.error('No matching documents.');
         }  
         
         querySnap.forEach((doc)=>{
-           
             allbags.push({...doc.data(), id: doc.id});
         })
-        
         return allbags;
-        
-        
+
     }catch(err){
         console.log(err);
     }
 });
+
+
 
 export const addBagAsync = createAsyncThunk("createBag", async ({expiration, image, newPrice, originalPrice, pickup, quantity, type, restaurantId})=>{
     try{
@@ -84,6 +84,7 @@ export const addBagAsync = createAsyncThunk("createBag", async ({expiration, ima
             quantity,
             type,
             restaurantId,
+            
         });
         
     }catch(err){
@@ -102,12 +103,20 @@ export const editBagAsync = createAsyncThunk("editBag", async ({id, expiration, 
             originalPrice,
             pickup,
             quantity,
-            type
+            type,
+            
         });
     }catch(err){
         console.log(err);
     }
 })
+
+export const deleteBagAsync = createAsyncThunk("deletebag", async (bagId)=>{
+    console.log(bagId);
+    const bagByDocRef = doc(db, 'bags', `${bagId}`)
+    await deleteDoc(bagByDocRef)
+})
+
 
 //add bag to state
 const initialState = [];
@@ -124,9 +133,6 @@ export const bagSlice = createSlice({
                 return action.payload;
             })
             .addCase(editBagAsync.fulfilled, (state, action)=>{
-                return action.payload;
-            })
-            .addCase(fetchSingleBagByRestAsync.fulfilled, (state, action)=>{
                 return action.payload;
             })
             .addCase(fetchGroupBagByRestAsync.fulfilled, (state, action)=>{

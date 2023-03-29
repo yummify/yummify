@@ -1,6 +1,7 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./config";
+import { collection, setDoc, doc } from "firebase/firestore";
+import { auth, db } from "./config";
 import { faker } from "@faker-js/faker";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 // Google Places API to fetch places and seed firestore
 export const getPlaces = async () => {
@@ -13,6 +14,7 @@ export const getPlaces = async () => {
 
   const places = data.results.map(async (result) => {
     const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=name,formatted_address,formatted_phone_number,opening_hours,website,types,photos,reviews&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    // const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=name,formatted_address,formatted_phone_number,opening_hours,website,types,photos,reviews&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
     const placeDetailsResponse = await fetch(placeDetailsUrl);
     const placeDetailsData = await placeDetailsResponse.json();
     const placeDetails = placeDetailsData.result;
@@ -38,6 +40,12 @@ export const getPlaces = async () => {
       Math.floor(Math.random() * 9000000) + 1000000
     }`;
 
+    // get first 3 photos from photo reference
+    const photos = placeDetails.photos.slice(0, 3).map((photo) => {
+      const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+      return photoUrl;
+    });
+
     const place = {
       restaurantName: result.name,
       EIN: ein,
@@ -51,14 +59,45 @@ export const getPlaces = async () => {
       website: placeDetails.website,
       cuisine:
         cuisineOptions[Math.floor(Math.random() * cuisineOptions.length)],
-      image: placeDetails.photos,
+      image: photos,
+      zipcode: "10014",
     };
 
-    const placesCollection = collection(db, "restaurants");
-    const docRef = await addDoc(placesCollection, place);
+    // Add the restaurant to the restaurants collection with a custom ID
+    const restaurantCollection = collection(db, "restaurants");
+    const restaurantDocRef = doc(restaurantCollection, result.place_id); // use place_id as the custom ID
+    await setDoc(restaurantDocRef, place)
+
+    // Add restaurant user data to users collection with the same custom ID
+    const userCollection = collection(db, "users");
+    const userDocRef = doc(userCollection, result.place_id); // use place_id as the custom ID
+    const userData = {
+      isRestaurantOwner: true,
+      email: place.email,
+      image: "/Student_Profile.png",
+      isAdmin: false,
+      name: place.restaurantName,
+      phoneNumber: place.phoneNumber,
+      zipcode: place.zipcode,
+    };
+
+    await setDoc(userDocRef, userData);
+
+    // Create the user account with Firebase authentication
+    const email = place.email;
+    const password = place.email + "1234";
+
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    // Update user document with UID from Firebase authentication
+    await setDoc(userDocRef, { ...userData, uid: user.uid });
 
     return {
-      id: docRef.id,
+      id: result.place_id,
       ...place,
     };
   });

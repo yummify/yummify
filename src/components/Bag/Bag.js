@@ -7,7 +7,6 @@ import { selectUser } from "../User/userSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-//import BagInCartAlert from "../Cart/bagInCartAlert";
 
 
 const Bag = (restaurant) =>{
