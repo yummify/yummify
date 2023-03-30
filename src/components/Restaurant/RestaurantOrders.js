@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Stack, Button, Card, Container, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsersAsync, selectUsers } from "../Users/usersSlice";
-import { fetchAllOrdersForRestaurantAsync, selectOrders } from "../Order/orderSlice";
+import { fetchAllOrdersForRestaurantAsync, selectOrders, markComplete } from "../Order/orderSlice";
 
 const RestaurantOrders = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const RestaurantOrders = () => {
     const usersList = useSelector(selectUsers);
     const incompleteOrders = [];
     const completeOrders = [];
+    const [ordersList, setOrdersList] = useState(orders);
     orders.forEach((order) => {
         if(order.status === 'awaiting pickup') {
             incompleteOrders.push(order);
@@ -26,7 +27,12 @@ const RestaurantOrders = () => {
     useEffect(() => {
         dispatch(fetchAllOrdersForRestaurantAsync('4oNqNR7HjicnqevbvYL860t3Cb83'));
         dispatch(fetchUsersAsync())
-    }, [dispatch])
+    }, [dispatch, ordersList]);
+
+    const handleComplete = (orderId) => {
+        dispatch(markComplete(orderId));
+        setOrdersList(orders);
+    }
 
 // add conditional: for orders that have an 'awaiting pickup' status, mark as complete button
     // also make these have a diff color background
@@ -53,7 +59,7 @@ const RestaurantOrders = () => {
                                 <Col className='text-wrap' style={{wordBreak: 'break-all'}}>{order.id}</Col>
                                 <Col>{singleUser.data.name}</Col>
                                 <Col>{order.pickup}</Col>
-                                <Col><Button id='complete'>☐</Button></Col>
+                                <Col><Button id='complete' onClick={() => handleComplete(order.id)}>☐</Button></Col>
                             </Row>
                         </Container>
                     </Card>

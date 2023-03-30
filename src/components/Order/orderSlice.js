@@ -1,4 +1,4 @@
-import { getDocs, doc, query, collection, where } from "firebase/firestore";
+import { getDocs, doc, query, collection, where, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -49,7 +49,16 @@ export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrde
     }
 })
 
-// mark as complete?
+export const markComplete = createAsyncThunk("markComplete", async (orderId) => {
+    try {
+        const orderRef = doc(db, "orders", orderId);
+        await updateDoc(orderRef, {
+            status: 'complete'
+        })
+    } catch(err) {
+        console.error(err)
+    }
+})
 
 export const ordersSlice = createSlice({
     name: "orders",
