@@ -104,7 +104,7 @@ const SingleRestaurant = () => {
                       return null;
                     }
             }): "No bags available"}
-                        
+
         </Card.Body>
         <Card.Body>
           <Card.Link href={restaurant.website}>Website</Card.Link>

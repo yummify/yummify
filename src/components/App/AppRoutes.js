@@ -13,8 +13,6 @@ import PrivateRestaurantRoute from "../Auth/PrivateRestaurantRoute";
 import PrivateUserRoute from "../Auth/PrivateUserRoute";
 import UserProfile from "../User/UserProfile";
 import Map from "../Map/Map";
-
-import Home from "../Home/Home";
 import Cart from "../Cart/Cart";
 import RestaurantInventory from "../Restaurant/RestaurantInventory";
 
@@ -36,13 +34,13 @@ import UpdatePassword from "../Auth/UpdatePassword";
 
 import PrivateRoute from "../Auth/PrivateRoute";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+import ToggleView from "../ToggleView/ToggleView";
 
 const AppRoutes = () => {
   return (
     <div>
       <Routes>
         {/* All users access */}
-        <Route path="/" element={<Home />} />
         <Route path="/userstart" element={<UserStartPage />} />
         <Route path="/restaurantstart" element={<RestaurantStartPage />} />
         <Route path="/login" element={<Login />} />
@@ -164,6 +162,7 @@ const AppRoutes = () => {
           path="/restaurants"
           element={
             <PrivateRoute>
+              <ToggleView />
               <AllRestaurants />
             </PrivateRoute>
           }
