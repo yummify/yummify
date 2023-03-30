@@ -117,7 +117,7 @@ const AdminManageRestaurants = () => {
 
   return (
     <>
-      <h2>Manage Restaurants</h2>
+      <h2 id='title'>Manage Restaurants</h2>
       <Alert variant={"warning"}>
         <Accordion defaultActiveKey="0">
           <h2>

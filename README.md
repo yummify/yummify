@@ -70,3 +70,20 @@ Issues:
 -learning firebase
 -dotenv & react combination
 -limit with DB calls in Firestore
+
+
+STYLE NOTES: 
+- fonts: 
+    font-family: 'Amaranth', sans-serif;
+    font-family: 'Arsenal', sans-serif;
+    font-family: 'Karma', serif;
+    font-family: 'PT Serif', serif;
+    font-family: 'Shadows Into Light Two', cursive;
+
+- colors: 
+    background: white
+    buttons: #8783d1
+    primary borders: #41ead4
+    secondary borders: #fbff12
+    footer: #e5d4ce
+    **pink in logo: #ff206e
