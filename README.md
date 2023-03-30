@@ -23,11 +23,11 @@ Full stack e-commerce app - allows users to reserve surprise bags of leftover fo
 
 ## Collaborators
 
-- Jacqueline Basanta: [Github](https://github.com/orgs/yummify/people/slightdevastation)
-- Caroline Boyle: [Github](https://github.com/orgs/yummify/people/caroline-boyle) [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
-- Meg Bickerstaff: [Github](https://github.com/orgs/yummify/people/megtb) [LinkedIn](https://www.linkedin.com/in/meg-bickerstaff/)
-- Monique Hayes: [Github](https://github.com/orgs/yummify/people/moniquehayes) [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
-- Manimala Sivasubramanian: [Github](https://github.com/orgs/yummify/people/msiva06)
+- Jacqueline Basanta: [Github](https://github.com/orgs/yummify/people/slightdevastation), [LinkedIn](https://www.linkedin.com/in/jacqueline-basanta/)
+- Caroline Boyle: [Github](https://github.com/orgs/yummify/people/caroline-boyle), [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
+- Meg Bickerstaff: [Github](https://github.com/orgs/yummify/people/megtb), [LinkedIn](https://www.linkedin.com/in/meg-bickerstaff/)
+- Monique Hayes: [Github](https://github.com/orgs/yummify/people/moniquehayes), [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
+- Manimala Sivasubramanian: [Github](https://github.com/orgs/yummify/people/msiva06), [LinkedIn](https://www.linkedin.com/in/manimalasiva/)
 
 ### Structure
 
@@ -70,3 +70,20 @@ Issues:
 -learning firebase
 -dotenv & react combination
 -limit with DB calls in Firestore
+
+
+STYLE NOTES: 
+- fonts: 
+    font-family: 'Amaranth', sans-serif;
+    font-family: 'Arsenal', sans-serif;
+    font-family: 'Karma', serif;
+    font-family: 'PT Serif', serif;
+    font-family: 'Shadows Into Light Two', cursive;
+
+- colors: 
+    background: white
+    buttons: #8783d1
+    primary borders: #41ead4
+    secondary borders: #fbff12
+    footer: #e5d4ce
+    **pink in logo: #ff206e

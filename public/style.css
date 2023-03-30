@@ -1,5 +1,10 @@
 #root {
-    background-color: #5fd2c3;
+    background-color: white;
+    /* font-family: 'Amaranth', sans-serif; */
+/* font-family: 'Arsenal', sans-serif; */
+font-family: 'Karma', serif;
+/* font-family: 'PT Serif', serif;
+font-family: 'Shadows Into Light Two' */
 }
 
 #rest-stack {
@@ -24,7 +29,7 @@
 }
 
 #mng-rests {
-    border: 2px solid #fbff12;
+    border: 5px solid #41ead4;
     padding: 15px;
     margin: 15px;
 }

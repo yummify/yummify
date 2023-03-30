@@ -58,9 +58,9 @@ const AdminProfile = () => {
     <div>
       {user?.userId && (
         <div>
-          <Container className="border my-3">
+          <Container className="border my-3" style={{border: '2px solid #5fd2c3'}}>
             <Row>
-              <Col className="text-center my-3 mx-3 border">
+              <Col className="text-center my-3 mx-3 border" style={{border: '2px solid #fbff12'}}>
                 <Image
                   fluid
                   src={fileUrl ? fileUrl : authuser.image}
@@ -79,7 +79,7 @@ const AdminProfile = () => {
                   </Button>
                 )}
                 {upload && (
-                  <Col className="my-3 text-center">
+                  <Col className="my-3 text-center"  style={{border: '2px solid #fbff12'}}>
                     <input
                       type="file"
                       onChange={(event) => setImageFile(event.target.files[0])}

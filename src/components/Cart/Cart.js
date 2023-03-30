@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext";
 import { Alert, Card, Modal, Stack, Button, Badge } from "react-bootstrap";
 import { selectBag } from "../Bag/bagSlice";
 import { selectRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
@@ -10,25 +10,35 @@ import { fetchOrderByStatusAsync } from "./cartBagSlice";
 import { fetchSingleRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
 
 const Cart = () => {
+  const [confirmation, setConfirmation] = useState(false);
 
-    const [confirmation, setConfirmation] = useState(false);
-    
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
     const restaurant = useSelector(selectRestaurant);
-    console.log('restaurant', restaurant);
+    // console.log('restaurant', restaurant);
 
-    //get id of logged-in user
-    const { user } = useAuth();
-    const userId = user.userId;
+  //get id of logged-in user
+  const { user } = useAuth();
+  const userId = user.userId;
 
-    useEffect(() => {
-        dispatch(fetchOrderByStatusAsync(userId, 'shopping'));
-        dispatch(fetchSingleRestaurant(restaurant));
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(fetchOrderByStatusAsync(userId, "shopping"));
+    dispatch(fetchSingleRestaurant(restaurant));
+  }, [dispatch]);
 
-    const bag = useSelector(selectCartBag);
+  const bag = useSelector(selectCartBag);
 
+    //calculate NYC sales tax and find total price
+    const totalPrice = (price) => {
+        let tax = (price * .0875)
+        return (tax + price).toFixed(2);
+    }
+
+    //calculate savings
+    const savings = (oldPrice, newPrice) => {
+        let savings = oldPrice - newPrice;
+        return savings.toFixed(2);
+    };
 
     return (
         <>
@@ -54,10 +64,11 @@ const Cart = () => {
                 </Card>
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
-                {/* <p>Total Savings: ({bag[0]?.[0]?.originalPrice} - {bag[0]?.[0]?.newPrice})</p> */}
+                <p>Total Savings: {savings(bag[0]?.[0]?.originalPrice, bag[0]?.[0]?.newPrice)}</p>
                 <div></div>
+                <p>Checkout: {totalPrice(bag[0]?.[0]?.newPrice)}</p>
             </Stack>
-            <h2>Checkout</h2>
+            
         </>
     )
 };
