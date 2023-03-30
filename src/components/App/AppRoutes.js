@@ -40,6 +40,8 @@ import UpdatePassword from "../Auth/UpdatePassword";
 import PrivateRoute from "../Auth/PrivateRoute";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
 
+import RestaurantOrders from "../Restaurant/RestaurantOrders";
+
 const AppRoutes = () => {
   return (
     <div>
@@ -149,6 +151,14 @@ const AppRoutes = () => {
           element={
             <PrivateRestaurantRoute>
               <RestaurantProfile />
+            </PrivateRestaurantRoute>
+          }
+        />
+        <Route
+          path="/restaurantorders"
+          element={
+            <PrivateRestaurantRoute>
+              <RestaurantOrders />
             </PrivateRestaurantRoute>
           }
         />
