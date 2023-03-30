@@ -17,7 +17,7 @@ import EditBagForm from "../Bag/EditBagForm";
 
 
 
-const RestaurantStore = () => {
+const RestaurantInventory = () => {
 
    
     const authRestaurant = useSelector(selectRestaurant);
@@ -154,4 +154,4 @@ return(
 )}
 
 
-export default RestaurantStore;
+export default RestaurantInventory;
