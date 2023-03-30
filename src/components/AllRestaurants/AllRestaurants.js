@@ -48,8 +48,6 @@ const AllRestaurants = () => {
     setSelectedCuisine(cuisine);
   };
 
-  console.log("Selected cuisine state:", selectedCuisine);
-
   const filteredRestaurants = filterRestaurants(restaurants);
 
   //ONLY RETURN ACCEPTED RESTAURANTS

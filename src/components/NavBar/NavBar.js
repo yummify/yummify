@@ -24,7 +24,6 @@ const NavBar = () => {
       <Container>
         {!authUser?.user?.userId ? (
           <Nav>
-            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/userstart">User</Nav.Link>
             <Nav.Link href="/restaurantstart">Restaurant</Nav.Link>
           </Nav>
@@ -48,11 +47,14 @@ const NavBar = () => {
           </Nav>
         ) : (
           <Nav>
-            <Nav.Link href="/restaurants">Home</Nav.Link>
+            <Nav.Link href="/restaurants">Browse</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
-            <Nav.Link href="/map">Map View</Nav.Link>
+            {/* <Nav.Link href="/map">Map View</Nav.Link> */}
             <Nav.Link href="/cart">Cart</Nav.Link>
-            <Button onClick={logout}>Logout</Button>
+            {/* <Button onClick={logout}>Logout</Button> */}
+            <Nav.Link href="/logout" onClick={logout}>
+              Logout
+            </Nav.Link>
           </Nav>
         )}
       </Container>

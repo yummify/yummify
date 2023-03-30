@@ -15,6 +15,12 @@
   padding: 10px 0;
   margin: 0 20px;
   width: 100%;
+  color: hwb(34 11% 0%);
+}
+
+/* Hide the scrollbar */
+.filter-container::-webkit-scrollbar {
+  display: none;
 }
 
 .cuisine-icon {
@@ -27,7 +33,7 @@
 }
 
 .cuisine-icon.selected {
-  border-bottom: 2px solid #ffc107;
+  border-bottom: 2px solid #f98d00;
 }
 
 .arrow {
@@ -36,6 +42,7 @@
   transform: translateY(-50%);
   font-size: 30px;
   cursor: pointer;
+  color: #ff953f;
 }
 
 .left-arrow {
