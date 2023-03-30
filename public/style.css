@@ -1,5 +1,5 @@
 #root {
-    background-color: #5fd2c3;
+    background-color: white;
 }
 
 #rest-stack {
@@ -24,7 +24,7 @@
 }
 
 #mng-rests {
-    border: 2px solid #fbff12;
+    border: 5px solid #41ead4;
     padding: 15px;
     margin: 15px;
 }
