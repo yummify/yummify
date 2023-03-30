@@ -35,6 +35,8 @@ import UpdatePassword from "../Auth/UpdatePassword";
 
 import PrivateRoute from "../Auth/PrivateRoute";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+
+import RestaurantOrders from "../Restaurant/RestaurantOrders";
 import ToggleView from "../ToggleView/ToggleView";
 
 const AppRoutes = () => {
@@ -49,6 +51,15 @@ const AppRoutes = () => {
         <Route path="/restaurantsignup" element={<RestaurantSignUp />} />
         <Route path="/authorizationerror" element={<AuthorizationError />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+
+        <Route
+          path="/map"
+          element={
+            <PrivateRoute>
+              <Map />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/updatepassword"
@@ -90,8 +101,15 @@ const AppRoutes = () => {
             </PrivateUserRoute>
           }
         />
-        <Route path="/users" element={<Users />} />
-        <Route path="/map" element={<Map />} />
+        <Route
+          path="/users"
+          element={
+            <PrivateAdminRoute>
+              <Users />
+            </PrivateAdminRoute>
+          }
+        />
+
         <Route
           path="/admin"
           element={
@@ -157,6 +175,14 @@ const AppRoutes = () => {
           }
         />
         <Route
+          path="/restaurantorders"
+          element={
+            <PrivateRestaurantRoute>
+              <RestaurantOrders />
+            </PrivateRestaurantRoute>
+          }
+        />
+        <Route
           path="/restaurantinventory"
           element={
             <PrivateRestaurantRoute>
@@ -165,7 +191,6 @@ const AppRoutes = () => {
           }
         />
         
-        <Route path="/map" element={<Map />} />
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
@@ -176,8 +201,6 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-
-        
 
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
