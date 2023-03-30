@@ -89,24 +89,7 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
-export const fetchUserOrdersAsync = createAsyncThunk(
-  "fetchorder",
-  async (userId) => {
-    try {
-      const orders = [];
-      const ordersRef = collection(db, "orders");
-      const q = query(ordersRef, where("userId", "==", userId));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach(doc => {
-        orders.push({orderId : doc.id, data:doc.data()});
-      })
-      console.log("orders:",orders);
-      return orders;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
+
 
 const initialState = {};
 export const userSlice = createSlice({
@@ -123,9 +106,7 @@ export const userSlice = createSlice({
       })
       .addCase(editUserAsync.fulfilled, (state, action) => {
         return action.payload;
-      }).addCase(fetchUserOrdersAsync.fulfilled,(state,action) => {
-        return action.payload;
-      })
+      });
   },
 });
 
