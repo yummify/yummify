@@ -1,14 +1,22 @@
-import React from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Navbar, Nav, Container, Button, Col, Row } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchUserAsync } from "../User/userSlice";
 
 const NavBar = () => {
   const authUser = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   console.log("AuthUser in Navbar:", authUser?.user);
+
+  useEffect(() => {
+    if (authUser?.user?.userId)
+      dispatch(fetchUserAsync(authUser?.user?.userId));
+  }, [dispatch, authUser?.user?.userId]);
 
   const logout = async () => {
     try {

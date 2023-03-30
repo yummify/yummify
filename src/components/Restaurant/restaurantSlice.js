@@ -72,10 +72,12 @@ export const editRestaurantImageAsync = createAsyncThunk(
     try {
       console.log("restaurantId and url:", restaurantId, url);
       const restaurantsRef = doc(db, "restaurants", restaurantId);
+      const usersRef = doc(db,"users", restaurantId);
       const data = { image: url };
       updateDoc(restaurantsRef, data).then((restaurantsRef) =>
         console.log("Value of document has been updated")
       );
+      updateDoc(usersRef,data).then((usersRef) => console.log("Value of document has been updated"));
     } catch (err) {
       console.log(err);
     }
@@ -113,6 +115,7 @@ export const editRestaurantAsync = createAsyncThunk(
         zipcode
       );
       const restaurantsRef = doc(db, "restaurants", restaurantId);
+      const usersRef = doc(db,"users", restaurantId);
       const data = {
         restaurantId,
         restaurantName,
@@ -126,9 +129,16 @@ export const editRestaurantAsync = createAsyncThunk(
         phoneNumber,
         zipcode,
       };
+      const userData = {
+        restaurantId,
+        name : restaurantName,
+        phoneNumber,
+        zipcode
+      }
       updateDoc(restaurantsRef, data).then((restaurantsRef) =>
         console.log("Value of document has been updated")
       );
+      updateDoc(usersRef,data).then((usersRef) => console.log("Value of document has been updated"));
     } catch (err) {
       console.log(err);
     }
