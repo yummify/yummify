@@ -7,12 +7,11 @@ import { Link } from "react-router-dom";
 import Filter from "../../Filter/Filter";
 
 const AllRestaurants = () => {
+  const dispatch = useDispatch();
   //select the restaurants currently reflected in state  const [searchTerm, setSearchTerm] = useState("");
   const restaurants = useSelector(selectRestaurants);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCuisine, setSelectedCuisine] = useState(null);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllRestaurants());

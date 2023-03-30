@@ -88,27 +88,28 @@ const SingleRestaurant = () => {
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroup.Item>Cuisine: {restaurant.cuisine}</ListGroup.Item>
-          <ListGroup.Item>Address: {restaurant.address}</ListGroup.Item>
-          <ListGroup.Item>Phone: {restaurant.phoneNumber}</ListGroup.Item>
+            <ListGroup.Item><b>Cuisine:</b> {restaurant.cuisine}</ListGroup.Item>
+            <ListGroup.Item><b>Address:</b> {restaurant.address}</ListGroup.Item>
+            <ListGroup.Item><b>Phone:</b> {restaurant.phoneNumber}</ListGroup.Item>
         </ListGroup>
         <Card.Body>
-            Order a Surprise Bag from {restaurant.name}:
+            Order a Surprise Bag from: {restaurant.restaurantName}
             
             {bags.length > 0 ? bags.map((bag)=>{
                     if(checkActive(bag.expiration,bag.quantity)===true){
                         return(
-                          <Bag bag={bag} />
+                          <Bag bag={bag} key={bag.id}/>
                         )}
-                    else{
-                      return null;
-                    }
-            }): "No bags available"}
-
+                        else {
+                          return null;
+                        }
+                    }): "No bags available"}
+                    
+                        
         </Card.Body>
         <Card.Body>
-          <Card.Link href={restaurant.website}>Website</Card.Link>
-          <Card.Link href="/restaurants">Back to Restaurants</Card.Link>
+            <Card.Link href={restaurant.website}>Website</Card.Link>
+            <Card.Link style={{float: 'right'}}href="/restaurants">Back to Restaurants</Card.Link> 
         </Card.Body>
       </Card>
     </>
