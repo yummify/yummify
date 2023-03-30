@@ -50,6 +50,15 @@ const AppRoutes = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         <Route
+          path="/map"
+          element={
+            <PrivateRoute>
+              <Map />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           path="/updatepassword"
           element={
             <PrivateRoute>
@@ -81,8 +90,15 @@ const AppRoutes = () => {
             </PrivateUserRoute>
           }
         />
-        <Route path="/users" element={<Users />} />
-        <Route path="/map" element={<Map />} />
+        <Route
+          path="/users"
+          element={
+            <PrivateAdminRoute>
+              <Users />
+            </PrivateAdminRoute>
+          }
+        />
+
         <Route
           path="/admin"
           element={
@@ -147,8 +163,8 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-        <Route
-          path="/restaurantinventory"
+        
+        <Route path="/restaurantinventory"
           element={
             <PrivateRestaurantRoute>
               <RestaurantInventory />
@@ -156,7 +172,6 @@ const AppRoutes = () => {
           }
         />
         
-        <Route path="/map" element={<Map />} />
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
@@ -167,8 +182,6 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-
-        
 
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

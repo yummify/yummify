@@ -1,6 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
+  getDocs
+} from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
   "addUser",
@@ -79,6 +88,8 @@ export const editUserAsync = createAsyncThunk(
     }
   }
 );
+
+
 
 const initialState = {};
 export const userSlice = createSlice({
