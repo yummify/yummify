@@ -29,13 +29,16 @@ const Bag = (restaurant) =>{
         <Card style={{width: '18rem'}}>
             <Card.Body>
                 <Card.Title>
-                    {type} Surprise Bag
+                    <b>{type} Surprise Bag</b>
                 </Card.Title>
                 <Card.Text>
-                    Pickup: {pickup}
+                    <b>Pickup:</b> {pickup}
                 </Card.Text>
                 <Card.Text>
-                    Price: ${Number(newPrice).toFixed(2)} - Original: $ {Number(originalPrice).toFixed(2)}
+                    <b>Price:</b> ${Number(newPrice).toFixed(2)} <br/> 
+                    <span style={{fontSize:'12px'}}>
+                    <b>Original:</b> <s>${Number(originalPrice).toFixed(2)}</s>
+                    </span>
                 </Card.Text>
                 <Button variant="primary" onClick={handleAdd}>Reserve</Button>
             </Card.Body>
