@@ -12,12 +12,8 @@ import {
   fetchSingleRestaurant,
   selectRestaurant,
 } from "./singleRestaurantSlice";
-import {
-  fetchSingleBagByRestAsync,
-  selectBag,
-  fetchGroupBagByRestAsync,
-} from "../Bag/bagSlice";
-//import { useAuth } from '../../contexts/AuthContext';
+import { fetchGroupBagByRestAsync, selectBag } from "../Bag/bagSlice";
+
 
 const SingleRestaurant = () => {
   const dispatch = useDispatch();
@@ -97,14 +93,18 @@ const SingleRestaurant = () => {
           <ListGroup.Item>Phone: {restaurant.phoneNumber}</ListGroup.Item>
         </ListGroup>
         <Card.Body>
-          Order a Surprise Bag from {restaurant.name}:
-          {bags.length > 0
-            ? bags.map((bag) => {
-                if (checkActive(bag.expiration, bag.quantity) === true) {
-                  return <Bag key={bag.id} bag={bag} />;
-                }
-              })
-            : "No bags available"}
+            Order a Surprise Bag from {restaurant.name}:
+            
+            {bags.length > 0 ? bags.map((bag)=>{
+                    if(checkActive(bag.expiration,bag.quantity)===true){
+                        return(
+                          <Bag bag={bag} />
+                        )}
+                    else{
+                      return null;
+                    }
+            }): "No bags available"}
+
         </Card.Body>
         <Card.Body>
           <Card.Link href={restaurant.website}>Website</Card.Link>

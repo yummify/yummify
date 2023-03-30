@@ -10,7 +10,6 @@ import {
   doc,
   where,
   deleteDoc,
-  limit,
 } from "firebase/firestore";
 
 //fetch by doc reference
@@ -40,29 +39,7 @@ export const fetchSingleBagAsync = createAsyncThunk(
   }
 );
 
-//fetch by restID
-export const fetchSingleBagByRestAsync = createAsyncThunk(
-  "fetchBagByRest",
-  async (id) => {
-    try {
-      //const bagCollectionRef = db.collection('bags');
-      const bagCollectionRef = collection(db, "bags");
-      const q = query(
-        bagCollectionRef,
-        where("restaurantId", "==", id),
-        limit(1)
-      );
-      const querySnap = await getDocs(q);
 
-      if (querySnap.empty) {
-        console.error("No matching documents.");
-      }
-      return querySnap.docs[0].data();
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
 
 //fetch by restID
 export const fetchGroupBagByRestAsync = createAsyncThunk(

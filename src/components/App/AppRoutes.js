@@ -12,12 +12,9 @@ import RestaurantStartPage from "./RestaurantStartPage";
 import PrivateRestaurantRoute from "../Auth/PrivateRestaurantRoute";
 import PrivateUserRoute from "../Auth/PrivateUserRoute";
 import UserProfile from "../User/UserProfile";
-import Bag from "../Bag/Bag";
-import AddBagForm from "../Bag/AddBagForm";
-import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
 import Cart from "../Cart/Cart";
-import RestaurantStore from "../Restaurant/RestaurantStore";
+import RestaurantInventory from "../Restaurant/RestaurantInventory";
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
@@ -150,9 +147,15 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-        <Route path="/bag" element={<Bag />} />
-        <Route path="/bagform" element={<AddBagForm />} />
-        <Route path="/bageditform" element={<EditBagForm />} />
+        <Route
+          path="/restaurantinventory"
+          element={
+            <PrivateRestaurantRoute>
+              <RestaurantInventory />
+            </PrivateRestaurantRoute>
+          }
+        />
+        
         <Route path="/map" element={<Map />} />
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
@@ -165,7 +168,7 @@ const AppRoutes = () => {
           }
         />
 
-        <Route path="/restaurantstore-ov" element={<RestaurantStore />} />
+        
 
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
