@@ -8,6 +8,7 @@ import {
   collection,
   query,
   where,
+  getDocs
 } from "firebase/firestore";
 
 export const addUserAsync = createAsyncThunk(
@@ -94,7 +95,13 @@ export const fetchUserOrdersAsync = createAsyncThunk(
     try {
       const orders = [];
       const ordersRef = collection(db, "orders");
-      const querySnapshot = query(ordersRef, where("userId", "==", userId));
+      const q = query(ordersRef, where("userId", "==", userId));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+        orders.push({orderId : doc.id, data:doc.data()});
+      })
+      console.log("orders:",orders);
+      return orders;
     } catch (err) {
       console.log(err);
     }
@@ -116,7 +123,9 @@ export const userSlice = createSlice({
       })
       .addCase(editUserAsync.fulfilled, (state, action) => {
         return action.payload;
-      });
+      }).addCase(fetchUserOrdersAsync.fulfilled,(state,action) => {
+        return action.payload;
+      })
   },
 });
 
