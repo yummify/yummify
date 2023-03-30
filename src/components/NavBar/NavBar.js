@@ -21,6 +21,7 @@ const NavBar = () => {
 
   return (
     <Navbar>
+      <img id='logo' src='logo.png'></img>
       <Container>
         {!authUser?.user?.userId ? (
           <Nav>
