@@ -62,16 +62,21 @@ const RestaurantOrders = () => {
             </div>
             <div>
                 <h2>Complete</h2>
-            <Card>
-                <Container>
-                    <Row>
-                        <Col>h</Col>
-                        <Col>e</Col>
-                        <Col>r</Col>
-                        <Col>hg</Col>
-                    </Row>
-                </Container>
-            </Card>
+                {completeOrders ? completeOrders.map((order) => {
+                    const singleUser = usersList.find((user) => user.userId === order.userId);
+                    return (
+                        <Card style={{textAlign: 'center'}}>
+                        <Container>
+                            <Row>
+                            <Col className='text-wrap' style={{wordBreak: 'break-all'}}>{order.id}</Col>
+                                <Col>{singleUser.data.name}</Col>
+                                <Col>{order.pickup}</Col>
+                                <Col>Complete</Col>
+                            </Row>
+                        </Container>
+                    </Card>
+                    )
+                }): null}
             </div>
         </Stack>
         </>
