@@ -36,21 +36,26 @@ const Bag = (restaurant) => {
     navigate("/cart");
   };
 
-  return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Body>
-        <Card.Title>{type} Surprise Bag</Card.Title>
-        <Card.Text>Pickup: {pickup}</Card.Text>
-        <Card.Text>
-          Price: ${Number(newPrice).toFixed(2)} - Original: ${" "}
-          {Number(originalPrice).toFixed(2)}
-        </Card.Text>
-        <Button variant="primary" onClick={handleAdd}>
-          Reserve
-        </Button>
-      </Card.Body>
-    </Card>
-  );
-};
+    return(
+        <Card style={{width: '18rem'}}>
+            <Card.Body>
+                <Card.Title>
+                    <b>{type} Surprise Bag</b>
+                </Card.Title>
+                <Card.Text>
+                    <b>Pickup:</b> {pickup}
+                </Card.Text>
+                <Card.Text>
+                    <b>Price:</b> ${Number(newPrice).toFixed(2)} <br/> 
+                    <span style={{fontSize:'12px'}}>
+                    <b>Original:</b> <s>${Number(originalPrice).toFixed(2)}</s>
+                    </span>
+                </Card.Text>
+                <Button variant="primary" onClick={handleAdd}>Reserve</Button>
+            </Card.Body>
+        </Card>
+        
+    );
+}
 
 export default Bag;

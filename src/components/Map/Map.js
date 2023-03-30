@@ -9,7 +9,6 @@ import { db } from "../../firebase/config";
 import "./map.css";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import SearchBar from "../ToggleView/SearchBar";
 
 export default function Map() {
   const { isLoaded } = useLoadScript({
@@ -76,7 +75,6 @@ function MapContent({ restaurants }) {
   const center = useMemo(() => ({ lat: 40.7075, lng: -74.0113 }), []);
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleMarkerClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
@@ -86,26 +84,14 @@ function MapContent({ restaurants }) {
     setSelectedRestaurant(null);
   };
 
-  const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm);
-  };
-
-  // Filter based on search
-  const filteredRestaurants = restaurants.filter(
-    (restaurant) =>
-      restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      restaurant.address.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <div>
-      <SearchBar handleSearch={handleSearch} />
       <GoogleMap
         zoom={14}
         center={center}
         mapContainerClassName="map-container"
       >
-        {filteredRestaurants.map((restaurant) => (
+        {restaurants.map((restaurant) => (
           <Marker
             key={restaurant.id}
             position={{ lat: restaurant.lat, lng: restaurant.lng }}

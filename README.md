@@ -23,11 +23,11 @@ Full stack e-commerce app - allows users to reserve surprise bags of leftover fo
 
 ## Collaborators
 
-- Jacqueline Basanta: [Github](https://github.com/orgs/yummify/people/slightdevastation)
-- Caroline Boyle: [Github](https://github.com/orgs/yummify/people/caroline-boyle) [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
-- Meg Bickerstaff: [Github](https://github.com/orgs/yummify/people/megtb) [LinkedIn](https://www.linkedin.com/in/meg-bickerstaff/)
-- Monique Hayes: [Github](https://github.com/orgs/yummify/people/moniquehayes) [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
-- Manimala Sivasubramanian: [Github](https://github.com/orgs/yummify/people/msiva06)
+- Jacqueline Basanta: [Github](https://github.com/orgs/yummify/people/slightdevastation), [LinkedIn](https://www.linkedin.com/in/jacqueline-basanta/)
+- Caroline Boyle: [Github](https://github.com/orgs/yummify/people/caroline-boyle), [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
+- Meg Bickerstaff: [Github](https://github.com/orgs/yummify/people/megtb), [LinkedIn](https://www.linkedin.com/in/meg-bickerstaff/)
+- Monique Hayes: [Github](https://github.com/orgs/yummify/people/moniquehayes), [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
+- Manimala Sivasubramanian: [Github](https://github.com/orgs/yummify/people/msiva06), [LinkedIn](https://www.linkedin.com/in/manimalasiva/)
 
 ### Structure
 
