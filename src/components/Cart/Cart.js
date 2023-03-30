@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth } from "../../contexts/AuthContext";
-import { Alert, Card, Modal, Stack, Button, Badge } from "react-bootstrap";
+import { Alert, Card, Modal, Stack, Button, Badge, NavLink } from "react-bootstrap";
 
 
 import { fetchUserOrdersAsync, selectOrders } from "../Order/orderSlice";
@@ -24,6 +24,7 @@ const Cart = () => {
 
   
   const orders = useSelector(selectOrders);
+  console.log("orders: ", orders);
   const restaurants = useSelector(selectRestaurants);
   
 
@@ -41,6 +42,13 @@ const Cart = () => {
         return savings.toFixed(2);
     };
 
+    const handleCheckout = ()=> {
+
+    }
+
+    const handleDeleteOrder = () => {
+
+    }
     return (
         <>
         <Alert variant={'warning'}>Remember: the contents of this bag are a SURPRISE!</Alert>
@@ -52,14 +60,14 @@ const Cart = () => {
                         
                     return(
                 <Card>
-                    <Button variant="outline-dark" className="text-right" style={{textAlign: 'right'}}>X *add delete function</Button>
+                    <Button variant="outline-dark" className="text-right" style={{textAlign: 'right'}} onClick={handleDeleteOrder}> Delete Bag</Button>
                     <Stack direction='horizontal'>
                     <Card.Header>
                         <Card.Img src='https://media.istockphoto.com/id/184395659/photo/brown-paper-bag-and-apple.jpg?s=612x612&w=0&k=20&c=MLpwawtbge0roehL_8LF638qGxBXrIWdDlItyrLxQ-s=' style={{width: '20vw'}}></Card.Img>
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>{order.type} SuperBag @ {rest?.restaurantName} </Card.Title>
-                        {/* <Card.Text>Pickup Window: {bag.pickup}, {bag.address}</Card.Text> */}
+                        <Card.Text>Pickup Window: {order.pickup}, {order.address}</Card.Text>
                     </Card.Body>
                     </Stack>
                     <Card.Footer style={{textAlign: 'right'}}>
@@ -72,15 +80,17 @@ const Cart = () => {
                 else{
                     return null;
                 }
-                }) : "Your cart is empty :("}
+                }) : <div>Your cart is empty<div></div> <NavLink href="/restaurants">Return to Browse</NavLink></div> }
                 
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
+                {orders.length > 0 ? (<Card>
                 <p>Total Savings: ${savings(orders[0].originalPrice, orders[0].newPrice)}
                 
                 </p>
                 <div></div>
-                <p>Checkout: ${totalPrice(orders[0].newPrice)}</p>
+                <p> <Button onClick={handleCheckout}>Checkout: ${totalPrice(orders[0].newPrice)}</Button></p>
+                </Card>) : null}
             </Stack>
             
         </>
