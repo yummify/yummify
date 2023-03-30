@@ -33,12 +33,23 @@ export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId
     }
 })
 
+export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrders", async (restaurantId) => {
+    try {
+        const q = query(collection(db, "orders"), where("restaurantId", "==", restaurantId));
+        const querySnap = await getDocs(q)
+        const restaurantOrders = [];
+        // if (querySnap.exists()) {
+        querySnap.forEach((doc) => {
+            restaurantOrders.push({...doc.data(), id: doc.id});
+        })
+    // }
+        return restaurantOrders;
+    } catch(err) {
+        console.error(err)
+    }
+})
 
-// fetch all orders for a specific restaurant
-
-
-
-// mark orders as complete
+// mark as complete?
 
 export const ordersSlice = createSlice({
     name: "orders",
@@ -49,6 +60,9 @@ export const ordersSlice = createSlice({
             return action.payload;
         });
         builder.addCase(fetchUserOrdersAsync.fulfilled, (state, action) => {
+            return action.payload;
+        })
+        builder.addCase(fetchAllOrdersForRestaurantAsync.fulfilled, (state, action) => {
             return action.payload;
         })
     }

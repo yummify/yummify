@@ -31,10 +31,8 @@ const NavBar = () => {
         ) : authUser?.user?.isRestaurantOwner ? (
           <Nav>
             <Nav.Link href="/restaurantprofile">Profile</Nav.Link>
-            <Nav.Link href="/">Store</Nav.Link>
             <Nav.Link href="/restaurantorders">Orders</Nav.Link>
             <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
-            <Nav.Link href="/">Orders</Nav.Link>
             <Button onClick={logout}>Logout</Button>
           </Nav>
         ) : authUser?.user?.isAdmin ? (
