@@ -71,9 +71,9 @@ const AllRestaurants = () => {
                 <Card.Header>{restaurant.restaurantName}</Card.Header>
                 <Card.Body>
                   <Card.Title>{restaurant.description}</Card.Title>
-                  <Card.Text>Address: {restaurant.address}</Card.Text>
-                  <Card.Img src={restaurant.image?.[1]} />
                   <Card.Text>Cuisine: {restaurant.cuisine}</Card.Text>
+                  <Card.Text><b>Address:</b> {restaurant.address}</Card.Text>
+                  <Card.Img src={restaurant.image?.[1]} />
                 </Card.Body>
               </Card>
             </Link>

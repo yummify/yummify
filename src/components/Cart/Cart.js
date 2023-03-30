@@ -14,8 +14,7 @@ const Cart = () => {
 
   const dispatch = useDispatch();
 
-    const restaurant = useSelector(selectRestaurant);
-    // console.log('restaurant', restaurant);
+  const restaurant = useSelector(selectRestaurant);
 
   //get id of logged-in user
   const { user } = useAuth();

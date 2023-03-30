@@ -57,7 +57,7 @@ const SingleRestaurant = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button>
 
@@ -75,7 +75,7 @@ const SingleRestaurant = () => {
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
       <Card style={{ width: "25rem" }}>
         <Card.Img variant="top" src={restaurant.image?.[0]} />
         <Card.Header className="text-center">
@@ -104,7 +104,6 @@ const SingleRestaurant = () => {
                           return null;
                         }
                     }): "No bags available"}
-                    
                         
         </Card.Body>
         <Card.Body>
