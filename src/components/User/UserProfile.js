@@ -9,6 +9,7 @@ import {
   editUserImageAsync,
   selectUser,
 } from "../User/userSlice";
+import { fetchUserOrdersAsync,selectOrders } from "./userOrdersSlice";
 
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -25,10 +26,13 @@ const UserProfile = () => {
   console.log("User from AuthContext:", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const orders = useSelector(selectOrders);
+  console.log("Orders:", orders);
+  console.log('Orderdata:', orders.length);
 
   useEffect(() => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
-  }, [dispatch, user?.userId, fileUrl]);
+  }, [dispatch, user?.userId, fileUrl,orders]);
 
   const handleImage = async (event) => {
     if (imageFile == null) return;
@@ -44,6 +48,12 @@ const UserProfile = () => {
     const userId = user.userId;
     setUpload(false);
   };
+
+  const handleOrderHistory = () => {
+    dispatch(fetchUserOrdersAsync(user.userId));
+  }
+
+ 
 
   return (
     <div>
@@ -75,6 +85,7 @@ const UserProfile = () => {
                     Upload Photo
                   </Button>
                 )}
+                <Button onClick={handleOrderHistory}>Order History</Button>
                 {upload && (
                   <Col className="my-3 text-center">
                     <input
@@ -105,7 +116,25 @@ const UserProfile = () => {
                   Update password
                 </Button>
               </Col>
+              <Col>
+              {orders.length > 0 && orders.map((order) => {
+              <Container>
+              <p>OrderId:{order.orderId}</p>
+              <p>Expiration:{order.data.expiration}</p>
+              <p>NewPrice:{order.data.newPrice}</p>
+              <p>Pickup:{order.data.pickup}</p>
+              <p>Quantity:{order.data.quantity}</p>
+              <p>Status:{order.data.status}</p>
+              <p>Type:{order.data.type}</p>
+              </Container>
+              })}
+              </Col>
             </Row>
+            {/* <Row> */}
+            {/* {orders.length >= 0 && orders.map((order) => { */}
+            
+            {/* })} */}
+            {/* </Row> */}
           </Container>
         </div>
       )}
