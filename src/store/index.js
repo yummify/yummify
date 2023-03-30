@@ -19,9 +19,9 @@ export const store = configureStore({
     restaurant: restaurantSlice,
     singleRestaurant: singleRestaurantSlice,
     bag: bagSlice,
-    cartBag: cartBagSlice,
     order: orderSlice,
-    orders: ordersSlice
+    orders: ordersSlice,
+    cartBag: cartBagSlice,
   },
 });
 export default store;

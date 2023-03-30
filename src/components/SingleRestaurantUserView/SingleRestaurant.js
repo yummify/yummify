@@ -1,70 +1,74 @@
-import React, { useState, useEffect } from 'react';  
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-import Bag from '../Bag/Bag';
-import { fetchSingleRestaurant, selectRestaurant } from './singleRestaurantSlice';
-import { selectBag, fetchGroupBagByRestAsync } from '../Bag/bagSlice';
-//import { useAuth } from '../../contexts/AuthContext';
+import Bag from "../Bag/Bag";
+import {
+  fetchSingleRestaurant,
+  selectRestaurant,
+} from "./singleRestaurantSlice";
+import { fetchGroupBagByRestAsync, selectBag } from "../Bag/bagSlice";
 
 
 const SingleRestaurant = () => {
-    const dispatch = useDispatch();
-    //select restaurant currently in state
-    const restaurant = useSelector(selectRestaurant);
-    //select bag connected to restaurant
-    const bags = useSelector(selectBag);
-    //useParams, restaurantId, to get bagId
-    const { id } = useParams();
+  const dispatch = useDispatch();
+  //select restaurant currently in state
+  const restaurant = useSelector(selectRestaurant);
+  //select bag connected to restaurant
+  const bags = useSelector(selectBag);
 
-    //dispatch thunks with restaurantId to grab restaurant and bag
-    useEffect(() => {
-        dispatch(fetchSingleRestaurant(id));
-        
-        dispatch(fetchGroupBagByRestAsync(id));
-      }, [dispatch, id]);
-      
-    //get userId from auth context
-    // const { user } = useAuth();
-    // console.log('user.userId', user);
-    // const userIdFromAuth = user.userId;
+  //useParams, restaurantId, to get bagId
+  const { id } = useParams();
 
-    //to sort bags from fetchGroupBag array from active/inactive
-    const checkActive = (expir, quant) =>{
-      const parts = expir.split('-');
-      const expdate = new Date(parts[0], parts[1]-1, parts[2]);
-      const today = new Date();
-      if(expdate.getTime() >= today.getTime() && quant > 0){
-         return true;
-      }
-      else{
-          return false;
-      }
-       
-  }
+  //dispatch thunks with restaurantId to grab restaurant and bag
+  useEffect(() => {
+    dispatch(fetchSingleRestaurant(id));
 
-    //for Bootstrap modal
-    const [show, setShow] = useState(true);
+    dispatch(fetchGroupBagByRestAsync(id));
+  }, [dispatch, id]);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  //get userId from auth context
+  // const { user } = useAuth();
+  // console.log('user.userId', user);
+  // const userIdFromAuth = user.userId;
 
-    return (
-        <>
-        <Button variant="primary" onClick={handleShow}>
+  //to sort bags from fetchGroupBag array from active/inactive
+  const checkActive = (expir, quant) => {
+    const parts = expir.split("-");
+    const expdate = new Date(parts[0], parts[1] - 1, parts[2]);
+    const today = new Date();
+    if (expdate.getTime() >= today.getTime() && quant > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  //for Bootstrap modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-        </Button>
+      </Button>
 
-        <Modal show={show} onHide={handleClose} animation={false}>
+      <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Remember!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Surprise bags are a surprise! Your friendly neighborhood restaurant fills them based on available products at the end of the day, so you can't be exactly sure what you'll get. 
+        <Modal.Body>
+          Surprise bags are a surprise! Your friendly neighborhood restaurant
+          fills them based on available products at the end of the day, so you
+          can't be exactly sure what you'll get.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
@@ -72,13 +76,16 @@ const SingleRestaurant = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-        <Card style={{ width: '25rem' }}>
+      <Card style={{ width: "25rem" }}>
         <Card.Img variant="top" src={restaurant.image?.[0]} />
-        <Card.Header className="text-center">{restaurant.restaurantName}</Card.Header>
+        <Card.Header className="text-center">
+          {restaurant.restaurantName}
+        </Card.Header>
         <Card.Body>
-            <Card.Text>
-                Surprise bags from {restaurant.restaurantName} may include: {restaurant.description}
-            </Card.Text>
+          <Card.Text>
+            Surprise bags from {restaurant.restaurantName} may include:{" "}
+            {restaurant.description}
+          </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
             <ListGroup.Item><b>Cuisine:</b> {restaurant.cuisine}</ListGroup.Item>
@@ -91,7 +98,7 @@ const SingleRestaurant = () => {
             {bags.length > 0 ? bags.map((bag)=>{
                     if(checkActive(bag.expiration,bag.quantity)===true){
                         return(
-                          <Bag bag={bag} />
+                          <Bag bag={bag} key={bag.id}/>
                         )}
                         else {
                           return null;
@@ -104,9 +111,9 @@ const SingleRestaurant = () => {
             <Card.Link href={restaurant.website}>Website</Card.Link>
             <Card.Link style={{float: 'right'}}href="/restaurants">Back to Restaurants</Card.Link> 
         </Card.Body>
-        </Card>
-        </>
-    )
+      </Card>
+    </>
+  );
 };
 
 export default SingleRestaurant;

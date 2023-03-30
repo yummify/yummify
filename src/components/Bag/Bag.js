@@ -1,29 +1,40 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
-import { placeBagInCartAsync, fetchOrderByStatusAsync } from "../Cart/cartBagSlice";
+//import { selectBag } from "./bagSlice";
+import {
+  placeBagInCartAsync,
+  fetchOrderByStatusAsync,
+} from "../Cart/cartBagSlice";
 import { selectUser } from "../User/userSlice";
 
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
+const Bag = (restaurant) => {
+  const {
+    //expiration,
+    //image,
+    newPrice,
+    originalPrice,
+    pickup,
+    type,
+    //restaurantId,
+  } = restaurant.bag;
+  const dispatch = useDispatch();
+  //const singlebag = useSelector(selectBag);
+  const userInfo = useSelector(selectUser);
 
-const Bag = (restaurant) =>{
+  const navigate = useNavigate();
 
-    const {expiration, image, newPrice, originalPrice, pickup, type, restaurantId} = restaurant.bag;
-    const dispatch = useDispatch();
-    const singlebag = useSelector(selectBag);
-    const userInfo = useSelector(selectUser);
-    
-    const navigate = useNavigate();
-
-    //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info and navigate to Cart
-    const handleAdd = async () => {
-        await dispatch(placeBagInCartAsync({...restaurant.bag, userId: userInfo.userId}))
-        dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"))
-        navigate("/cart");
-    };
+  //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info and navigate to Cart
+  const handleAdd = async () => {
+    await dispatch(
+      placeBagInCartAsync({ ...restaurant.bag, userId: userInfo.userId })
+    );
+    dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"));
+    navigate("/cart");
+  };
 
     return(
         <Card style={{width: '18rem'}}>
