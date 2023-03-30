@@ -14,6 +14,7 @@ import PrivateUserRoute from "../Auth/PrivateUserRoute";
 import UserProfile from "../User/UserProfile";
 import Map from "../Map/Map";
 import Cart from "../Cart/Cart";
+import Checkout from "../Cart/Checkout";
 import RestaurantInventory from "../Restaurant/RestaurantInventory";
 
 import AdminHome from "../Admin/Admin";
@@ -78,6 +79,14 @@ const AppRoutes = () => {
           element={
             <PrivateUserRoute>
               <Cart />
+            </PrivateUserRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateUserRoute>
+              <Checkout />
             </PrivateUserRoute>
           }
         />
