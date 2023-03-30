@@ -47,8 +47,8 @@ const RestaurantOrders = () => {
             <Row style={{ fontWeight: "bold" }}>
               <Col>Confirmation Number</Col>
               <Col>Ordered By</Col>
-              <Col>Pickup Window</Col>
-              <Col>Mark Complete</Col>
+              <Col>Pickup Time</Col>
+              <Col className='text-wrap'>Mark Complete</Col>
             </Row>
           </Container>
           {incompleteOrders
@@ -96,7 +96,7 @@ const RestaurantOrders = () => {
             <Row style={{ fontWeight: "bold" }}>
               <Col>Confirmation Number</Col>
               <Col>Ordered By</Col>
-              <Col>Pickup Window</Col>
+              <Col>Pickup Time</Col>
               <Col> </Col>
             </Row>
           </Container>
