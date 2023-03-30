@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
+import { Button, ButtonGroup, ButtonToolbar, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
@@ -7,28 +7,35 @@ const AdminHome = () => {
 
   return (
     <>
+    <Container style={{height: '80vh', textAlign: 'center'}}>
+      <div id='mng-rests'>
       <h2>Admin Dashboard</h2>
-      <ButtonToolbar>
-        <ButtonGroup>
+      <ButtonToolbar className="justify-content-md-center">
+        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
           <Button onClick={() => navigate("/admin/manage-users")}>
             Manage Users
           </Button>
         </ButtonGroup>
-        <ButtonGroup>
+        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
           <Button onClick={() => navigate("/admin/manage-restaurants")}>
             Manage Restaurants
           </Button>
         </ButtonGroup>
-        <ButtonGroup>
+        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
           <Button onClick={() => navigate("/admin/order-history")}>
             Order History
           </Button>
         </ButtonGroup>
+        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
+          <Button onClick={() => navigate("/restaurants")}>
+            Customer View
+            </Button>
+        </ButtonGroup>
       </ButtonToolbar>
-      <Button onClick={() => navigate("/restaurants")}>Customer View</Button>
+      </div>
+      </Container>
     </>
   );
-  //ADD CONDITIONAL LOGIC TO THE LOGIN FUNCTION -> IF USER IS ADMIN, NAVIGATE TO THIS HOME PAGE INSTEAD
 };
 
 export default AdminHome;

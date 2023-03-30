@@ -1,49 +1,61 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBag, fetchSingleBagByRestAsync } from "./bagSlice";
+import { useNavigate } from "react-router-dom";
+//import { selectBag } from "./bagSlice";
+import {
+  placeBagInCartAsync,
+  fetchOrderByStatusAsync,
+} from "../Cart/cartBagSlice";
+import { selectUser } from "../User/userSlice";
 
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
-//TODO: able to fetch bag by specific bagID
-//Attach reserve button to cart
+const Bag = (restaurant) => {
+  const {
+    //expiration,
+    //image,
+    newPrice,
+    originalPrice,
+    pickup,
+    type,
+    //restaurantId,
+  } = restaurant.bag;
+  const dispatch = useDispatch();
+  //const singlebag = useSelector(selectBag);
+  const userInfo = useSelector(selectUser);
 
-const Bag = (restaurant) =>{
-    // console.log(restaurant.bag);
-    const {expiration, image, newPrice, originalPrice, pickup, type} = restaurant.bag;
-    //console.log(expiration);
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    //for testing only
-
-    //const testingrest= "D1EEQluv6HmkAjs7Uvyv";
-    
-    const singlebag = useSelector(selectBag);
-    //const {bagId, expiration, image, newPrice, originalPrice, pickup, type} = singlebag;
-    
-    // useEffect(()=>{
-    //     dispatch(fetchSingleBagByRestAsync());
-    // },[dispatch]);
+  //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info and navigate to Cart
+  const handleAdd = async () => {
+    await dispatch(
+      placeBagInCartAsync({ ...restaurant.bag, userId: userInfo.userId })
+    );
+    dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"));
+    navigate("/cart");
+  };
 
     return(
         <Card style={{width: '18rem'}}>
-            <Card.Img variant="top" src={image} />
             <Card.Body>
                 <Card.Title>
-                    {type} Surprise Bag
+                    <b>{type} Surprise Bag</b>
                 </Card.Title>
                 <Card.Text>
-                    Pickup: {pickup}
+                    <b>Pickup:</b> {pickup}
                 </Card.Text>
                 <Card.Text>
-                    Price: ${Number(newPrice).toFixed(2)} - Original: $ {Number(originalPrice).toFixed(2)}
+                    <b>Price:</b> ${Number(newPrice).toFixed(2)} <br/> 
+                    <span style={{fontSize:'12px'}}>
+                    <b>Original:</b> <s>${Number(originalPrice).toFixed(2)}</s>
+                    </span>
                 </Card.Text>
-                <Button variant="primary">Reserve</Button>
+                <Button variant="primary" onClick={handleAdd}>Reserve</Button>
             </Card.Body>
         </Card>
         
     );
 }
-
 
 export default Bag;

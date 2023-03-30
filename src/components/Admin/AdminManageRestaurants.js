@@ -8,6 +8,7 @@ import {
   denyStatusRestaurantAsync,
   deleteRestaurantAsync
 } from "../SingleRestaurantUserView/singleRestaurantSlice";
+import { editRestaurantAsync } from "../Restaurant/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -17,6 +18,7 @@ import {
   Alert,
   Accordion,
   Modal,
+  Form
 } from "react-bootstrap";
 
 const AdminManageRestaurants = () => {
@@ -27,6 +29,21 @@ const AdminManageRestaurants = () => {
   const [showSuspend, setShowSuspend] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+
+  const [restaurantData, setRestaurantData] = useState(null);
+  const [restaurantName, setRestaurantName] = useState("");
+  const [cuisine, setCuisine] = useState("");
+  const [address, setAddress] = useState("");
+  //NOTE: check to see if open and closed are removed from DB.
+  // if so, remove from thunk as well.
+  const [open, setOpen] = useState("");
+  const [close, setClose] = useState("");
+  const [description, setDescription] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [EIN, setEIN] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [website, setWebsite] = useState("");
 
   const pendingRestaurants = [];
   for (const rest of restaurants) {
@@ -45,6 +62,9 @@ const AdminManageRestaurants = () => {
   const handleCloseDelete = () => setShowDelete(false);
   const handleOpenDelete = () => setShowDelete(true);
 
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleOpenEdit = () => setShowEdit(true);
+
   const handleSuspend = async (restaurantId) => {
     await dispatch(denyStatusRestaurantAsync(restaurantId));
     setRestaurantsList(restaurants);
@@ -60,11 +80,44 @@ const AdminManageRestaurants = () => {
     await dispatch(deleteRestaurantAsync(restaurantId));
     setRestaurantsList(restaurants);
     setShowDelete(false);
+  };
+
+  const editRestaurant = () => {
+    const reqbody = {
+      restaurantId: restaurantData.id,
+      restaurantName: restaurantName
+        ? restaurantName
+        : restaurantData.restaurantName,
+      cuisine: cuisine ? cuisine : restaurantData.cuisine,
+      description: description ? description : restaurantData.description,
+      address: address ? address : restaurantData.address,
+      open: open ? open : restaurantData.open,
+      close: close ? close : restaurantData.close,
+      website: website ? website : restaurantData.website,
+      EIN: EIN ? EIN : restaurantData.EIN,
+      phoneNumber: phoneNumber ? phoneNumber : restaurantData.phoneNumber,
+      zipcode: zipcode ? zipcode : restaurantData.zipcode,
+    };
+    dispatch(editRestaurantAsync(reqbody));
+  };
+
+  // NOTE: PAUSED EDIT RESTAURANT. WILL FINISH IF TIME OR DELETE IF NOT.
+
+  const cancelEdit = () => {
+    setRestaurantName(restaurantData.restaurantName);
+    setCuisine(restaurantData.cuisine);
+    setAddress(restaurantData.address);
+    setDescription(restaurantData.description);
+    setPhoneNumber(restaurantData.phoneNumber);
+    setEIN(restaurantData.EIN);
+    setZipcode(restaurantData.zipcode);
+    setWebsite(restaurantData.website);
+    handleCloseEdit();
   }
 
   return (
     <>
-      <h2>Manage Restaurants</h2>
+      <h2 id='title'>Manage Restaurants</h2>
       <Alert variant={"warning"}>
         <Accordion defaultActiveKey="0">
           <h2>
@@ -125,7 +178,91 @@ const AdminManageRestaurants = () => {
                           <p>{rest.phone}</p>
                         </div>
                         <div>
-                          <Button>Edit Restaurant</Button>
+                          <Button onClick={() => {
+                            setRestaurantData(rest);
+                            console.log(restaurantData);
+                            handleOpenEdit()
+                          }}>Edit Restaurant</Button>
+                          <Modal
+                            show={showEdit}
+                            onHide={handleCloseEdit}
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Edit {restaurantData?.restaurantName}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                               <Form>
+                                {/*<Form.Group>
+                                  <Form.Label>Restaurant Name: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.restaurantName}
+                                    onChange={(event) => setRestaurantName(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Cuisine: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.cuisine}
+                                    onChange={(event) => setCuisine(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Description: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.description}
+                                    onChange={(event) => setDescription(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Address: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.address}
+                                    onChange={(event) => setAddress(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Phone Number: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.phoneNumber}
+                                    onChange={(event) => setPhoneNumber(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Zip Code: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.zipcode}
+                                    onChange={(event) => setZipcode(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Website: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.website}
+                                    onChange={(event) => setWebsite(event.target.value)}
+                                  />
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>EIN: </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder={restaurantData.EIN}
+                                    onChange={(event) => setEIN(event.target.value)}
+                                  />
+                                </Form.Group>*/}
+                                <Button onClick={editRestaurant}>Save</Button>
+                                <Button onClick={cancelEdit}>Cancel</Button>
+                              </Form> 
+                            </Modal.Body>
+                          </Modal>
                           <div className="vr" />
                           <Button onClick={() => {
                             setModalData(rest.id);

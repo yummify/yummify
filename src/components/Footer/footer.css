@@ -1,7 +1,8 @@
 .footer {
   position: absolute;
   width: 100%;
-  background-color: hsl(219, 100%, 57%);
+  /* background-color: hsl(219, 100%, 57%); */
+  background-color: #e5d4ce;
   padding: 20px;
   font-size: 12px;
 }

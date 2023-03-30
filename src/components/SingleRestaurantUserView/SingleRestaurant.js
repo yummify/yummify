@@ -1,53 +1,74 @@
-import React, { useState, useEffect } from 'react';  
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSingleRestaurant, selectRestaurant } from './singleRestaurantSlice';
 import { useSelector, useDispatch } from "react-redux";
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 
-import Bag from '../Bag/Bag';
-import { fetchSingleBagByRestAsync, selectBag } from '../Bag/bagSlice';
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+
+import Bag from "../Bag/Bag";
+import {
+  fetchSingleRestaurant,
+  selectRestaurant,
+} from "./singleRestaurantSlice";
+import { fetchGroupBagByRestAsync, selectBag } from "../Bag/bagSlice";
 
 
 const SingleRestaurant = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  //select restaurant currently in state
+  const restaurant = useSelector(selectRestaurant);
+  //select bag connected to restaurant
+  const bags = useSelector(selectBag);
 
-    const restaurant = useSelector(selectRestaurant);
-    const bag = useSelector(selectBag);
-    const {expiration, image, newPrice, originalPrice, pickup, type} = bag;
-    //console.log(expiration);
-    
+  //useParams, restaurantId, to get bagId
+  const { id } = useParams();
 
-    //useParams to get bagId
-    const { id } = useParams();
-    //console.log('id:', id);
+  //dispatch thunks with restaurantId to grab restaurant and bag
+  useEffect(() => {
+    dispatch(fetchSingleRestaurant(id));
 
-    useEffect(() => {
-        dispatch(fetchSingleRestaurant(id));
-        dispatch(fetchSingleBagByRestAsync(id));
-        console.log('bag:', bag);
-      }, [dispatch, id]);
-      
+    dispatch(fetchGroupBagByRestAsync(id));
+  }, [dispatch, id]);
 
-    //for Bootstrap modal
-    const [show, setShow] = useState(false);
+  //get userId from auth context
+  // const { user } = useAuth();
+  // console.log('user.userId', user);
+  // const userIdFromAuth = user.userId;
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  //to sort bags from fetchGroupBag array from active/inactive
+  const checkActive = (expir, quant) => {
+    const parts = expir.split("-");
+    const expdate = new Date(parts[0], parts[1] - 1, parts[2]);
+    const today = new Date();
+    if (expdate.getTime() >= today.getTime() && quant > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-    return (
-        <>
-        <Button variant="primary" onClick={handleShow}>
+  //for Bootstrap modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-        </Button>
+      </Button>
 
-        <Modal show={show} onHide={handleClose} animation={false}>
+      <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Remember!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Surprise bags are a surprise! Your friendly neighborhood restaurant fills them based on available products at the end of the day, so you can't be exactly sure what you'll get. 
+        <Modal.Body>
+          Surprise bags are a surprise! Your friendly neighborhood restaurant
+          fills them based on available products at the end of the day, so you
+          can't be exactly sure what you'll get.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
@@ -55,32 +76,44 @@ const SingleRestaurant = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-        <Card style={{ width: '25rem' }}>
-        <Card.Img variant="top" src="image-here" />
-        <Card.Header className="text-center">{restaurant.name}</Card.Header>
+      <Card style={{ width: "25rem" }}>
+        <Card.Img variant="top" src={restaurant.image?.[0]} />
+        <Card.Header className="text-center">
+          {restaurant.restaurantName}
+        </Card.Header>
         <Card.Body>
-            <Card.Text>
-                Surprise bags from {restaurant.name} may include: {restaurant.description}
-            </Card.Text>
+          <Card.Text>
+            Surprise bags from {restaurant.restaurantName} may include:{" "}
+            {restaurant.description}
+          </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-            <ListGroup.Item>Cuisine: {restaurant.cuisine}</ListGroup.Item>
-            <ListGroup.Item>Address: {restaurant.address}</ListGroup.Item>
-            {/* <ListGroup.Item>Open: {restaurant.open}</ListGroup.Item>
-            <ListGroup.Item>Close: {restaurant.close}</ListGroup.Item> */}
+            <ListGroup.Item><b>Cuisine:</b> {restaurant.cuisine}</ListGroup.Item>
+            <ListGroup.Item><b>Address:</b> {restaurant.address}</ListGroup.Item>
+            <ListGroup.Item><b>Phone:</b> {restaurant.phoneNumber}</ListGroup.Item>
         </ListGroup>
         <Card.Body>
-            Order a Surprise Bag from {restaurant.name}:
-            {/* add onClick */}
-            <Bag bag={bag}/>
+            Order a Surprise Bag from: {restaurant.restaurantName}
+            
+            {bags.length > 0 ? bags.map((bag)=>{
+                    if(checkActive(bag.expiration,bag.quantity)===true){
+                        return(
+                          <Bag bag={bag} key={bag.id}/>
+                        )}
+                        else {
+                          return null;
+                        }
+                    }): "No bags available"}
+                    
+                        
         </Card.Body>
         <Card.Body>
             <Card.Link href={restaurant.website}>Website</Card.Link>
-            <Card.Link href="#">Back to Restaurants</Card.Link> 
+            <Card.Link style={{float: 'right'}}href="/restaurants">Back to Restaurants</Card.Link> 
         </Card.Body>
-        </Card>
-        </>
-    )
+      </Card>
+    </>
+  );
 };
 
 export default SingleRestaurant;

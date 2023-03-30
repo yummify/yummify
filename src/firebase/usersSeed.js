@@ -27,7 +27,7 @@ export const seedUsers = async () => {
         isAdmin: faker.datatype.boolean(),
       };
 
-      // IUD in Authentication === Doc ID in users collection
+      // UID in Authentication === Doc ID in users collection
       const userRef = doc(db, "users", user.uid);
       await setDoc(userRef, userData);
     }

@@ -12,20 +12,14 @@ import RestaurantStartPage from "./RestaurantStartPage";
 import PrivateRestaurantRoute from "../Auth/PrivateRestaurantRoute";
 import PrivateUserRoute from "../Auth/PrivateUserRoute";
 import UserProfile from "../User/UserProfile";
-import Bag from "../Bag/Bag";
-import AddBagForm from "../Bag/AddBagForm";
-import EditBagForm from "../Bag/EditBagForm";
 import Map from "../Map/Map";
-
-import Home from "../Home/Home";
 import Cart from "../Cart/Cart";
-import RestaurantStore from "../Restaurant/RestaurantStore";
+import RestaurantInventory from "../Restaurant/RestaurantInventory";
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
 import AdminManageUsers from "../Admin/AdminManageUsers";
 import AdminOrderHistory from "../Admin/AdminOrderHistory";
-
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
 import EditRestaurantProfile from "../Restaurant/EditRestaurantProfile";
 import PrivateAdminRoute from "../Auth/PrivateAdminRoute";
@@ -37,16 +31,16 @@ import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
 import ForgotPassword from "../Auth/ForgotPassword";
 import UpdatePassword from "../Auth/UpdatePassword";
-import NavBar from "../NavBar/NavBar";
+
 import PrivateRoute from "../Auth/PrivateRoute";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+import ToggleView from "../ToggleView/ToggleView";
 
 const AppRoutes = () => {
   return (
     <div>
       <Routes>
         {/* All users access */}
-        <Route path="/" element={<Home />} />
         <Route path="/userstart" element={<UserStartPage />} />
         <Route path="/restaurantstart" element={<RestaurantStartPage />} />
         <Route path="/login" element={<Login />} />
@@ -113,7 +107,6 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
-
         <Route
           path="/adminprofile"
           element={
@@ -154,7 +147,6 @@ const AppRoutes = () => {
             </PrivateAdminRoute>
           }
         />
-
         <Route
           path="/editrestaurantprofile"
           element={
@@ -171,48 +163,23 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-        <Route
-          path="/bag"
+        
+        <Route path="/restaurantinventory"
           element={
             <PrivateRestaurantRoute>
-              <Bag />
+              <RestaurantInventory />
             </PrivateRestaurantRoute>
           }
         />
-        <Route
-          path="/bagform"
-          element={
-            <PrivateRestaurantRoute>
-              <AddBagForm />
-            </PrivateRestaurantRoute>
-          }
-        />
-        <Route
-          path="/bageditform"
-          element={
-            <PrivateRestaurantRoute>
-              <EditBagForm />
-            </PrivateRestaurantRoute>
-          }
-        />
-        <Route path="/map" element={<Map />} />
-
+        
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
           element={
             <PrivateRoute>
+              <ToggleView />
               <AllRestaurants />
             </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/restaurantstore-ov"
-          element={
-            <PrivateRestaurantRoute>
-              <RestaurantStore />
-            </PrivateRestaurantRoute>
           }
         />
 

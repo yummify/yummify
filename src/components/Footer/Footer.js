@@ -58,7 +58,7 @@ function Footer() {
               </li>
               <li>
                 <Link to="/map" target="_blank" rel="noopener noreferrer">
-                  Locations
+                  Browse
                 </Link>
               </li>
             </ul>

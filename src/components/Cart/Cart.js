@@ -1,16 +1,44 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useAuth } from "../../contexts/AuthContext";
 import { Alert, Card, Modal, Stack, Button, Badge } from "react-bootstrap";
+import { selectBag } from "../Bag/bagSlice";
+import { selectRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
+import { selectOrders } from "../Order/orderSlice";
+import { selectCartBag } from "./cartBagSlice";
+import { fetchOrderByStatusAsync } from "./cartBagSlice";
+import { fetchSingleRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
 
 const Cart = () => {
+  const [confirmation, setConfirmation] = useState(false);
 
-    const [confirmation, setConfirmation] = useState(false);
+  const dispatch = useDispatch();
 
-    // on the singlerestaurant page, will need to add a bag to a piece of state. 
-    // then will pull that from here. 
+    const restaurant = useSelector(selectRestaurant);
+    // console.log('restaurant', restaurant);
 
-    // MAY JUST USE BAG SLICE? NOT SURE IF WE ALSO NEED A CART SLICE OR NOT
+  //get id of logged-in user
+  const { user } = useAuth();
+  const userId = user.userId;
 
-    // in modal -> remind to bring their own bag!
+  useEffect(() => {
+    dispatch(fetchOrderByStatusAsync(userId, "shopping"));
+    dispatch(fetchSingleRestaurant(restaurant));
+  }, [dispatch]);
+
+  const bag = useSelector(selectCartBag);
+
+    //calculate NYC sales tax and find total price
+    const totalPrice = (price) => {
+        let tax = (price * .0875)
+        return (tax + price).toFixed(2);
+    }
+
+    //calculate savings
+    const savings = (oldPrice, newPrice) => {
+        let savings = oldPrice - newPrice;
+        return savings.toFixed(2);
+    };
 
     return (
         <>
@@ -24,22 +52,23 @@ const Cart = () => {
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>Restaurant Name</Card.Title>
-                        <Card.Text>Pickup Window, address</Card.Text>
+                        {/* <Card.Text>Pickup Window: {bag.pickup}, {bag.address}</Card.Text> */}
                     </Card.Body>
                     </Stack>
                     <Card.Footer style={{textAlign: 'right'}}>
                         <Stack direction='horizontal'>
-                            <Card.Text style={{margin: '5px'}}>Original Price</Card.Text>
-                            <Card.Text style={{margin: '5px'}}>New Price</Card.Text>
+                            <Card.Text style={{margin: '5px'}}><s>Original Price: {bag[0]?.[0]?.originalPrice}</s></Card.Text>
+                            <Card.Text style={{margin: '5px'}}>New Price: {bag[0]?.[0]?.newPrice}</Card.Text>
                         </Stack>
                     </Card.Footer>
                 </Card>
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
-                <p>Total Savings: ______</p>
+                <p>Total Savings: {savings(bag[0]?.[0]?.originalPrice, bag[0]?.[0]?.newPrice)}</p>
                 <div></div>
+                <p>Checkout: {totalPrice(bag[0]?.[0]?.newPrice)}</p>
             </Stack>
-            <h2>Checkout</h2>
+            
         </>
     )
 };
