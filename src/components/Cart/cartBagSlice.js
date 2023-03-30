@@ -97,7 +97,8 @@ export const cartBagSlice = createSlice({
         return action.payload;
       })
       .addCase(fetchOrderByStatusAsync.fulfilled, (state, action) => {
-        state.push(action.payload);
+        //state.push(action.payload);
+        return action.payload;
       })
       .addCase(deleteOrderAsync.fulfilled, (state, action) => {
         const orderId = action.payload;

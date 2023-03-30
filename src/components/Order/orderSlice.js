@@ -21,17 +21,22 @@ export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId
     try {
         const q = query(collection(db, "orders"), where("userId", "==", userId));
         const querySnap = await getDocs(q);
-        if (querySnap.exists()) {
-            const order = querySnap.data();
-            return {...order, orderId: querySnap.id};
-        } else {
-            console.log('No orders found.')
-        }
+        const orders = [];
+        if (querySnap.empty) {
+            console.error('No orders found.')
+            
+        } 
+        else {
+            querySnap.forEach((doc) => {
+            orders.push({...doc.data(), id: doc.id});
+            }
+        )}
+        return orders;
 // pass in the userId, and then fetch all ORDERS with that specific userId.
     } catch(err) {
         console.error(err);
     }
-})
+});
 
 
 // fetch all orders for a specific restaurant

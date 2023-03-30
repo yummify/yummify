@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query,  setDoc, getDoc,getDocs, updateDoc, collection, doc, where,  deleteDoc, limit } from "firebase/firestore";
+import { query,  setDoc, getDoc,getDocs, updateDoc, collection, doc, where,  deleteDoc } from "firebase/firestore";
 
 //fetch by doc reference
 export const fetchSingleBagAsync = createAsyncThunk(
