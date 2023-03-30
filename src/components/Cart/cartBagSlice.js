@@ -74,17 +74,14 @@ export const fetchOrderByStatusAsync = createAsyncThunk(
 );
 
 // delete bag from cart
-export const deleteBagAsync = createAsyncThunk(
-  "cartBag/deleteBag",
+export const deleteOrderAsync = createAsyncThunk(
+  "deleteOrder",
   async (orderId) => {
     try {
       const orderRef = doc(db, "orders", orderId);
-
       await deleteDoc(orderRef);
-
-      return orderId;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 );
@@ -102,7 +99,7 @@ export const cartBagSlice = createSlice({
       .addCase(fetchOrderByStatusAsync.fulfilled, (state, action) => {
         state.push(action.payload);
       })
-      .addCase(deleteBagAsync.fulfilled, (state, action) => {
+      .addCase(deleteOrderAsync.fulfilled, (state, action) => {
         const orderId = action.payload;
 
         return state.filter((order) => order.id !== orderId);
