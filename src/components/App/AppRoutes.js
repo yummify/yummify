@@ -34,6 +34,8 @@ import UpdatePassword from "../Auth/UpdatePassword";
 
 import PrivateRoute from "../Auth/PrivateRoute";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+
+import RestaurantOrders from "../Restaurant/RestaurantOrders";
 import ToggleView from "../ToggleView/ToggleView";
 
 const AppRoutes = () => {
@@ -163,8 +165,16 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-        
-        <Route path="/restaurantinventory"
+        <Route
+          path="/restaurantorders"
+          element={
+            <PrivateRestaurantRoute>
+              <RestaurantOrders />
+            </PrivateRestaurantRoute>
+          }
+        />
+        <Route
+          path="/restaurantinventory"
           element={
             <PrivateRestaurantRoute>
               <RestaurantInventory />
