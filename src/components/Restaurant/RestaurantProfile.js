@@ -55,9 +55,7 @@ const RestaurantProfile = () => {
                   src={
                     fileUrl
                       ? fileUrl
-                      : authRestaurant.image
-                      ? authRestaurant.image
-                      : authRestaurant.image?.[0]
+                      : authRestaurant?.image?.[0]
                   }
                   alt="image of restaurant"
                   thumbnail
@@ -74,6 +72,7 @@ const RestaurantProfile = () => {
                     Upload Photo
                   </Button>
                 )}
+               
 
                 {upload && (
                   <Col className="my-3 d-block">
