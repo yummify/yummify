@@ -28,9 +28,9 @@ const Cart = () => {
 
   const bag = useSelector(selectCartBag);
 
-  const handleDeleteBag = (orderId) => {
-    dispatch(deleteBag(orderId));
-  };
+  // const handleDeleteBag = (orderId) => {
+  //   dispatch(deleteBag(orderId));
+  // };
 
   return (
     <>
@@ -43,7 +43,7 @@ const Cart = () => {
             variant="outline-dark"
             className="text-right"
             style={{ textAlign: "right" }}
-            onClick={() => handleDeleteBag(bag.id)}
+            // onClick={() => handleDeleteBag(bag.id)}
           >
             X
           </Button>

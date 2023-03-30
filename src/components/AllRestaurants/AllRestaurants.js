@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
 import SearchBar from "../ToggleView/SearchBar";
 import { Link } from "react-router-dom";
+import Filter from "../../Filter/Filter";
 
 const AllRestaurants = () => {
   //select the restaurants currently reflected in state  const [searchTerm, setSearchTerm] = useState("");
   const restaurants = useSelector(selectRestaurants);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCuisine, setSelectedCuisine] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -20,30 +22,47 @@ const AllRestaurants = () => {
     setSearchTerm(searchTerm);
   };
 
-  // Filter based on search
-  const filteredRestaurants = restaurants.filter((restaurant) => {
-    const nameMatches =
-      restaurant.restaurantName &&
-      restaurant.restaurantName
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+  const filterRestaurants = (restaurants) => {
+    const filteredByNameOrDescription = restaurants.filter(
+      (restaurant) =>
+        (restaurant.restaurantName &&
+          restaurant.restaurantName
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())) ||
+        (restaurant.description &&
+          restaurant.description
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()))
+    );
 
-    const descriptionMatches =
-      restaurant.description &&
-      restaurant.description.toLowerCase().includes(searchTerm.toLowerCase());
+    if (selectedCuisine) {
+      return filteredByNameOrDescription.filter(
+        (restaurant) => restaurant.cuisine === selectedCuisine
+      );
+    } else {
+      return filteredByNameOrDescription;
+    }
+  };
 
-    return nameMatches || descriptionMatches;
-  });
+  const handleCuisineSelect = (cuisine) => {
+    setSelectedCuisine(cuisine);
+  };
+
+  console.log("Selected cuisine state:", selectedCuisine);
+
+  const filteredRestaurants = filterRestaurants(restaurants);
 
   //ONLY RETURN ACCEPTED RESTAURANTS
   return (
     <>
       <h1>Yummify</h1>
       <SearchBar handleSearch={handleSearch} />
+      <Filter handleCuisineSelect={handleCuisineSelect} />
       {filteredRestaurants.map((restaurant) => {
         if (restaurant.status === "approved")
           return (
             <Link
+              key={restaurant.id}
               style={{ color: "inherit", textDecoration: "inherit" }}
               to={`/restaurant/${restaurant.id}`}
             >
@@ -57,7 +76,7 @@ const AllRestaurants = () => {
                   <Card.Title>{restaurant.description}</Card.Title>
                   <Card.Text>Address: {restaurant.address}</Card.Text>
                   <Card.Img src={restaurant.image?.[1]} />
-                  <Card.Text></Card.Text>
+                  <Card.Text>Cuisine: {restaurant.cuisine}</Card.Text>
                 </Card.Body>
               </Card>
             </Link>

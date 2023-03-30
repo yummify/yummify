@@ -101,7 +101,7 @@ const SingleRestaurant = () => {
           {bags.length > 0
             ? bags.map((bag) => {
                 if (checkActive(bag.expiration, bag.quantity) === true) {
-                  return <Bag bag={bag} />;
+                  return <Bag key={bag.id} bag={bag} />;
                 }
               })
             : "No bags available"}
