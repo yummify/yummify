@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Alert, Card, Modal, Stack, Button, Badge, NavLink } from "react-bootstrap";
 
 
-import { fetchUserOrdersAsync, selectOrders } from "../Order/orderSlice";
+import { fetchUserOrdersAsync, selectOrders, deleteOrderAsync } from "../Order/orderSlice";
 import { fetchAllRestaurants, selectRestaurants } from "../AllRestaurants/allRestaurantsSlice";
 
 const Cart = () => {
@@ -12,7 +12,7 @@ const Cart = () => {
 
   const dispatch = useDispatch();
 
-  const restaurant = useSelector(selectRestaurant);
+  //const restaurant = useSelector(selectRestaurant);
 
   //get id of logged-in user
   const { user } = useAuth();
@@ -48,8 +48,13 @@ const Cart = () => {
 
     }
 
-    const handleDeleteOrder = () => {
-
+    const handleDeleteOrder = async (orderId) => {
+        try{
+            await dispatch(deleteOrderAsync(orderId));
+            dispatch(fetchUserOrdersAsync(userId));
+        }catch(err){
+            console.log(err);
+        }
     }
     return (
         <>
@@ -62,7 +67,9 @@ const Cart = () => {
                         
                     return(
                 <Card>
-                    <Button variant="outline-dark" className="text-right" style={{textAlign: 'right'}} onClick={handleDeleteOrder}> Delete Bag</Button>
+                    <Button variant="outline-dark" className="text-right" style={{textAlign: 'right'}} onClick={()=>{
+                        
+                        handleDeleteOrder(order.id)}}> Delete Bag </Button>
                     <Stack direction='horizontal'>
                     <Card.Header>
                         <Card.Img src='https://media.istockphoto.com/id/184395659/photo/brown-paper-bag-and-apple.jpg?s=612x612&w=0&k=20&c=MLpwawtbge0roehL_8LF638qGxBXrIWdDlItyrLxQ-s=' style={{width: '20vw'}}></Card.Img>
@@ -74,19 +81,20 @@ const Cart = () => {
                     </Stack>
                     <Card.Footer style={{textAlign: 'right'}}>
                         <Stack direction='horizontal'>
-                            <Card.Text style={{margin: '5px'}}><s>Original Price: {order.originalPrice}</s></Card.Text>
-                            <Card.Text style={{margin: '5px'}}>New Price: {order.newPrice}</Card.Text>
+                            <Card.Text style={{margin: '5px'}}><s>Original Price: ${order.originalPrice.toFixed(2)}</s></Card.Text>
+                            <Card.Text style={{margin: '5px'}}>New Price: ${order.newPrice.toFixed(2)}</Card.Text>
                         </Stack>
                     </Card.Footer>
                 </Card> )}
                 else{
                     return null;
                 }
-                }) : <div>Your cart is empty<div></div> <NavLink href="/restaurants">Return to Browse</NavLink></div> }
+                }) : <div><p>Your cart is empty</p> <div></div> <NavLink href="/restaurants">Return to Browse</NavLink></div> }
                 
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
                 {orders.length > 0 ? (<Card>
+                
                 <p>Total Savings: ${savings(orders[0].originalPrice, orders[0].newPrice)}
                 
                 </p>

@@ -118,7 +118,7 @@ export const editBagAsync = createAsyncThunk(
 );
 
 export const deleteBagAsync = createAsyncThunk("deletebag", async (bagId) => {
-  console.log(bagId);
+  
   const bagByDocRef = doc(db, "bags", `${bagId}`);
   await deleteDoc(bagByDocRef);
 });

@@ -1,4 +1,4 @@
-import { getDocs, doc, query, collection, where, updateDoc } from "firebase/firestore";
+import { getDocs, doc, query, collection, where, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -64,6 +64,11 @@ export const markComplete = createAsyncThunk("markComplete", async (orderId) => 
         console.error(err)
     }
 })
+
+export const deleteOrderAsync = createAsyncThunk("deleteOrder", async (orderId) => {
+    const orderRef = doc(db, "orders", orderId);
+    await deleteDoc(orderRef);
+  });
 
 export const ordersSlice = createSlice({
     name: "orders",
