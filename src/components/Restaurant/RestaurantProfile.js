@@ -53,6 +53,8 @@ const RestaurantProfile = () => {
           <Container className="border my-3">
             <Row>
             <Col className="text-center my-3 mx-3 border">
+            <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
+            <Col className="text-center my-3 mx-3 border">
             {imgLoading ? <div>
           Loading...
           <Spinner animation="border" />
@@ -73,7 +75,7 @@ const RestaurantProfile = () => {
                 {!upload && (
                   <Button
                     onClick={() => setUpload(true)}
-                    className="d-block my-3"
+                    className="d-block my-3 mx-auto"
                   >
                     Upload Photo
                   </Button>
@@ -96,8 +98,8 @@ const RestaurantProfile = () => {
 
                 )}
               </Col>
-              <Col className="border my-3 mx-3 text-center">
-                <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
+              {/* <Col className="border my-3 mx-3 text-center"> */}
+                
                 <p><span style={{fontWeight : "700"}}>Email: </span>{authRestaurant?.email}</p>
                 <p><span  style={{fontWeight : "700"}}>Cuisine: </span>{authRestaurant?.cuisine}</p>
                 <p><span  style={{fontWeight : "700"}}>Description: </span>{authRestaurant?.description}</p>
