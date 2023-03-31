@@ -92,15 +92,24 @@ export const editRestaurantAsync = createAsyncThunk(
     cuisine,
     description,
     address,
-    open,
-    close,
     website,
     EIN,
     phoneNumber,
     zipcode,
   }) => {
     try {
-      
+      console.log(
+        "restaurantId and payload:",
+        restaurantId,
+        restaurantName,
+        cuisine,
+        description,
+        address,
+        website,
+        EIN,
+        phoneNumber,
+        zipcode
+      );
       const restaurantsRef = doc(db, "restaurants", restaurantId);
       const usersRef = doc(db,"users", restaurantId);
       const data = {
@@ -109,8 +118,6 @@ export const editRestaurantAsync = createAsyncThunk(
         cuisine,
         description,
         address,
-        open,
-        close,
         website,
         EIN,
         phoneNumber,

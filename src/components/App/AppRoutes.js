@@ -18,6 +18,7 @@ import RestaurantInventory from "../Restaurant/RestaurantInventory";
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
+import AdminEditRestaurant from "../Admin/AdminEditRestaurant";
 import AdminManageUsers from "../Admin/AdminManageUsers";
 import AdminOrderHistory from "../Admin/AdminOrderHistory";
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
@@ -140,6 +141,14 @@ const AppRoutes = () => {
           element={
             <PrivateAdminRoute>
               <AdminManageRestaurants />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/manage-restaurants/:id"
+          element = {
+            <PrivateAdminRoute>
+              <AdminEditRestaurant/>
             </PrivateAdminRoute>
           }
         />
