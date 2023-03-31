@@ -11,7 +11,7 @@ const NavBar = () => {
   const authUser = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log("AuthUser in Navbar:", authUser?.user);
+  
 
   useEffect(() => {
     if (authUser?.user?.userId)
@@ -41,6 +41,7 @@ const NavBar = () => {
             <Nav.Link href="/restaurantprofile">Profile</Nav.Link>
             <Nav.Link href="/restaurantorders">Orders</Nav.Link>
             <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
+            <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>View Storefront </Nav.Link>
             <Button onClick={logout}>Logout</Button>
           </Nav>
         ) : authUser?.user?.isAdmin ? (
