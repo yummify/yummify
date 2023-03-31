@@ -42,7 +42,7 @@ export const addUserAsync = createAsyncThunk(
 
 export const fetchUserAsync = createAsyncThunk("fetchUser", async (userId) => {
   try {
-    console.log("UserId:", userId);
+    
     const usersRef = doc(db, "users", userId);
     const docSnap = await getDoc(usersRef);
     if (docSnap.exists()) {
@@ -61,7 +61,7 @@ export const editUserImageAsync = createAsyncThunk(
   "editUserImage",
   async ({ userId, url }) => {
     try {
-      console.log("UserId and url:", userId, url);
+      
       const usersRef = doc(db, "users", userId);
       const data = { image: url };
       updateDoc(usersRef, data).then((usersRef) =>
@@ -88,6 +88,17 @@ export const editUserAsync = createAsyncThunk(
     }
   }
 );
+
+export const editUserStatusAsync = createAsyncThunk("editUserStatus", async (userId) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, {
+      status: 'suspended'
+    })
+  } catch(err) {
+    console.error(err);
+  }
+})
 
 
 

@@ -1,18 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-//import { selectBag } from "./bagSlice";
+
 import {
   placeBagInCartAsync,
-  fetchOrderByStatusAsync,
 } from "../Cart/cartBagSlice";
+import { fetchOrderByStatusAsync, selectOrders} from "../Order/orderSlice";
 import { selectUser } from "../User/userSlice";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
+//TODO: add modal whenever a user has an existing order in cart
+
 const Bag = (restaurant) => {
   const {
+    id,
     //expiration,
     //image,
     newPrice,
@@ -21,19 +24,32 @@ const Bag = (restaurant) => {
     type,
     //restaurantId,
   } = restaurant.bag;
+  
   const dispatch = useDispatch();
-  //const singlebag = useSelector(selectBag);
   const userInfo = useSelector(selectUser);
+  const orders = useSelector(selectOrders);
 
   const navigate = useNavigate();
 
-  //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info and navigate to Cart
+  
+  useEffect(()=>{
+    dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"));
+  },[dispatch,userInfo.userId]);
+
+  //preventing users from reserving more than 1 bag at a time.
   const handleAdd = async () => {
+    //check state 
+     if(orders.length === 0){
+      
     await dispatch(
       placeBagInCartAsync({ ...restaurant.bag, userId: userInfo.userId })
     );
     dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"));
-    navigate("/cart");
+    navigate("/cart");}
+    else{
+      console.log("no worky, too many orders")
+      return null;
+    }
   };
 
     return(
@@ -51,7 +67,8 @@ const Bag = (restaurant) => {
                     <b>Original:</b> <s>${Number(originalPrice).toFixed(2)}</s>
                     </span>
                 </Card.Text>
-                <Button variant="primary" onClick={handleAdd}>Reserve</Button>
+                <Button variant="primary" onClick={
+                  handleAdd}>Reserve</Button>
             </Card.Body>
         </Card>
         

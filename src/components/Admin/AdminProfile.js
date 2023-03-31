@@ -33,7 +33,7 @@ const AdminProfile = () => {
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/");
+      await navigate("/");
     } catch (err) {
       console.log(err);
     }

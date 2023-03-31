@@ -10,7 +10,7 @@ import "./map.css";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function Map() {
+export default function Map({ searchTerm, handleSearch, selectedCuisine }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
@@ -68,11 +68,25 @@ export default function Map() {
   }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
-  return <MapContent restaurants={restaurants} />;
+  // Filter restaurants by search term and selected cuisine
+  const filteredRestaurants = restaurants
+    .filter(
+      (restaurant) =>
+        restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        restaurant.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        restaurant.cuisine.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter(
+      (restaurant) => !selectedCuisine || restaurant.cuisine === selectedCuisine
+    );
+
+  return (
+    <MapContent restaurants={filteredRestaurants} handleSearch={handleSearch} />
+  );
 }
 
-function MapContent({ restaurants }) {
-  const center = useMemo(() => ({ lat: 40.7075, lng: -74.0113 }), []);
+function MapContent({ restaurants, handleSearch }) {
+  const center = useMemo(() => ({ lat: 40.71335, lng: -74.00043 }), []);
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 

@@ -9,7 +9,7 @@ import {
   editUserImageAsync,
   selectUser,
 } from "../User/userSlice";
-import { fetchUserOrdersAsync,selectOrders } from "./userOrdersSlice";
+import { fetchUserOrdersAsync, selectOrders } from "./userOrdersSlice";
 
 import { useAuth } from "../../contexts/AuthContext";
 

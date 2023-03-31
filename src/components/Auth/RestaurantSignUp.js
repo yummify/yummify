@@ -12,8 +12,6 @@ const RestaurantSignUp = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [cuisine, setCuisine] = useState("");
   const [address, setAddress] = useState("");
-  const [open, setOpen] = useState("");
-  const [close, setClose] = useState("");
   const [description, setDescription] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [EIN, setEIN] = useState("");
@@ -21,10 +19,6 @@ const RestaurantSignUp = () => {
   const [terms, setTerms] = useState(false);
   const [website, setWebsite] = useState("");
   const [formError, setFormError] = useState({});
-  const [openTime, setOpenTime] = useState("");
-  const [openAMPM, setOpenAMPM] = useState("");
-  const [closeTime, setCloseTime] = useState("");
-  const [closeAMPM, setCloseAMPM] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

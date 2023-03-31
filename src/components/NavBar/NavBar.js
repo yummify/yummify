@@ -11,7 +11,6 @@ const NavBar = () => {
   const authUser = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log("AuthUser in Navbar:", authUser?.user);
 
   useEffect(() => {
     if (authUser?.user?.userId)
@@ -36,38 +35,35 @@ const NavBar = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         {!authUser?.user?.userId ? (
           <Nav>
-            <Nav.Link href="/userstart">User</Nav.Link>
-            <Nav.Link href="/restaurantstart">Restaurant</Nav.Link>
           </Nav>
         ) : authUser?.user?.isRestaurantOwner ? (
           <Nav>
             <Nav.Link href="/restaurantprofile">Profile</Nav.Link>
+            <Nav.Link href="/restaurantorders">Orders</Nav.Link>
             <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
-            <Nav.Link href="/">Orders</Nav.Link>
-            <Nav.Link onClick={logout}>
-              Logout
-            </Nav.Link>
+            
+            <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>
+              View Storefront{" "}</Nav.Link>
+            <Nav.Link onClick={logout}>Logout</Nav.Link>
           </Nav>
         ) : authUser?.user?.isAdmin ? (
           <Nav>
             <Nav.Link href="/admin">Dashboard</Nav.Link>
             <Nav.Link href="/adminprofile">Profile</Nav.Link>
-            <Nav.Link href="/admin/manage-users">Manage Users</Nav.Link>
-            <Nav.Link href="/admin/manage-restaurants">
+            <Nav.Link href="/manage-users">Manage Users</Nav.Link>
+            <Nav.Link href="/manage-restaurants">
               Manage Restaurants
             </Nav.Link>
-            <Nav.Link href="/admin/order-history">Order History</Nav.Link>
             <Nav.Link onClick={logout}>
               Logout
             </Nav.Link>
+            <Nav.Link href="/order-history">Order History</Nav.Link>
           </Nav>
         ) : (
           <Nav>
             <Nav.Link href="/restaurants">Browse</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
-            {/* <Nav.Link href="/map">Map View</Nav.Link> */}
             <Nav.Link href="/cart">Cart</Nav.Link>
-            {/* <Button onClick={logout}>Logout</Button> */}
             <Nav.Link onClick={logout}>
               Logout
             </Nav.Link>

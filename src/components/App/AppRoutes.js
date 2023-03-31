@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { AuthProvider } from "../../contexts/AuthContext";
 import UserSignUp from "../Auth/UserSignUp";
 import UserStartPage from "./UserStartPage";
 import Login from "../Auth/Login";
@@ -14,10 +13,12 @@ import PrivateUserRoute from "../Auth/PrivateUserRoute";
 import UserProfile from "../User/UserProfile";
 import Map from "../Map/Map";
 import Cart from "../Cart/Cart";
+import Checkout from "../Cart/Checkout";
 import RestaurantInventory from "../Restaurant/RestaurantInventory";
 
 import AdminHome from "../Admin/Admin";
 import AdminManageRestaurants from "../Admin/AdminManageRestaurants";
+import AdminEditRestaurant from "../Admin/AdminEditRestaurant";
 import AdminManageUsers from "../Admin/AdminManageUsers";
 import AdminOrderHistory from "../Admin/AdminOrderHistory";
 import SingleRestaurant from "../SingleRestaurantUserView/SingleRestaurant";
@@ -33,7 +34,11 @@ import ForgotPassword from "../Auth/ForgotPassword";
 import UpdatePassword from "../Auth/UpdatePassword";
 
 import PrivateRoute from "../Auth/PrivateRoute";
+
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+
+import RestaurantOrders from "../Restaurant/RestaurantOrders";
+
 import ToggleView from "../ToggleView/ToggleView";
 
 const AppRoutes = () => {
@@ -91,6 +96,14 @@ const AppRoutes = () => {
           }
         />
         <Route
+          path="/checkout"
+          element={
+            <PrivateUserRoute>
+              <Checkout />
+            </PrivateUserRoute>
+          }
+        />
+        <Route
           path="/users"
           element={
             <PrivateAdminRoute>
@@ -124,7 +137,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/manage-restaurants"
+          path="/manage-restaurants"
           element={
             <PrivateAdminRoute>
               <AdminManageRestaurants />
@@ -132,7 +145,15 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/manage-users"
+          path="/manage-restaurants/:id"
+          element = {
+            <PrivateAdminRoute>
+              <AdminEditRestaurant/>
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/manage-users"
           element={
             <PrivateAdminRoute>
               <AdminManageUsers />
@@ -140,7 +161,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/order-history"
+          path="/order-history"
           element={
             <PrivateAdminRoute>
               <AdminOrderHistory />
@@ -163,22 +184,31 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-        
-        <Route path="/restaurantinventory"
+        <Route
+          path="/restaurantorders"
+          element={
+            <PrivateRestaurantRoute>
+              <RestaurantOrders />
+            </PrivateRestaurantRoute>
+          }
+        />
+        <Route
+          path="/restaurantinventory"
           element={
             <PrivateRestaurantRoute>
               <RestaurantInventory />
             </PrivateRestaurantRoute>
           }
         />
-        
+
+        <Route path="/map" element={<Map />} />
+
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
           element={
             <PrivateRoute>
               <ToggleView />
-              <AllRestaurants />
             </PrivateRoute>
           }
         />

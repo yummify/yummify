@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { fetchUsersAsync, selectUsers } from "../Users/usersSlice";
+import { editUserStatusAsync } from "../User/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {Stack, Button, Card, Accordion, Modal } from "react-bootstrap";
@@ -12,29 +13,34 @@ import { useAuth } from "../../contexts/AuthContext";
 const AdminManageUsers = () => {
     const dispatch = useDispatch();
     const users = useSelector(selectUsers);
-    const orders = useSelector(selectOrders);
+    // const orders = useSelector(selectOrders);
     const [userData, setUserData] = useState(null);
     // will be used for suspending user ^
-    const [showOrders, setShowOrders] = useState(false);
+    // const [showOrders, setShowOrders] = useState(false);
     const [showSuspend, setShowSuspend] = useState(false);
-    const [ordersList, setOrdersList] = useState(orders);
+    // const [ordersList, setOrdersList] = useState(orders);
  
     useEffect(() => {
         dispatch(fetchUsersAsync());
     }, [dispatch]);
 
-    const handleOpenOrderHistory = async (userId) => {
-        await dispatch(fetchUserOrdersAsync(userId));
-        setOrdersList(orders);
-        setShowOrders(true);}
-    const handleCloseOrderHistory = () => setShowOrders(false);
+    // FINISH ORDER HISTORY!!
+    // const handleOpenOrderHistory = async (userId) => {
+    //     await dispatch(fetchUserOrdersAsync(userId));
+    //     setOrdersList(orders);
+    //     setShowOrders(true);}
+    // const handleCloseOrderHistory = () => setShowOrders(false);
 
     const handleOpenSuspend = () => setShowSuspend(true);
     const handleCloseSuspend = () => setShowSuspend(false);
 
     const handleSuspend = async (userId) => {
-        // ADD THUNK TO UPDATE USER STATUS TO SUSPENDED
+        await dispatch(editUserStatusAsync(userId));
+        setShowSuspend(false);
     }
+
+    // handle unsuspend 
+
     /// IF WE WANT TO BE ABLE TO SUSPEND USERS, HAVE TO ADD USER STATUS TO DB
 
     return (
@@ -42,11 +48,14 @@ const AdminManageUsers = () => {
         <h2>Manage Users</h2>
         <Stack id = 'rest-stack' style={{margin: "20px"}}>
             {users.length ? users.map((user) => {
+                let userType = '';
+                if (user.data.isRestaurantOwner) {userType = 'Restaurant'} else if (user.data.isAdmin) {userType = 'Admin'} else {userType = 'User'}
                 return (
                     <Card style={{margin: "10px", padding: "10px", width: "20rem"}}>
-                    <h5>{user.data.firstName} {user.data.lastName}</h5>
+                    <h5>{user.data.name}</h5>
                     <p>{user.data.email}</p>
-                   <Button onClick={() => {
+                    <p>Role: {userType}</p>
+                   {/* <Button onClick={() => {
                     setUserData(user.id);
                     handleOpenOrderHistory()}}>
                    Load Order History</Button>
@@ -77,7 +86,7 @@ const AdminManageUsers = () => {
                         onClick={() => setShowOrders(false)}
                         >Close Order History</Button>
                         </Modal.Footer>
-                   </Modal>
+                   </Modal> */}
                     <div>
                         <div className="vr" />
                         <Button onClick={() => {
