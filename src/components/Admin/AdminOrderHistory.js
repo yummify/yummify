@@ -13,7 +13,7 @@ const AdminOrderHistory = () => {
     const restaurants = useSelector(selectRestaurants);
     const users = useSelector(selectUsers);
 
-    useEffect(async () => {
+    useEffect(() => {
         dispatch(fetchAllOrdersAsync());
         dispatch(fetchAllRestaurants());
         dispatch(fetchUsersAsync());
@@ -30,7 +30,7 @@ const AdminOrderHistory = () => {
                 const orderUser = users.find((user) => user.userId === userId);
 
                 return (
-                    <ListGroup.Item>
+                    <ListGroup.Item key={order.id}>
                         <h4>Order #{order.id}</h4>
                         <h6>Restaurant: {rest?.restaurantName}</h6>
                         <p>Status: {order.status}</p>

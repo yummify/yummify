@@ -20,7 +20,7 @@ const NavBar = () => {
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/logout");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +41,7 @@ const NavBar = () => {
             <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>
               View Storefront{" "}
             </Nav.Link>
-            <Nav.Link href="/logout" onClick={logout}>
+            <Nav.Link href="/" onClick={logout}>
               Logout
             </Nav.Link>
           </Nav>
@@ -61,7 +61,7 @@ const NavBar = () => {
             <Nav.Link href="/restaurants">Browse</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
             <Nav.Link href="/cart">Cart</Nav.Link>
-            <Nav.Link href="/logout" onClick={logout}>
+            <Nav.Link href="/" onClick={logout}>
               Logout
             </Nav.Link>
           </Nav>

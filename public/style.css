@@ -1,20 +1,12 @@
 #root {
   background-color: white;
-  /* font-family: 'Amaranth', sans-serif; */
-  /* font-family: 'Arsenal', sans-serif; */
   font-family: "Karma", serif;
-  /* font-family: 'PT Serif', serif;
-font-family: 'Shadows Into Light Two' */
     margin: 2vh 2vw 0 2vw;
 }
 
 * {
   max-width: 950px;
   margin: 0 auto;
-}
-
-#rest-stack {
-  background-color: #5fd2c3;
 }
 
 #title {

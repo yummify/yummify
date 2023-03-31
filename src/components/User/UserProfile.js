@@ -109,7 +109,7 @@ const UserProfile = () => {
                 </p>
                 <p>
                   {" "}
-                  <strong>Zipcde: </strong>
+                  <strong>Zipcode: </strong>
                   {authuser.zipcode}
                 </p>
                 <Button

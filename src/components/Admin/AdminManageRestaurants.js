@@ -26,10 +26,8 @@ const AdminManageRestaurants = () => {
   const restaurants = useSelector(selectRestaurants);
 
   const [restaurantsList, setRestaurantsList] = useState(restaurants);
-  // const [showSuspend, setShowSuspend] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
-  // const [showEdit, setShowEdit] = useState(false);
 
   const pendingRestaurants = [];
   for (const rest of restaurants) {
@@ -42,19 +40,12 @@ const AdminManageRestaurants = () => {
     dispatch(fetchAllRestaurants());
   }, [dispatch, restaurantsList]);
 
-  // const handleCloseSuspend = () => setShowSuspend(false);
-  // const handleOpenSuspend = () => setShowSuspend(true);
-
   const handleCloseDelete = () => setShowDelete(false);
   const handleOpenDelete = () => setShowDelete(true);
-
-  // const handleCloseEdit = () => setShowEdit(false);
-  // const handleOpenEdit = () => setShowEdit(true);
 
   const handleSuspend = async (restaurantId) => {
     await dispatch(denyStatusRestaurantAsync(restaurantId));
     setRestaurantsList(restaurants);
-    // setShowSuspend(false);
   };
 
   const handleApprove = async (restaurantId) => {
@@ -68,39 +59,6 @@ const AdminManageRestaurants = () => {
     setShowDelete(false);
   };
 
-  // const editRestaurant = () => {
-  //   const reqbody = {
-  //     restaurantId: restaurantData.id,
-  //     restaurantName: restaurantName
-  //       ? restaurantName
-  //       : restaurantData.restaurantName,
-  //     cuisine: cuisine ? cuisine : restaurantData.cuisine,
-  //     description: description ? description : restaurantData.description,
-  //     address: address ? address : restaurantData.address,
-  //     open: open ? open : restaurantData.open,
-  //     close: close ? close : restaurantData.close,
-  //     website: website ? website : restaurantData.website,
-  //     EIN: EIN ? EIN : restaurantData.EIN,
-  //     phoneNumber: phoneNumber ? phoneNumber : restaurantData.phoneNumber,
-  //     zipcode: zipcode ? zipcode : restaurantData.zipcode,
-  //   };
-  //   dispatch(editRestaurantAsync(reqbody));
-  // };
-
-  // NOTE: PAUSED EDIT RESTAURANT. WILL FINISH IF TIME OR DELETE IF NOT.
-
-  // const cancelEdit = () => {
-  //   setRestaurantName(restaurantData.restaurantName);
-  //   setCuisine(restaurantData.cuisine);
-  //   setAddress(restaurantData.address);
-  //   setDescription(restaurantData.description);
-  //   setPhoneNumber(restaurantData.phoneNumber);
-  //   setEIN(restaurantData.EIN);
-  //   setZipcode(restaurantData.zipcode);
-  //   setWebsite(restaurantData.website);
-  //   handleCloseEdit();
-  // }
-
   return (
     <>
       <h2 id='title'>Manage Restaurants</h2>
@@ -113,7 +71,7 @@ const AdminManageRestaurants = () => {
             ? restaurants.map((rest) => {
                 if (rest.status === "pending") {
                   return (
-                    <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
+                    <Accordion.Item key={rest.id} eventKey={`${restaurants.indexOf(rest)}`}>
                       <Accordion.Header>{rest.restaurantName}</Accordion.Header>
                       <Accordion.Body>
                         <p>Address: {rest.address}</p>
@@ -192,7 +150,7 @@ const AdminManageRestaurants = () => {
             ? restaurants.map((rest) => {
                 if (rest.status === "suspended") {
                   return (
-                    <Accordion.Item eventKey={`${restaurants.indexOf(rest)}`}>
+                    <Accordion.Item key={rest.id} eventKey={`${restaurants.indexOf(rest)}`}>
                       <Accordion.Header>{rest.restaurantName}</Accordion.Header>
                       <Accordion.Body>
                         <p>EIN: {rest.EIN}</p>

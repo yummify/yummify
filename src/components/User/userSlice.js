@@ -89,19 +89,6 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
-export const editUserStatusAsync = createAsyncThunk("editUserStatus", async ({userId, status}) => {
-  try {
-    const userRef = doc(db, "users", userId);
-    console.log('ref', userRef);
-    const data = {status}
-    await updateDoc(userRef, data);
-  } catch(err) {
-    console.error(err);
-  }
-})
-
-
-
 const initialState = {};
 export const userSlice = createSlice({
   name: "user",
