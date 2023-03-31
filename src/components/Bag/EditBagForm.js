@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleBagByRestAsync, selectBag, editBagAsync, fetchSingleBagAsync, fetchGroupBagByRestAsync } from "./bagSlice";
+import React, {useState} from "react";
+import { useDispatch } from "react-redux";
+import { editBagAsync,  fetchGroupBagByRestAsync } from "./bagSlice";
 
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row'
+
 
 
 //NOTE: expiration field is strictly date only
