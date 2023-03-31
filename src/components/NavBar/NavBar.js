@@ -32,8 +32,8 @@ const NavBar = () => {
       <Container>
         {!authUser?.user?.userId ? (
           <Nav>
-            <Nav.Link href="/userstart">User</Nav.Link>
-            <Nav.Link href="/restaurantstart">Restaurant</Nav.Link>
+            {/* <Nav.Link href="/usersignup">User Signup</Nav.Link>
+            <Nav.Link href="/restaurantsignup">Restaurant Signup</Nav.Link> */}
           </Nav>
         ) : authUser?.user?.isRestaurantOwner ? (
           <Nav>

@@ -31,8 +31,7 @@ function App() {
         {location.pathname !== "/" && <NavBar/>}
         <AppRoutes />
       </AuthProvider>
-
-      <Footer />
+        {location.pathname !== "/" && <Footer/>}
     </div>
   );
 }

@@ -9,13 +9,13 @@ const Splash = () => {
     const user = useAuth();
 return (
     <>
-  
-    <img style={{width: '95vw'}} src='logo.png'/>
-    <div></div>
-    <Button style={{backgroundColor: '#41ead4'}}>Login</Button>
+    <img style={{width: '95vw', margin: '15vh 5px 1vh 5px '}} src='biglogo.png'/>
+    <div style={{textAlign: 'center'}}>
+    <Button size="lg" style={{margin: '30px', border: '1px solid black'}} onClick={() => navigate('/login')}>Login</Button>
+    </div>
     <Stack direction="horizontal" className="mx-auto my-auto">
-    <Button className="mx-auto" style={{margin: '5px'}} onClick={() => navigate('/userstart')}>Sign up as User</Button>
-    <Button className="mx-auto" style={{margin: '5px'}} onClick={() => navigate('/restaurantstart')}>Sign up as Restaurant</Button>
+    <Button className="mx-auto" size="sm" style={{backgroundColor: '#41ead4', color: 'black', margin: '25vh 5vw 10vh 5vw', border: '1px solid black'}} onClick={() => navigate('/usersignup')}>Sign up as User</Button>
+    <Button className="mx-auto" size="sm" style={{backgroundColor: '#41ead4', color: 'black', margin: '25vh 5vw 10vh 5vw', border: '1px solid black'}} onClick={() => navigate('/restaurantsignup')}>Sign up as Restaurant</Button>
     </Stack>
 
     </>
