@@ -1,11 +1,8 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-
-
-import { selectRestaurant } from "./restaurantSlice";
 import { useAuth } from "../../contexts/AuthContext";
 import { fetchGroupBagByRestAsync, selectBag, deleteBagAsync } from "../Bag/bagSlice";
+import { fetchRestaurantAsync, selectRestaurant } from "./restaurantSlice";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -20,20 +17,21 @@ import EditBagForm from "../Bag/EditBagForm";
 const RestaurantInventory = () => {
 
    
-    const authRestaurant = useSelector(selectRestaurant);
-    console.log("authrestaurant:", authRestaurant);
+    const restaurant = useSelector(selectRestaurant);
     const { user } = useAuth();
     
     const dispatch = useDispatch();
     
     useEffect(() => {
       if (user?.userId) dispatch(fetchGroupBagByRestAsync(user?.userId));
+      if(user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
     }, [dispatch, user?.userId]);
   
    
     
 
     const restaurantId = user?.userId;
+    
 
     const deletethisbag = async (bagId)=>{
         try{
@@ -68,15 +66,17 @@ const RestaurantInventory = () => {
 
 return(
     <Card>
-        <Card.Title>Restaurant - Owner View</Card.Title>
+        <Card.Title>{restaurant.restaurantName} - Inventory</Card.Title>
         <Card.Text>
-            hi. test card!
-            
+            Welcome to {restaurant.restaurantName} @ {restaurant.address}! 
+        </Card.Text>
+        <Card.Text>
+            If you need to change your restaurant's information, please visit <Card.Link href="/restaurantprofile"> your restaurant profile </Card.Link>.
         </Card.Text>
         
         <AddBagForm restaurant={restaurantId}/>
  
-        <Card style={{backgroundColor: "lightblue"}}>
+        <Card>
             <Card.Title>Active Bags</Card.Title>
             
             <ListGroup>
@@ -85,16 +85,16 @@ return(
                         return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
-                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / {bag.restaurantId}
+                            <b>{bag.type}</b> SuperBag ~ <b>Expires:</b> {bag.expiration} ~ <b>Quantity:</b> {bag.quantity} ~ <b>Pickup:</b> {bag.pickup} ~ <b>Price:</b> ${bag.newPrice} ~ <b>Original Price:</b> ${bag.originalPrice}
                             <Accordion>
-                                <Accordion.Item eventKey="0">
+                                <Accordion.Item eventKey="active-0">
                                     <Accordion.Header>Edit Bag </Accordion.Header>
                                     <Accordion.Body>
                                         <EditBagForm bag={bag}/>
                                     </Accordion.Body>
                                 </Accordion.Item>
 
-                                <Accordion.Item eventKey="1">
+                                <Accordion.Item eventKey="active-1">
                                     <Accordion.Header>Delete Bag </Accordion.Header>
                                     <Accordion.Body>
                                         <Button onClick={()=>{
@@ -114,7 +114,7 @@ return(
             </ListGroup>
         </Card>
 
-        <Card style={{backgroundColor: "lightpink"}}>
+        <Card>
             <Card.Title> Inactive Bags</Card.Title>
             <ListGroup>
                 {bags.length > 0 ? bags.map((bag)=>{
@@ -122,16 +122,16 @@ return(
                         return(
                             
                         <ListGroup.Item eventKey={`${bag.id}`}> 
-                            {bag.id}-{bag.type} SuperBag / expires: {bag.expiration} / quantity: {bag.quantity} / / {bag.restaurantId}
+                            <b>{bag.type}</b> SuperBag ~ <b>Expires:</b> {bag.expiration} ~ <b>Quantity:</b> {bag.quantity} ~ <b>Pickup:</b> {bag.pickup} ~ <b>Price:</b> ${bag.newPrice} ~ <b>Original Price:</b> ${bag.originalPrice} 
                             <Accordion>
-                                <Accordion.Item eventKey="0">
+                                <Accordion.Item eventKey="inactive-0">
                                     <Accordion.Header>Edit Bag </Accordion.Header>
                                     <Accordion.Body>
                                         <EditBagForm bag={bag}/>
                                     </Accordion.Body>
                                 </Accordion.Item>
 
-                                <Accordion.Item eventKey="1">
+                                <Accordion.Item eventKey="inactive-1">
                                     <Accordion.Header>Delete Bag </Accordion.Header>
                                     <Accordion.Body>
                                         <Button onClick={()=>{
