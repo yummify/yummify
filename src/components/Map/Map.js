@@ -10,11 +10,12 @@ import "./map.css";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function Map() {
+export default function Map(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
+  const { searchTerm, handleSearch } = props;
   const [restaurants, setRestaurants] = useState([]);
 
   // pulling the restaurant collection data from the Firestore database
@@ -68,7 +69,17 @@ export default function Map() {
   }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
-  return <MapContent restaurants={restaurants} />;
+  return (
+    <MapContent
+      restaurants={restaurants.filter(
+        (restaurant) =>
+          restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          restaurant.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          restaurant.cuisine.toLowerCase().includes(searchTerm.toLowerCase())
+      )}
+      handleSearch={handleSearch}
+    />
+  );
 }
 
 function MapContent({ restaurants }) {

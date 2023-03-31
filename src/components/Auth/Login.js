@@ -60,7 +60,7 @@ const Login = () => {
           dispatch(fetchUserAsync(userId)).then((res) => {
             const user = res?.payload;
             if (user?.isRestaurantOwner) {
-              navigate("/restaurantprofile");
+              navigate("/restaurantinventory");
             } else if (!user?.isAdmin) {
               navigate("/restaurants");
             } else if (user?.isAdmin) {

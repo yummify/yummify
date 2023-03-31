@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { AuthProvider } from "../../contexts/AuthContext";
 import UserSignUp from "../Auth/UserSignUp";
 import UserStartPage from "./UserStartPage";
 import Login from "../Auth/Login";
@@ -35,9 +34,11 @@ import ForgotPassword from "../Auth/ForgotPassword";
 import UpdatePassword from "../Auth/UpdatePassword";
 
 import PrivateRoute from "../Auth/PrivateRoute";
+
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
 
 import RestaurantOrders from "../Restaurant/RestaurantOrders";
+
 import ToggleView from "../ToggleView/ToggleView";
 
 const AppRoutes = () => {
@@ -199,14 +200,15 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-        
+
+        <Route path="/map" element={<Map />} />
+
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"
           element={
             <PrivateRoute>
               <ToggleView />
-              <AllRestaurants />
             </PrivateRoute>
           }
         />

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Card, ListGroup } from "react-bootstrap";
 import { fetchSingleRestaurant, selectRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
 import { fetchUserOrdersAsync, selectOrders } from "../Order/orderSlice";
-import { fetchOrderByStatusAsync, selectCartBag } from "./cartBagSlice";
+
 import { useAuth } from "../../contexts/AuthContext";
 
 const Checkout = () => {
@@ -11,16 +11,16 @@ const Checkout = () => {
 
     //get userId from auth context
     const { user } = useAuth();
-    console.log('user.userId', user);
     const userId = user.userId;
 
     useEffect(() => {
-        dispatch(fetchOrderByStatusAsync(userId, "shopping"));
-      }, [dispatch]);
+        dispatch(fetchUserOrdersAsync(userId));
+      }, [dispatch, userId]);
 
     //select order currently in state
-    const order = useSelector(selectCartBag);
-    console.log('order', order);
+    const orders = useSelector(selectOrders);
+    
+   
   
     //for Bootstrap modal
     const [show, setShow] = useState(true);
@@ -29,14 +29,18 @@ const Checkout = () => {
     const handleShow = () => setShow(true);
 
     //reduce array method to get total
-    const total = order.reduce((acc, curr) => acc + Number(curr.newPrice), 0);
+    /* const total = orders.reduce((acc, curr) => acc + Number(curr.newPrice), 0); */
+    const totalPrice = (price) => {
+      let tax = (price * .0875)
+      return (tax + price).toFixed(2);
+  }
   
     return (
       <>
       {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button> */}
-
+      
         <Modal show={show} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>
             <Modal.Title>Remember!</Modal.Title>
@@ -59,13 +63,13 @@ const Checkout = () => {
         </Card.Header>
         <Card.Body>
           <Card.Text>
-            Pickup time: {order?.[0]?.pickup}
+            Pickup time: {orders?.[0]?.pickup}
           </Card.Text>
           <Card.Text>
-            Order total: ${total}
+            Order total: ${totalPrice(orders?.[0]?.newPrice)}
           </Card.Text>
           <Card.Text>
-            Confirmation Number: {order?.[0]?.id}
+            Confirmation Number: {orders?.[0]?.id}
           </Card.Text>
           <Card.Text>
             When you go to pick up your order, just show the shop your confirmation number.  Don't forget to bring your own bag!
