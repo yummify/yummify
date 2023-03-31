@@ -6,6 +6,7 @@ import {
   placeBagInCartAsync,
   fetchOrderByStatusAsync,
 } from "../Cart/cartBagSlice";
+import { fetchUserOrdersAsync } from "../Order/orderSlice";
 import { selectUser } from "../User/userSlice";
 
 import Card from "react-bootstrap/Card";
@@ -27,8 +28,12 @@ const Bag = (restaurant) => {
 
   const navigate = useNavigate();
 
+  //useEffect loads info into state about whether user currently has an order status "shopping" 
+  //add this to state
+
   //on click of "Reserve" button, create new Order document in db with bag/user/restaurant info and navigate to Cart
   const handleAdd = async () => {
+    //check state 
     await dispatch(
       placeBagInCartAsync({ ...restaurant.bag, userId: userInfo.userId })
     );

@@ -63,7 +63,7 @@ export const fetchOrderByStatusAsync = createAsyncThunk(
       const querySnapshot = await getDocs(q);
       const orders = [];
       querySnapshot.forEach((doc) => {
-        orders.push(doc.data());
+        orders.push({...doc.data(), id: doc.id})
       });
 
       return orders;
@@ -97,7 +97,6 @@ export const cartBagSlice = createSlice({
         return action.payload;
       })
       .addCase(fetchOrderByStatusAsync.fulfilled, (state, action) => {
-        //state.push(action.payload);
         return action.payload;
       })
       .addCase(deleteOrderAsync.fulfilled, (state, action) => {
