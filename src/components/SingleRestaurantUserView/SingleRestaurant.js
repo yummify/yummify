@@ -79,7 +79,7 @@ const SingleRestaurant = () => {
       <Card style={{ width: "25rem" }}>
         <Card.Img variant="top" src={restaurant.image?.[0]} />
         <Card.Header className="text-center">
-          {restaurant.restaurantName}
+          <span style={{ fontWeight: "700", fontSize: "24px"}}>{restaurant.restaurantName}</span>
         </Card.Header>
         <Card.Body>
           <Card.Text>
@@ -103,7 +103,7 @@ const SingleRestaurant = () => {
                         else {
                           return null;
                         }
-                    }): "No bags available"}
+                    }): " No bags available"}
                         
         </Card.Body>
         <Card.Body>
