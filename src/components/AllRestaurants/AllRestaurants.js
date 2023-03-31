@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
-import { selectRestaurants } from "./allRestaurantsSlice";
+import { fetchAllRestaurants, selectRestaurants } from "./allRestaurantsSlice";
 import { Link } from "react-router-dom";
 import Filter from "../../Filter/Filter";
 
-const AllRestaurants = ({ searchTerm }) => {
+const AllRestaurants = (props) => {
   const allRestaurants = useSelector(selectRestaurants);
   const [selectedCuisine, setSelectedCuisine] = useState(null);
   const [filteredRestaurants, setFilteredRestaurants] =
     useState(allRestaurants);
+  const { searchTerm, handleSearch } = props;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllRestaurants());
+  }, [dispatch]);
 
   useEffect(() => {
     const filteredByNameOrDescription = allRestaurants.filter(
@@ -45,7 +52,10 @@ const AllRestaurants = ({ searchTerm }) => {
 
   return (
     <>
-      <Filter handleCuisineSelect={handleCuisineSelect} />
+      <Filter
+        handleSearch={handleSearch}
+        handleCuisineSelect={handleCuisineSelect}
+      />
       {filteredRestaurants.length === 0
         ? noRestaurantsMessage
         : filteredRestaurants.map((restaurant) => {

@@ -18,7 +18,7 @@ const SearchBar = (props) => {
     <Form onSubmit={handleSubmit} className="d-flex">
       <FormControl
         type="text"
-        placeholder="Search for available bags..."
+        placeholder="Search available bags..."
         className="mr-sm-2 search-bar"
         value={searchTerm}
         onChange={handleChange}
