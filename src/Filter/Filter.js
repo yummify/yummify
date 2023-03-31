@@ -71,6 +71,7 @@ const options = [
 
 const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
   const [selectedCuisineLocal, setSelectedCuisineLocal] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
     setSelectedCuisineLocal(selectedCuisine);
@@ -85,6 +86,26 @@ const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
     }
   };
 
+  const handleScrollLeft = () => {
+    const container = document.getElementById("filter-container");
+    const newPosition = scrollPosition - container.offsetWidth;
+    container.scrollTo({
+      left: newPosition,
+      behavior: "smooth",
+    });
+    setScrollPosition(newPosition);
+  };
+
+  const handleScrollRight = () => {
+    const container = document.getElementById("filter-container");
+    const newPosition = scrollPosition + container.offsetWidth;
+    container.scrollTo({
+      left: newPosition,
+      behavior: "smooth",
+    });
+    setScrollPosition(newPosition);
+  };
+
   return (
     <div className="filter-wrapper">
       <div className="filter-container" id="filter-container">
@@ -92,7 +113,7 @@ const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
           <div
             key={cuisineIcon.name}
             className={`cuisine-icon ${
-              selectedCuisineLocal === cuisineIcon.filter ? "selected" : ""
+              selectedCuisine === cuisineIcon.filter ? "selected" : ""
             }`}
             onClick={() => handleSelect(cuisineIcon.filter)}
           >
@@ -100,6 +121,18 @@ const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
             <p>{cuisineIcon.name}</p>
           </div>
         ))}
+      </div>
+      <div className="scroll-arrows">
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="arrow left-arrow"
+          onClick={handleScrollLeft}
+        />
+        <FontAwesomeIcon
+          icon={faChevronRight}
+          className="arrow right-arrow"
+          onClick={handleScrollRight}
+        />
       </div>
     </div>
   );
