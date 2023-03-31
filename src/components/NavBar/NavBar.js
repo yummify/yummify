@@ -28,9 +28,12 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar>
-      <img id='logo' src='logo.png'></img>
+    <Navbar expand="lg">
+      
       <Container>
+      <Navbar.Brand href="/"><img id='logo' src='logo.png'></img></Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
         {!authUser?.user?.userId ? (
           <Nav>
             <Nav.Link href="/userstart">User</Nav.Link>
@@ -41,7 +44,9 @@ const NavBar = () => {
             <Nav.Link href="/restaurantprofile">Profile</Nav.Link>
             <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
             <Nav.Link href="/">Orders</Nav.Link>
-            <Button onClick={logout}>Logout</Button>
+            <Nav.Link onClick={logout}>
+              Logout
+            </Nav.Link>
           </Nav>
         ) : authUser?.user?.isAdmin ? (
           <Nav>
@@ -52,7 +57,9 @@ const NavBar = () => {
               Manage Restaurants
             </Nav.Link>
             <Nav.Link href="/admin/order-history">Order History</Nav.Link>
-            <Button onClick={logout}>Logout</Button>
+            <Nav.Link onClick={logout}>
+              Logout
+            </Nav.Link>
           </Nav>
         ) : (
           <Nav>
@@ -61,11 +68,12 @@ const NavBar = () => {
             {/* <Nav.Link href="/map">Map View</Nav.Link> */}
             <Nav.Link href="/cart">Cart</Nav.Link>
             {/* <Button onClick={logout}>Logout</Button> */}
-            <Nav.Link href="/logout" onClick={logout}>
+            <Nav.Link onClick={logout}>
               Logout
             </Nav.Link>
           </Nav>
         )}
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
