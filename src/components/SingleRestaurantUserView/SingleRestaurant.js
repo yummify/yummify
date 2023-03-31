@@ -103,7 +103,7 @@ const SingleRestaurant = () => {
                         else {
                           return null;
                         }
-                    }): "No bags available"}
+                    }): " No bags available"}
                         
         </Card.Body>
         <Card.Body>

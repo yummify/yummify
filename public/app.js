@@ -1,2 +1,0 @@
-const STRIPE_PUBLISHABLE_KEY =
-  sk_test_51MqcV2AAzIy3pAPcT0gaaorjHToc8UmxNQFMSkjEk22QtJUTKgonMBQcIIQ6qM4vOzhjNKNNxVqSeiwo2pApkSeD000BhXzabm;

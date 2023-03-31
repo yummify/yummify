@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./filter.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,6 +22,17 @@ import americanIcon from "./Icons/American.png";
 
 const options = [
   {
+    name: "All",
+    icon: <img src={bakeryIcon} alt="All" />,
+    filter: "All",
+  },
+
+  {
+    name: "Italian",
+    icon: <img src={italianIcon} alt="Italian" />,
+    filter: "Italian",
+  },
+  {
     name: "French",
     icon: <img src={frenchIcon} alt="French" />,
     filter: "French",
@@ -31,17 +42,19 @@ const options = [
     icon: <img src={mexicanIcon} alt="Mexican" />,
     filter: "Mexican",
   },
+  { name: "Pizza", icon: <img src={pizzaIcon} alt="Pizza" />, filter: "Pizza" },
   {
     name: "American",
     icon: <img src={americanIcon} alt="American" />,
     filter: "American",
   },
-  { name: "Thai", icon: <img src={thaiIcon} alt="Thai" />, filter: "Thai" },
   {
     name: "Chinese",
     icon: <img src={chineseIcon} alt="Chinese" />,
     filter: "Chinese",
   },
+  { name: "Thai", icon: <img src={thaiIcon} alt="Thai" />, filter: "Thai" },
+
   { name: "Greek", icon: <img src={greekIcon} alt="Greek" />, filter: "Greek" },
   {
     name: "Salads",
@@ -54,26 +67,23 @@ const options = [
     icon: <img src={indianIcon} alt="Indian" />,
     filter: "Indian",
   },
-  {
-    name: "Italian",
-    icon: <img src={italianIcon} alt="Italian" />,
-    filter: "Italian",
-  },
-  { name: "Pizza", icon: <img src={pizzaIcon} alt="Pizza" />, filter: "Pizza" },
-  {
-    name: "Bakery",
-    icon: <img src={bakeryIcon} alt="Bakery" />,
-    filter: "Bakery",
-  },
 ];
 
-const Filter = ({ handleCuisineSelect }) => {
-  const [selectedCuisine, setSelectedCuisine] = useState(null);
+const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
+  const [selectedCuisineLocal, setSelectedCuisineLocal] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
 
+  useEffect(() => {
+    setSelectedCuisineLocal(selectedCuisine);
+  }, [selectedCuisine]);
+
   const handleSelect = (cuisine) => {
-    setSelectedCuisine(cuisine);
-    handleCuisineSelect(cuisine);
+    setSelectedCuisineLocal(cuisine);
+    if (cuisine === "All") {
+      handleCuisineSelect(null);
+    } else {
+      handleCuisineSelect(cuisine);
+    }
   };
 
   const handleScrollLeft = () => {

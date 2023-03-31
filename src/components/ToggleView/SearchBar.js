@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
-const SearchBar = ({ handleSearch, setSearchResults }) => {
+import "./toggleSearch.css";
+
+const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (e) => {
@@ -9,20 +11,20 @@ const SearchBar = ({ handleSearch, setSearchResults }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSearch(searchTerm);
+    props.handleSearch(searchTerm);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="d-flex">
       <FormControl
         type="text"
-        placeholder="Search"
-        className="mr-sm-2"
+        placeholder="Search available bags..."
+        className="mr-sm-2 search-bar"
         value={searchTerm}
         onChange={handleChange}
       />
-      <Button variant="outline-success" type="submit">
-        Search
+      <Button variant="primary" type="submit" className="search-button">
+        <span className="material-icons">Search</span>
       </Button>
     </Form>
   );

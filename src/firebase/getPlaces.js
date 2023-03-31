@@ -14,7 +14,6 @@ export const getPlaces = async () => {
 
   const places = data.results.map(async (result) => {
     const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=name,formatted_address,formatted_phone_number,opening_hours,website,types,photos,reviews&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
-    // const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=name,formatted_address,formatted_phone_number,opening_hours,website,types,photos,reviews&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
     const placeDetailsResponse = await fetch(placeDetailsUrl);
     const placeDetailsData = await placeDetailsResponse.json();
     const placeDetails = placeDetailsData.result;
@@ -66,7 +65,7 @@ export const getPlaces = async () => {
     // Add the restaurant to the restaurants collection with a custom ID
     const restaurantCollection = collection(db, "restaurants");
     const restaurantDocRef = doc(restaurantCollection, result.place_id); // use place_id as the custom ID
-    await setDoc(restaurantDocRef, place)
+    await setDoc(restaurantDocRef, place);
 
     // Add restaurant user data to users collection with the same custom ID
     const userCollection = collection(db, "users");

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
-import { query,  setDoc, getDoc,getDocs, updateDoc, collection, doc, where,  deleteDoc, limit } from "firebase/firestore";
+import { query,  setDoc, getDoc,getDocs, updateDoc, collection, doc, where,  deleteDoc, increment } from "firebase/firestore";
 
 //fetch by doc reference
 export const fetchSingleBagAsync = createAsyncThunk(
@@ -117,8 +117,20 @@ export const editBagAsync = createAsyncThunk(
   }
 );
 
+export const editBagQuantityAsync = createAsyncThunk("editbagQuantity", async(bagid)=>{
+  
+  try{
+    const bagByDocRef = doc(db, "bags", bagid);
+    await updateDoc(bagByDocRef, {
+      quantity: increment(-1)});
+  }catch(err){
+    console.log(err);
+  }
+});
+
+
 export const deleteBagAsync = createAsyncThunk("deletebag", async (bagId) => {
-  console.log(bagId);
+  
   const bagByDocRef = doc(db, "bags", `${bagId}`);
   await deleteDoc(bagByDocRef);
 });
@@ -142,7 +154,10 @@ export const bagSlice = createSlice({
       })
       .addCase(fetchGroupBagByRestAsync.fulfilled, (state, action) => {
         return action.payload;
-      });
+      })
+      .addCase(editBagQuantityAsync.fulfilled,(state,action)=>{
+        return action.payload;
+      })
   },
 });
 
