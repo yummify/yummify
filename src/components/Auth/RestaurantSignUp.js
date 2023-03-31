@@ -3,7 +3,7 @@ import { Form, Button, InputGroup, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchSignUpAuthAsync } from "./authSlice";
 import { addRestaurantAsync } from "../Restaurant/restaurantSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link} from "react-router-dom";
 import { addUserAsync } from "../User/userSlice";
 
 const RestaurantSignUp = () => {
@@ -18,7 +18,7 @@ const RestaurantSignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [EIN, setEIN] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [terms, setTerms] = useState("false");
+  const [terms, setTerms] = useState(false);
   const [website, setWebsite] = useState("");
   const [formError, setFormError] = useState({});
   const [openTime, setOpenTime] = useState("");
@@ -88,21 +88,21 @@ const RestaurantSignUp = () => {
   };
 
   const registerSignUp = async () => {
-    const error = validate(signUpEmail, signUpPwd);
+    const error = validate();
 
-    // if (
-    //   !error.hasOwnProperty("email") &&
-    //   !error.hasOwnProperty("pwd") &&
-    //   !error.hasOwnProperty("restaurantName") &&
-    //   !error.hasOwnProperty("cuisine") &&
-    //   !error.hasOwnProperty("description") &&
-    //   !error.hasOwnProperty("address") &&
-    //   !error.hasOwnProperty("phoneNumber") &&
-    //   !error.hasOwnProperty("zipcode") &&
-    //   !error.hasOwnProperty("website") &&
-    //   !error.hasOwnProperty("EIN")
-    // ) 
-    // {
+    if (
+      !error.hasOwnProperty("email") &&
+      !error.hasOwnProperty("pwd") &&
+      !error.hasOwnProperty("restaurantName") &&
+      !error.hasOwnProperty("cuisine") &&
+      !error.hasOwnProperty("description") &&
+      !error.hasOwnProperty("address") &&
+      !error.hasOwnProperty("phoneNumber") &&
+      !error.hasOwnProperty("zipcode") &&
+      !error.hasOwnProperty("website") &&
+      !error.hasOwnProperty("EIN")
+    ) 
+    {
       dispatch(
         fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
       ).then((res) => {
@@ -132,16 +132,16 @@ const RestaurantSignUp = () => {
             isRestaurantOwner: true,
           };
           dispatch(addUserAsync(reqbody));
+          const reqImage = ["/Student_Profile.png"];
+
           const reqResbody = {
             restaurantId: user.userId,
             restaurantName,
             email: user.email,
-            image: "/Student_Profile.png",
+            image: reqImage,
             cuisine,
             description,
             address,
-            open: openTime + openAMPM,
-            close: closeTime + closeAMPM,
             website,
             EIN,
             role: "restaurant",
@@ -156,7 +156,7 @@ const RestaurantSignUp = () => {
           });
         }
       });
-    // }
+    }
   };
 
   return (
@@ -258,76 +258,7 @@ const RestaurantSignUp = () => {
           {formError.phoneNumber && (
             <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
           )}
-          <Form.Group>
-            <Form.Label>Opens at:</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setOpenTime(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>1-12</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </Form.Select>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setOpenAMPM(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>AM/PM</option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </Form.Select>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Closes at :</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setCloseTime(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>1-12</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </Form.Select>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setCloseAMPM(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>AM/PM</option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </Form.Select>
-          </Form.Group>
+          
           <Form.Group>
             <Form.Label>Zipcode :</Form.Label>
             <Form.Control
@@ -371,9 +302,10 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.EIN}</p>
           )}
           <Form.Group>
-            <Form.Label>Terms and Conditions :</Form.Label>
+            <Form.Label>Terms and Conditions : </Form.Label>
+            <Link to="/terms-and-conditions" target="_blank" className="mx-2">Click to view</Link>
             <Form.Check
-              onChange={(event) => setTerms(event.target.checked)}
+              onChange={(event) => setTerms(!terms)}
               label="I agree"
             ></Form.Check>
           </Form.Group>
