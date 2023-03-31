@@ -174,7 +174,7 @@ const AdminManageRestaurants = () => {
                           </Button>
                           <Link
                             key={rest.id}
-                            to={`/admin/manage-restaurants/${rest.id}`}
+                            to={`/manage-restaurants/${rest.id}`}
                           >Edit Restaurant</Link>
                         </div>
                       </Stack>

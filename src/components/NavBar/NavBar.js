@@ -48,11 +48,11 @@ const NavBar = () => {
           <Nav>
             <Nav.Link href="/admin">Dashboard</Nav.Link>
             <Nav.Link href="/adminprofile">Profile</Nav.Link>
-            <Nav.Link href="/admin/manage-users">Manage Users</Nav.Link>
-            <Nav.Link href="/admin/manage-restaurants">
+            <Nav.Link href="/manage-users">Manage Users</Nav.Link>
+            <Nav.Link href="/manage-restaurants">
               Manage Restaurants
             </Nav.Link>
-            <Nav.Link href="/admin/order-history">Order History</Nav.Link>
+            <Nav.Link href="/order-history">Order History</Nav.Link>
             <Button onClick={logout}>Logout</Button>
           </Nav>
         ) : (
