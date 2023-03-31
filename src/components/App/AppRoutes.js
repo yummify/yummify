@@ -137,7 +137,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/manage-restaurants"
+          path="/manage-restaurants"
           element={
             <PrivateAdminRoute>
               <AdminManageRestaurants />
@@ -145,7 +145,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/manage-restaurants/:id"
+          path="/manage-restaurants/:id"
           element = {
             <PrivateAdminRoute>
               <AdminEditRestaurant/>
@@ -153,7 +153,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/manage-users"
+          path="/manage-users"
           element={
             <PrivateAdminRoute>
               <AdminManageUsers />
@@ -161,7 +161,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin/order-history"
+          path="/order-history"
           element={
             <PrivateAdminRoute>
               <AdminOrderHistory />

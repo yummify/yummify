@@ -12,17 +12,17 @@ const AdminHome = () => {
       <h2>Admin Dashboard</h2>
       <ButtonToolbar className="justify-content-md-center">
         <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/admin/manage-users")}>
+          <Button onClick={() => navigate("/manage-users")}>
             Manage Users
           </Button>
         </ButtonGroup>
         <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/admin/manage-restaurants")}>
+          <Button onClick={() => navigate("/manage-restaurants")}>
             Manage Restaurants
           </Button>
         </ButtonGroup>
         <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/admin/order-history")}>
+          <Button onClick={() => navigate("/order-history")}>
             Order History
           </Button>
         </ButtonGroup>

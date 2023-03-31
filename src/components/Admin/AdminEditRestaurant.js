@@ -48,7 +48,7 @@ const AdminEditRestaurant = () => {
 
   const handleClose = () => {
     setShow(false);
-    navigate(`/admin/manage-restaurants/${id}`);
+    navigate(`/manage-restaurants/${id}`);
 }
 
   return (
@@ -132,7 +132,7 @@ const AdminEditRestaurant = () => {
                 Click the button below to navigate back to the Manage Restaurants page.
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => navigate('/admin/manage-restaurants')}>Manage Restaurants</Button>
+                <Button onClick={() => navigate('/manage-restaurants')}>Manage Restaurants</Button>
             </Modal.Footer>
         </Modal>
       </Container>

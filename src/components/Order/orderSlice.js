@@ -40,9 +40,8 @@ export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId
 
 export const fetchOrderByStatusAsync = createAsyncThunk(
     "cart",
-    async (userId, status) => {
+    async (userId) => {
       try {
-        //fetch based on userId and "shopping" status
         const ordersRef = collection(db, "orders");
   
         const q = query(
