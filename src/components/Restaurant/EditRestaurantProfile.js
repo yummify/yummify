@@ -38,8 +38,6 @@ const EditRestaurantProfile = () => {
       cuisine: cuisine ? cuisine : authRestaurant.cuisine,
       description: description ? description : authRestaurant.description,
       address: address ? address : authRestaurant.address,
-      open: open ? open : authRestaurant.open,
-      close: close ? close : authRestaurant.close,
       website: website ? website : authRestaurant.website,
       EIN: EIN ? EIN : authRestaurant.EIN,
       phoneNumber: phoneNumber ? phoneNumber : authRestaurant.phoneNumber,
@@ -97,22 +95,6 @@ const EditRestaurantProfile = () => {
               type="text"
               placeholder={authRestaurant.phoneNumber}
               onChange={(event) => setPhoneNumber(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Opens at :</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder={authRestaurant.open}
-              onChange={(event) => setOpen(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Closes at :</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder={authRestaurant.close}
-              onChange={(event) => setClose(event.target.value)}
             />
           </Form.Group>
           <Form.Group>
