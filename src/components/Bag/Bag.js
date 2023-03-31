@@ -14,6 +14,7 @@ import Button from "react-bootstrap/Button";
 
 const Bag = (restaurant) => {
   const {
+    id,
     //expiration,
     //image,
     newPrice,
@@ -22,6 +23,7 @@ const Bag = (restaurant) => {
     type,
     //restaurantId,
   } = restaurant.bag;
+  console.log("id: ", id);
   const dispatch = useDispatch();
   //const singlebag = useSelector(selectBag);
   const userInfo = useSelector(selectUser);

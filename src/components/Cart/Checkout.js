@@ -16,7 +16,7 @@ const Checkout = () => {
 
     useEffect(() => {
         dispatch(fetchOrderByStatusAsync(userId, "shopping"));
-      }, [dispatch]);
+      }, [dispatch, userId]);
 
     //select order currently in state
     const order = useSelector(selectCartBag);

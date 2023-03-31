@@ -25,11 +25,13 @@ export const placeBagInCartAsync = createAsyncThunk(
     restaurantId,
     status,
     userId,
+    id,
   }) => {
     try {
       const newOrder = doc(collection(db, "orders"));
 
       await setDoc(newOrder, {
+        bagId: id,
         expiration,
         image,
         newPrice,

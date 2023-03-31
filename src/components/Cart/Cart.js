@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Alert, Card, Modal, Stack, Button, Badge, NavLink } from "react-bootstrap";
-
-
-import { fetchUserOrdersAsync, selectOrders, deleteOrderAsync } from "../Order/orderSlice";
+import { fetchUserOrdersAsync, selectOrders, deleteOrderAsync, markComplete } from "../Order/orderSlice";
+import { editBagQuantityAsync } from "../Bag/bagSlice";
 import { fetchAllRestaurants, selectRestaurants } from "../AllRestaurants/allRestaurantsSlice";
 
+
+
 const Cart = () => {
-  const [confirmation, setConfirmation] = useState(false);
+    //const [confirmation, setConfirmation] = useState(false);
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  //const restaurant = useSelector(selectRestaurant);
+    //get id of logged-in user
+    const { user } = useAuth();
+    const userId = user.userId;
 
-  //get id of logged-in user
-  const { user } = useAuth();
-  const userId = user.userId;
-  
-
-  useEffect(() => {
-    dispatch(fetchUserOrdersAsync(userId));
-    dispatch(fetchAllRestaurants());
-  }, [dispatch,userId]);
+     useEffect(() => {
+        dispatch(fetchUserOrdersAsync(userId));
+        dispatch(fetchAllRestaurants());
+    }, [dispatch,userId]);
 
   
-  const orders = useSelector(selectOrders);
-  console.log("orders: ", orders);
-  const restaurants = useSelector(selectRestaurants);
-  
+    const orders = useSelector(selectOrders);
+    //console.log("orders: ", orders);
+    const restaurants = useSelector(selectRestaurants);
 
-  
 
     //calculate NYC sales tax and find total price
     const totalPrice = (price) => {
@@ -44,8 +42,10 @@ const Cart = () => {
         return savings.toFixed(2);
     };
 
-    const handleCheckout = ()=> {
-
+    const handleCheckout = async (orderId,bagId)=> {
+        await dispatch(markComplete(orderId));
+        await dispatch(editBagQuantityAsync(bagId));
+        navigate("/checkout");
     }
 
     const handleDeleteOrder = async (orderId) => {
@@ -99,7 +99,8 @@ const Cart = () => {
                 
                 </p>
                 <div></div>
-                <p> <Button onClick={handleCheckout}>Checkout: ${totalPrice(orders[0].newPrice)}</Button></p>
+                <p> <Button onClick={()=>{
+                    handleCheckout(orders[0].id, orders[0].bagId)}}>Checkout: ${totalPrice(orders[0].newPrice)}</Button></p>
                 </Card>) : null}
             </Stack>
             
