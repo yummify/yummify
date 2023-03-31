@@ -11,15 +11,6 @@ import Footer from "../Footer/Footer";
 function App() {
   return (
     <div className="App">
-      {/* <Link to={"/"} className="mx-3">
-        Home
-      </Link>
-      <Link to={"/userstart"} className="mx-3">
-        User
-      </Link>
-      <Link to={"/restaurantstart"} className="mx-3">
-        Restaurant
-      </Link> */}
       <AuthProvider>
         <NavBar />
         <AppRoutes />
