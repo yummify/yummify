@@ -56,36 +56,15 @@ export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrde
 
 
 
-//fetches the latest order for checkout
-export const fetchUOrderLatestAsync = createAsyncThunk("userOrderLAST", async (userId) => {
-    try {
-        const q = query(collection(db, "orders"), where("userId", "==", userId), orderBy("updated", "desc"),limit(1));
-        const querySnap = await getDocs(q)
-        const orders = [];
-       
-        if (querySnap.empty) {
-            console.error('No orders found.')
-        } 
-        else {
-            querySnap.forEach((doc) => {
-            orders.push({...doc.data(), id: doc.id});
-            }
-        )}
-        
-        return orders;
-
-    } catch(err) {
-        console.error(err);
-    }
-});
 
 
 export const markComplete = createAsyncThunk("markComplete", async (orderId) => {
     try {
         const orderRef = doc(db, "orders", orderId);
+        const time = new Date().toJSON();
         await updateDoc(orderRef, {
             status: 'complete',
-            updated: serverTimestamp(),
+            updated: time,
         })
     } catch(err) {
         console.error(err)
@@ -111,9 +90,7 @@ export const ordersSlice = createSlice({
         builder.addCase(fetchAllOrdersForRestaurantAsync.fulfilled, (state, action) => {
             return action.payload;
         })
-        builder.addCase(fetchUOrderLatestAsync.fulfilled,(state,action)=>{
-            return action.payload;
-        })
+        
     }
 });
 

@@ -26,7 +26,7 @@ const Cart = () => {
 
   
     const orders = useSelector(selectOrders);
-    //console.log("orders: ", orders);
+    
     const restaurants = useSelector(selectRestaurants);
 
 
@@ -86,17 +86,16 @@ const Cart = () => {
                         </Stack>
                     </Card.Footer>
                 </Card> )}
-                else{
-                    return null;
-                }
-                }) : <div><p>Your cart is empty</p> <div></div> <NavLink href="/restaurants">Return to Browse</NavLink></div> }
+                
+                }) : null }
                 
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
-                <Badge>Total Price</Badge>
+                {/* <Badge>Total Price</Badge> */}
                 
                 {orders.length > 0 && orders[0].status === "shopping" ? 
                         (
                             <Card>
+                                <Badge>Total Price</Badge>
                                 <p>Total Savings: ${savings(orders[0].originalPrice, orders[0].newPrice)}         
                                 </p>
                                 <div></div>
@@ -109,7 +108,7 @@ const Cart = () => {
                         )
                     
                     
-                    : null}
+                    : <div><p>Your cart is empty</p> <div></div> <Card.Link href="/restaurants">Return to Browse</Card.Link></div>}
             </Stack>
             
         </>
