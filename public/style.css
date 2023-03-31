@@ -2,9 +2,15 @@
     background-color: white;
     /* font-family: 'Amaranth', sans-serif; */
 /* font-family: 'Arsenal', sans-serif; */
-font-family: 'Karma', serif;
+    font-family: 'Karma', serif;
+
 /* font-family: 'PT Serif', serif;
 font-family: 'Shadows Into Light Two' */
+}
+
+body{
+    position: relative;
+    min-height: 100vh;
 }
 
 #rest-stack {
