@@ -1,4 +1,4 @@
-import { getDocs, doc, query, collection, where, updateDoc, deleteDoc, serverTimestamp, limit, orderBy } from "firebase/firestore";
+import { getDocs, doc, query, collection, where, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -38,6 +38,33 @@ export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId
     }
 });
 
+export const fetchOrderByStatusAsync = createAsyncThunk(
+    "cart",
+    async (userId, status) => {
+      try {
+        //fetch based on userId and "shopping" status
+        const ordersRef = collection(db, "orders");
+  
+        const q = query(
+          ordersRef,
+          where("userId", "==", userId),
+          where("status", "==", "shopping")
+        );
+  
+        const querySnapshot = await getDocs(q);
+        const orders = [];
+        querySnapshot.forEach((doc) => {
+          orders.push({...doc.data(), id: doc.id})
+        });
+  
+        return orders;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  );
+
+
 export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrders", async (restaurantId) => {
     try {
         const q = query(collection(db, "orders"), where("restaurantId", "==", restaurantId));
@@ -72,8 +99,13 @@ export const markComplete = createAsyncThunk("markComplete", async (orderId) => 
 })
 
 export const deleteOrderAsync = createAsyncThunk("deleteOrder", async (orderId) => {
+    try{
     const orderRef = doc(db, "orders", orderId);
     await deleteDoc(orderRef);
+    }catch(err){
+        console.error(err);
+    }
+
   });
 
 export const ordersSlice = createSlice({
@@ -90,6 +122,13 @@ export const ordersSlice = createSlice({
         builder.addCase(fetchAllOrdersForRestaurantAsync.fulfilled, (state, action) => {
             return action.payload;
         })
+        builder.addCase(fetchOrderByStatusAsync.fulfilled,(state,action)=>{
+            return action.payload;
+        })
+        builder.addCase(deleteOrderAsync.fulfilled, (state, action) => {
+            const orderId = action.payload;
+            return state.filter((order) => order.id !== orderId);
+        });
         
     }
 });
