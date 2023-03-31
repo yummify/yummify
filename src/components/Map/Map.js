@@ -10,12 +10,11 @@ import "./map.css";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function Map(props) {
+export default function Map({ searchTerm, handleSearch, selectedCuisine }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-  const { searchTerm, handleSearch } = props;
   const [restaurants, setRestaurants] = useState([]);
 
   // pulling the restaurant collection data from the Firestore database
@@ -69,20 +68,24 @@ export default function Map(props) {
   }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
+  // Filter restaurants by search term and selected cuisine
+  const filteredRestaurants = restaurants
+    .filter(
+      (restaurant) =>
+        restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        restaurant.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        restaurant.cuisine.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter(
+      (restaurant) => !selectedCuisine || restaurant.cuisine === selectedCuisine
+    );
+
   return (
-    <MapContent
-      restaurants={restaurants.filter(
-        (restaurant) =>
-          restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          restaurant.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          restaurant.cuisine.toLowerCase().includes(searchTerm.toLowerCase())
-      )}
-      handleSearch={handleSearch}
-    />
+    <MapContent restaurants={filteredRestaurants} handleSearch={handleSearch} />
   );
 }
 
-function MapContent({ restaurants }) {
+function MapContent({ restaurants, handleSearch }) {
   const center = useMemo(() => ({ lat: 40.7075, lng: -74.0113 }), []);
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
