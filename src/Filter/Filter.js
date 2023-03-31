@@ -26,6 +26,12 @@ const options = [
     icon: <img src={bakeryIcon} alt="All" />,
     filter: "All",
   },
+
+  {
+    name: "Italian",
+    icon: <img src={italianIcon} alt="Italian" />,
+    filter: "Italian",
+  },
   {
     name: "French",
     icon: <img src={frenchIcon} alt="French" />,
@@ -36,17 +42,19 @@ const options = [
     icon: <img src={mexicanIcon} alt="Mexican" />,
     filter: "Mexican",
   },
+  { name: "Pizza", icon: <img src={pizzaIcon} alt="Pizza" />, filter: "Pizza" },
   {
     name: "American",
     icon: <img src={americanIcon} alt="American" />,
     filter: "American",
   },
-  { name: "Thai", icon: <img src={thaiIcon} alt="Thai" />, filter: "Thai" },
   {
     name: "Chinese",
     icon: <img src={chineseIcon} alt="Chinese" />,
     filter: "Chinese",
   },
+  { name: "Thai", icon: <img src={thaiIcon} alt="Thai" />, filter: "Thai" },
+
   { name: "Greek", icon: <img src={greekIcon} alt="Greek" />, filter: "Greek" },
   {
     name: "Salads",
@@ -59,12 +67,6 @@ const options = [
     icon: <img src={indianIcon} alt="Indian" />,
     filter: "Indian",
   },
-  {
-    name: "Italian",
-    icon: <img src={italianIcon} alt="Italian" />,
-    filter: "Italian",
-  },
-  { name: "Pizza", icon: <img src={pizzaIcon} alt="Pizza" />, filter: "Pizza" },
 ];
 
 const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
