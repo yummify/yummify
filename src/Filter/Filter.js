@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./filter.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,6 +21,11 @@ import pizzaIcon from "./Icons/Pizza.png";
 import americanIcon from "./Icons/American.png";
 
 const options = [
+  {
+    name: "All",
+    icon: <img src={bakeryIcon} alt="All" />,
+    filter: "All",
+  },
   {
     name: "French",
     icon: <img src={frenchIcon} alt="French" />,
@@ -60,40 +65,22 @@ const options = [
     filter: "Italian",
   },
   { name: "Pizza", icon: <img src={pizzaIcon} alt="Pizza" />, filter: "Pizza" },
-  {
-    name: "Bakery",
-    icon: <img src={bakeryIcon} alt="Bakery" />,
-    filter: "Bakery",
-  },
 ];
 
-const Filter = ({ handleCuisineSelect }) => {
-  const [selectedCuisine, setSelectedCuisine] = useState(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+const Filter = ({ handleCuisineSelect, selectedCuisine }) => {
+  const [selectedCuisineLocal, setSelectedCuisineLocal] = useState(null);
+
+  useEffect(() => {
+    setSelectedCuisineLocal(selectedCuisine);
+  }, [selectedCuisine]);
 
   const handleSelect = (cuisine) => {
-    setSelectedCuisine(cuisine);
-    handleCuisineSelect(cuisine);
-  };
-
-  const handleScrollLeft = () => {
-    const container = document.getElementById("filter-container");
-    const newPosition = scrollPosition - container.offsetWidth;
-    container.scrollTo({
-      left: newPosition,
-      behavior: "smooth",
-    });
-    setScrollPosition(newPosition);
-  };
-
-  const handleScrollRight = () => {
-    const container = document.getElementById("filter-container");
-    const newPosition = scrollPosition + container.offsetWidth;
-    container.scrollTo({
-      left: newPosition,
-      behavior: "smooth",
-    });
-    setScrollPosition(newPosition);
+    setSelectedCuisineLocal(cuisine);
+    if (cuisine === "All") {
+      handleCuisineSelect(null);
+    } else {
+      handleCuisineSelect(cuisine);
+    }
   };
 
   return (
@@ -103,7 +90,7 @@ const Filter = ({ handleCuisineSelect }) => {
           <div
             key={cuisineIcon.name}
             className={`cuisine-icon ${
-              selectedCuisine === cuisineIcon.filter ? "selected" : ""
+              selectedCuisineLocal === cuisineIcon.filter ? "selected" : ""
             }`}
             onClick={() => handleSelect(cuisineIcon.filter)}
           >
@@ -111,18 +98,6 @@ const Filter = ({ handleCuisineSelect }) => {
             <p>{cuisineIcon.name}</p>
           </div>
         ))}
-      </div>
-      <div className="scroll-arrows">
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          className="arrow left-arrow"
-          onClick={handleScrollLeft}
-        />
-        <FontAwesomeIcon
-          icon={faChevronRight}
-          className="arrow right-arrow"
-          onClick={handleScrollRight}
-        />
       </div>
     </div>
   );
