@@ -86,7 +86,7 @@ export default function Map({ searchTerm, handleSearch, selectedCuisine }) {
 }
 
 function MapContent({ restaurants, handleSearch }) {
-  const center = useMemo(() => ({ lat: 40.7075, lng: -74.0113 }), []);
+  const center = useMemo(() => ({ lat: 40.71335, lng: -74.00043 }), []);
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 

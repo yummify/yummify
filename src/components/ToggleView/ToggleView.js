@@ -17,6 +17,8 @@ export default function ToggleView() {
 
   const handleListView = () => {
     setIsMapView(false);
+    setSearchTerm("");
+    setSelectedCuisine(null);
   };
 
   const handleSearch = (searchTerm) => {
