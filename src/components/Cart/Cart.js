@@ -93,15 +93,23 @@ const Cart = () => {
                 
                 <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
                 <Badge>Total Price</Badge>
-                {orders.length > 0 ? (<Card>
                 
-                <p>Total Savings: ${savings(orders[0].originalPrice, orders[0].newPrice)}
-                
-                </p>
-                <div></div>
-                <p> <Button onClick={()=>{
-                    handleCheckout(orders[0].id, orders[0].bagId)}}>Checkout: ${totalPrice(orders[0].newPrice)}</Button></p>
-                </Card>) : null}
+                {orders.length > 0 && orders[0].status === "shopping" ? 
+                        (
+                            <Card>
+                                <p>Total Savings: ${savings(orders[0].originalPrice, orders[0].newPrice)}         
+                                </p>
+                                <div></div>
+                                <p> 
+                                    <Button onClick={()=>{
+                    handleCheckout(orders[0].id, orders[0].bagId)}}>Checkout: ${totalPrice(orders[0].newPrice)}
+                                </Button>
+                                </p>
+                            </Card>
+                        )
+                    
+                    
+                    : null}
             </Stack>
             
         </>

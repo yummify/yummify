@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Card, ListGroup } from "react-bootstrap";
 import { fetchSingleRestaurant, selectRestaurant } from "../SingleRestaurantUserView/singleRestaurantSlice";
-import { fetchUserOrdersAsync, selectOrders } from "../Order/orderSlice";
-import { fetchOrderByStatusAsync, selectCartBag } from "./cartBagSlice";
+import { fetchUOrderLatestAsync, selectOrders } from "../Order/orderSlice";
+
 import { useAuth } from "../../contexts/AuthContext";
 
 const Checkout = () => {
@@ -11,16 +11,15 @@ const Checkout = () => {
 
     //get userId from auth context
     const { user } = useAuth();
-    console.log('user.userId', user);
     const userId = user.userId;
 
     useEffect(() => {
-        dispatch(fetchOrderByStatusAsync(userId, "shopping"));
+        dispatch(fetchUOrderLatestAsync(userId));
       }, [dispatch, userId]);
 
     //select order currently in state
-    const order = useSelector(selectCartBag);
-    console.log('order', order);
+    const order = useSelector(selectOrders);
+    
   
     //for Bootstrap modal
     const [show, setShow] = useState(true);

@@ -1,4 +1,4 @@
-import { getDocs, doc, query, collection, where, updateDoc, deleteDoc } from "firebase/firestore";
+import { getDocs, doc, query, collection, where, updateDoc, deleteDoc, serverTimestamp, limit, orderBy } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -54,11 +54,38 @@ export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrde
     }
 })
 
+
+
+//fetches the latest order for checkout
+export const fetchUOrderLatestAsync = createAsyncThunk("userOrderLAST", async (userId) => {
+    try {
+        const q = query(collection(db, "orders"), where("userId", "==", userId), orderBy("updated", "desc"),limit(1));
+        const querySnap = await getDocs(q)
+        const orders = [];
+       
+        if (querySnap.empty) {
+            console.error('No orders found.')
+        } 
+        else {
+            querySnap.forEach((doc) => {
+            orders.push({...doc.data(), id: doc.id});
+            }
+        )}
+        
+        return orders;
+
+    } catch(err) {
+        console.error(err);
+    }
+});
+
+
 export const markComplete = createAsyncThunk("markComplete", async (orderId) => {
     try {
         const orderRef = doc(db, "orders", orderId);
         await updateDoc(orderRef, {
-            status: 'complete'
+            status: 'complete',
+            updated: serverTimestamp(),
         })
     } catch(err) {
         console.error(err)
@@ -82,6 +109,9 @@ export const ordersSlice = createSlice({
             return action.payload;
         })
         builder.addCase(fetchAllOrdersForRestaurantAsync.fulfilled, (state, action) => {
+            return action.payload;
+        })
+        builder.addCase(fetchUOrderLatestAsync.fulfilled,(state,action)=>{
             return action.payload;
         })
     }
