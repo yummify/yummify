@@ -20,7 +20,7 @@ const NavBar = () => {
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/");
+      navigate("/logout");
     } catch (err) {
       console.log(err);
     }
@@ -32,8 +32,6 @@ const NavBar = () => {
       <Container>
         {!authUser?.user?.userId ? (
           <Nav>
-            {/* <Nav.Link href="/usersignup">User Signup</Nav.Link>
-            <Nav.Link href="/restaurantsignup">Restaurant Signup</Nav.Link> */}
           </Nav>
         ) : authUser?.user?.isRestaurantOwner ? (
           <Nav>
@@ -62,9 +60,7 @@ const NavBar = () => {
           <Nav>
             <Nav.Link href="/restaurants">Browse</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
-            {/* <Nav.Link href="/map">Map View</Nav.Link> */}
             <Nav.Link href="/cart">Cart</Nav.Link>
-            {/* <Button onClick={logout}>Logout</Button> */}
             <Nav.Link href="/logout" onClick={logout}>
               Logout
             </Nav.Link>

@@ -29,6 +29,8 @@ function App() {
       <AuthProvider>
         {location.pathname === "/" && <Splash/>}
         {location.pathname !== "/" && <NavBar/>}
+        {/* {location.pathname !== "/logout" && <NavBar/>}
+        {location.pathname === "/logout" && <Splash/>} */}
         <AppRoutes />
       </AuthProvider>
         {location.pathname !== "/" && <Footer/>}
