@@ -125,7 +125,7 @@ const UserProfile = () => {
                 {!upload && (
                   <Button
                     onClick={() => setUpload(true)}
-                    className="d-block my-3"
+                    className="d-block my-3 mx-auto"
                   >
                     Upload Photo
                   </Button>
