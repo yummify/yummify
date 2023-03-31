@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Map from "../Map/Map";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
+import SearchBar from "./SearchBar";
 
 export default function ToggleView() {
   const [isMapView, setIsMapView] = useState(false);
@@ -36,6 +37,7 @@ export default function ToggleView() {
             Map View
           </Button>
         </div>
+        <SearchBar handleSearch={handleSearch} />
       </div>
       {isMapView ? (
         <Map searchTerm={searchTerm} handleSearch={handleSearch} />

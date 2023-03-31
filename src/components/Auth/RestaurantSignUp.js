@@ -12,8 +12,6 @@ const RestaurantSignUp = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [cuisine, setCuisine] = useState("");
   const [address, setAddress] = useState("");
-  const [open, setOpen] = useState("");
-  const [close, setClose] = useState("");
   const [description, setDescription] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [EIN, setEIN] = useState("");
@@ -21,10 +19,6 @@ const RestaurantSignUp = () => {
   const [terms, setTerms] = useState("false");
   const [website, setWebsite] = useState("");
   const [formError, setFormError] = useState({});
-  const [openTime, setOpenTime] = useState("");
-  const [openAMPM, setOpenAMPM] = useState("");
-  const [closeTime, setCloseTime] = useState("");
-  const [closeAMPM, setCloseAMPM] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -101,61 +95,59 @@ const RestaurantSignUp = () => {
     //   !error.hasOwnProperty("zipcode") &&
     //   !error.hasOwnProperty("website") &&
     //   !error.hasOwnProperty("EIN")
-    // ) 
+    // )
     // {
-      dispatch(
-        fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
-      ).then((res) => {
-        if (res?.error) {
-          const err = res?.error;
-          console.log(err?.message);
-          if (err?.message?.includes("email-already-in-use")) {
-            setFormError({
-              email: "Email already exists,choose different email",
-              pwd,
-            });
-          }
-          if (err?.message?.includes("invalid-email")) {
-            setFormError({ email: "Invalid email", pwd });
-          }
-        } else {
-          const user = res.payload;
-          console.log(res.payload);
-          const reqbody = {
-            userId: user.userId,
-            name: restaurantName,
-            email: user.email,
-            image: "/Student_Profile.png",
-            phoneNumber: phoneNumber,
-            zipcode: zipcode,
-            isAdmin: false,
-            isRestaurantOwner: true,
-          };
-          dispatch(addUserAsync(reqbody));
-          const reqResbody = {
-            restaurantId: user.userId,
-            restaurantName,
-            email: user.email,
-            image: "/Student_Profile.png",
-            cuisine,
-            description,
-            address,
-            open: openTime + openAMPM,
-            close: closeTime + closeAMPM,
-            website,
-            EIN,
-            role: "restaurant",
-            status: "pending",
-            phoneNumber: phoneNumber,
-            zipcode: zipcode,
-            terms,
-          };
-          dispatch(addRestaurantAsync(reqResbody)).then(() => {
-            console.log("restaurant added");
-            navigate("/restaurantprofile");
+    dispatch(
+      fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
+    ).then((res) => {
+      if (res?.error) {
+        const err = res?.error;
+        console.log(err?.message);
+        if (err?.message?.includes("email-already-in-use")) {
+          setFormError({
+            email: "Email already exists,choose different email",
+            pwd,
           });
         }
-      });
+        if (err?.message?.includes("invalid-email")) {
+          setFormError({ email: "Invalid email", pwd });
+        }
+      } else {
+        const user = res.payload;
+        console.log(res.payload);
+        const reqbody = {
+          userId: user.userId,
+          name: restaurantName,
+          email: user.email,
+          image: "/Student_Profile.png",
+          phoneNumber: phoneNumber,
+          zipcode: zipcode,
+          isAdmin: false,
+          isRestaurantOwner: true,
+        };
+        dispatch(addUserAsync(reqbody));
+        const reqResbody = {
+          restaurantId: user.userId,
+          restaurantName,
+          email: user.email,
+          image: "/Student_Profile.png",
+          cuisine,
+          description,
+          address,
+          website,
+          EIN,
+          role: "restaurant",
+          status: "pending",
+          phoneNumber: phoneNumber,
+          zipcode: zipcode,
+          terms,
+        };
+        dispatch(addRestaurantAsync(reqResbody)).then(() => {
+          console.log("restaurant added");
+          navigate("/restaurantprofile");
+        });
+      }
+    });
     // }
   };
 
@@ -258,76 +250,6 @@ const RestaurantSignUp = () => {
           {formError.phoneNumber && (
             <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
           )}
-          <Form.Group>
-            <Form.Label>Opens at:</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setOpenTime(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>1-12</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </Form.Select>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setOpenAMPM(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>AM/PM</option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </Form.Select>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Closes at :</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setCloseTime(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>1-12</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </Form.Select>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(event) => {
-                setCloseAMPM(event.target.value);
-              }}
-              style={{ maxWidth: "100px" }}
-            >
-              <option>AM/PM</option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </Form.Select>
-          </Form.Group>
           <Form.Group>
             <Form.Label>Zipcode :</Form.Label>
             <Form.Control

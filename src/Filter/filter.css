@@ -9,13 +9,16 @@
 .filter-container {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
   overflow-x: scroll;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding: 10px 0;
-  margin: 0 20px;
+  padding: 12px 0;
+  margin: 0;
   width: 100%;
-  color: hwb(34 11% 0%);
+  font-size: 12px;
+  color: #686868;
 }
 
 /* Hide the scrollbar */
@@ -38,11 +41,14 @@
 
 .arrow {
   position: absolute;
+  display: block;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-100%);
   font-size: 30px;
   cursor: pointer;
-  color: #ff953f;
+  color: #f9fc4c;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .left-arrow {
@@ -53,14 +59,14 @@
   right: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 800px) {
   .filter-container {
-    margin: 0 50px;
+    margin: 0 30px;
   }
 }
 
-@media screen and (min-width: 992px) {
-  .filter-container {
-    margin: 0 100px;
+@media screen and (min-width: 700px) {
+  .arrow {
+    display: none;
   }
 }
