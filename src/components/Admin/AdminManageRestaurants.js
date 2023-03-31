@@ -119,7 +119,7 @@ const AdminManageRestaurants = () => {
     <>
       <h2 id='title'>Manage Restaurants</h2>
       <Alert variant={"warning"}>
-        <Accordion defaultActiveKey="0">
+        <Accordion id='pending-accordion' defaultActiveKey="0">
           <h2>
             {pendingRestaurants.length} restuarant(s) are waiting for approval.
           </h2>
@@ -183,7 +183,8 @@ const AdminManageRestaurants = () => {
                             console.log(restaurantData);
                             handleOpenEdit()
                           }}>Edit Restaurant</Button>
-                          <Modal
+                          {/* <Modal
+                            id = 'edit-restaurant'
                             show={showEdit}
                             onHide={handleCloseEdit}
                             aria-labelledby="contained-modal-title-vcenter"
@@ -258,44 +259,15 @@ const AdminManageRestaurants = () => {
                                     onChange={(event) => setEIN(event.target.value)}
                                   />
                                 </Form.Group>*/}
-                                <Button onClick={editRestaurant}>Save</Button>
+                                {/* <Button onClick={editRestaurant}>Save</Button>
                                 <Button onClick={cancelEdit}>Cancel</Button>
                               </Form> 
                             </Modal.Body>
-                          </Modal>
+                           </Modal> */} 
                           <div className="vr" />
-                          <Button onClick={() => {
-                            setModalData(rest.id);
-                            handleOpenSuspend()}}>
+                          <Button onClick={() => handleSuspend(rest.id)}>
                             Suspend Restaurant
                           </Button>
-                          <Modal
-                              show={showSuspend}
-                              onHide={handleCloseSuspend}
-                            >
-                              <Modal.Header closeButton>
-                                <Modal.Title>Suspend Restaurant</Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>
-                                Are you sure you want to suspend this
-                                restaurant?
-                              </Modal.Body>
-                              <Modal.Footer>
-                                <Button
-                                  variant="secondary"
-                                  onClick={handleCloseSuspend}
-                                >
-                                  No, do not suspend.
-                                </Button>
-                                <Button
-                                  variant="primary"
-                                  onClick={() => {
-                                    handleSuspend(modalData)}}
-                                >
-                                  Yes, suspend.
-                                </Button>
-                              </Modal.Footer>
-                            </Modal>
                         </div>
                       </Stack>
                     </ListGroup.Item>
@@ -306,7 +278,7 @@ const AdminManageRestaurants = () => {
           : "No restaurants registered"}
       </ListGroup>
       <Alert variant={"danger"}>
-        <Accordion defaultActiveKey="0">
+        <Accordion id='suspended-accordion' defaultActiveKey="0">
           <h2>Suspended Restaurants:</h2>
           {restaurants.length > 0
             ? restaurants.map((rest) => {
@@ -332,6 +304,7 @@ const AdminManageRestaurants = () => {
                           }}>Delete Restaurant
                           </Button>
                           <Modal
+                            id = 'delete-restaurant'
                             show={showDelete}
                             onHide={handleCloseDelete}
                           >
