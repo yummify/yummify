@@ -40,10 +40,10 @@ const Login = () => {
           const err = res?.error;
           console.log(err?.message);
           if (err?.message?.includes("wrong-password")) {
-            setFormError({ email, pwd: "Incorrect credentials" });
+            setFormError({ email, pwd: "Invalid credentials" });
           }
           if (err?.message?.includes("user-not-found")) {
-            setFormError({ email: "Account not found", pwd });
+            setFormError({ email: "Invalid credentials", pwd });
           }
           if (err?.message?.includes("invalid-email")) {
             setFormError({ email: "Invalid email", pwd });
