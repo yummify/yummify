@@ -11,7 +11,6 @@ const NavBar = () => {
   const authUser = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log("AuthUser in Navbar:", authUser?.user);
 
   useEffect(() => {
     if (authUser?.user?.userId)
@@ -29,7 +28,7 @@ const NavBar = () => {
 
   return (
     <Navbar>
-      <img id='logo' src='logo.png'></img>
+      <img id="logo" src="logo.png"></img>
       <Container>
         {!authUser?.user?.userId ? (
           <Nav>
@@ -41,7 +40,12 @@ const NavBar = () => {
             <Nav.Link href="/restaurantprofile">Profile</Nav.Link>
             <Nav.Link href="/restaurantorders">Orders</Nav.Link>
             <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
-            <Button onClick={logout}>Logout</Button>
+            <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>
+              View Storefront{" "}
+            </Nav.Link>
+            <Nav.Link href="/logout" onClick={logout}>
+              Logout
+            </Nav.Link>
           </Nav>
         ) : authUser?.user?.isAdmin ? (
           <Nav>
@@ -52,7 +56,9 @@ const NavBar = () => {
               Manage Restaurants
             </Nav.Link>
             <Nav.Link href="/admin/order-history">Order History</Nav.Link>
-            <Button onClick={logout}>Logout</Button>
+            <Nav.Link href="/logout" onClick={logout}>
+              Logout
+            </Nav.Link>
           </Nav>
         ) : (
           <Nav>

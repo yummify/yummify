@@ -56,11 +56,9 @@ const AddBagForm = (props) =>{
         setBagExpire("");
         
     }
-
-
   
     return(
-        <Card style={{width: "25rem"}}>
+        <Card>
             <Card.Header>Add Bag</Card.Header>
             <Form>
                 <Form.Group className="bag-type-input">

@@ -50,7 +50,7 @@ export const fetchRestaurantAsync = createAsyncThunk(
   "fetchRestaurant",
   async (restaurantId) => {
     try {
-      console.log("RestaurantId:", restaurantId);
+      
       const restaurantRef = doc(db, "restaurants", restaurantId);
       const docSnap = await getDoc(restaurantRef);
       if (docSnap.exists()) {
@@ -70,7 +70,7 @@ export const editRestaurantImageAsync = createAsyncThunk(
   "editRestaurantImage",
   async ({ restaurantId, url }) => {
     try {
-      console.log("restaurantId and url:", restaurantId, url);
+      
       const restaurantsRef = doc(db, "restaurants", restaurantId);
       const usersRef = doc(db,"users", restaurantId);
       const data = { image: url };
@@ -92,8 +92,6 @@ export const editRestaurantAsync = createAsyncThunk(
     cuisine,
     description,
     address,
-    open,
-    close,
     website,
     EIN,
     phoneNumber,
@@ -107,8 +105,6 @@ export const editRestaurantAsync = createAsyncThunk(
         cuisine,
         description,
         address,
-        open,
-        close,
         website,
         EIN,
         phoneNumber,
@@ -122,8 +118,6 @@ export const editRestaurantAsync = createAsyncThunk(
         cuisine,
         description,
         address,
-        open,
-        close,
         website,
         EIN,
         phoneNumber,
@@ -153,11 +147,9 @@ export const restaurantSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addRestaurantAsync.fulfilled, (state, action) => {
-        console.log("In addRes actionpayload:", action.payload);
         return action.payload;
       })
       .addCase(fetchRestaurantAsync.fulfilled, (state, action) => {
-        console.log("In fetchRes actionpayload:", action.payload);
         return action.payload;
       });
   },

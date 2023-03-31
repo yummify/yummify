@@ -34,7 +34,7 @@ const AdminOrderHistory = () => {
                         <h4>Order #{order.id}</h4>
                         <h6>Restaurant: {rest?.restaurantName}</h6>
                         <p>Status: {order.status}</p>
-                        <p>Ordered By:{orderUser.data.name}</p>
+                        <p>Ordered By:{orderUser?.data.name}</p>
                         <p>Pickup Time: {order.pickup}, on {order.expiration}</p>
                         <Stack direction="horizontal">
                             <h6 style={{textDecoration: 'line-through'}}>Original Price: ${order.originalPrice}</h6>

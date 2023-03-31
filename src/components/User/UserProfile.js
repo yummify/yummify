@@ -9,7 +9,7 @@ import {
   editUserImageAsync,
   selectUser,
 } from "../User/userSlice";
-import { fetchUserOrdersAsync,selectOrders } from "./userOrdersSlice";
+import { fetchUserOrdersAsync, selectOrders } from "./userOrdersSlice";
 
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -28,11 +28,11 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
   console.log("Orders:", orders);
-  console.log('Orderdata:', orders.length);
+  console.log("Orderdata:", orders.length);
 
   useEffect(() => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
-  }, [dispatch, user?.userId, fileUrl,orders]);
+  }, [dispatch, user?.userId, fileUrl, orders]);
 
   const handleImage = async (event) => {
     if (imageFile == null) return;
@@ -51,9 +51,7 @@ const UserProfile = () => {
 
   const handleOrderHistory = () => {
     dispatch(fetchUserOrdersAsync(user.userId));
-  }
-
- 
+  };
 
   return (
     <div>
@@ -80,7 +78,7 @@ const UserProfile = () => {
                   <Button
                     onClick={() => setUpload(true)}
                     style={{ padding: "0.2rem", marginTop: "1rem" }}
-                    className="d-block my-3"
+                    className="d-block my-3 mx-auto"
                   >
                     Upload Photo
                   </Button>
@@ -100,9 +98,20 @@ const UserProfile = () => {
               </Col>
               <Col className="border my-3 mx-3 text-center">
                 <h1 className="my-3">{authuser?.name}</h1>
-                <p>Email :{authuser?.email}</p>
-                <p>PhoneNumber :{authuser?.phoneNumber}</p>
-                <p>Zipcode :{authuser.zipcode}</p>
+                <p>
+                  <strong>Email: </strong>
+                  {authuser?.email}
+                </p>
+                <p>
+                  {" "}
+                  <strong>Phone Number: </strong>
+                  {authuser?.phoneNumber}
+                </p>
+                <p>
+                  {" "}
+                  <strong>Zipcde: </strong>
+                  {authuser.zipcode}
+                </p>
                 <Button
                   className="mx-3"
                   onClick={() => navigate("/edituserprofile")}
@@ -117,22 +126,23 @@ const UserProfile = () => {
                 </Button>
               </Col>
               <Col>
-              {orders.length > 0 && orders.map((order) => {
-              <Container>
-              <p>OrderId:{order.orderId}</p>
-              <p>Expiration:{order.data.expiration}</p>
-              <p>NewPrice:{order.data.newPrice}</p>
-              <p>Pickup:{order.data.pickup}</p>
-              <p>Quantity:{order.data.quantity}</p>
-              <p>Status:{order.data.status}</p>
-              <p>Type:{order.data.type}</p>
-              </Container>
-              })}
+                {orders.length > 0 &&
+                  orders.map((order) => {
+                    <Container>
+                      <p>OrderId:{order.orderId}</p>
+                      <p>Expiration:{order.data.expiration}</p>
+                      <p>NewPrice:{order.data.newPrice}</p>
+                      <p>Pickup:{order.data.pickup}</p>
+                      <p>Quantity:{order.data.quantity}</p>
+                      <p>Status:{order.data.status}</p>
+                      <p>Type:{order.data.type}</p>
+                    </Container>;
+                  })}
               </Col>
             </Row>
             {/* <Row> */}
             {/* {orders.length >= 0 && orders.map((order) => { */}
-            
+
             {/* })} */}
             {/* </Row> */}
           </Container>

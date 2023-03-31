@@ -49,63 +49,79 @@ const RestaurantProfile = () => {
         <div>
           <Container className="border my-3">
             <Row>
-              <Col className="text-center my-3 mx-3 border">
-                <Image
-                  fluid
-                  src={
-                    fileUrl
-                      ? fileUrl
-                      : authRestaurant?.image?.[0]
-                  }
-                  alt="image of restaurant"
-                  thumbnail
-                  className="my-3"
-                  style={{ width: "150px", borderRadius: "10px" }}
-                />
-
-                {!upload && (
-                  <Button
-                    onClick={() => setUpload(true)}
-                    style={{ padding: "0.2rem", marginTop: "1rem" }}
-                    className="d-block my-3"
-                  >
-                    Upload Photo
-                  </Button>
-                )}
-               
-
-                {upload && (
-                  <Col className="my-3 d-block">
-                    <input
-                      type="file"
-                      onChange={(event) => setImageFile(event.target.files[0])}
-                    />
-                    <Button className="my-3" onClick={handleImage}>
-                      Add Photo
-                    </Button>
-                  </Col>
-                )}
-              </Col>
               <Col className="border my-3 mx-3 text-center">
                 <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
-                <p>Email :{authRestaurant?.email}</p>
-                <p>Cuisine :{authRestaurant?.cuisine}</p>
-                <p>Description :{authRestaurant?.description}</p>
-                <p>Address :{authRestaurant?.address}</p>
-                <p>Open :{authRestaurant?.open}</p>
-                <p>Close :{authRestaurant?.close}</p>
-                <p>EIN :{authRestaurant?.EIN}</p>
+                <Col className="text-center my-3 mx-3 border">
+                  <Image
+                    fluid
+                    src={fileUrl ? fileUrl : authRestaurant?.image?.[0]}
+                    alt="image of restaurant"
+                    thumbnail
+                    className="my-3"
+                    style={{ width: "150px", borderRadius: "10px" }}
+                  />
+
+                  {!upload && (
+                    <Button
+                      onClick={() => setUpload(true)}
+                      style={{ padding: "0.2rem", marginTop: "1rem" }}
+                      className="d-block my-3 mx-auto"
+                    >
+                      Upload Photo
+                    </Button>
+                  )}
+
+                  {upload && (
+                    <Col className="my-3 d-block">
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          setImageFile(event.target.files[0])
+                        }
+                      />
+                      <Button className="my-3" onClick={handleImage}>
+                        Add Photo
+                      </Button>
+                    </Col>
+                  )}
+                </Col>
                 <p>
-                  Status :
+                  <strong>Cuisine</strong>: {authRestaurant?.cuisine}
+                </p>
+                <p>
+                  <strong>Description</strong>: {authRestaurant?.description}
+                </p>
+                <p>
+                  <strong>Address</strong>: {authRestaurant?.address}
+                </p>
+                <p>
+                  <strong>Open</strong>: {authRestaurant?.open}
+                </p>
+                <p>
+                  <strong>Close</strong>: {authRestaurant?.close}
+                </p>
+                <p>
+                  <strong>EIN</strong>: {authRestaurant?.EIN}
+                </p>
+
+                <p>
+                  <strong>Status: </strong>
                   {authRestaurant?.status === "pending" ||
                   authRestaurant?.status === "editpending"
                     ? "Request sent to Admin for approval"
                     : "Restaurant got added/updated in Yummify"}
                 </p>
-                <p>PhoneNumber :{authRestaurant?.phoneNumber}</p>
-                <p>Zipcode :{authRestaurant.zipcode}</p>
                 <p>
-                  Website :<Link to={"#"}>{authRestaurant.website}</Link>
+                  <strong>Phone Number: </strong>
+                  {authRestaurant?.phoneNumber}
+                </p>
+                <p>
+                  <strong>Zipcode: </strong>
+                  {authRestaurant.zipcode}
+                </p>
+                <p>
+                  <strong>Website: </strong>
+                  <Link to={"#"}>{authRestaurant.website}</Link>
                 </p>
                 <Button
                   className="mx-3"
