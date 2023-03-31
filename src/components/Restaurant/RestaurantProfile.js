@@ -49,40 +49,42 @@ const RestaurantProfile = () => {
         <div>
           <Container className="border my-3">
             <Row>
-              <Col className="text-center my-3 mx-3 border">
-                <Image
-                  fluid
-                  src={fileUrl ? fileUrl : authRestaurant?.image?.[0]}
-                  alt="image of restaurant"
-                  thumbnail
-                  className="my-3"
-                  style={{ width: "150px", borderRadius: "10px" }}
-                />
-
-                {!upload && (
-                  <Button
-                    onClick={() => setUpload(true)}
-                    style={{ padding: "0.2rem", marginTop: "1rem" }}
-                    className="d-block my-3"
-                  >
-                    Upload Photo
-                  </Button>
-                )}
-
-                {upload && (
-                  <Col className="my-3 d-block">
-                    <input
-                      type="file"
-                      onChange={(event) => setImageFile(event.target.files[0])}
-                    />
-                    <Button className="my-3" onClick={handleImage}>
-                      Add Photo
-                    </Button>
-                  </Col>
-                )}
-              </Col>
               <Col className="border my-3 mx-3 text-center">
                 <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
+                <Col className="text-center my-3 mx-3 border">
+                  <Image
+                    fluid
+                    src={fileUrl ? fileUrl : authRestaurant?.image?.[0]}
+                    alt="image of restaurant"
+                    thumbnail
+                    className="my-3"
+                    style={{ width: "150px", borderRadius: "10px" }}
+                  />
+
+                  {!upload && (
+                    <Button
+                      onClick={() => setUpload(true)}
+                      style={{ padding: "0.2rem", marginTop: "1rem" }}
+                      className="d-block my-3 mx-auto"
+                    >
+                      Upload Photo
+                    </Button>
+                  )}
+
+                  {upload && (
+                    <Col className="my-3 d-block">
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          setImageFile(event.target.files[0])
+                        }
+                      />
+                      <Button className="my-3" onClick={handleImage}>
+                        Add Photo
+                      </Button>
+                    </Col>
+                  )}
+                </Col>
                 <p>
                   <strong>Cuisine</strong>: {authRestaurant?.cuisine}
                 </p>
