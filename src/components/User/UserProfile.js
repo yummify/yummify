@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Image, Container, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Image, Container, Row, Spinner,Table} from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
+import { fetchRestaurantAsync } from "../Restaurant/restaurantSlice";
 
 const UserProfile = () => {
   const [fileUrl, setFileUrl] = useState();
@@ -26,20 +27,43 @@ const UserProfile = () => {
   console.log("User from AuthContext:", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const orders = useSelector(selectOrders);
+  let orders = useSelector(selectOrders);
   console.log("Orders:", orders);
-  console.log("Orderdata:", orders.length);
+  const [orderHistory,setOrderHistory] = useState([]);
+  const [imgLoading, setImgLoading] = useState(false);
+ 
 
   useEffect(() => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
-  }, [dispatch, user?.userId, fileUrl, orders]);
+    const orderHis = [];
+    dispatch(fetchUserOrdersAsync(user.userId)).then(async(res) => {
+      const orders = res.payload;
+      for(const order of orders) {
+        console.log("Complete or pickup Order from query:",order);
+        const res = await dispatch(fetchRestaurantAsync(order.order.restaurantId));
+          restaurants.push(res.payload);
+          console.log("Rest:",restaurants);
+        }
+    for(const order of orders) {
+      for(const restaurant of restaurants){
+        if(restaurant && (restaurant?.restaurantId === order?.order?.restaurantId ))
+        {
+          orderHis.push({order,restaurant});
+        }
+      }
+    }
+    setOrderHistory(orderHis);
+    });
+  }, [dispatch, user?.userId, fileUrl]);
 
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `users/${imageFile.name}`);
     uploadBytes(imageRef, imageFile).then((snapshot) => {
+      setImgLoading(true);
       getDownloadURL(snapshot.ref).then((url) => {
         setFileUrl(url);
+        setImgLoading(false);
         dispatch(editUserImageAsync({ userId, url })).then(() => {
           console.log("file updated");
         });
@@ -49,8 +73,28 @@ const UserProfile = () => {
     setUpload(false);
   };
 
+  const restaurants = [];
+
   const handleOrderHistory = () => {
-    dispatch(fetchUserOrdersAsync(user.userId));
+    const orderHis = [];
+    dispatch(fetchUserOrdersAsync(user.userId)).then(async(res) => {
+      const orders = res.payload;
+      for(const order of orders) {
+        console.log("Complete or pickup Order from query:",order);
+        const res = await dispatch(fetchRestaurantAsync(order.order.restaurantId));
+          restaurants.push(res.payload);
+          console.log("Rest:",restaurants);
+        }
+    for(const order of orders) {
+      for(const restaurant of restaurants){
+        if(restaurant && (restaurant?.restaurantId === order?.order?.restaurantId ))
+        {
+          orderHis.push({order,restaurant});
+        }
+      }
+    }
+    setOrderHistory(orderHis);
+    });
   };
 
   return (
@@ -66,6 +110,10 @@ const UserProfile = () => {
           <Container className="border my-3">
             <Row>
               <Col className="text-center my-3 mx-3 border">
+              {imgLoading ? <div>
+          Loading...
+          <Spinner animation="border" />
+        </div> :
                 <Image
                   fluid
                   src={fileUrl ? fileUrl : authuser.image}
@@ -73,45 +121,35 @@ const UserProfile = () => {
                   thumbnail
                   className="my-3"
                   style={{ width: "150px", borderRadius: "10px" }}
-                />
+                />}
                 {!upload && (
                   <Button
                     onClick={() => setUpload(true)}
-                    style={{ padding: "0.2rem", marginTop: "1rem" }}
-                    className="d-block my-3 mx-auto"
+                    className="d-block my-3"
                   >
                     Upload Photo
                   </Button>
                 )}
-                <Button onClick={handleOrderHistory}>Order History</Button>
                 {upload && (
                   <Col className="my-3 text-center">
                     <input
                       type="file"
                       onChange={(event) => setImageFile(event.target.files[0])}
                     />
-                    <Button className="my-3 d-block" onClick={handleImage}>
+                    <div>
+                    <Button className="my-3" onClick={handleImage}>
                       Add Photo
                     </Button>
+                    <Button className="mx-3"onClick={() => setUpload(false)}>Cancel</Button>
+                    </div>
                   </Col>
                 )}
               </Col>
               <Col className="border my-3 mx-3 text-center">
                 <h1 className="my-3">{authuser?.name}</h1>
-                <p>
-                  <strong>Email: </strong>
-                  {authuser?.email}
-                </p>
-                <p>
-                  {" "}
-                  <strong>Phone Number: </strong>
-                  {authuser?.phoneNumber}
-                </p>
-                <p>
-                  {" "}
-                  <strong>Zipcde: </strong>
-                  {authuser.zipcode}
-                </p>
+                <p><span style={{fontWeight : "700"}}>Email: </span>{authuser?.email}</p>
+                <p><span style={{fontWeight : "700"}}>PhoneNumber: </span>{authuser?.phoneNumber}</p>
+                <p><span style={{fontWeight : "700"}}>Zipcode: </span>{authuser.zipcode}</p>
                 <Button
                   className="mx-3"
                   onClick={() => navigate("/edituserprofile")}
@@ -125,26 +163,45 @@ const UserProfile = () => {
                   Update password
                 </Button>
               </Col>
-              <Col>
-                {orders.length > 0 &&
-                  orders.map((order) => {
-                    <Container>
-                      <p>OrderId:{order.orderId}</p>
-                      <p>Expiration:{order.data.expiration}</p>
-                      <p>NewPrice:{order.data.newPrice}</p>
-                      <p>Pickup:{order.data.pickup}</p>
-                      <p>Quantity:{order.data.quantity}</p>
-                      <p>Status:{order.data.status}</p>
-                      <p>Type:{order.data.type}</p>
-                    </Container>;
-                  })}
+            </Row>
+            <Row>
+            <Col>
+              <h2>Order History</h2>
+
+            {orderHistory?.length > 0 ? <Table striped bordered hover responsive="sm">
+              <thead>
+                <tr>
+                  <th>OrderId</th>
+                  <th>Restaurant Name</th>
+                  <th>Expiration</th>
+                  <th>NewPrice</th>
+                  <th>Pickup</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+               {orderHistory.map((hist) => {
+                console.log("History obj:",hist);
+                return(
+              <tr key={hist?.order?.orderId}>
+              <td>{hist?.order?.orderId}</td>
+              <td>{hist?.restaurant?.restaurantName}</td>
+              <td>{hist?.order?.order?.expiration}</td>
+              <td>{hist?.order?.order?.newPrice}</td>
+              <td>{hist?.order?.order?.pickup}</td>
+              <td>{hist?.order?.order?.quantity}</td>
+              <td>{hist?.order?.order?.status}</td>
+              <td>{hist?.order?.order?.type}</td>
+              </tr>
+              )})}
+              </tbody>
+              </Table>
+               
+              : <p>There are no orders associated with this user</p>}
               </Col>
             </Row>
-            {/* <Row> */}
-            {/* {orders.length >= 0 && orders.map((order) => { */}
-
-            {/* })} */}
-            {/* </Row> */}
           </Container>
         </div>
       )}

@@ -13,6 +13,11 @@ font-family: 'Shadows Into Light Two' */
   margin: 0 auto;
 }
 
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
 #rest-stack {
   background-color: #5fd2c3;
 }

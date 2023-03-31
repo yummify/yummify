@@ -3,7 +3,7 @@ import { Form, Button, InputGroup, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchSignUpAuthAsync } from "./authSlice";
 import { addRestaurantAsync } from "../Restaurant/restaurantSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link} from "react-router-dom";
 import { addUserAsync } from "../User/userSlice";
 
 const RestaurantSignUp = () => {
@@ -16,7 +16,7 @@ const RestaurantSignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [EIN, setEIN] = useState("");
   const [zipcode, setZipcode] = useState("");
-  const [terms, setTerms] = useState("false");
+  const [terms, setTerms] = useState(false);
   const [website, setWebsite] = useState("");
   const [formError, setFormError] = useState({});
   const dispatch = useDispatch();
@@ -82,73 +82,75 @@ const RestaurantSignUp = () => {
   };
 
   const registerSignUp = async () => {
-    const error = validate(signUpEmail, signUpPwd);
+    const error = validate();
 
-    // if (
-    //   !error.hasOwnProperty("email") &&
-    //   !error.hasOwnProperty("pwd") &&
-    //   !error.hasOwnProperty("restaurantName") &&
-    //   !error.hasOwnProperty("cuisine") &&
-    //   !error.hasOwnProperty("description") &&
-    //   !error.hasOwnProperty("address") &&
-    //   !error.hasOwnProperty("phoneNumber") &&
-    //   !error.hasOwnProperty("zipcode") &&
-    //   !error.hasOwnProperty("website") &&
-    //   !error.hasOwnProperty("EIN")
-    // )
-    // {
-    dispatch(
-      fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
-    ).then((res) => {
-      if (res?.error) {
-        const err = res?.error;
-        console.log(err?.message);
-        if (err?.message?.includes("email-already-in-use")) {
-          setFormError({
-            email: "Email already exists,choose different email",
-            pwd,
+    if (
+      !error.hasOwnProperty("email") &&
+      !error.hasOwnProperty("pwd") &&
+      !error.hasOwnProperty("restaurantName") &&
+      !error.hasOwnProperty("cuisine") &&
+      !error.hasOwnProperty("description") &&
+      !error.hasOwnProperty("address") &&
+      !error.hasOwnProperty("phoneNumber") &&
+      !error.hasOwnProperty("zipcode") &&
+      !error.hasOwnProperty("website") &&
+      !error.hasOwnProperty("EIN")
+    ) 
+    {
+      dispatch(
+        fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
+      ).then((res) => {
+        if (res?.error) {
+          const err = res?.error;
+          console.log(err?.message);
+          if (err?.message?.includes("email-already-in-use")) {
+            setFormError({
+              email: "Email already exists,choose different email",
+              pwd,
+            });
+          }
+          if (err?.message?.includes("invalid-email")) {
+            setFormError({ email: "Invalid email", pwd });
+          }
+        } else {
+          const user = res.payload;
+          console.log(res.payload);
+          const reqbody = {
+            userId: user.userId,
+            name: restaurantName,
+            email: user.email,
+            image: "/Student_Profile.png",
+            phoneNumber: phoneNumber,
+            zipcode: zipcode,
+            isAdmin: false,
+            isRestaurantOwner: true,
+          };
+          dispatch(addUserAsync(reqbody));
+          const reqImage = ["/Student_Profile.png"];
+
+          const reqResbody = {
+            restaurantId: user.userId,
+            restaurantName,
+            email: user.email,
+            image: reqImage,
+            cuisine,
+            description,
+            address,
+            website,
+            EIN,
+            role: "restaurant",
+            status: "pending",
+            phoneNumber: phoneNumber,
+            zipcode: zipcode,
+            terms,
+          };
+          dispatch(addRestaurantAsync(reqResbody)).then(() => {
+            console.log("restaurant added");
+            navigate("/restaurantprofile");
           });
         }
-        if (err?.message?.includes("invalid-email")) {
-          setFormError({ email: "Invalid email", pwd });
-        }
-      } else {
-        const user = res.payload;
-        console.log(res.payload);
-        const reqbody = {
-          userId: user.userId,
-          name: restaurantName,
-          email: user.email,
-          image: "/Student_Profile.png",
-          phoneNumber: phoneNumber,
-          zipcode: zipcode,
-          isAdmin: false,
-          isRestaurantOwner: true,
-        };
-        dispatch(addUserAsync(reqbody));
-        const reqResbody = {
-          restaurantId: user.userId,
-          restaurantName,
-          email: user.email,
-          image: "/Student_Profile.png",
-          cuisine,
-          description,
-          address,
-          website,
-          EIN,
-          role: "restaurant",
-          status: "pending",
-          phoneNumber: phoneNumber,
-          zipcode: zipcode,
-          terms,
-        };
-        dispatch(addRestaurantAsync(reqResbody)).then(() => {
-          console.log("restaurant added");
-          navigate("/restaurantprofile");
-        });
-      }
-    });
-    // }
+      });
+    }
   };
 
   return (
@@ -250,6 +252,7 @@ const RestaurantSignUp = () => {
           {formError.phoneNumber && (
             <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
           )}
+          
           <Form.Group>
             <Form.Label>Zipcode :</Form.Label>
             <Form.Control
@@ -293,9 +296,10 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.EIN}</p>
           )}
           <Form.Group>
-            <Form.Label>Terms and Conditions :</Form.Label>
+            <Form.Label>Terms and Conditions : </Form.Label>
+            <Link to="/terms-and-conditions" target="_blank" className="mx-2">Click to view</Link>
             <Form.Check
-              onChange={(event) => setTerms(event.target.checked)}
+              onChange={(event) => setTerms(!terms)}
               label="I agree"
             ></Form.Check>
           </Form.Group>

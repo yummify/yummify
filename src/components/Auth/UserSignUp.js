@@ -55,8 +55,9 @@ const UserSignUp = () => {
   };
 
   const registerSignUp = async () => {
-    const error = validate(signUpEmail, signUpPwd);
-    if (!error.hasOwnProperty("email") && !error.hasOwnProperty("pwd")) {
+    const error = validate();
+    if (!error.hasOwnProperty("email") && !error.hasOwnProperty("pwd") && !error.hasOwnProperty("zipcode") && !error.hasOwnProperty("phoneNumber") 
+    && !(error.hasOwnProperty("firstName")) && !(error.hasOwnProperty("lastName"))) {
       dispatch(
         fetchSignUpAuthAsync({ email: signUpEmail, password: signUpPwd })
       ).then((res) => {

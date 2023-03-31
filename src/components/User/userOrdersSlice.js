@@ -15,13 +15,25 @@ import {
     "fetchorder",
     async (userId) => {
       try {
-        const orders = [];
+    
         const ordersRef = collection(db, "orders");
-        const q = query(ordersRef, where("userId", "==", userId));
+        let orders = [];
+        // let restaurantName = [];
+        const q = query(ordersRef, where("userId", "==", userId));  
         const querySnapshot = await getDocs(q);
-        querySnapshot.forEach(doc => {
-          orders.push({orderId : doc.id, data:doc.data()});
-        })
+        querySnapshot.forEach((document) => {
+          console.log("Document:",document.id,document.data());
+          const orderId = document.id;
+          const order = document.data();
+          let ord = {
+            orderId,
+            order
+          }
+          if(order.status === 'complete' || order.status === 'awaiting pickup'){
+              orders.push(ord);
+            }
+        });
+        //console.log("Restaurant Name:", restaurantName);
         console.log("orders:",orders);
         return orders;
       } catch (err) {
