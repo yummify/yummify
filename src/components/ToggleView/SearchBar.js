@@ -14,6 +14,11 @@ const SearchBar = (props) => {
     props.handleSearch(searchTerm);
   };
 
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    props.handleSearch("");
+  };
+
   return (
     <Form onSubmit={handleSubmit} className="d-flex">
       <FormControl
@@ -23,9 +28,20 @@ const SearchBar = (props) => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <Button variant="primary" type="submit" className="search-button">
-        <span className="material-icons">Search</span>
-      </Button>
+      {searchTerm && (
+        <Button
+          variant="light"
+          onClick={handleClearSearch}
+          style={{ color: "white" }}
+        >
+          x
+        </Button>
+      )}
+      {!searchTerm && (
+        <Button variant="primary" type="submit" className="search-button">
+          <span className="material-icons">Search</span>
+        </Button>
+      )}
     </Form>
   );
 };
