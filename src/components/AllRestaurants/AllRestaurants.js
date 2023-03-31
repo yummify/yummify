@@ -52,7 +52,6 @@ const AllRestaurants = () => {
   //ONLY RETURN ACCEPTED RESTAURANTS
   return (
     <>
-      <h1>Yummify</h1>
       <SearchBar handleSearch={handleSearch} />
       <Filter handleCuisineSelect={handleCuisineSelect} />
       {filteredRestaurants.map((restaurant) => {
