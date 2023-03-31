@@ -16,21 +16,9 @@ function App() {
   // location.pathname(/)
   return (
     <div className="App">
-      {/* <Link to={"/"} className="mx-3">
-        Home
-      </Link>
-      <Link to={"/userstart"} className="mx-3">
-        User
-      </Link>
-      <Link to={"/restaurantstart"} className="mx-3">
-        Restaurant
-      </Link> */}
-
       <AuthProvider>
         {location.pathname === "/" && <Splash/>}
         {location.pathname !== "/" && <NavBar/>}
-        {/* {location.pathname !== "/logout" && <NavBar/>}
-        {location.pathname === "/logout" && <Splash/>} */}
         <AppRoutes />
       </AuthProvider>
         {location.pathname !== "/" && <Footer/>}

@@ -89,12 +89,12 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
-export const editUserStatusAsync = createAsyncThunk("editUserStatus", async (userId) => {
+export const editUserStatusAsync = createAsyncThunk("editUserStatus", async ({userId, status}) => {
   try {
     const userRef = doc(db, "users", userId);
-    await updateDoc(userRef, {
-      status: 'suspended'
-    })
+    console.log('ref', userRef);
+    const data = {status}
+    await updateDoc(userRef, data);
   } catch(err) {
     console.error(err);
   }
