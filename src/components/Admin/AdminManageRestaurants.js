@@ -61,10 +61,10 @@ const AdminManageRestaurants = () => {
 
   return (
     <>
-      <h2 id='title'>Manage Restaurants</h2>
-      <Alert variant={"warning"}>
+      <h2 style={{textAlign: 'center'}}>Manage Restaurants</h2>
+      <Alert id='tester' style={{maxHeight: '35vh', overflow: 'scroll'}}>
         <Accordion id='pending-accordion' defaultActiveKey="0">
-          <h2>
+          <h2 style={{color: 'black'}}>
             {pendingRestaurants.length} restuarant(s) are waiting for approval.
           </h2>
           {restaurants.length > 0
@@ -107,7 +107,7 @@ const AdminManageRestaurants = () => {
               if (rest.status === "approved") {
                 return (
                   <div>
-                    <ListGroup.Item key={rest.id} className="d-flex justify-content-between align-items-start">
+                    <ListGroup.Item key={rest.id} style={{width: '95vw', borderRadius: '8px', margin: '3px'}}>
                       <Stack direction="horizontal" gap={4}>
                         <div className="ms-2 me-auto">
                           <div
@@ -120,16 +120,12 @@ const AdminManageRestaurants = () => {
                           <h6>{rest.address}</h6>
                           <p>{rest.phone}</p>
                         </div>
-                        <div>
-                          {/* <Button onClick={() => {
-                            setRestaurantData(rest);
-                            console.log(restaurantData);
-                            handleOpenEdit()
-                          }}>Edit Restaurant</Button> */}
-                          <div className="vr" />
+                        <div style={{textAlign: 'center'}}>
+                          <div/>
                           <Button onClick={() => handleSuspend(rest.id)}>
                             Suspend Restaurant
                           </Button>
+                          <div style={{margin: '5px, 5px'}}></div>
                           <Link
                             key={rest.id}
                             to={`/manage-restaurants/${rest.id}`}

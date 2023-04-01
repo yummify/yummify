@@ -14,13 +14,13 @@ body{
     min-height: 100vh;
 }
 
-#title {
-  color: green;
-}
-
 .btn {
   background-color: #8783d1;
   border: #8783d1;
+}
+
+#tester {
+  background-color: rgb(159, 218, 159);
 }
 
 .btn:hover {
