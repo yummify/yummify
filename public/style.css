@@ -9,6 +9,18 @@
   margin: 0 auto;
 }
 
+<<<<<<< HEAD
+=======
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
+#rest-stack {
+  background-color: #5fd2c3;
+}
+
+>>>>>>> 27789e12aef3d482b77e0f5ee2e309a0f51bd9b1
 #title {
   color: green;
 }

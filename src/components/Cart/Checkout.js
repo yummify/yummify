@@ -59,17 +59,17 @@ const Checkout = () => {
        <Card style={{ width: "90vw" }}>
         {/* <Card.Img variant="top" src={restaurant.image?.[0]} /> */}
         <Card.Header className="text-center">
-          Your Order
+        <span style={{ fontWeight: "700", fontSize: "24px"}}>Your Order</span>
         </Card.Header>
         <Card.Body>
           <Card.Text>
-            Pickup time: {orders?.[0]?.pickup}
+          <span style={{ fontWeight: "700" }}>Pickup time: </span>{orders?.[0]?.pickup}
           </Card.Text>
           <Card.Text>
-            Order total: ${totalPrice(orders?.[0]?.newPrice)}
+          <span style={{ fontWeight: "700" }}>Order total: </span>${totalPrice(orders?.[0]?.newPrice)}
           </Card.Text>
           <Card.Text>
-            Confirmation Number: {orders?.[0]?.id}
+          <span style={{ fontWeight: "700" }}>Confirmation Number: </span>{orders?.[0]?.id}
           </Card.Text>
           <Card.Text>
             When you go to pick up your order, just show the shop your confirmation number.  Don't forget to bring your own bag!

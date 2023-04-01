@@ -76,7 +76,7 @@ const Cart = () => {
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>{order.type} SuperBag @ {rest?.restaurantName} </Card.Title>
-                        <Card.Text>Pickup Window: {order.pickup}, {order.address}</Card.Text>
+                        <Card.Text><span style={{ fontWeight: "700" }}>Pickup Window: </span>{order.pickup}, {order.address}</Card.Text>
                     </Card.Body>
                     </Stack>
                     <Card.Footer style={{textAlign: 'right'}}>
@@ -96,7 +96,7 @@ const Cart = () => {
                         (
                             <Card>
                                 <Badge>Total Price</Badge>
-                                <p>Total Savings: ${savings(orders[0].originalPrice, orders[0].newPrice)}         
+                                <p><span style={{ fontWeight: "700" }}>Total Savings: </span>${savings(orders[0].originalPrice, orders[0].newPrice)}         
                                 </p>
                                 <div></div>
                                 <p> 

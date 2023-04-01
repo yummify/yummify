@@ -6,9 +6,27 @@ import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [loginEmail, setLoginEmail] = useState("");
+  const [formError,setFormError] = useState({});
   const dispatch = useDispatch();
+ 
+
+  const validate = () => {
+    const error = {};
+    const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (loginEmail === "") {
+      error.email = "Email cant be BLANK";
+    } else if (!loginEmail.match(emailRegEx)) {
+      error.email = "Invalid email";
+    }
+    setFormError(error);
+    return error;
+  }
+
   const handleReset = () => {
-    dispatch(resetPasswordAsync(loginEmail));
+    const error = validate();
+    if(!error?.hasOwnProperty("email")){
+      dispatch(resetPasswordAsync(loginEmail));
+    }
   };
   return (
     <div>
@@ -20,10 +38,14 @@ const ForgotPassword = () => {
               type="email"
               onChange={(event) => {
                 setLoginEmail(event.target.value);
+                setFormError({});
               }}
               required
             />
           </Form.Group>
+          {formError.email && (
+            <p className="text-danger-emphasis my-3">{formError.email}</p>
+          )}
           <Button onClick={handleReset} className="my-3">
             Reset Password
           </Button>

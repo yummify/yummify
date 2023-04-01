@@ -57,15 +57,15 @@ const AllRestaurants = ({ searchTerm, selectedCuisine }) => {
                 >
                   <Card
                     key={restaurant.id}
-                    style={{ width: "30rem", backgroundColor: "#E5D4CE" }}
+                    style={{ width: "90%", backgroundColor: "#E5D4CE" }}
                     className="mb-2"
                   >
-                    <Card.Header>{restaurant.restaurantName}</Card.Header>
+                    <Card.Header><span style={{ fontWeight: "700", fontSize: "24px"}}>{restaurant.restaurantName}</span></Card.Header>
                     <Card.Body>
                       <Card.Title>{restaurant.description}</Card.Title>
-                      <Card.Text>Address: {restaurant.address}</Card.Text>
-                      <Card.Img src={restaurant.image?.[1]} />
-                      <Card.Text>Cuisine: {restaurant.cuisine}</Card.Text>
+                      <Card.Text><span style={{ fontWeight: "700" }}>Cuisine:</span> {restaurant.cuisine}</Card.Text>
+                      <Card.Text><span style={{ fontWeight: "700" }}>Address:</span> {restaurant.address}</Card.Text>
+                      <Card.Img style={{ width: "60%", display: "flex", alignSelf: "center" }} src={restaurant.image?.[1]} />
                     </Card.Body>
                   </Card>
                 </Link>

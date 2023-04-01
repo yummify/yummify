@@ -11,8 +11,6 @@ export const addRestaurantAsync = createAsyncThunk(
     cuisine,
     description,
     address,
-    open,
-    close,
     website,
     EIN,
     role,
@@ -29,8 +27,6 @@ export const addRestaurantAsync = createAsyncThunk(
         cuisine,
         description,
         address,
-        open,
-        close,
         website,
         EIN,
         role,
@@ -73,7 +69,7 @@ export const editRestaurantImageAsync = createAsyncThunk(
       
       const restaurantsRef = doc(db, "restaurants", restaurantId);
       const usersRef = doc(db,"users", restaurantId);
-      const data = { image: url };
+      const data = { image: [url] };
       updateDoc(restaurantsRef, data).then((restaurantsRef) =>
         console.log("Value of document has been updated")
       );

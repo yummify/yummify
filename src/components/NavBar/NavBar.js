@@ -27,9 +27,12 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar>
-      <img id="logo" src="logo.png"></img>
+    <Navbar expand="lg">
+      
       <Container>
+      <Navbar.Brand href="/"><img id='logo' src='logo.png'></img></Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
         {!authUser?.user?.userId ? (
           <Nav>
           </Nav>
@@ -38,12 +41,10 @@ const NavBar = () => {
             <Nav.Link href="/restaurantprofile">Profile</Nav.Link>
             <Nav.Link href="/restaurantorders">Orders</Nav.Link>
             <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
+            
             <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>
-              View Storefront{" "}
-            </Nav.Link>
-            <Nav.Link href="/" onClick={logout}>
-              Logout
-            </Nav.Link>
+              View Storefront{" "}</Nav.Link>
+            <Nav.Link onClick={logout}>Logout</Nav.Link>
           </Nav>
         ) : authUser?.user?.isAdmin ? (
           <Nav>
@@ -53,19 +54,22 @@ const NavBar = () => {
             <Nav.Link href="/manage-restaurants">
               Manage Restaurants
             </Nav.Link>
+            <Nav.Link onClick={logout}>
+              Logout
+            </Nav.Link>
             <Nav.Link href="/order-history">Order History</Nav.Link>
-            <Button onClick={logout}>Logout</Button>
           </Nav>
         ) : (
           <Nav>
             <Nav.Link href="/restaurants">Browse</Nav.Link>
             <Nav.Link href="/userprofile">Profile</Nav.Link>
             <Nav.Link href="/cart">Cart</Nav.Link>
-            <Nav.Link href="/" onClick={logout}>
+            <Nav.Link onClick={logout}>
               Logout
             </Nav.Link>
           </Nav>
         )}
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
