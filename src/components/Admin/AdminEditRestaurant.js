@@ -54,7 +54,7 @@ const AdminEditRestaurant = () => {
   return (
     <>
       <Container>
-        <h2>Edit {restaurant.restaurantName}</h2>
+        <h2 style={{fontWeight: '700'}}>Edit: {restaurant.restaurantName}</h2>
         <Form></Form>
         <Form>
           <Form.Group>
