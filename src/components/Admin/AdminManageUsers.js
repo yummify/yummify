@@ -28,7 +28,7 @@ const AdminManageUsers = () => {
                 if (user.data.isRestaurantOwner) {userType = 'Restaurant'} else if (user.data.isAdmin) {userType = 'Admin'} else {userType = 'User'};
                 const userOrders = orders.filter((order) => order.userId === user.userId);
                 return (
-                    <Card key={user.userId} style={{margin: "10px", padding: "10px", width: "20rem"}}>
+                    <Card key={user.userId} style={{margin: "10px", padding: "10px", width: "20rem", border: "2px solid #41ead4"}}>
                     <h5 style={{fontWeight: '700'}}>{user.data.name}</h5>
                     <p>{user.data.email}</p>
                     <p><span style={{fontWeight: '700'}}>Role: </span>{userType}</p>

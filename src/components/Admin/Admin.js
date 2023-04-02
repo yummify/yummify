@@ -8,7 +8,7 @@ const AdminHome = () => {
   return (
     <>
     <Container style={{height: '80vh', textAlign: 'center'}}>
-      <div id='mng-rests'>
+      <div style={{border: "5px solid #41ead4", padding: "15px", margin: "15px"}}>
       <h2>Admin Dashboard</h2>
       <ButtonToolbar className="justify-content-md-center">
         <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>

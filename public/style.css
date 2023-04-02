@@ -19,10 +19,6 @@ body{
   border: #8783d1;
 }
 
-#tester {
-  background-color: rgb(159, 218, 159);
-}
-
 .btn:hover {
   background-color: #706bca;
 }
@@ -31,9 +27,6 @@ body{
   width: 40vw;
 }
 
-#mng-rests {
-  border: 5px solid #41ead4;
-  padding: 15px;
-  margin: 15px;
+#pending-accordion:focus{
+  background-color: gray;
 }
-

@@ -62,7 +62,7 @@ const AdminManageRestaurants = () => {
   return (
     <>
       <h2 style={{textAlign: 'center'}}>Manage Restaurants</h2>
-      <Alert id='tester' style={{maxHeight: '35vh', overflow: 'scroll'}}>
+      <Alert style={{maxHeight: '35vh', overflow: 'scroll', backgroundColor: '#FCFC72', border: '2px solid #fbff12'}}>
         <Accordion id='pending-accordion' defaultActiveKey="0">
           <h2 style={{color: 'black'}}>
             {pendingRestaurants.length} restuarant(s) are waiting for approval.
@@ -72,7 +72,7 @@ const AdminManageRestaurants = () => {
                 if (rest.status === "pending") {
                   return (
                     <Accordion.Item key={rest.id} eventKey={`${restaurants.indexOf(rest)}`}>
-                      <Accordion.Header>{rest.restaurantName}</Accordion.Header>
+                      <Accordion.Header className='acc-head'>{rest.restaurantName}</Accordion.Header>
                       <Accordion.Body>
                         <p>Address: {rest.address}</p>
                         <p>Cuisine: {rest.cuisine}</p>
@@ -107,7 +107,7 @@ const AdminManageRestaurants = () => {
               if (rest.status === "approved") {
                 return (
                   <div>
-                    <ListGroup.Item key={rest.id} style={{width: '95vw', borderRadius: '8px', margin: '3px'}}>
+                    <ListGroup.Item key={rest.id} style={{width: '95vw', borderRadius: '8px', margin: '3px', border: "2px solid #41ead4"}}>
                       <Stack direction="horizontal" gap={4}>
                         <div className="ms-2 me-auto">
                           <div
