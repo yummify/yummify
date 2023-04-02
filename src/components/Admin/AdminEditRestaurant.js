@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams,  useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchSingleRestaurant,
@@ -49,12 +49,12 @@ const AdminEditRestaurant = () => {
   const handleClose = () => {
     setShow(false);
     navigate(`/manage-restaurants/${id}`);
-}
+  };
 
   return (
     <>
       <Container>
-        <h2 style={{fontWeight: '700'}}>Edit: {restaurant.restaurantName}</h2>
+        <h2 style={{ fontWeight: "700" }}>Edit: {restaurant.restaurantName}</h2>
         <Form></Form>
         <Form>
           <Form.Group>
@@ -123,17 +123,17 @@ const AdminEditRestaurant = () => {
           </Form.Group>
           <Button onClick={editRestaurant}>Save</Button>
         </Form>
-        <Modal
-            show={show}
-            onHide={handleClose}
-        >
-            <Modal.Header closeButton>Restaurant Updated!</Modal.Header>
-            <Modal.Body>
-                Click the button below to navigate back to the Manage Restaurants page.
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={() => navigate('/manage-restaurants')}>Manage Restaurants</Button>
-            </Modal.Footer>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>Restaurant Updated!</Modal.Header>
+          <Modal.Body>
+            Click the button below to navigate back to the Manage Restaurants
+            page.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => navigate("/manage-restaurants")}>
+              Manage Restaurants
+            </Button>
+          </Modal.Footer>
         </Modal>
       </Container>
     </>
