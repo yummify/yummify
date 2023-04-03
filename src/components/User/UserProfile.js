@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Image, Container, Row, Spinner,Table} from "react-bootstrap";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import {
   fetchUserAsync,
@@ -17,38 +15,41 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 import { fetchRestaurantAsync } from "../Restaurant/restaurantSlice";
 
+// This component is used to display the User profile page
 const UserProfile = () => {
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
   const [upload, setUpload] = useState(false);
   const authuser = useSelector(selectUser);
-  console.log("authuser:", authuser);
+  
   const { user, loading } = useAuth();
-  console.log("User from AuthContext:", user);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let orders = useSelector(selectOrders);
-  console.log("Orders:", orders);
+  
   const [orderHistory,setOrderHistory] = useState([]);
   const [imgLoading, setImgLoading] = useState(false);
+  const restaurants = [];
  
-
+  // This will load the UserProfile details and User's order history on mount
   useEffect(() => {
     if (user?.userId) dispatch(fetchUserAsync(user?.userId));
     const orderHis = [];
     dispatch(fetchUserOrdersAsync(user.userId)).then(async(res) => {
       const orders = res.payload;
       for(const order of orders) {
-        console.log("Complete or pickup Order from query:",order);
+        
         const res = await dispatch(fetchRestaurantAsync(order.order.restaurantId));
           restaurants.push(res.payload);
-          console.log("Rest:",restaurants);
+          
         }
     for(const order of orders) {
       for(const restaurant of restaurants){
         if(restaurant && (restaurant?.restaurantId === order?.order?.restaurantId ))
         {
           orderHis.push({order,restaurant});
+          break;
         }
       }
     }
@@ -56,6 +57,7 @@ const UserProfile = () => {
     });
   }, [dispatch, user?.userId, fileUrl]);
 
+  // This function is used to handle image upload changes in the user profile page.
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `users/${imageFile.name}`);
@@ -65,7 +67,7 @@ const UserProfile = () => {
         setFileUrl(url);
         setImgLoading(false);
         dispatch(editUserImageAsync({ userId, url })).then(() => {
-          console.log("file updated");
+          
         });
       });
     });
@@ -73,29 +75,9 @@ const UserProfile = () => {
     setUpload(false);
   };
 
-  const restaurants = [];
+ 
 
-  const handleOrderHistory = () => {
-    const orderHis = [];
-    dispatch(fetchUserOrdersAsync(user.userId)).then(async(res) => {
-      const orders = res.payload;
-      for(const order of orders) {
-        console.log("Complete or pickup Order from query:",order);
-        const res = await dispatch(fetchRestaurantAsync(order.order.restaurantId));
-          restaurants.push(res.payload);
-          console.log("Rest:",restaurants);
-        }
-    for(const order of orders) {
-      for(const restaurant of restaurants){
-        if(restaurant && (restaurant?.restaurantId === order?.order?.restaurantId ))
-        {
-          orderHis.push({order,restaurant});
-        }
-      }
-    }
-    setOrderHistory(orderHis);
-    });
-  };
+  
 
   return (
     <div>
@@ -183,7 +165,7 @@ const UserProfile = () => {
               </thead>
               <tbody>
                {orderHistory.map((hist) => {
-                console.log("History obj:",hist);
+                
                 return(
               <tr key={hist?.order?.orderId}>
               <td>{hist?.order?.orderId}</td>

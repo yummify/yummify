@@ -5,12 +5,9 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-  collection,
-  query,
-  where,
-  getDocs
 } from "firebase/firestore";
 
+// This thunk is used to add user document in the users collection
 export const addUserAsync = createAsyncThunk(
   "addUser",
   async ({
@@ -33,13 +30,14 @@ export const addUserAsync = createAsyncThunk(
         isAdmin,
         isRestaurantOwner,
       });
-      console.log("after db insert");
+      
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
 
+// This thunk is used to fetch user document by userId from the Users collection
 export const fetchUserAsync = createAsyncThunk("fetchUser", async (userId) => {
   try {
     
@@ -50,13 +48,14 @@ export const fetchUserAsync = createAsyncThunk("fetchUser", async (userId) => {
 
       return { ...user, userId: docSnap.id };
     } else {
-      console.log("No such document");
+      
     }
   } catch (err) {
-    console.log(err);
+    
   }
 });
 
+// This thunk is used to handle image upload change of the User profile
 export const editUserImageAsync = createAsyncThunk(
   "editUserImage",
   async ({ userId, url }) => {
@@ -64,31 +63,32 @@ export const editUserImageAsync = createAsyncThunk(
       
       const usersRef = doc(db, "users", userId);
       const data = { image: url };
-      updateDoc(usersRef, data).then((usersRef) =>
-        console.log("Value of document has been updated")
+      updateDoc(usersRef, data).then(
+        
       );
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
 
+// This thunk is used to handle edit changes of the User profile
 export const editUserAsync = createAsyncThunk(
   "editUser",
   async ({ userId, name, phoneNumber, zipcode }) => {
     try {
       const usersRef = doc(db, "users", userId);
-      console.log("UserId and payload:", userId, name, phoneNumber, zipcode);
+      
       const data = { name, phoneNumber, zipcode };
-      updateDoc(usersRef, data).then((usersRef) =>
-        console.log("Value of document has been updated")
+      updateDoc(usersRef, data).then(
       );
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
 
+// This thunk is used to handle edit user's status 
 export const editUserStatusAsync = createAsyncThunk("editUserStatus", async (userId) => {
   try {
     const userRef = doc(db, "users", userId);
