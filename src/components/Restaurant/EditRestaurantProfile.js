@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../contexts/AuthContext";
 
+// This component is used to handle edit changes in the Restaurant profile page
 const EditRestaurantProfile = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [cuisine, setCuisine] = useState("");
@@ -20,6 +21,7 @@ const EditRestaurantProfile = () => {
   const [EIN, setEIN] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [website, setWebsite] = useState("");
+  const [formError, setFormError] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -29,23 +31,43 @@ const EditRestaurantProfile = () => {
     if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
   }, [dispatch, user?.userId]);
 
+  // This function is used to perform form validation
+  const validate = () => {
+    const error = {};
+    const websiteRegEx =
+      /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/;
+    if (website!=='' && !website.match(websiteRegEx)) {
+      error.website = "Invalid Website";
+    }
+    const phoneNumberRegEx =
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    if (phoneNumber !== '' && !phoneNumber.match(phoneNumberRegEx)) {
+      error.phoneNumber = "Invalid PhoneNumber";
+    }
+    setFormError(error);
+    return error;
+  }
+  
+  // This function is used to handle edit changes in the Restaurant profile page
   const editRestaurant = () => {
-    const reqbody = {
-      restaurantId: user.userId,
-      restaurantName: restaurantName
-        ? restaurantName
-        : authRestaurant.restaurantName,
-      cuisine: cuisine ? cuisine : authRestaurant.cuisine,
-      description: description ? description : authRestaurant.description,
-      address: address ? address : authRestaurant.address,
-      website: website ? website : authRestaurant.website,
-      EIN: EIN ? EIN : authRestaurant.EIN,
-      phoneNumber: phoneNumber ? phoneNumber : authRestaurant.phoneNumber,
-      zipcode: zipcode ? zipcode : authRestaurant.zipcode,
-    };
-    dispatch(editRestaurantAsync(reqbody)).then(() =>
-      navigate("/restaurantprofile")
-    );
+    const error = validate();
+    if(!error.hasOwnProperty("website") && 
+    !error.hasOwnProperty("phoneNumber")){
+      const reqbody = {
+        restaurantId: user.userId,
+
+        description: description ? description : authRestaurant.description,
+
+        website: website ? website : authRestaurant.website,
+        
+        phoneNumber: phoneNumber ? phoneNumber : authRestaurant.phoneNumber,
+        
+      };
+      dispatch(editRestaurantAsync(reqbody)).then(() =>
+        navigate("/restaurantprofile")
+      );
+    }
+    
   };
 
   return (
@@ -94,9 +116,13 @@ const EditRestaurantProfile = () => {
             <Form.Control
               type="text"
               placeholder={authRestaurant.phoneNumber}
-              onChange={(event) => setPhoneNumber(event.target.value)}
+              onChange={(event) => {setPhoneNumber(event.target.value)
+              setFormError({})}}
             />
           </Form.Group>
+          {formError.phoneNumber && (
+            <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
+          )}
           <Form.Group>
             <Form.Label>zipcode :</Form.Label>
             <Form.Control
@@ -111,9 +137,13 @@ const EditRestaurantProfile = () => {
             <Form.Control
               type="text"
               placeholder={authRestaurant.website}
-              onChange={(event) => setWebsite(event.target.value)}
+              onChange={(event) => {setWebsite(event.target.value)
+              setFormError({})}}
             />
           </Form.Group>
+          {formError.website && (
+            <p className="text-danger-emphasis my-3">{formError.website}</p>
+          )}
           <Form.Group>
             <Form.Label>EIN :</Form.Label>
             <Form.Control
