@@ -21,9 +21,9 @@ const AdminProfile = () => {
   const [upload, setUpload] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
   const authuser = useSelector(selectUser);
-  console.log("authuser:", authuser);
+
   const { user } = useAuth();
-  console.log("User from AuthContext:", user);
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ const AdminProfile = () => {
         setFileUrl(url);
         setImgLoading(false);
         dispatch(editUserImageAsync({ userId, url })).then(() => {
-          console.log("file updated");
+          
         });
       });
     });

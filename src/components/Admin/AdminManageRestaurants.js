@@ -165,7 +165,7 @@ const AdminManageRestaurants = () => {
                         <div>
                           {/* <Button onClick={() => {
                             setRestaurantData(rest);
-                            console.log(restaurantData);
+                            
                             handleOpenEdit()
                           }}>Edit Restaurant</Button> */}
                           <div className="vr" />
