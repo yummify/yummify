@@ -56,7 +56,7 @@ const EditBagForm = (props) =>{
     }
 
     return(
-        <Card style={{width: "25rem"}}>
+        <Card style={{padding: "10px", margin: "10px 20px",}}>
             <Card.Header>Edit Bag</Card.Header>
             <Form>
                 <Form.Group className="bag-type-input">
