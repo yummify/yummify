@@ -25,7 +25,7 @@ function UserStartPage() {
               style={{ width: "200px" }}
               onClick={() => navigate("/usersignup")}
             >
-              SignUp as User
+              Sign up as User
             </Button>
           </Col>
         </Row>

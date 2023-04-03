@@ -27,7 +27,6 @@ const RestaurantProfile = () => {
     if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
   }, [dispatch, user?.userId, fileUrl]);
 
-  // This function is used to handle image upload changes in the restaurant profile page.
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `restaurants/${imageFile.name}`);
@@ -110,7 +109,7 @@ const RestaurantProfile = () => {
                     ? "Request sent to Admin for approval"
                     : "Restaurant got added/updated in Yummify"}
                 </p>
-                <p><span   style={{fontWeight : "700"}}>PhoneNumber: </span>{authRestaurant?.phoneNumber}</p>
+                <p><span   style={{fontWeight : "700"}}>Phone Number: </span>{authRestaurant?.phoneNumber}</p>
                 <p><span   style={{fontWeight : "700"}}>Zipcode: </span>{authRestaurant.zipcode}</p>
                 <p><span   style={{fontWeight : "700"}}>
                   Website: </span><Link to={authRestaurant.website} target="_blank">{authRestaurant.website}</Link>

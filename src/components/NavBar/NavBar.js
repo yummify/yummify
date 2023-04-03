@@ -55,7 +55,7 @@ const NavBar = () => {
               <Nav.Link href="/restaurantorders">Orders</Nav.Link>
               <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
 
-              <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>
+              <Nav.Link href={`/${authUser?.user?.userId}`}>
                 View Storefront{" "}
               </Nav.Link>
               <Nav.Link onClick={logout}>Logout</Nav.Link>
@@ -63,11 +63,11 @@ const NavBar = () => {
           ) : authUser?.user?.isAdmin ? (
             <Nav>
               <Nav.Link href="/admin">Dashboard</Nav.Link>
+              <Nav.Link href="/adminprofile">Profile</Nav.Link>
               <Nav.Link href="/manage-users">Manage Users</Nav.Link>
               <Nav.Link href="/manage-restaurants">Manage Restaurants</Nav.Link>
               <Nav.Link href="/order-history">Order History</Nav.Link>
               <Nav.Link href="/restaurants">Customer View</Nav.Link>
-              <Nav.Link href="/adminprofile">Profile</Nav.Link>
               <Nav.Link onClick={logout}>Logout</Nav.Link>
             </Nav>
           ) : (

@@ -60,10 +60,10 @@ const EditUserProfile = () => {
   return (
     <div>
       <Container>
-        <h2>User Profile :</h2>
+        <h2>User Profile: </h2>
         <Form>
           <Form.Group>
-            <Form.Label>FirstName: </Form.Label>
+            <Form.Label>First Name: </Form.Label>
             <Form.Control
               type="text"
               placeholder={name[0]}
@@ -72,7 +72,7 @@ const EditUserProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>LastName: </Form.Label>
+            <Form.Label>Last Name: </Form.Label>
             <Form.Control
               type="text"
               placeholder={name[1]}
@@ -81,7 +81,7 @@ const EditUserProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>PhoneNumber: </Form.Label>
+            <Form.Label>Phone Number: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authuser.phoneNumber}
