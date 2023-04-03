@@ -1,7 +1,7 @@
 #root {
   background-color: white;
   font-family: "Karma", serif;
-    margin: 2vh 2vw 0 2vw;
+  margin: 2vh 2vw 0 2vw;
 }
 
 * {
@@ -9,9 +9,9 @@
   margin: 0 auto;
 }
 
-body{
-    position: relative;
-    min-height: 100vh;
+body {
+  position: relative;
+  min-height: 100vh;
 }
 
 .btn {
@@ -26,15 +26,25 @@ body{
 #logo {
   width: 40vw;
 }
-/* 
-#pending-accordion:focus{
-  background-color: gray;
+
+.accordion-button:not(.collapsed)::after {
+  background-image: var(--bs-accordion-btn-icon);
+}
+.accordion-button:link,
+.accordion-button:visited,
+.accordion-button:hover,
+.accordion-button:active {
+  background-color: lightgray;
+  color: black;
+  text-decoration: none;
+  border: hidden;
+  border-color: black;
+  box-shadow: 0px;
 }
 
-.accordion-header::after{
-  background-color: gray;
-} */
-
-.accordion-active-bg {
-  background-color: gray;
+.accordion-button:focus {
+  z-index: 3;
+  border-color: black;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem white;
 }
