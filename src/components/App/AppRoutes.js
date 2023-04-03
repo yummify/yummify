@@ -30,6 +30,7 @@ import AuthorizationError from "../Auth/AuthorizationError";
 
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
+import About from "../Footer/About";
 import ForgotPassword from "../Auth/ForgotPassword";
 import UpdatePassword from "../Auth/UpdatePassword";
 
@@ -215,6 +216,7 @@ const AppRoutes = () => {
 
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );
