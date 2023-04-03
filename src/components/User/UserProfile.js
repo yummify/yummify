@@ -171,7 +171,7 @@ const UserProfile = () => {
               <td>{hist?.order?.orderId}</td>
               <td>{hist?.restaurant?.restaurantName}</td>
               <td>{hist?.order?.order?.expiration}</td>
-              <td>{hist?.order?.order?.newPrice + (hist?.order?.order?.newPrice * 0.0875)}</td>
+              <td>{(hist?.order?.order?.newPrice + (hist?.order?.order?.newPrice * 0.0875)).toFixed(2)}</td>
               <td>{hist?.order?.order?.pickup}</td>
               <td>{hist?.order?.order?.quantity}</td>
               <td>{hist?.order?.order?.status}</td>
