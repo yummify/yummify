@@ -25,6 +25,8 @@ const RestaurantSignUp = () => {
   const error = {};
   let email = "",
     pwd = "";
+
+  // This function is used to perform form validation
   const validate = () => {
     const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (signUpEmail === "") {
@@ -81,6 +83,8 @@ const RestaurantSignUp = () => {
     return error;
   };
 
+  
+   // This function is used to perform signup functionality and navigate the restaurantowners to the restaurant profile after creation
   const registerSignUp = async () => {
     const error = validate();
 
@@ -102,7 +106,7 @@ const RestaurantSignUp = () => {
       ).then((res) => {
         if (res?.error) {
           const err = res?.error;
-          console.log(err?.message);
+          
           if (err?.message?.includes("email-already-in-use")) {
             setFormError({
               email: "Email already exists,choose different email",
@@ -114,7 +118,7 @@ const RestaurantSignUp = () => {
           }
         } else {
           const user = res.payload;
-          console.log(res.payload);
+        
           const reqbody = {
             userId: user.userId,
             name: restaurantName,
@@ -145,7 +149,7 @@ const RestaurantSignUp = () => {
             terms,
           };
           dispatch(addRestaurantAsync(reqResbody)).then(() => {
-            console.log("restaurant added");
+            
             navigate("/restaurantprofile");
           });
         }
@@ -158,9 +162,10 @@ const RestaurantSignUp = () => {
       <Container>
         <Form>
           <Form.Group>
-            <Form.Label>SignUp Email :</Form.Label>
+            <Form.Label>SignUp Email: </Form.Label>
             <Form.Control
               type="email"
+              maxLength={60}
               onChange={(event) => {
                 setSignUpEmail(event.target.value);
                 setFormError({});
@@ -171,9 +176,10 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.email}</p>
           )}
           <Form.Group>
-            <Form.Label>SignUp Password :</Form.Label>
+            <Form.Label>SignUp Password: </Form.Label>
             <Form.Control
               type="password"
+              maxLength={30}
               onChange={(event) => {
                 setSignUpPwd(event.target.value);
                 setFormError({});
@@ -184,9 +190,10 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.pwd}</p>
           )}
           <Form.Group>
-            <Form.Label>Restaurant Name :</Form.Label>
+            <Form.Label>Restaurant Name: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={50}
               onChange={(event) => {
                 setRestaurantName(event.target.value);
                 setFormError({});
@@ -199,9 +206,10 @@ const RestaurantSignUp = () => {
             </p>
           )}
           <Form.Group>
-            <Form.Label>Cuisine :</Form.Label>
+            <Form.Label>Cuisine: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={30}
               onChange={(event) => {
                 setCuisine(event.target.value);
                 setFormError({});
@@ -213,9 +221,10 @@ const RestaurantSignUp = () => {
           )}
 
           <Form.Group>
-            <Form.Label>Description :</Form.Label>
+            <Form.Label>Description: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={75}
               onChange={(event) => {
                 setDescription(event.target.value);
                 setFormError({});
@@ -227,9 +236,10 @@ const RestaurantSignUp = () => {
           )}
 
           <Form.Group>
-            <Form.Label>Address :</Form.Label>
+            <Form.Label>Address: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={30}
               onChange={(event) => {
                 setAddress(event.target.value);
                 setFormError({});
@@ -240,9 +250,10 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.address}</p>
           )}
           <Form.Group>
-            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Label>PhoneNumber: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={15}
               onChange={(event) => {
                 setPhoneNumber(event.target.value);
                 setFormError({});
@@ -254,9 +265,10 @@ const RestaurantSignUp = () => {
           )}
           
           <Form.Group>
-            <Form.Label>Zipcode :</Form.Label>
+            <Form.Label>Zipcode: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={5}
               onChange={(event) => {
                 setZipcode(event.target.value);
                 setFormError({});
@@ -267,11 +279,12 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.zipcode}</p>
           )}
           <Form.Group>
-            <Form.Label>Website :</Form.Label>
+            <Form.Label>Website: </Form.Label>
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon3">https://</InputGroup.Text>
               <Form.Control
                 type="text"
+                maxLength={50}
                 onChange={(event) => {
                   setWebsite("https://" + event.target.value);
                   setFormError({});
@@ -283,9 +296,10 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.website}</p>
           )}
           <Form.Group>
-            <Form.Label>EIN :</Form.Label>
+            <Form.Label>EIN: </Form.Label>
             <Form.Control
               type="text"
+              maxLength={12}
               onChange={(event) => {
                 setEIN(event.target.value);
                 setFormError({});
@@ -296,7 +310,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.EIN}</p>
           )}
           <Form.Group>
-            <Form.Label>Terms and Conditions : </Form.Label>
+            <Form.Label>Terms and Conditions: </Form.Label>
             <Link to="/terms-and-conditions" target="_blank" className="mx-2">Click to view</Link>
             <Form.Check
               onChange={(event) => setTerms(!terms)}

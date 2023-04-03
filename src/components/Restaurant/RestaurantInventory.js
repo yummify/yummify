@@ -38,7 +38,7 @@ const RestaurantInventory = () => {
             await dispatch(deleteBagAsync(bagId));
             dispatch(fetchGroupBagByRestAsync(restaurantId))
         }catch(err){
-            console.log(err);
+            
         }
     }
 
@@ -65,8 +65,8 @@ const RestaurantInventory = () => {
     },[dispatch, restaurantId]);
 
 return(
-    <Card>
-        <Card.Title>{restaurant.restaurantName} - Inventory</Card.Title>
+    <Card style={{ width: "90%" , padding: "10px"}}>
+        <Card.Title style={{ fontWeight: "700", textAlign: "center" }}>{restaurant.restaurantName} - Inventory</Card.Title>
         <Card.Text>
             Welcome to {restaurant.restaurantName} @ {restaurant.address}! 
         </Card.Text>
@@ -76,7 +76,7 @@ return(
         
         <AddBagForm restaurant={restaurantId}/>
  
-        <Card>
+        <Card style={{padding: "10px"}}>
             <Card.Title>Active Bags</Card.Title>
             
             <ListGroup>
@@ -84,7 +84,15 @@ return(
                     if(checkActive(bag.expiration,bag.quantity)===true){
                         return(
                             
-                        <ListGroup.Item eventKey={`${bag.id}`}> 
+                        <ListGroup.Item 
+                        style={{
+                            border: "none",
+                            margin: "10px",
+                            padding: "10px",
+                            width: "90%",
+                           
+                          }}
+                        eventKey={`${bag.id}`}> 
                             <b>{bag.type}</b> SuperBag ~ <b>Expires:</b> {bag.expiration} ~ <b>Quantity:</b> {bag.quantity} ~ <b>Pickup:</b> {bag.pickup} ~ <b>Price:</b> ${bag.newPrice} ~ <b>Original Price:</b> ${bag.originalPrice}
                             <Accordion>
                                 <Accordion.Item eventKey="active-0">
@@ -112,16 +120,26 @@ return(
                 }): "No active bags"}
                 
             </ListGroup>
+            <div></div>
         </Card>
 
-        <Card>
+        <Card style={{padding: "10px" }}>
             <Card.Title> Inactive Bags</Card.Title>
             <ListGroup>
                 {bags.length > 0 ? bags.map((bag)=>{
                     if(checkActive(bag.expiration,bag.quantity)===false){
                         return(
                             
-                        <ListGroup.Item eventKey={`${bag.id}`}> 
+                        <ListGroup.Item 
+                        style={{
+                            
+                            border: "none",
+                            margin: "10px",
+                            padding: "10px",
+                            width: "90%",
+                            
+                          }}
+                        eventKey={`${bag.id}`}> 
                             <b>{bag.type}</b> SuperBag ~ <b>Expires:</b> {bag.expiration} ~ <b>Quantity:</b> {bag.quantity} ~ <b>Pickup:</b> {bag.pickup} ~ <b>Price:</b> ${bag.newPrice} ~ <b>Original Price:</b> ${bag.originalPrice} 
                             <Accordion>
                                 <Accordion.Item eventKey="inactive-0">

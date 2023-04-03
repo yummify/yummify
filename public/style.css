@@ -30,3 +30,7 @@ body{
 #pending-accordion:focus{
   background-color: gray;
 }
+
+.list-group-item.active {
+  background-color: #706bca;
+}

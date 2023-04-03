@@ -34,7 +34,6 @@ const SingleRestaurant = () => {
 
   //get userId from auth context
   // const { user } = useAuth();
-  // console.log('user.userId', user);
   // const userIdFromAuth = user.userId;
 
   //to sort bags from fetchGroupBag array from active/inactive
