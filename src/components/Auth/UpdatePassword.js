@@ -12,6 +12,7 @@ const UpdatePassword = () => {
   const [formError,setFormError] = useState({});
   const dispatch = useDispatch();
 
+  // This function is used to perform form validation
   const validate = () => {
     const error = {};
     const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -35,6 +36,7 @@ const UpdatePassword = () => {
 
   };
 
+  // This function is used to call update password functionality of the firebase
   const handleUpdate = () => {
     const error = validate();
     if(!error.hasOwnProperty("loginEmail") && !error.hasOwnProperty("oldPassword") && !error.hasOwnProperty("newPassword")){
@@ -61,16 +63,17 @@ const UpdatePassword = () => {
     <div>
       <Container>
         <Form>
-          {updateStatus === "updated" && (
+          {(updateStatus === "updated" && !loginEmail && !oldPassword && !newPassword)  && (
             <Alert variant="success">Updated password</Alert>
           )}
-          {updateStatus === "failed" && (
+          {(updateStatus === "failed" && !loginEmail && !oldPassword && !newPassword)&& (
             <Alert variant="danger">Failed to update</Alert>
           )}
           <Form.Group>
             <Form.Label>Email :</Form.Label>
             <Form.Control
               type="email"
+              value={loginEmail}
               onChange={(event) => {
                 setLoginEmail(event.target.value);
                 setFormError({})
@@ -83,6 +86,7 @@ const UpdatePassword = () => {
             <Form.Label>Current Password :</Form.Label>
             <Form.Control
               type="password"
+              value={oldPassword}
               onChange={(event) => {
                 setOldPassword(event.target.value);
                 setFormError({})
@@ -95,6 +99,7 @@ const UpdatePassword = () => {
             <Form.Label>New Password :</Form.Label>
             <Form.Control
               type="password"
+              value={newPassword}
               onChange={(event) => {
                 setNewPassword(event.target.value);
                 setFormError({})
