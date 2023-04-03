@@ -31,7 +31,7 @@ const NavBar = () => {
   return (
     <Navbar expand="lg">
       <Container>
-      <Navbar.Brand href="/"><img id='logo' src='logo.png'></img></Navbar.Brand>
+      <Navbar.Brand href="#"><img id='logo' src='logo.png'></img></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         {!authUser?.user?.userId ? (
