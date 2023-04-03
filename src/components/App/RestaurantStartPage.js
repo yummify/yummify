@@ -23,7 +23,7 @@ function RestaurantStartPage() {
               style={{ width: "200px" }}
               onClick={() => navigate("/restaurantsignup")}
             >
-              SignUp as Restaurant
+              Sign up as Restaurant
             </Button>
           </Col>
         </Row>
