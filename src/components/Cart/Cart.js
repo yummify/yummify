@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { Alert, Card, Modal, Stack, Button, Badge, NavLink } from "react-bootstrap";
+import { Alert, Card, Stack, Button, Badge} from "react-bootstrap";
 import { fetchUserOrdersAsync, selectOrders, deleteOrderAsync, markComplete } from "../Order/orderSlice";
 import { editBagQuantityAsync } from "../Bag/bagSlice";
 import { fetchAllRestaurants, selectRestaurants } from "../AllRestaurants/allRestaurantsSlice";
+
 
 
 
@@ -15,20 +16,24 @@ const Cart = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    
     //get id of logged-in user
     const { user } = useAuth();
     const userId = user.userId;
+    
+    
 
      useEffect(() => {
         dispatch(fetchUserOrdersAsync(userId));
         dispatch(fetchAllRestaurants());
-    }, [dispatch,userId]);
+        
+    }, [dispatch, userId]);
 
-  
-    const orders = useSelector(selectOrders);
-    
+
+    const allorders = useSelector(selectOrders);
     const restaurants = useSelector(selectRestaurants);
-
+    
+   
 
     //calculate NYC sales tax and find total price
     const totalPrice = (price) => {
@@ -36,6 +41,7 @@ const Cart = () => {
         return (tax + price).toFixed(2);
     }
 
+    
     //calculate savings
     const savings = (oldPrice, newPrice) => {
         let savings = oldPrice - newPrice;
@@ -56,17 +62,25 @@ const Cart = () => {
             
         }
     }
+
+    const orders = allorders.filter((order)=>order.status === "shopping"
+    )
+    console.log("after filter,", orders);
+
     return (
         <>
         <Alert variant={'warning'}>Remember: the contents of this bag are a SURPRISE!</Alert>
             <Stack>
-                {orders.length > 0 ? orders.map((order)=>{
-                    if(order.status === "shopping"){
+                {orders?.length > 0 && orders.map((order, index)=>{
+                    if(order.status === "shopping")                         {
                         const restId = order.restaurantId;
                         const rest = restaurants.find((rest) => rest.id === restId);
                         
+                        
+                        
                     return(
-                <Card>
+                <Card >
+                    
                     <Button variant="outline-dark" className="text-right" style={{textAlign: 'right'}} onClick={()=>{
                         
                         handleDeleteOrder(order.id)}}> Delete Bag </Button>
@@ -85,30 +99,35 @@ const Cart = () => {
                             <Card.Text style={{margin: '5px'}}>New Price: ${order.newPrice.toFixed(2)}</Card.Text>
                         </Stack>
                     </Card.Footer>
-                </Card> )}
+                    <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
+                    <Card style={{width: "100%"}}>
+                            <Badge>Total Price</Badge>
+                            <p><span style={{ fontWeight: "700" }}>Total Savings: </span>${savings(order.originalPrice, order.newPrice)}         
+                            </p>
+                            <div></div>
+                            <p><span style={{ fontWeight: "700" }}>Plus Taxes: </span>${(order.newPrice* .0875).toFixed(2)}         
+                            </p>
+                            <div></div>
+                            <p> 
+                                <Button onClick={()=>{
+                handleCheckout(order.id, order.bagId)}}>Checkout: ${totalPrice(order.newPrice)}
+                            </Button>
+                            </p>
+                        </Card>
                 
-                }) : null }
+                </Card> ) }
                 
-                <Alert variant={'danger'}>Note: This app is a Capstone Project. Orders will not actually be sent to these restaurants, and credit cards will not actually be charged. </Alert>
-                {/* <Badge>Total Price</Badge> */}
+                })  }
                 
-                {orders.length > 0 && orders[0].status === "shopping" ? 
-                        (
-                            <Card>
-                                <Badge>Total Price</Badge>
-                                <p><span style={{ fontWeight: "700" }}>Total Savings: </span>${savings(orders[0].originalPrice, orders[0].newPrice)}         
-                                </p>
-                                <div></div>
-                                <p> 
-                                    <Button onClick={()=>{
-                    handleCheckout(orders[0].id, orders[0].bagId)}}>Checkout: ${totalPrice(orders[0].newPrice)}
-                                </Button>
-                                </p>
-                            </Card>
-                        )
+                {orders?.length === 0 && ( <Card><p>Your cart is empty</p> {console.log("hi")} <Card.Link href="/restaurants">Return to Browse</Card.Link></Card>)} 
+                
+                
+                
+                
+                
+                
                     
-                    
-                    : <div><p>Your cart is empty</p> <div></div> <Card.Link href="/restaurants">Return to Browse</Card.Link></div>}
+                   
             </Stack>
             
         </>

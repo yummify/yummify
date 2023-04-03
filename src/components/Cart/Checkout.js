@@ -34,7 +34,20 @@ const Checkout = () => {
       let tax = (price * .0875)
       return (tax + price).toFixed(2);
   }
+  let copy = [...orders];
+  console.log("pre", copy);
+
+  const sorting = ((a, b)=>{
+    let aDate = new Date(a["updated"]);
+    let bDate = new Date(b["updated"]);
+    return bDate.getTime() - aDate.getTime();
   
+  });
+  copy.sort(sorting);
+  console.log("post", copy);
+
+  
+
     return (
       <>
       {/* <Button variant="primary" onClick={handleShow}>
@@ -63,13 +76,19 @@ const Checkout = () => {
         </Card.Header>
         <Card.Body>
           <Card.Text>
-          <span style={{ fontWeight: "700" }}>Pickup time: </span>{orders?.[0]?.pickup}
+          <span style={{ fontWeight: "700" }}>Pickup time: </span>{copy?.[0]?.pickup}
           </Card.Text>
           <Card.Text>
-          <span style={{ fontWeight: "700" }}>Order total: </span>${totalPrice(orders?.[0]?.newPrice)}
+          <span style={{ fontWeight: "700" }}>Order total: </span>${copy?.[0]?.newPrice}
           </Card.Text>
           <Card.Text>
-          <span style={{ fontWeight: "700" }}>Confirmation Number: </span>{orders?.[0]?.id}
+          <span style={{ fontWeight: "700" }}>Taxes: </span>${(((copy?.[0]?.newPrice)*.0875).toFixed(2))}
+          </Card.Text>
+          <Card.Text>
+          <span style={{ fontWeight: "700" }}>Order total: </span>${totalPrice(copy?.[0]?.newPrice)}
+          </Card.Text>
+          <Card.Text>
+          <span style={{ fontWeight: "700" }}>Confirmation Number: </span>{copy?.[0]?.id}
           </Card.Text>
           <Card.Text>
             When you go to pick up your order, just show the shop your confirmation number.  Don't forget to bring your own bag!
