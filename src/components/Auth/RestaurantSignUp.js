@@ -162,7 +162,7 @@ const RestaurantSignUp = () => {
       <Container>
         <Form>
           <Form.Group>
-            <Form.Label>SignUp Email: </Form.Label>
+            <Form.Label>Sign up Email: </Form.Label>
             <Form.Control
               type="email"
               maxLength={60}
@@ -176,7 +176,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.email}</p>
           )}
           <Form.Group>
-            <Form.Label>SignUp Password: </Form.Label>
+            <Form.Label>Sign up Password: </Form.Label>
             <Form.Control
               type="password"
               maxLength={30}
@@ -250,7 +250,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.address}</p>
           )}
           <Form.Group>
-            <Form.Label>PhoneNumber: </Form.Label>
+            <Form.Label>Phone Number: </Form.Label>
             <Form.Control
               type="text"
               maxLength={15}

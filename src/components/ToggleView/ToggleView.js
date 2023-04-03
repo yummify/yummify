@@ -3,8 +3,9 @@ import { Button } from "react-bootstrap";
 import Map from "../Map/Map";
 import AllRestaurants from "../AllRestaurants/AllRestaurants";
 import SearchBar from "./SearchBar";
-import Filter from "../../Filter/Filter";
-import options from "../../Filter/Options";
+import Filter from "../Filter/Filter";
+import options from "../Filter/Options";
+import "./toggleSearch.css";
 
 export default function ToggleView() {
   const [isMapView, setIsMapView] = useState(false);

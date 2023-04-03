@@ -49,7 +49,7 @@ const ForgotPassword = () => {
           {emailStatus === "success" && <Alert variant="success">Check your email for further instructions</Alert>}
           {emailStatus === "failed" && <Alert variant="danger">Failed to send email</Alert> }
           <Form.Group>
-            <Form.Label>Email :</Form.Label>
+            <Form.Label>Email: </Form.Label>
             <Form.Control
               type="email"
               value={loginEmail}

@@ -57,7 +57,6 @@ const UserProfile = () => {
     });
   }, [dispatch, user?.userId, fileUrl]);
 
-  // This function is used to handle image upload changes in the user profile page.
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `users/${imageFile.name}`);
@@ -74,10 +73,6 @@ const UserProfile = () => {
     const userId = user.userId;
     setUpload(false);
   };
-
- 
-
-  
 
   return (
     <div>
@@ -130,7 +125,7 @@ const UserProfile = () => {
               <Col className="border my-3 mx-3 text-center">
                 <h1 className="my-3">{authuser?.name}</h1>
                 <p><span style={{fontWeight : "700"}}>Email: </span>{authuser?.email}</p>
-                <p><span style={{fontWeight : "700"}}>PhoneNumber: </span>{authuser?.phoneNumber}</p>
+                <p><span style={{fontWeight : "700"}}>Phone Number: </span>{authuser?.phoneNumber}</p>
                 <p><span style={{fontWeight : "700"}}>Zipcode: </span>{authuser.zipcode}</p>
                 <Button
                   className="mx-3"
@@ -153,7 +148,7 @@ const UserProfile = () => {
             {orderHistory?.length > 0 ? <Table striped bordered hover responsive="sm">
               <thead>
                 <tr>
-                  <th>OrderId</th>
+                  <th>Order #</th>
                   <th>Restaurant Name</th>
                   <th>Expiration</th>
                   <th>Price</th>
@@ -171,7 +166,7 @@ const UserProfile = () => {
               <td>{hist?.order?.orderId}</td>
               <td>{hist?.restaurant?.restaurantName}</td>
               <td>{hist?.order?.order?.expiration}</td>
-              <td>{hist?.order?.order?.newPrice + (hist?.order?.order?.newPrice * 0.0875)}</td>
+              <td>{(hist?.order?.order?.newPrice + (hist?.order?.order?.newPrice * 0.0875)).toFixed(2)}</td>
               <td>{hist?.order?.order?.pickup}</td>
               <td>{hist?.order?.order?.quantity}</td>
               <td>{hist?.order?.order?.status}</td>
