@@ -63,7 +63,7 @@ const EditUserProfile = () => {
         <h2>User Profile :</h2>
         <Form>
           <Form.Group>
-            <Form.Label>FirstName :</Form.Label>
+            <Form.Label>FirstName: </Form.Label>
             <Form.Control
               type="text"
               placeholder={name[0]}
@@ -72,7 +72,7 @@ const EditUserProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>LastName :</Form.Label>
+            <Form.Label>LastName: </Form.Label>
             <Form.Control
               type="text"
               placeholder={name[1]}
@@ -81,7 +81,7 @@ const EditUserProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Label>PhoneNumber: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authuser.phoneNumber}
@@ -94,7 +94,7 @@ const EditUserProfile = () => {
             <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
           )}
           <Form.Group>
-            <Form.Label>Zipcode :</Form.Label>
+            <Form.Label>Zipcode: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authuser.zipcode}

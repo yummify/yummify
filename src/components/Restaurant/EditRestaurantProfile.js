@@ -75,7 +75,7 @@ const EditRestaurantProfile = () => {
       <Container>
         <Form>
           <Form.Group>
-            <Form.Label>Restaurant Name :</Form.Label>
+            <Form.Label>Restaurant Name: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.restaurantName}
@@ -84,7 +84,7 @@ const EditRestaurantProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Cuisine :</Form.Label>
+            <Form.Label>Cuisine: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.cuisine}
@@ -94,7 +94,7 @@ const EditRestaurantProfile = () => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Description :</Form.Label>
+            <Form.Label>Description: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.description}
@@ -104,7 +104,7 @@ const EditRestaurantProfile = () => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Address :</Form.Label>
+            <Form.Label>Address: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.address}
@@ -113,7 +113,7 @@ const EditRestaurantProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>phoneNumber :</Form.Label>
+            <Form.Label>phoneNumber: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.phoneNumber}
@@ -126,7 +126,7 @@ const EditRestaurantProfile = () => {
             <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
           )}
           <Form.Group>
-            <Form.Label>zipcode :</Form.Label>
+            <Form.Label>zipcode: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.zipcode}
@@ -135,7 +135,7 @@ const EditRestaurantProfile = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>website :</Form.Label>
+            <Form.Label>website: </Form.Label>
             <Form.Control
               type="text"
               placeholder={authRestaurant.website}
@@ -148,7 +148,7 @@ const EditRestaurantProfile = () => {
             <p className="text-danger-emphasis my-3">{formError.website}</p>
           )}
           <Form.Group>
-            <Form.Label>EIN :</Form.Label>
+            <Form.Label>EIN: </Form.Label>
             <Form.Control
               type="text"
               maxLength={12}

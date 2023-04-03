@@ -70,7 +70,7 @@ const UpdatePassword = () => {
             <Alert variant="danger">Failed to update</Alert>
           )}
           <Form.Group>
-            <Form.Label>Email :</Form.Label>
+            <Form.Label>Email: </Form.Label>
             <Form.Control
               type="email"
               value={loginEmail}
@@ -84,7 +84,7 @@ const UpdatePassword = () => {
           </Form.Group>
           {formError.loginEmail && <p className="text-danger-emphasis my-3">{formError.loginEmail}</p>}
           <Form.Group>
-            <Form.Label>Current Password :</Form.Label>
+            <Form.Label>Current Password: </Form.Label>
             <Form.Control
               type="password"
               value={oldPassword}
@@ -98,7 +98,7 @@ const UpdatePassword = () => {
           </Form.Group>
           {formError.oldPassword && <p className="text-danger-emphasis my-3">{formError.oldPassword}</p>}
           <Form.Group>
-            <Form.Label>New Password :</Form.Label>
+            <Form.Label>New Password: </Form.Label>
             <Form.Control
               type="password"
               maxLength={30}
