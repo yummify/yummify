@@ -9,12 +9,12 @@ import {
   EmailAuthProvider,
 } from "firebase/auth";
 
+// This thunk is used to create authorized users in the firestore and fetch them to store in the redux state.
 export const fetchSignUpAuthAsync = createAsyncThunk(
   "fetchSignUp",
   async ({ email, password }) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("In slice:", res);
       const authUser = {
         userId: res.user.uid,
         displayName: res.user.displayName,
@@ -22,7 +22,6 @@ export const fetchSignUpAuthAsync = createAsyncThunk(
         phoneNumber: res.user.phoneNumber,
         photoURL: res.user.photoURL,
       };
-      console.log("AuthUser:", authUser);
       return authUser;
     } catch (err) {
       throw new Error(err.message);
@@ -30,12 +29,12 @@ export const fetchSignUpAuthAsync = createAsyncThunk(
   }
 );
 
+// This thunk is used to check authorized users in the firestore and store the authorized user in the redux state.
 export const fetchLoginAuthAsync = createAsyncThunk(
   "fetchLogin",
   async ({ email, password }) => {
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
-      console.log("In slice:", res);
       const authUser = {
         userId: res.user.uid,
         displayName: res.user.displayName,
@@ -43,7 +42,6 @@ export const fetchLoginAuthAsync = createAsyncThunk(
         phoneNumber: res.user.phoneNumber,
         photoURL: res.user.photoURL,
       };
-      console.log("AuthUser:", authUser);
       return authUser;
     } catch (err) {
       throw new Error(err.message);
@@ -51,17 +49,18 @@ export const fetchLoginAuthAsync = createAsyncThunk(
   }
 );
 
+// This thunk is used to call reset password functionality of the firestore.
 export const resetPasswordAsync = createAsyncThunk(
   "resetpassword",
   async (email) => {
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (err) {
-      console.log(err);
     }
   }
 );
 
+// This thunk is used to reAuthenticate the user with the given credential in the firestore.
 export const reAuthenticateAsync = createAsyncThunk(
   "reAuthenticate",
   async ({ email, password }) => {
@@ -74,13 +73,14 @@ export const reAuthenticateAsync = createAsyncThunk(
   }
 );
 
+// This thunk is used to call update password functionality of the firestore.
 export const updatePasswordAsync = createAsyncThunk(
   "updatepassword",
   async (newPassword) => {
     try {
       await updatePassword(auth.currentUser, newPassword);
     } catch (err) {
-      console.log(err);
+     
     }
   }
 );
@@ -93,18 +93,15 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSignUpAuthAsync.fulfilled, (state, action) => {
-        console.log("In action payload:", action.payload);
         return action.payload;
       })
       .addCase(fetchLoginAuthAsync.fulfilled, (state, action) => {
         return action.payload;
       })
       .addCase(fetchSignUpAuthAsync.rejected, (state, action) => {
-        console.log(action.error);
         return action.error;
       })
       .addCase(fetchLoginAuthAsync.rejected, (state, action) => {
-        console.log(action.error);
         return action.error;
       })
       .addCase(reAuthenticateAsync.rejected, (state, action) => {
