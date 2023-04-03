@@ -1,0 +1,47 @@
+#root {
+  background-color: white;
+  /* font-family: 'Amaranth', sans-serif; */
+  /* font-family: 'Arsenal', sans-serif; */
+  font-family: "Karma", serif;
+  /* font-family: 'PT Serif', serif;
+font-family: 'Shadows Into Light Two' */
+    margin: 2vh 2vw 0 2vw;
+}
+
+* {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
+#rest-stack {
+  background-color: #5fd2c3;
+}
+
+#title {
+  color: green;
+}
+
+.btn {
+  background-color: #8783d1;
+  border: #8783d1;
+}
+
+.btn:hover {
+  background-color: #706bca;
+}
+
+#logo {
+  width: 40vw;
+}
+
+#mng-rests {
+  border: 5px solid #41ead4;
+  padding: 15px;
+  margin: 15px;
+}
+

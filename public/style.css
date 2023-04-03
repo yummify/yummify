@@ -1,10 +1,6 @@
 #root {
   background-color: white;
-  /* font-family: 'Amaranth', sans-serif; */
-  /* font-family: 'Arsenal', sans-serif; */
   font-family: "Karma", serif;
-  /* font-family: 'PT Serif', serif;
-font-family: 'Shadows Into Light Two' */
     margin: 2vh 2vw 0 2vw;
 }
 
@@ -16,14 +12,6 @@ font-family: 'Shadows Into Light Two' */
 body{
     position: relative;
     min-height: 100vh;
-}
-
-#rest-stack {
-  background-color: #5fd2c3;
-}
-
-#title {
-  color: green;
 }
 
 .btn {
@@ -39,9 +27,6 @@ body{
   width: 40vw;
 }
 
-#mng-rests {
-  border: 5px solid #41ead4;
-  padding: 15px;
-  margin: 15px;
+#pending-accordion:focus{
+  background-color: gray;
 }
-

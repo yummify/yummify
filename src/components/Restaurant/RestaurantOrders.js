@@ -27,9 +27,8 @@ const RestaurantOrders = () => {
     }
   });
 
-  //ADD RESTAURANTID VARIABLE BACK AFTER TESTING:
   useEffect(() => {
-    dispatch(fetchAllOrdersForRestaurantAsync("4oNqNR7HjicnqevbvYL860t3Cb83"));
+    dispatch(fetchAllOrdersForRestaurantAsync(restaurantId));
     dispatch(fetchUsersAsync());
   }, [dispatch, ordersList]);
 
