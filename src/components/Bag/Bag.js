@@ -47,7 +47,7 @@ const Bag = (restaurant) => {
     dispatch(fetchOrderByStatusAsync(userInfo.userId, "shopping"));
     navigate("/cart");}
     else{
-      console.log("no worky, too many orders")
+  
       return null;
     }
   };

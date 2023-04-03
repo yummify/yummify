@@ -31,9 +31,7 @@ export const seedUsers = async () => {
       const userRef = doc(db, "users", user.uid);
       await setDoc(userRef, userData);
     }
-    console.log("Seeding successful!");
   } catch (err) {
-    console.error("Oh noes! Something went wrong!");
-    console.error(err);
+   
   }
 };

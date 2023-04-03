@@ -11,10 +11,10 @@ export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async 
             const restaurant = docSnap.data();
             return {...restaurant, restaurantId: docSnap.id};
         } else {
-            console.log("No restaurant found");
+        
         }
     } catch (err) {
-        console.error(err)
+        
     }
 })
 
@@ -25,7 +25,7 @@ export const approveStatusRestaurantAsync = createAsyncThunk("updateStatusRestau
             status: 'approved'
         })
     } catch(err) {
-        console.error(err)
+    
     }
 });
 
@@ -36,7 +36,7 @@ export const denyStatusRestaurantAsync = createAsyncThunk("updateStatusRestauran
             status: 'suspended'
         })
     } catch(err) {
-        console.error(err)
+       
     }
 });
 
@@ -45,7 +45,7 @@ export const deleteRestaurantAsync = createAsyncThunk("deleteRestaurant", async 
         const docRef = doc(db, "restaurants", restId);
         await deleteDoc(docRef);
     } catch(err) {
-        console.error(err)
+        
     }
 })
 

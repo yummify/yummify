@@ -16,6 +16,8 @@ const Login = () => {
   const error = {};
   let email = "",
     pwd = "";
+
+  // This function is used to perform form validation
   const validate = () => {
     const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (loginEmail === "") {
@@ -30,6 +32,8 @@ const Login = () => {
     return error;
   };
 
+  // This function is used to perform login functionality and navigate the users to the respective channels based on user type: user,admin or restaurant owner
+  
   const login = async () => {
     const error = validate(loginEmail, loginpwd);
     if (!error.hasOwnProperty("email") && !error.hasOwnProperty("pwd")) {
@@ -38,7 +42,6 @@ const Login = () => {
       ).then((res) => {
         if (res?.error) {
           const err = res?.error;
-          console.log(err?.message);
           if (err?.message?.includes("wrong-password")) {
             setFormError({ email, pwd: "Invalid credentials" });
           }

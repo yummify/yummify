@@ -48,3 +48,7 @@ body {
   outline: 0;
   box-shadow: 0 0 0 0.25rem white;
 }
+
+.list-group-item.active {
+  background-color: #706bca;
+}

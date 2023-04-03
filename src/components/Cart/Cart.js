@@ -53,7 +53,7 @@ const Cart = () => {
             await dispatch(deleteOrderAsync(orderId));
             dispatch(fetchUserOrdersAsync(userId));
         }catch(err){
-            console.log(err);
+            
         }
     }
     return (
