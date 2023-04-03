@@ -19,6 +19,8 @@ const UserSignUp = () => {
   const error = {};
   let email = "",
     pwd = "";
+
+  // This function is used to perform form validation
   const validate = () => {
     const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (signUpEmail === "") {
@@ -54,6 +56,7 @@ const UserSignUp = () => {
     return error;
   };
 
+  // This function is used to perform signup functionality and navigate the users to the user profile after creation
   const registerSignUp = async () => {
     const error = validate();
     if (!error.hasOwnProperty("email") && !error.hasOwnProperty("pwd") && !error.hasOwnProperty("zipcode") && !error.hasOwnProperty("phoneNumber") 
@@ -63,7 +66,6 @@ const UserSignUp = () => {
       ).then((res) => {
         if (res?.error) {
           const err = res?.error;
-          console.log(err?.message);
           if (err?.message?.includes("email-already-in-use")) {
             setFormError({
               email: "Email already exists,choose different email",
@@ -75,10 +77,9 @@ const UserSignUp = () => {
           }
         } else {
           const user = res.payload;
-          console.log(res.payload);
           const reqbody = {
             userId: user.userId,
-            name: firstName + " " + lastName,
+            name: firstName.trim() + " " + lastName.trim(),
             email: user.email,
             image: "/Student_Profile.png",
             phoneNumber: phoneNumber,
@@ -86,7 +87,6 @@ const UserSignUp = () => {
             isAdmin: false,
           };
           dispatch(addUserAsync(reqbody)).then(() => {
-            console.log("before navigate");
             navigate("/userprofile");
           });
         }
