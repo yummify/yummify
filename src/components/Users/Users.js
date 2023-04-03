@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 const Users = () => {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
-  console.log(users);
   useEffect(() => {
     dispatch(fetchUsersAsync());
   }, []);

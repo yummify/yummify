@@ -1,28 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
 import {
-    doc,
-    setDoc,
-    getDoc,
-    updateDoc,
     collection,
     query,
     where,
     getDocs
   } from "firebase/firestore";
 
+  // This thunk is used to handle fetch order history of the particular user based on userId
   export const fetchUserOrdersAsync = createAsyncThunk(
     "fetchorder",
     async (userId) => {
       try {
-    
         const ordersRef = collection(db, "orders");
         let orders = [];
-        // let restaurantName = [];
         const q = query(ordersRef, where("userId", "==", userId));  
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((document) => {
-          console.log("Document:",document.id,document.data());
+          
           const orderId = document.id;
           const order = document.data();
           let ord = {
@@ -33,11 +28,10 @@ import {
               orders.push(ord);
             }
         });
-        //console.log("Restaurant Name:", restaurantName);
-        console.log("orders:",orders);
+        
         return orders;
       } catch (err) {
-        console.log(err);
+        
       }
     }
   );

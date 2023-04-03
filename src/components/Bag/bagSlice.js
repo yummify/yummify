@@ -24,7 +24,7 @@ export const fetchSingleBagAsync = createAsyncThunk(
       //return bag values and bagId retrieved from db
       return { ...singlebag, bagId: bagDocSnap.id };
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
@@ -51,7 +51,7 @@ export const fetchGroupBagByRestAsync = createAsyncThunk(
       });
       return allbags;
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
@@ -83,7 +83,7 @@ export const addBagAsync = createAsyncThunk(
         restaurantId,
       });
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
@@ -112,7 +112,7 @@ export const editBagAsync = createAsyncThunk(
         type,
       });
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
@@ -124,7 +124,7 @@ export const editBagQuantityAsync = createAsyncThunk("editbagQuantity", async(ba
     await updateDoc(bagByDocRef, {
       quantity: increment(-1)});
   }catch(err){
-    console.log(err);
+    
   }
 });
 

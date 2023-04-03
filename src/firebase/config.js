@@ -3,12 +3,9 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
-// import { getPlaces } from "./getPlaces";
-// import { seedUsers } from "./usersSeed";
-
 import { getStorage } from "firebase/storage";
 
-// import { seedUsers } from "./usersSeed";
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -24,7 +21,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
-  //credential: fs.credential.cert(serviceAccount),
+ 
 };
 
 // Google Maps configuration
@@ -43,9 +40,6 @@ getAnalytics(app);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-// getPlaces();
-// seedUsers();
 
-// getPlaces(dummyRestaurant);
 
 export { db, auth, analytics, storage, app };

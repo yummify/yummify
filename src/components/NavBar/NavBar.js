@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchUserAsync } from "../User/userSlice";
 
+// This component displays the navbar based upon user types: allUsers, user, admin and restaurant owners
 const NavBar = () => {
   const authUser = useAuth();
   const navigate = useNavigate();
@@ -17,20 +18,20 @@ const NavBar = () => {
       dispatch(fetchUserAsync(authUser?.user?.userId));
   }, [dispatch, authUser?.user?.userId]);
 
+  
+  // This function is used to call the logout functionality of the firebase
   const logout = async () => {
     try {
       await signOut(auth);
       navigate("/");
     } catch (err) {
-      console.log(err);
     }
   };
 
   return (
     <Navbar expand="lg">
-      
       <Container>
-      <Navbar.Brand href="/"><img id='logo' src='logo.png'></img></Navbar.Brand>
+      <Navbar.Brand href="#"><img id='logo' src='logo.png'></img></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         {!authUser?.user?.userId ? (
