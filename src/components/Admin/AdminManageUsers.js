@@ -1,133 +1,120 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { fetchUsersAsync, selectUsers } from "../Users/usersSlice";
-import { editUserStatusAsync } from "../User/userSlice";
+import { fetchAllOrdersAsync, selectOrders } from "../Order/orderSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import {Stack, Button, Card, Accordion, Modal } from "react-bootstrap";
-import { selectOrders, fetchUserOrdersAsync, fetchAllOrdersAsync } from "../Order/orderSlice";
-import { useAuth } from "../../contexts/AuthContext";
-
-//EDIT AND DELETE THUNKS: add to single user
-// CHANGE 'EDIT USER' TO 'MESSAGE USER'
+import { Stack, Card, Container, Row, Col } from "react-bootstrap";
 
 const AdminManageUsers = () => {
-    const dispatch = useDispatch();
-    const users = useSelector(selectUsers);
-    // const orders = useSelector(selectOrders);
-    const [userData, setUserData] = useState(null);
-    // will be used for suspending user ^
-    // const [showOrders, setShowOrders] = useState(false);
-    const [showSuspend, setShowSuspend] = useState(false);
-    // const [ordersList, setOrdersList] = useState(orders);
- 
-    useEffect(() => {
-        dispatch(fetchUsersAsync());
-    }, [dispatch]);
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsers);
+  const orders = useSelector(selectOrders);
 
-    // FINISH ORDER HISTORY!!
-    // const handleOpenOrderHistory = async (userId) => {
-    //     await dispatch(fetchUserOrdersAsync(userId));
-    //     setOrdersList(orders);
-    //     setShowOrders(true);}
-    // const handleCloseOrderHistory = () => setShowOrders(false);
+  useEffect(() => {
+    dispatch(fetchUsersAsync());
+    dispatch(fetchAllOrdersAsync());
+  }, [dispatch]);
 
-    const handleOpenSuspend = () => setShowSuspend(true);
-    const handleCloseSuspend = () => setShowSuspend(false);
-
-    const handleSuspend = async (userId) => {
-        await dispatch(editUserStatusAsync(userId));
-        setShowSuspend(false);
-    }
-
-    // handle unsuspend 
-
-    /// IF WE WANT TO BE ABLE TO SUSPEND USERS, HAVE TO ADD USER STATUS TO DB
-
-    return (
-        <>
-        <h2>Manage Users</h2>
-        <Stack id = 'rest-stack' style={{margin: "20px"}}>
-            {users.length ? users.map((user) => {
-                let userType = '';
-                if (user.data.isRestaurantOwner) {userType = 'Restaurant'} else if (user.data.isAdmin) {userType = 'Admin'} else {userType = 'User'}
-                return (
-                    <Card style={{margin: "10px", padding: "10px", width: "20rem"}}>
-                    <h5>{user.data.name}</h5>
-                    <p>{user.data.email}</p>
-                    <p>Role: {userType}</p>
-                   {/* <Button onClick={() => {
-                    setUserData(user.id);
-                    handleOpenOrderHistory()}}>
-                   Load Order History</Button>
-                   <Modal
-                    show={showOrders}
-                    onHide={handleCloseOrderHistory}
-                   >
-                    <Modal.Header></Modal.Header>
-                    <Modal.Title>Orders</Modal.Title>
-                    <Modal.Body>
-                        <Accordion>
-                            {orders.length > 0 ? orders.map((order) => {
-                                return (
-                                    <Accordion.Item>
-                                        <Accordion.Header>Order # {order.id}</Accordion.Header>
-                                        <Accordion.Body>
-                                            <p style={{textDecoration: 'line-through'}}>Original Price: {order.originalPrice}</p> <span>New Price: {order.newPrice}</span>
-                                            <p>Restaurant: ## add name ## </p>
-                                            <p>Status: {order.status}</p>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                )
-                            }) : 'No previous orders'}
-                        </Accordion>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                        onClick={() => setShowOrders(false)}
-                        >Close Order History</Button>
-                        </Modal.Footer>
-                   </Modal> */}
-                    <div>
-                        <div className="vr" />
-                        <Button onClick={() => {
-                            setUserData(user.id);
-                            handleOpenSuspend()
+  return (
+    <>
+      <h2 style={{ textAlign: "center", fontWeight: "700" }}>Manage Users</h2>
+      <Stack
+        id="rest-stack"
+        style={{
+          margin: "20px",
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        {users.length
+          ? users.map((user) => {
+              let userType = "";
+              if (user.data.isRestaurantOwner) {
+                userType = "Restaurant";
+              } else if (user.data.isAdmin) {
+                userType = "Admin";
+              } else {
+                userType = "User";
+              }
+              const userOrders = orders.filter(
+                (order) => order.userId === user.userId
+              );
+              return (
+                <Card
+                  key={user.userId}
+                  style={{
+                    margin: "10px",
+                    padding: "10px",
+                    width: "20rem",
+                    border: "2px solid #41ead4",
+                  }}
+                >
+                  <h5 style={{ fontWeight: "700" }}>{user.data.name}</h5>
+                  <p>{user.data.email}</p>
+                  <p>
+                    <span style={{ fontWeight: "700" }}>Role: </span>
+                    {userType}
+                  </p>
+                  <p>
+                    <span style={{ fontWeight: "700" }}>Phone: </span>{" "}
+                    {user.data.phoneNumber}
+                  </p>
+                  <Container
+                    style={{
+                      backgroundColor: "#8783d1",
+                      padding: "4px",
+                      maxHeight: "15vh",
+                      overflow: "scroll",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    <p style={{ fontWeight: "700" }}>Order History</p>
+                    <Row style={{ fontWeight: "bold" }}>
+                      <Col>Order #</Col>
+                      <Col>Price</Col>
+                      <Col>Date</Col>
+                    </Row>
+                    {userOrders.length > 0 ? (
+                      userOrders.map((order) => {
+                        return (
+                          <div
+                            key={order?.id}
+                            style={{
+                              border: "1px solid black",
+                              padding: "2px",
+                              borderRadius: "4px",
                             }}
-                        >Suspend User</Button>
-                        <Modal
-                            show={showSuspend}
-                            onHide={handleCloseSuspend}
-                        >
-                        <Modal.Header closeButton>
-                            <Modal.Title>Suspend User</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            Are you sure you want to suspend this user?
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button
-                               variant="secondary"
-                               onClick={handleCloseSuspend} 
-                            >
-                                No, do not suspend.
-                            </Button>
-                            <Button
-                                variant="primary"
-                                onClick={() => {
-                                    handleSuspend(userData)
-                                }}
-                            >
-                                Yes, suspend.
-                            </Button>
-                        </Modal.Footer>
-                        </Modal>
+                          >
+                            <Row>
+                              <Col
+                                className="text-wrap"
+                                style={{ wordBreak: "break-all" }}
+                              >
+                                {order?.id}
+                              </Col>
+                              <Col>{order?.newPrice}</Col>
+                              <Col>{order?.expiration}</Col>
+                            </Row>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div style={{ padding: "2px" }}>
+                        <Row style={{ textAlign: "center" }}>
+                          <Col> No previous orders</Col>
+                        </Row>
                       </div>
-                    </Card>
-                )
-            }) : 'No registered users'}
-        </Stack>
-        </>
-    );
+                    )}
+                  </Container>
+                </Card>
+              );
+            })
+          : "No registered users"}
+      </Stack>
+    </>
+  );
 };
 
 export default AdminManageUsers;

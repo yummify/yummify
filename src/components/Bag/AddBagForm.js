@@ -58,7 +58,7 @@ const AddBagForm = (props) =>{
     }
   
     return(
-        <Card>
+        <Card style={{padding: "10px",margin: "10px",}}>
             <Card.Header>Add Bag</Card.Header>
             <Form>
                 <Form.Group className="bag-type-input">

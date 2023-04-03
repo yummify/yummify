@@ -2,7 +2,6 @@ import { getDocs, doc, query, collection, where, updateDoc, deleteDoc } from "fi
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// fetch all orders
 export const fetchAllOrdersAsync = createAsyncThunk("orders", async () => {
     try {
         const querySnapshot = await getDocs(collection(db, "orders"));
@@ -16,15 +15,13 @@ export const fetchAllOrdersAsync = createAsyncThunk("orders", async () => {
     }
 })
 
-// fetch all orders for a specific user
 export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId) => {
     try {
         const q = query(collection(db, "orders"), where("userId", "==", userId));
         const querySnap = await getDocs(q);
         const orders = [];
         if (querySnap.empty) {
-            console.error('No orders found.')
-            
+            console.error('No orders found.')  
         } 
         else {
             querySnap.forEach((doc) => {
@@ -32,7 +29,6 @@ export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId
             }
         )}
         return orders;
-// pass in the userId, and then fetch all ORDERS with that specific userId.
     } catch(err) {
         console.error(err);
     }
@@ -43,7 +39,6 @@ export const fetchOrderByStatusAsync = createAsyncThunk(
     async (userId) => {
       try {
         const ordersRef = collection(db, "orders");
-  
         const q = query(
           ordersRef,
           where("userId", "==", userId),
@@ -55,7 +50,6 @@ export const fetchOrderByStatusAsync = createAsyncThunk(
         querySnapshot.forEach((doc) => {
           orders.push({...doc.data(), id: doc.id})
         });
-  
         return orders;
       } catch (err) {
         console.error(err);
@@ -63,26 +57,19 @@ export const fetchOrderByStatusAsync = createAsyncThunk(
     }
   );
 
-
 export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrders", async (restaurantId) => {
     try {
         const q = query(collection(db, "orders"), where("restaurantId", "==", restaurantId));
         const querySnap = await getDocs(q)
         const restaurantOrders = [];
-        // if (querySnap.exists()) {
         querySnap.forEach((doc) => {
             restaurantOrders.push({...doc.data(), id: doc.id});
         })
-    // }
         return restaurantOrders;
     } catch(err) {
         console.error(err)
     }
 })
-
-
-
-
 
 export const markComplete = createAsyncThunk("markComplete", async (orderId) => {
     try {

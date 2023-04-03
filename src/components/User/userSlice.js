@@ -88,20 +88,6 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
-// This thunk is used to handle edit user's status 
-export const editUserStatusAsync = createAsyncThunk("editUserStatus", async (userId) => {
-  try {
-    const userRef = doc(db, "users", userId);
-    await updateDoc(userRef, {
-      status: 'suspended'
-    })
-  } catch(err) {
-    console.error(err);
-  }
-})
-
-
-
 const initialState = {};
 export const userSlice = createSlice({
   name: "user",

@@ -7,32 +7,50 @@ const AdminHome = () => {
 
   return (
     <>
-    <Container style={{height: '80vh', textAlign: 'center'}}>
-      <div id='mng-rests'>
-      <h2>Admin Dashboard</h2>
-      <ButtonToolbar className="justify-content-md-center">
-        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/manage-users")}>
-            Manage Users
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/manage-restaurants")}>
-            Manage Restaurants
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/order-history")}>
-            Order History
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup className="justify-content-md-center" style={{padding: '10px'}}>
-          <Button onClick={() => navigate("/restaurants")}>
-            Customer View
-            </Button>
-        </ButtonGroup>
-      </ButtonToolbar>
-      </div>
+      <Container style={{ height: "80vh", textAlign: "center" }}>
+        <div
+          style={{
+            border: "5px solid #41ead4",
+            padding: "15px",
+            margin: "15px",
+          }}
+        >
+          <h2 style={{ fontWeight: "700" }}>Admin Dashboard</h2>
+          <ButtonToolbar className="justify-content-md-center">
+            <ButtonGroup
+              className="justify-content-md-center"
+              style={{ padding: "10px" }}
+            >
+              <Button onClick={() => navigate("/manage-users")}>
+                Manage Users
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup
+              className="justify-content-md-center"
+              style={{ padding: "10px" }}
+            >
+              <Button onClick={() => navigate("/manage-restaurants")}>
+                Manage Restaurants
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup
+              className="justify-content-md-center"
+              style={{ padding: "10px" }}
+            >
+              <Button onClick={() => navigate("/order-history")}>
+                Order History
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup
+              className="justify-content-md-center"
+              style={{ padding: "10px" }}
+            >
+              <Button onClick={() => navigate("/restaurants")}>
+                Customer View
+              </Button>
+            </ButtonGroup>
+          </ButtonToolbar>
+        </div>
       </Container>
     </>
   );
