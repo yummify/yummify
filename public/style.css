@@ -26,7 +26,15 @@ body{
 #logo {
   width: 40vw;
 }
-
+/* 
 #pending-accordion:focus{
+  background-color: gray;
+}
+
+.accordion-header::after{
+  background-color: gray;
+} */
+
+.accordion-active-bg {
   background-color: gray;
 }

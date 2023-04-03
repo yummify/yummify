@@ -83,7 +83,7 @@ const AdminManageRestaurants = () => {
                       key={rest.id}
                       eventKey={`${restaurants.indexOf(rest)}`}
                     >
-                      <Accordion.Header className="acc-head">
+                      <Accordion.Header flush className="acc-head">
                         {rest.restaurantName}
                       </Accordion.Header>
                       <Accordion.Body>
