@@ -200,9 +200,9 @@ const AppRoutes = () => {
             </PrivateRestaurantRoute>
           }
         />
-
+        <Route path="/:id" element={<SingleRestaurant />} />
         <Route path="/map" element={<Map />} />
-
+        
         <Route path="/restaurant/:id" element={<SingleRestaurant />} />
         <Route
           path="/restaurants"

@@ -55,7 +55,7 @@ const NavBar = () => {
               <Nav.Link href="/restaurantorders">Orders</Nav.Link>
               <Nav.Link href="/restaurantinventory">Inventory</Nav.Link>
 
-              <Nav.Link href={`/restaurant/${authUser?.user?.userId}`}>
+              <Nav.Link href={`/${authUser?.user?.userId}`}>
                 View Storefront{" "}
               </Nav.Link>
               <Nav.Link onClick={logout}>Logout</Nav.Link>
