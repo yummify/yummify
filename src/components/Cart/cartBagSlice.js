@@ -44,7 +44,7 @@ export const placeBagInCartAsync = createAsyncThunk(
         userId,
       });
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
