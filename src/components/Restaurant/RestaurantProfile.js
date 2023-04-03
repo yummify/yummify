@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Image, Container, Row,Spinner } from "react-bootstrap";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/config";
 import { useNavigate, Link } from "react-router-dom";
 import {
   fetchRestaurantAsync,
@@ -13,6 +11,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
+// This component is used to display the Restaurant profile page
 const RestaurantProfile = () => {
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
@@ -20,7 +19,6 @@ const RestaurantProfile = () => {
   const [imgLoading, setImgLoading] = useState(false);
 
   const authRestaurant = useSelector(selectRestaurant);
-  console.log("authrestaurant:", authRestaurant);
   const { user } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +27,7 @@ const RestaurantProfile = () => {
     if (user?.userId) dispatch(fetchRestaurantAsync(user?.userId));
   }, [dispatch, user?.userId, fileUrl]);
 
+  // This function is used to handle image upload changes in the restaurant profile page.
   const handleImage = async (event) => {
     if (imageFile == null) return;
     const imageRef = ref(storage, `restaurants/${imageFile.name}`);
@@ -38,7 +37,6 @@ const RestaurantProfile = () => {
         setFileUrl(url);
         setImgLoading(false);
         dispatch(editRestaurantImageAsync({ restaurantId, url })).then(() => {
-          console.log("file updated");
         });
       });
     });
@@ -107,8 +105,8 @@ const RestaurantProfile = () => {
                 <p><span  style={{fontWeight : "700"}}>EIN: </span>{authRestaurant?.EIN}</p>
                 <p><span  style={{fontWeight : "700"}}>
                   Status: </span>
-                  {authRestaurant?.status === "pending" ||
-                  authRestaurant?.status === "editpending"
+                  {authRestaurant?.status === "pending"
+    
                     ? "Request sent to Admin for approval"
                     : "Restaurant got added/updated in Yummify"}
                 </p>

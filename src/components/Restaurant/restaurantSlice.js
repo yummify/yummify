@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../firebase/config";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+
+// This thunk is used to add restaurant document in the restaurants collection
 export const addRestaurantAsync = createAsyncThunk(
   "addRestaurant",
   async ({
@@ -35,13 +37,14 @@ export const addRestaurantAsync = createAsyncThunk(
         zipcode,
         terms,
       });
-      console.log("after db insert for restaurant");
+      
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
 
+// This thunk is used to fetch restaurant document by restaurantId from the Restaurants collection
 export const fetchRestaurantAsync = createAsyncThunk(
   "fetchRestaurant",
   async (restaurantId) => {
@@ -54,14 +57,15 @@ export const fetchRestaurantAsync = createAsyncThunk(
 
         return { ...restaurant, restaurantId: docSnap.id };
       } else {
-        console.log("No such document");
+        
       }
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
 
+// This thunk is used to handle image upload change of the Restaurant profile
 export const editRestaurantImageAsync = createAsyncThunk(
   "editRestaurantImage",
   async ({ restaurantId, url }) => {
@@ -70,67 +74,51 @@ export const editRestaurantImageAsync = createAsyncThunk(
       const restaurantsRef = doc(db, "restaurants", restaurantId);
       const usersRef = doc(db,"users", restaurantId);
       const data = { image: [url] };
-      updateDoc(restaurantsRef, data).then((restaurantsRef) =>
-        console.log("Value of document has been updated")
+      updateDoc(restaurantsRef, data).then(
       );
-      updateDoc(usersRef,data).then((usersRef) => console.log("Value of document has been updated"));
+      updateDoc(usersRef,data).then();
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );
 
+// This thunk is used to handle edit changes of the Restaurant profile
 export const editRestaurantAsync = createAsyncThunk(
   "editRestaurant",
   async ({
     restaurantId,
-    restaurantName,
-    cuisine,
+   
     description,
-    address,
+    
     website,
-    EIN,
+   
     phoneNumber,
-    zipcode,
+   
   }) => {
     try {
-      console.log(
-        "restaurantId and payload:",
-        restaurantId,
-        restaurantName,
-        cuisine,
-        description,
-        address,
-        website,
-        EIN,
-        phoneNumber,
-        zipcode
-      );
+      
       const restaurantsRef = doc(db, "restaurants", restaurantId);
       const usersRef = doc(db,"users", restaurantId);
       const data = {
         restaurantId,
-        restaurantName,
-        cuisine,
+        
         description,
-        address,
+        
         website,
-        EIN,
+       
         phoneNumber,
-        zipcode,
+       
       };
       const userData = {
         restaurantId,
-        name : restaurantName,
         phoneNumber,
-        zipcode
       }
-      updateDoc(restaurantsRef, data).then((restaurantsRef) =>
-        console.log("Value of document has been updated")
+      updateDoc(restaurantsRef, data).then(
       );
-      updateDoc(usersRef,data).then((usersRef) => console.log("Value of document has been updated"));
+      updateDoc(usersRef,data).then();
     } catch (err) {
-      console.log(err);
+      
     }
   }
 );

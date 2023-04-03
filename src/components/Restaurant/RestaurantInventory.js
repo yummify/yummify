@@ -38,7 +38,7 @@ const RestaurantInventory = () => {
             await dispatch(deleteBagAsync(bagId));
             dispatch(fetchGroupBagByRestAsync(restaurantId))
         }catch(err){
-            console.log(err);
+            
         }
     }
 
