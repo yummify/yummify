@@ -10,15 +10,16 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
+// This component uses useContext to provide authenticated user object that can be accessible by all the children of this component
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const fetchUser = () => {
-    console.log("+++entering fetchuser");
+   
     if (auth?.currentUser?.uid) {
-      console.log("+++before db");
+   
       dispatch(fetchUserAsync(auth.currentUser.uid)).then((res) => {
         setUser(res.payload);
         setLoading(false);
@@ -26,11 +27,12 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // This will listen to onAuthStateChanged() event listener of the firebase to get the authenticated user and set it in the local user state
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      console.log("AuthUser in useeffect:", authUser);
+   
       if (authUser) {
-        fetchUser();
+        setTimeout(fetchUser(),2000);
       } else {
         setUser();
         setLoading(false);
@@ -40,10 +42,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = { user, loading };
+
+  // This will provide the values(authenticated users and loading states)to all the children components. 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
-      {/* {children} */}
     </AuthContext.Provider>
   );
 }
