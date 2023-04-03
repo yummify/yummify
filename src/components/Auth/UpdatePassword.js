@@ -74,6 +74,7 @@ const UpdatePassword = () => {
             <Form.Control
               type="email"
               value={loginEmail}
+              maxLength={60}
               onChange={(event) => {
                 setLoginEmail(event.target.value);
                 setFormError({})
@@ -87,6 +88,7 @@ const UpdatePassword = () => {
             <Form.Control
               type="password"
               value={oldPassword}
+              maxLength={30}
               onChange={(event) => {
                 setOldPassword(event.target.value);
                 setFormError({})
@@ -99,6 +101,7 @@ const UpdatePassword = () => {
             <Form.Label>New Password :</Form.Label>
             <Form.Control
               type="password"
+              maxLength={30}
               value={newPassword}
               onChange={(event) => {
                 setNewPassword(event.target.value);

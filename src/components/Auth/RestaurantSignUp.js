@@ -165,6 +165,7 @@ const RestaurantSignUp = () => {
             <Form.Label>SignUp Email :</Form.Label>
             <Form.Control
               type="email"
+              maxLength={60}
               onChange={(event) => {
                 setSignUpEmail(event.target.value);
                 setFormError({});
@@ -178,6 +179,7 @@ const RestaurantSignUp = () => {
             <Form.Label>SignUp Password :</Form.Label>
             <Form.Control
               type="password"
+              maxLength={30}
               onChange={(event) => {
                 setSignUpPwd(event.target.value);
                 setFormError({});
@@ -191,6 +193,7 @@ const RestaurantSignUp = () => {
             <Form.Label>Restaurant Name :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={50}
               onChange={(event) => {
                 setRestaurantName(event.target.value);
                 setFormError({});
@@ -206,6 +209,7 @@ const RestaurantSignUp = () => {
             <Form.Label>Cuisine :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={30}
               onChange={(event) => {
                 setCuisine(event.target.value);
                 setFormError({});
@@ -220,6 +224,7 @@ const RestaurantSignUp = () => {
             <Form.Label>Description :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={75}
               onChange={(event) => {
                 setDescription(event.target.value);
                 setFormError({});
@@ -234,6 +239,7 @@ const RestaurantSignUp = () => {
             <Form.Label>Address :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={30}
               onChange={(event) => {
                 setAddress(event.target.value);
                 setFormError({});
@@ -247,6 +253,7 @@ const RestaurantSignUp = () => {
             <Form.Label>PhoneNumber :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={15}
               onChange={(event) => {
                 setPhoneNumber(event.target.value);
                 setFormError({});
@@ -261,6 +268,7 @@ const RestaurantSignUp = () => {
             <Form.Label>Zipcode :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={5}
               onChange={(event) => {
                 setZipcode(event.target.value);
                 setFormError({});
@@ -276,6 +284,7 @@ const RestaurantSignUp = () => {
               <InputGroup.Text id="basic-addon3">https://</InputGroup.Text>
               <Form.Control
                 type="text"
+                maxLength={50}
                 onChange={(event) => {
                   setWebsite("https://" + event.target.value);
                   setFormError({});
@@ -290,6 +299,7 @@ const RestaurantSignUp = () => {
             <Form.Label>EIN :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={12}
               onChange={(event) => {
                 setEIN(event.target.value);
                 setFormError({});

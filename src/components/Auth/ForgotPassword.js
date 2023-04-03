@@ -53,6 +53,7 @@ const ForgotPassword = () => {
             <Form.Control
               type="email"
               value={loginEmail}
+              maxLength={50}
               onChange={(event) => {
                 setLoginEmail(event.target.value);
                 setFormError({});

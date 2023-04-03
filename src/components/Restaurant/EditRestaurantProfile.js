@@ -98,6 +98,7 @@ const EditRestaurantProfile = () => {
             <Form.Control
               type="text"
               placeholder={authRestaurant.description}
+              maxLength={75}
               onChange={(event) => setDescription(event.target.value)}
             />
           </Form.Group>
@@ -116,6 +117,7 @@ const EditRestaurantProfile = () => {
             <Form.Control
               type="text"
               placeholder={authRestaurant.phoneNumber}
+              maxLength={15}
               onChange={(event) => {setPhoneNumber(event.target.value)
               setFormError({})}}
             />
@@ -137,6 +139,7 @@ const EditRestaurantProfile = () => {
             <Form.Control
               type="text"
               placeholder={authRestaurant.website}
+              maxLength={50}
               onChange={(event) => {setWebsite(event.target.value)
               setFormError({})}}
             />
@@ -148,6 +151,7 @@ const EditRestaurantProfile = () => {
             <Form.Label>EIN :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={12}
               placeholder={authRestaurant.EIN}
               onChange={(event) => setEIN(event.target.value)}
               disabled

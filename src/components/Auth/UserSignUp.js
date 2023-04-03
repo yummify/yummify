@@ -102,6 +102,7 @@ const UserSignUp = () => {
             <Form.Label>SignUp Email :</Form.Label>
             <Form.Control
               type="email"
+              maxLength={60}
               onChange={(event) => {
                 setSignUpEmail(event.target.value);
                 setFormError({});
@@ -116,6 +117,7 @@ const UserSignUp = () => {
             <Form.Label>SignUp Password :</Form.Label>
             <Form.Control
               type="password"
+              maxLength={30}
               onChange={(event) => {
                 setSignUpPwd(event.target.value);
                 setFormError({});
@@ -130,6 +132,7 @@ const UserSignUp = () => {
             <Form.Label>FirstName :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={30}
               onChange={(event) => {
                 setFirstName(event.target.value);
                 setFormError({});
@@ -144,6 +147,7 @@ const UserSignUp = () => {
             <Form.Label>LastName :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={30}
               onChange={(event) => {
                 setLastName(event.target.value);
                 setFormError({});
@@ -158,6 +162,7 @@ const UserSignUp = () => {
             <Form.Label>PhoneNumber :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={15}
               onChange={(event) => {
                 setPhoneNumber(event.target.value);
                 setFormError({});
@@ -172,6 +177,7 @@ const UserSignUp = () => {
             <Form.Label>Zipcode :</Form.Label>
             <Form.Control
               type="text"
+              maxLength={5}
               onChange={(event) => {
                 setZipcode(event.target.value);
                 setFormError({});
