@@ -99,7 +99,7 @@ const UserSignUp = () => {
       <Container>
         <Form>
           <Form.Group>
-            <Form.Label>SignUp Email :</Form.Label>
+            <Form.Label>SignUp Email: </Form.Label>
             <Form.Control
               type="email"
               maxLength={60}
@@ -114,7 +114,7 @@ const UserSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.email}</p>
           )}
           <Form.Group>
-            <Form.Label>SignUp Password :</Form.Label>
+            <Form.Label>SignUp Password: </Form.Label>
             <Form.Control
               type="password"
               maxLength={30}
@@ -129,7 +129,7 @@ const UserSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.pwd}</p>
           )}
           <Form.Group>
-            <Form.Label>FirstName :</Form.Label>
+            <Form.Label>FirstName: </Form.Label>
             <Form.Control
               type="text"
               maxLength={30}
@@ -144,7 +144,7 @@ const UserSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.firstName}</p>
           )}
           <Form.Group>
-            <Form.Label>LastName :</Form.Label>
+            <Form.Label>LastName: </Form.Label>
             <Form.Control
               type="text"
               maxLength={30}
@@ -159,7 +159,7 @@ const UserSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.lastName}</p>
           )}
           <Form.Group>
-            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Label>PhoneNumber: </Form.Label>
             <Form.Control
               type="text"
               maxLength={15}
@@ -174,7 +174,7 @@ const UserSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.phoneNumber}</p>
           )}
           <Form.Group>
-            <Form.Label>Zipcode :</Form.Label>
+            <Form.Label>Zipcode: </Form.Label>
             <Form.Control
               type="text"
               maxLength={5}
