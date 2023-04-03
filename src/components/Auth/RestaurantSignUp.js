@@ -162,7 +162,7 @@ const RestaurantSignUp = () => {
       <Container>
         <Form>
           <Form.Group>
-            <Form.Label>SignUp Email :</Form.Label>
+            <Form.Label>SignUp Email: </Form.Label>
             <Form.Control
               type="email"
               maxLength={60}
@@ -176,7 +176,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.email}</p>
           )}
           <Form.Group>
-            <Form.Label>SignUp Password :</Form.Label>
+            <Form.Label>SignUp Password: </Form.Label>
             <Form.Control
               type="password"
               maxLength={30}
@@ -190,7 +190,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.pwd}</p>
           )}
           <Form.Group>
-            <Form.Label>Restaurant Name :</Form.Label>
+            <Form.Label>Restaurant Name: </Form.Label>
             <Form.Control
               type="text"
               maxLength={50}
@@ -206,7 +206,7 @@ const RestaurantSignUp = () => {
             </p>
           )}
           <Form.Group>
-            <Form.Label>Cuisine :</Form.Label>
+            <Form.Label>Cuisine: </Form.Label>
             <Form.Control
               type="text"
               maxLength={30}
@@ -221,7 +221,7 @@ const RestaurantSignUp = () => {
           )}
 
           <Form.Group>
-            <Form.Label>Description :</Form.Label>
+            <Form.Label>Description: </Form.Label>
             <Form.Control
               type="text"
               maxLength={75}
@@ -236,7 +236,7 @@ const RestaurantSignUp = () => {
           )}
 
           <Form.Group>
-            <Form.Label>Address :</Form.Label>
+            <Form.Label>Address: </Form.Label>
             <Form.Control
               type="text"
               maxLength={30}
@@ -250,7 +250,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.address}</p>
           )}
           <Form.Group>
-            <Form.Label>PhoneNumber :</Form.Label>
+            <Form.Label>PhoneNumber: </Form.Label>
             <Form.Control
               type="text"
               maxLength={15}
@@ -265,7 +265,7 @@ const RestaurantSignUp = () => {
           )}
           
           <Form.Group>
-            <Form.Label>Zipcode :</Form.Label>
+            <Form.Label>Zipcode: </Form.Label>
             <Form.Control
               type="text"
               maxLength={5}
@@ -279,7 +279,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.zipcode}</p>
           )}
           <Form.Group>
-            <Form.Label>Website :</Form.Label>
+            <Form.Label>Website: </Form.Label>
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon3">https://</InputGroup.Text>
               <Form.Control
@@ -296,7 +296,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.website}</p>
           )}
           <Form.Group>
-            <Form.Label>EIN :</Form.Label>
+            <Form.Label>EIN: </Form.Label>
             <Form.Control
               type="text"
               maxLength={12}
@@ -310,7 +310,7 @@ const RestaurantSignUp = () => {
             <p className="text-danger-emphasis my-3">{formError.EIN}</p>
           )}
           <Form.Group>
-            <Form.Label>Terms and Conditions : </Form.Label>
+            <Form.Label>Terms and Conditions: </Form.Label>
             <Link to="/terms-and-conditions" target="_blank" className="mx-2">Click to view</Link>
             <Form.Check
               onChange={(event) => setTerms(!terms)}
