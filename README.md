@@ -1,12 +1,14 @@
 # Yummify
 
-Full stack e-commerce app - allows users to reserve surprise bags of leftover food from local restaurants
+Yummify is a full stack e-commerce app that helps businesses and users by supporting them in reducing food waste and maximizing the value of their dollar.  This platform allows restaurants to offer discount “surprise bags,” at the hours of their choosing, so that their unsold or unused food goes to customers, rather than into the trash.  They reduce the amount of trash hauling they need, recoup some of the costs for purchasing ingredients and preparing the food, and demonstrate to their customers that they are taking responsibility for their environmental impact. 
 
 ## Features
 
 - Map and List view of participating restaurants
 - User/Restaurant/Admin Login, Account Creation, Authentication
 - Designed for mobile view first
+
+This project was created with create-react-app, as a Capstone Project for the Grace Hopper Web Development Program at Fullstack Academy.
 
 ## Technologies Used
 
@@ -15,9 +17,13 @@ Full stack e-commerce app - allows users to reserve surprise bags of leftover fo
 - React Router
 - Node
 - Firebase
+- Cloud Firestore
+- Cloud Storage (Firebase)
 - Firebase Authorization
+- Google Maps API
 - Webpack
 - Bootstrap
+- JavaScript
 - CSS
 - HTML
 
@@ -45,45 +51,3 @@ SRC Folder:
 
 4. Store
     - compiles Redux slices
-
-
-### Database
-
-Yummify uses Firebase (Firestore Database) from Google
-
-Collections: 
-    - Restaurants
-    - Users
-    - Bags
-    - Orders
-
-
-
-<!-- ### 3/17###
-- commented auth out of firebase/config
-- not accessing firebase correctly bc redux is empty -->
-
-
-
-
-Issues: 
--learning firebase
--dotenv & react combination
--limit with DB calls in Firestore
-
-
-STYLE NOTES: 
-- fonts: 
-    font-family: 'Amaranth', sans-serif;
-    font-family: 'Arsenal', sans-serif;
-    font-family: 'Karma', serif;
-    font-family: 'PT Serif', serif;
-    font-family: 'Shadows Into Light Two', cursive;
-
-- colors: 
-    background: white
-    buttons: #8783d1
-    primary borders: #41ead4
-    secondary borders: #fbff12
-    footer: #e5d4ce
-    **pink in logo: #ff206e
