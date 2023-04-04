@@ -43,10 +43,10 @@ const RestaurantOrders = () => {
         <div>
           <h3>Awaiting Pickup</h3>
           <Container style={{ textAlign: "center" }}>
-            <Row style={{ fontWeight: "bold" }}>
-              <Col>Confirmation Number</Col>
-              <Col>Ordered By</Col>
-              <Col>Pickup Time</Col>
+            <Row style={{ fontWeight: "bold"}}>
+              <Col className='text-wrap'>Order Number</Col>
+              <Col className='text-wrap'>Ordered <div>By</div></Col>
+              <Col className='text-wrap'>Pickup Time</Col>
               <Col className='text-wrap'>Mark Complete</Col>
             </Row>
           </Container>
@@ -93,7 +93,7 @@ const RestaurantOrders = () => {
           <h3>Complete</h3>
           <Container style={{ textAlign: "center" }}>
             <Row style={{ fontWeight: "bold" }}>
-              <Col>Confirmation Number</Col>
+              <Col>Order Number</Col>
               <Col>Ordered By</Col>
               <Col>Pickup Time</Col>
               <Col> </Col>

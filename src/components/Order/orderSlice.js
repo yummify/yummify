@@ -76,7 +76,7 @@ export const markComplete = createAsyncThunk("markComplete", async (orderId) => 
         const orderRef = doc(db, "orders", orderId);
         const time = new Date().toJSON();
         await updateDoc(orderRef, {
-            status: 'complete',
+            status: 'awaiting pickup',
             updated: time,
         })
     } catch(err) {
