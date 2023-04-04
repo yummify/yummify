@@ -30,7 +30,7 @@ import AuthorizationError from "../Auth/AuthorizationError";
 
 import PrivacyPolicy from "../Footer/PrivacyPolicy";
 import TermsAndConditions from "../Footer/TermsAndConditions";
-import About from "../Footer/About";
+import About from "../Footer/About"
 import ForgotPassword from "../Auth/ForgotPassword";
 import UpdatePassword from "../Auth/UpdatePassword";
 

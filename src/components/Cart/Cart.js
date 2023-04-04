@@ -55,7 +55,6 @@ const Cart = () => {
   };
 
   const orders = allorders.filter((order) => order.status === "shopping");
-  console.log("after filter,", orders);
 
   return (
     <>
@@ -147,7 +146,7 @@ const Cart = () => {
 
         {orders?.length === 0 && (
           <Card>
-            <p>Your cart is empty</p> {console.log("hi")}{" "}
+            <p>Your cart is empty</p>
             <Card.Link href="/restaurants">Return to Browse</Card.Link>
           </Card>
         )}

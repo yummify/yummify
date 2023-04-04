@@ -10,14 +10,15 @@ import Footer from "../Footer/Footer";
 
 function App() {
   const location = useLocation();
-  // location.pathname(/)
   return (
     <div className="App">
+      <div className='margin'>
       <AuthProvider>
         {location.pathname === "/" && <Splash/>}
         {location.pathname !== "/" && <NavBar/>}
         <AppRoutes />
       </AuthProvider>
+      </div>
         {location.pathname !== "/" && <Footer/>}
     </div>
   );
