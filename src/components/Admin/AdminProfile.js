@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Image, Container, Row, Spinner } from "react-bootstrap";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import {
   fetchUserAsync,
@@ -55,48 +53,51 @@ const AdminProfile = () => {
               <Col className="text-center my-3 mx-3 border">
                 <h1 className="my-3">{authuser?.name}</h1>
                 <Col className="text-center my-3 mx-3 border">
-                {imgLoading ? (
-                  <div>
-                    Loading...
-                    <Spinner animation="border" />
-                  </div>
-                ) : (
-                  <Image
-                    fluid
-                    src={fileUrl ? fileUrl : authuser.image}
-                    alt="image of user"
-                    thumbnail
-                    className="my-3"
-                    style={{ width: "150px", borderRadius: "10px" }}
-                  />
-                )}
-                {!upload && (
-                  <Button
-                    onClick={() => setUpload(true)}
-                    className="d-block my-3 mx-auto"
-                  >
-                    Upload Photo
-                  </Button>
-                )}
-                {upload && (
-                  <Col className="my-3 text-center">
-                    <input
-                      type="file"
-                      onChange={(event) => setImageFile(event.target.files[0])}
-                    />
+                  {imgLoading ? (
                     <div>
-                      <Button className="my-3" onClick={handleImage}>
-                        Add Photo
-                      </Button>
-                      <Button className="mx-3" onClick={() => setUpload(false)}>
-                        Cancel
-                      </Button>
+                      Loading...
+                      <Spinner animation="border" />
                     </div>
-                  </Col>
-                )}
-              </Col>
-              {/* <Col className="border my-3 mx-3 text-center"> */}
-                {/* <h1 className="my-3">{authuser?.name}</h1> */}
+                  ) : (
+                    <Image
+                      fluid
+                      src={fileUrl ? fileUrl : authuser.image}
+                      alt="image of user"
+                      thumbnail
+                      className="my-3"
+                      style={{ width: "150px", borderRadius: "10px" }}
+                    />
+                  )}
+                  {!upload && (
+                    <Button
+                      onClick={() => setUpload(true)}
+                      className="d-block my-3 mx-auto"
+                    >
+                      Upload Photo
+                    </Button>
+                  )}
+                  {upload && (
+                    <Col className="my-3 text-center">
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          setImageFile(event.target.files[0])
+                        }
+                      />
+                      <div>
+                        <Button className="my-3" onClick={handleImage}>
+                          Add Photo
+                        </Button>
+                        <Button
+                          className="mx-3"
+                          onClick={() => setUpload(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </Col>
+                  )}
+                </Col>
                 <p>
                   <span style={{ fontWeight: "700" }}>Email: </span>
                   {authuser?.email}
@@ -121,8 +122,7 @@ const AdminProfile = () => {
                 >
                   Update password
                 </Button>
-                </Col>
-          
+              </Col>
             </Row>
           </Container>
         </div>

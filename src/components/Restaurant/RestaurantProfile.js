@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Image, Container, Row,Spinner } from "react-bootstrap";
+import { Button, Col, Image, Container, Row, Spinner } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import {
   fetchRestaurantAsync,
@@ -11,7 +11,6 @@ import { useAuth } from "../../contexts/AuthContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
-// This component is used to display the Restaurant profile page
 const RestaurantProfile = () => {
   const [fileUrl, setFileUrl] = useState();
   const [imageFile, setImageFile] = useState(null);
@@ -35,8 +34,9 @@ const RestaurantProfile = () => {
       getDownloadURL(snapshot.ref).then((url) => {
         setFileUrl(url);
         setImgLoading(false);
-        dispatch(editRestaurantImageAsync({ restaurantId, url })).then(() => {
-        });
+        dispatch(editRestaurantImageAsync({ restaurantId, url })).then(
+          () => {}
+        );
       });
     });
     const restaurantId = user?.userId;
@@ -49,70 +49,95 @@ const RestaurantProfile = () => {
         <div>
           <Container className="border my-3">
             <Row>
-            <Col className="text-center my-3 mx-3 border">
-            <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
-            <Col className="text-center my-3 mx-3 border">
-            {imgLoading ? <div>
-          Loading...
-          <Spinner animation="border" />
-        </div> :
-                <Image
-                  fluid
-                  src={
-                    fileUrl
-                      ? fileUrl
-                      : authRestaurant?.image?.[0]
-                  }
-                  alt="image of restaurant"
-                  thumbnail
-                  className="my-3"
-                  style={{ width: "150px", borderRadius: "10px" }}
-                />}
-
-                {!upload && (
-                  <Button
-                    onClick={() => setUpload(true)}
-                    className="d-block my-3 mx-auto"
-                  >
-                    Upload Photo
-                  </Button>
-                )}
-               
-
-                {upload && (
-                  <Col className="my-3 d-block">
-                    <input
-                      type="file"
-                      onChange={(event) => setImageFile(event.target.files[0])}
-                    />
+              <Col className="text-center my-3 mx-3 border">
+                <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
+                <Col className="text-center my-3 mx-3 border">
+                  {imgLoading ? (
                     <div>
-                    <Button className="my-3" onClick={handleImage}>
-                      Add Photo
-                    </Button>
-                    <Button className="mx-3"onClick={() => setUpload(false)}>Cancel</Button>
+                      Loading...
+                      <Spinner animation="border" />
                     </div>
-                  </Col>
+                  ) : (
+                    <Image
+                      fluid
+                      src={fileUrl ? fileUrl : authRestaurant?.image?.[0]}
+                      alt="image of restaurant"
+                      thumbnail
+                      className="my-3"
+                      style={{ width: "150px", borderRadius: "10px" }}
+                    />
+                  )}
 
-                )}
-              </Col>
-              {/* <Col className="border my-3 mx-3 text-center"> */}
-                
-                <p><span style={{fontWeight : "700"}}>Email: </span>{authRestaurant?.email}</p>
-                <p><span  style={{fontWeight : "700"}}>Cuisine: </span>{authRestaurant?.cuisine}</p>
-                <p><span  style={{fontWeight : "700"}}>Description: </span>{authRestaurant?.description}</p>
-                <p><span  style={{fontWeight : "700"}}>Address: </span>{authRestaurant?.address}</p>
-                <p><span  style={{fontWeight : "700"}}>EIN: </span>{authRestaurant?.EIN}</p>
-                <p><span  style={{fontWeight : "700"}}>
-                  Status: </span>
+                  {!upload && (
+                    <Button
+                      onClick={() => setUpload(true)}
+                      className="d-block my-3 mx-auto"
+                    >
+                      Upload Photo
+                    </Button>
+                  )}
+
+                  {upload && (
+                    <Col className="my-3 d-block">
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          setImageFile(event.target.files[0])
+                        }
+                      />
+                      <div>
+                        <Button className="my-3" onClick={handleImage}>
+                          Add Photo
+                        </Button>
+                        <Button
+                          className="mx-3"
+                          onClick={() => setUpload(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </Col>
+                  )}
+                </Col>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Email: </span>
+                  {authRestaurant?.email}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Cuisine: </span>
+                  {authRestaurant?.cuisine}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Description: </span>
+                  {authRestaurant?.description}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Address: </span>
+                  {authRestaurant?.address}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>EIN: </span>
+                  {authRestaurant?.EIN}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Status: </span>
                   {authRestaurant?.status === "pending"
-    
                     ? "Request sent to Admin for approval"
                     : "Restaurant got added/updated in Yummify"}
                 </p>
-                <p><span   style={{fontWeight : "700"}}>Phone Number: </span>{authRestaurant?.phoneNumber}</p>
-                <p><span   style={{fontWeight : "700"}}>Zipcode: </span>{authRestaurant.zipcode}</p>
-                <p><span   style={{fontWeight : "700"}}>
-                  Website: </span><Link to={authRestaurant.website} target="_blank">{authRestaurant.website}</Link>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Phone Number: </span>
+                  {authRestaurant?.phoneNumber}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Zipcode: </span>
+                  {authRestaurant.zipcode}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "700" }}>Website: </span>
+                  <Link to={authRestaurant.website} target="_blank">
+                    {authRestaurant.website}
+                  </Link>
                 </p>
                 <Button
                   className="mx-3"
