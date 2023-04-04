@@ -49,6 +49,15 @@ function Footer() {
               </li>
               <li>
                 <Link
+                  to="/about"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/terms-and-conditions"
                   target="_blank"
                   rel="noopener noreferrer"
