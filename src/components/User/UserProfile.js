@@ -137,7 +137,7 @@ const UserProfile = () => {
                   </Col>
                 )}
               </Col>
-              <Col className="border my-3 mx-3 text-center">
+              {/* <Col className="border my-3 mx-3 text-center"> */}
                 {/* <h1 className="my-3">{authuser?.name}</h1> */}
                 <p>
                   <span style={{ fontWeight: "700" }}>Email: </span>
@@ -164,7 +164,7 @@ const UserProfile = () => {
                   Update password
                 </Button>
               </Col>
-              </Col>
+              {/* </Col> */}
             </Row>
             <Row>
               <Col>
