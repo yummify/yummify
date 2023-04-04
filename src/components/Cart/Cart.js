@@ -120,7 +120,8 @@ const Cart = () => {
                     not actually be charged.{" "}
                   </Alert>
                   <Card style={{ width: "100%" }}>
-                    <Badge style={{width: "100%"}}>Total Price</Badge>
+                    <Card.Header style={{width: "100%", backgroundColor: "lightgray", textAlign: "center"}}>Prices</Card.Header>
+                    
                     <p>
                       <span style={{ fontWeight: "700" }}>Total Savings: </span>
                       ${savings(order.originalPrice, order.newPrice)}
@@ -132,7 +133,7 @@ const Cart = () => {
                     </p>
                     <div></div>
                     <p>
-                      <span style={{ fontWeight: "700" }}>Plus Taxes: </span>$
+                      <span style={{ fontWeight: "700" }}>Taxes: </span>$
                       {(order.newPrice * 0.0875).toFixed(2)}
                     </p>
                     <div></div>
