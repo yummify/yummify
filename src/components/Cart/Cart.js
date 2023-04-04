@@ -115,7 +115,7 @@ const Cart = () => {
                       </Card.Body>
                     </Stack>
                     <Card.Footer
-                      style={{ textAlign: "right", backgroundColor: "#fbff12" }}
+                      style={{ textAlign: "right", backgroundColor: "white" }}
                     >
                       <Stack direction="horizontal">
                         <Card.Text style={{ margin: "5px" }}>
@@ -134,6 +134,7 @@ const Cart = () => {
                       style={{
                         width: "98%",
                         border: ".5px solid black",
+                        paddingTop: '5px',
                         margin: "4px",
                       }}
                     >

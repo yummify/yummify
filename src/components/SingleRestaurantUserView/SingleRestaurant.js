@@ -43,7 +43,7 @@ const SingleRestaurant = () => {
 
   return (
     <>
-      <Card style={{ width: "98%", marginBottom: '8px'}}>
+      <Card style={{ width: "98%", marginBottom: '8px', border: "3px solid #8783d1"}}>
         <Card.Img variant="top" src={restaurant.image?.[0]} />
         <Card.Header style={{backgroundColor: 'white'}} className="text-center">
           <span style={{ fontWeight: "700", fontSize: "24px" }}>

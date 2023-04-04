@@ -58,7 +58,7 @@ const AllRestaurants = ({ searchTerm, selectedCuisine }) => {
                   <Card
                     key={restaurant.id}
                     style={{ width: "90%", backgroundColor: "#E5D4CE",
-                      border: "3px solid #41ead4"}}
+                      border: "3px solid #8783d1"}}
                     className="mb-2"
                   >
                     <Card.Header><span style={{ fontWeight: "700", fontSize: "24px"}}>{restaurant.restaurantName}</span></Card.Header>
