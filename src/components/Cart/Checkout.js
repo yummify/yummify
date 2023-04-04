@@ -55,8 +55,8 @@ const Checkout = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Card style={{ width: "90vw" }}>
-        <Card.Header className="text-center">
+      <Card style={{ width: "90vw", marginBottom: '8px', border: "3px solid #41ead4" }}>
+        <Card.Header className="text-center" style={{backgroundColor: 'white'}}>
           <span style={{ fontWeight: "700", fontSize: "24px" }}>
             Your Order
           </span>
@@ -88,7 +88,7 @@ const Checkout = () => {
           </Card.Text>
         </Card.Body>
         <Card.Body>
-          <Card.Link style={{ float: "right" }} href="/restaurants">
+          <Card.Link style={{ float: "right", color: '#706bca' }} href="/restaurants">
             Back to Restaurants
           </Card.Link>
         </Card.Body>

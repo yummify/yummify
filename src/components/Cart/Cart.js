@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -16,7 +16,6 @@ import {
 } from "../AllRestaurants/allRestaurantsSlice";
 
 const Cart = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,7 +57,15 @@ const Cart = () => {
 
   return (
     <>
-      <Alert variant={"warning"}>
+      <Alert
+        style={{
+        backgroundColor: "white",
+          color: "black",
+          border: "3px solid #FCFC72",
+          textAlign: "center",
+          width: '80vw'
+        }}
+      >
         Remember: the contents of this bag are a SURPRISE!
       </Alert>
       <Stack>
@@ -69,77 +76,102 @@ const Cart = () => {
               const rest = restaurants.find((rest) => rest.id === restId);
 
               return (
-                <Card>
-                  <Button
-                    variant="outline-dark"
-                    className="text-right"
-                    style={{ textAlign: "right" }}
-                    onClick={() => {
-                      handleDeleteOrder(order.id);
-                    }}
-                  >
-                    {" "}
-                    Delete Bag{" "}
-                  </Button>
-                  <Stack direction="horizontal">
-                    <Card.Header>
-                      <Card.Img
-                        src="https://media.istockphoto.com/id/184395659/photo/brown-paper-bag-and-apple.jpg?s=612x612&w=0&k=20&c=MLpwawtbge0roehL_8LF638qGxBXrIWdDlItyrLxQ-s="
-                        style={{ width: "20vw" }}
-                      ></Card.Img>
-                    </Card.Header>
-                    <Card.Body>
-                      <Card.Title>
-                        {order.type} SuperBag @ {rest?.restaurantName}{" "}
-                      </Card.Title>
-                      <Card.Text>
-                        <span style={{ fontWeight: "700" }}>
-                          Pickup Window:{" "}
-                        </span>
-                        {order.pickup}, {order.address}
-                      </Card.Text>
-                    </Card.Body>
-                  </Stack>
-                  <Card.Footer style={{ textAlign: "right" }}>
-                    <Stack direction="horizontal">
-                      <Card.Text style={{ margin: "5px" }}>
-                        <s>
-                          Original Price: $
-                          {Number(order.originalPrice).toFixed(2)}
-                        </s>
-                      </Card.Text>
-                      <Card.Text style={{ margin: "5px" }}>
-                        New Price: ${Number(order.newPrice).toFixed(2)}
-                      </Card.Text>
-                    </Stack>
-                  </Card.Footer>
-                  <Alert variant={"danger"}>
-                    Note: This app is a Capstone Project. Orders will not
-                    actually be sent to these restaurants, and credit cards will
-                    not actually be charged.{" "}
-                  </Alert>
-                  <Card style={{ width: "100%" }}>
-                    <p>
-                      <span style={{ fontWeight: "700" }}>Total Savings: </span>
-                      ${savings(order.originalPrice, order.newPrice)}
-                    </p>
-                    <div></div>
-                    <p>
-                      <span style={{ fontWeight: "700" }}>Plus Taxes: </span>$
-                      {(order.newPrice * 0.0875).toFixed(2)}
-                    </p>
-                    <div></div>
-                    <p>
+                <div>
+                  <Card style={{ border: "3px solid #41ead4" }}>
+                    <div className="float-end" style={{ width: "95vw" }}>
                       <Button
+                        variant="outline-dark"
+                        className="float-end"
+                        style={{
+                          textAlign: "right",
+                          margin: "1px 1px 12px 0",
+                          width: "6rem",
+                        }}
                         onClick={() => {
-                          handleCheckout(order.id, order.bagId);
+                          handleDeleteOrder(order.id);
                         }}
                       >
-                        Checkout: ${totalPrice(order.newPrice)}
+                        {" "}
+                        Delete Bag{" "}
                       </Button>
-                    </p>
+                    </div>
+                    <Stack direction="horizontal">
+                      <Card.Header className="position-relative">
+                        <Card.Img
+                          src="https://media.istockphoto.com/id/184395659/photo/brown-paper-bag-and-apple.jpg?s=612x612&w=0&k=20&c=MLpwawtbge0roehL_8LF638qGxBXrIWdDlItyrLxQ-s="
+                          style={{ width: "20vw" }}
+                        ></Card.Img>
+                      </Card.Header>
+                      <Card.Body>
+                        <Card.Title>
+                          {order.type} SuperBag @ {rest?.restaurantName}{" "}
+                        </Card.Title>
+                        <Card.Text>
+                          <span style={{ fontWeight: "700" }}>
+                            Pickup Window:{" "}
+                          </span>
+                          {order.pickup}, {order.address}
+                        </Card.Text>
+                      </Card.Body>
+                    </Stack>
+                    <Card.Footer
+                      style={{ textAlign: "right", backgroundColor: "#fbff12" }}
+                    >
+                      <Stack direction="horizontal">
+                        <Card.Text style={{ margin: "5px" }}>
+                          <s>
+                            Original Price: $
+                            {Number(order.originalPrice).toFixed(2)}
+                          </s>
+                        </Card.Text>
+                        <Card.Text style={{ margin: "5px" }}>
+                          <span style={{fontWeight: '700'}}>New Price: </span>${Number(order.newPrice).toFixed(2)}
+                        </Card.Text>
+                      </Stack>
+                    </Card.Footer>
+
+                    <Card
+                      style={{
+                        width: "98%",
+                        border: ".5px solid black",
+                        margin: "4px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "700" }}>
+                          Total Savings:{" "}
+                        </span>
+                        ${savings(order.originalPrice, order.newPrice)}
+                      </p>
+                      <div></div>
+                      <p>
+                        <span style={{ fontWeight: "700" }}>Plus Taxes: </span>$
+                        {(order.newPrice * 0.0875).toFixed(2)}
+                      </p>
+                      <div></div>
+                      <p>
+                        <Button
+                          onClick={() => {
+                            handleCheckout(order.id, order.bagId);
+                          }}
+                        >
+                          Checkout: ${totalPrice(order.newPrice)}
+                        </Button>
+                      </p>
+                    </Card>
                   </Card>
-                </Card>
+                  <Alert
+                    variant={"danger"}
+                    style={{
+                      fontSize: ".8rem",
+                      fontStyle: "italic",
+                      margin: "6px",
+                    }}
+                  >
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to these restaurants.{" "}
+                  </Alert>
+                </div>
               );
             }
           })}

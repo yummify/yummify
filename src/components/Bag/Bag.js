@@ -42,7 +42,7 @@ const Bag = (restaurant) => {
   };
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "18rem", border: "3px solid #41ead4" }}>
       <Card.Body>
         <Card.Title>
           <b>{type} Surprise Bag</b>

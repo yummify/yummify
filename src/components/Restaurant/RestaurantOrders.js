@@ -40,7 +40,7 @@ const RestaurantOrders = () => {
     <>
       <h1 style={{ fontWeight: "bold" }}>Orders</h1>
       <Stack>
-        <div>
+        <div style={{marginBottom: '8px', border: "3px solid #41ead4", padding: '5px'}}>
           <h3>Awaiting Pickup</h3>
           <Container style={{ textAlign: "center" }}>
             <Row style={{ fontWeight: "bold"}}>
@@ -50,7 +50,7 @@ const RestaurantOrders = () => {
               <Col className='text-wrap'>Mark Complete</Col>
             </Row>
           </Container>
-          {incompleteOrders
+          {incompleteOrders.length > 0
             ? incompleteOrders.map((order) => {
                 const singleUser = usersList.find(
                   (user) => user.userId === order.userId
@@ -60,7 +60,8 @@ const RestaurantOrders = () => {
                     style={{
                       backgroundColor: "lightgray",
                       textAlign: "center",
-                      margin: '5px' 
+                      margin: '5px', 
+                      border: '1px solid black' 
                     }}
                   >
                     <Container>
@@ -86,10 +87,10 @@ const RestaurantOrders = () => {
                   </Card>
                 );
               })
-            : null}
+            : <Card style={{textAlign: 'center', border: '1px solid black'}}>No current orders</Card>}
         </div>
         <div></div>
-        <div>
+        <div  style={{backgroundColor: 'lightgray', padding: '5px', marginBottom: '8px'}}>
           <h3>Complete</h3>
           <Container style={{ textAlign: "center" }}>
             <Row style={{ fontWeight: "bold" }}>

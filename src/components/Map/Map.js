@@ -99,7 +99,7 @@ function MapContent({ restaurants, handleSearch }) {
   };
 
   return (
-    <div>
+    <div style={{marginBottom: '8px'}}>
       <GoogleMap
         zoom={14}
         center={center}
