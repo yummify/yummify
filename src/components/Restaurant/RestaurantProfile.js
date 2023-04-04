@@ -49,7 +49,12 @@ const RestaurantProfile = () => {
         <div>
           <Container className="border my-3">
             <Row>
-              <Col className="text-center my-3 mx-3 border">
+              <Col
+                style={{
+                  border: "3px solid #41ead4",
+                }}
+                className="text-center my-3 mx-3"
+              >
                 <h1 className="my-3">{authRestaurant?.restaurantName}</h1>
                 <Col className="text-center my-3 mx-3 border">
                   {imgLoading ? (

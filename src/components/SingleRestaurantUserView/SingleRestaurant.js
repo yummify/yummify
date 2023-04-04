@@ -43,9 +43,9 @@ const SingleRestaurant = () => {
 
   return (
     <>
-      <Card style={{ width: "25rem" }}>
+      <Card style={{ width: "98%", marginBottom: '8px', border: "3px solid #8783d1"}}>
         <Card.Img variant="top" src={restaurant.image?.[0]} />
-        <Card.Header className="text-center">
+        <Card.Header style={{backgroundColor: 'white'}} className="text-center">
           <span style={{ fontWeight: "700", fontSize: "24px" }}>
             {restaurant.restaurantName}
           </span>
@@ -56,7 +56,7 @@ const SingleRestaurant = () => {
             {restaurant.description}
           </Card.Text>
         </Card.Body>
-        <ListGroup className="list-group-flush">
+        <ListGroup className="list-group-flush" style={{textAlign: 'center'}}>
           <ListGroup.Item>
             <b>Cuisine:</b> {restaurant.cuisine}
           </ListGroup.Item>
@@ -80,8 +80,8 @@ const SingleRestaurant = () => {
             : " No bags available"}
         </Card.Body>
         <Card.Body>
-          <Card.Link href={restaurant.website}>Website</Card.Link>
-          <Card.Link style={{ float: "right" }} href="/restaurants">
+          <Card.Link href={restaurant.website} style={{color: '#706bca'}}>Website</Card.Link>
+          <Card.Link style={{ float: "right", color: '#706bca' }} href="/restaurants">
             Back to Restaurants
           </Card.Link>
         </Card.Body>

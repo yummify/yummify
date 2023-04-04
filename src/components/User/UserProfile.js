@@ -84,61 +84,63 @@ const UserProfile = () => {
 
   return (
     <div>
-      {/* {loading && (
-        <div>
-          Loading...
-          <Spinner animation="border" />
-        </div>
-      )} */}
       {user?.userId && (
         <div>
-          <Container className="border my-3">
+          <Container className="my-3 border">
             <Row>
-              <Col className="text-center my-3 mx-3 border">
-              <h1 className="my-3">{authuser?.name}</h1>
-              <Col className="text-center my-3 mx-3 border">
-                {imgLoading ? (
-                  <div>
-                    Loading...
-                    <Spinner animation="border" />
-                  </div>
-                ) : (
-                  <Image
-                    fluid
-                    src={fileUrl ? fileUrl : authuser.image}
-                    alt="image of user"
-                    thumbnail
-                    className="my-3"
-                    style={{ width: "150px", borderRadius: "10px" }}
-                  />
-                )}
-                {!upload && (
-                  <Button
-                    onClick={() => setUpload(true)}
-                    className="d-block my-3 mx-auto"
-                  >
-                    Upload Photo
-                  </Button>
-                )}
-                {upload && (
-                  <Col className="my-3 text-center">
-                    <input
-                      type="file"
-                      onChange={(event) => setImageFile(event.target.files[0])}
-                    />
+              <Col
+                style={{
+                  border: "3px solid #41ead4",
+                }}
+                className="text-center my-3 mx-3"
+              >
+                <h1 className="my-3">{authuser?.name}</h1>
+                <Col className="text-center my-3 mx-3 border">
+                  {imgLoading ? (
                     <div>
-                      <Button className="my-3" onClick={handleImage}>
-                        Add Photo
-                      </Button>
-                      <Button className="mx-3" onClick={() => setUpload(false)}>
-                        Cancel
-                      </Button>
+                      Loading...
+                      <Spinner animation="border" />
                     </div>
-                  </Col>
-                )}
-              </Col>
-              {/* <Col className="border my-3 mx-3 text-center"> */}
-                {/* <h1 className="my-3">{authuser?.name}</h1> */}
+                  ) : (
+                    <Image
+                      fluid
+                      src={fileUrl ? fileUrl : authuser.image}
+                      alt="image of user"
+                      thumbnail
+                      className="my-3"
+                      style={{ width: "150px", borderRadius: "10px" }}
+                    />
+                  )}
+                  {!upload && (
+                    <Button
+                      onClick={() => setUpload(true)}
+                      className="d-block my-3 mx-auto"
+                    >
+                      Upload Photo
+                    </Button>
+                  )}
+                  {upload && (
+                    <Col className="my-3 text-center">
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          setImageFile(event.target.files[0])
+                        }
+                      />
+                      <div>
+                        <Button className="my-3" onClick={handleImage}>
+                          Add Photo
+                        </Button>
+                        <Button
+                          className="mx-3"
+                          onClick={() => setUpload(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </Col>
+                  )}
+                </Col>
                 <p>
                   <span style={{ fontWeight: "700" }}>Email: </span>
                   {authuser?.email}
@@ -172,7 +174,7 @@ const UserProfile = () => {
 
                 {orderHistory?.length > 0 ? (
                   <Table striped bordered hover responsive="sm">
-                    <thead>
+                    <thead >
                       <tr>
                         <th>Order #</th>
                         <th>Restaurant Name</th>

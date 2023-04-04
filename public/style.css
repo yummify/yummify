@@ -1,6 +1,9 @@
 #root {
   background-color: white;
   font-family: "Karma", serif;
+}
+
+.margin {
   margin: 2vh 2vw 0 2vw;
 }
 
