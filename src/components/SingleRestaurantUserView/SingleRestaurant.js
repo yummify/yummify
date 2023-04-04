@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 import Bag from "../Bag/Bag";
 import {
@@ -14,29 +12,19 @@ import {
 } from "./singleRestaurantSlice";
 import { fetchGroupBagByRestAsync, selectBag } from "../Bag/bagSlice";
 
-
 const SingleRestaurant = () => {
   const dispatch = useDispatch();
-  //select restaurant currently in state
   const restaurant = useSelector(selectRestaurant);
-  //select bag connected to restaurant
   const bags = useSelector(selectBag);
 
-  //useParams, restaurantId, to get bagId
   const { id } = useParams();
 
-  //dispatch thunks with restaurantId to grab restaurant and bag
   useEffect(() => {
     dispatch(fetchSingleRestaurant(id));
 
     dispatch(fetchGroupBagByRestAsync(id));
   }, [dispatch, id]);
 
-  //get userId from auth context
-  // const { user } = useAuth();
-  // const userIdFromAuth = user.userId;
-
-  //to sort bags from fetchGroupBag array from active/inactive
   const checkActive = (expir, quant) => {
     const parts = expir.split("-");
     const expdate = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -48,7 +36,6 @@ const SingleRestaurant = () => {
     }
   };
 
-  //for Bootstrap modal
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -56,29 +43,12 @@ const SingleRestaurant = () => {
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Remember!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Surprise bags are a surprise! Your friendly neighborhood restaurant
-          fills them based on available products at the end of the day, so you
-          can't be exactly sure what you'll get.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
       <Card style={{ width: "25rem" }}>
         <Card.Img variant="top" src={restaurant.image?.[0]} />
         <Card.Header className="text-center">
-          <span style={{ fontWeight: "700", fontSize: "24px"}}>{restaurant.restaurantName}</span>
+          <span style={{ fontWeight: "700", fontSize: "24px" }}>
+            {restaurant.restaurantName}
+          </span>
         </Card.Header>
         <Card.Body>
           <Card.Text>
@@ -87,27 +57,33 @@ const SingleRestaurant = () => {
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-            <ListGroup.Item><b>Cuisine:</b> {restaurant.cuisine}</ListGroup.Item>
-            <ListGroup.Item><b>Address:</b> {restaurant.address}</ListGroup.Item>
-            <ListGroup.Item><b>Phone:</b> {restaurant.phoneNumber}</ListGroup.Item>
+          <ListGroup.Item>
+            <b>Cuisine:</b> {restaurant.cuisine}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>Address:</b> {restaurant.address}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>Phone:</b> {restaurant.phoneNumber}
+          </ListGroup.Item>
         </ListGroup>
         <Card.Body>
-            Order a Surprise Bag from: {restaurant.restaurantName}
-            
-            {bags.length > 0 ? bags.map((bag)=>{
-                    if(checkActive(bag.expiration,bag.quantity)===true){
-                        return(
-                          <Bag bag={bag} key={bag.id}/>
-                        )}
-                        else {
-                          return null;
-                        }
-                    }): " No bags available"}
-                        
+          Order a Surprise Bag from: {restaurant.restaurantName}
+          {bags.length > 0
+            ? bags.map((bag) => {
+                if (checkActive(bag.expiration, bag.quantity) === true) {
+                  return <Bag bag={bag} key={bag.id} />;
+                } else {
+                  return null;
+                }
+              })
+            : " No bags available"}
         </Card.Body>
         <Card.Body>
-            <Card.Link href={restaurant.website}>Website</Card.Link>
-            <Card.Link style={{float: 'right'}}href="/restaurants">Back to Restaurants</Card.Link> 
+          <Card.Link href={restaurant.website}>Website</Card.Link>
+          <Card.Link style={{ float: "right" }} href="/restaurants">
+            Back to Restaurants
+          </Card.Link>
         </Card.Body>
       </Card>
     </>
