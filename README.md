@@ -33,11 +33,11 @@ This project was created with create-react-app, as a Capstone Project for the Gr
 
 ## Collaborators
 
-- Jacqueline Basanta: [Github](https://github.com/orgs/yummify/people/slightdevastation), [LinkedIn](https://www.linkedin.com/in/jacqueline-basanta/)
-- Caroline Boyle: [Github](https://github.com/orgs/yummify/people/caroline-boyle), [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
-- Meg Bickerstaff: [Github](https://github.com/orgs/yummify/people/megtb), [LinkedIn](https://www.linkedin.com/in/meg-bickerstaff/)
-- Monique Hayes: [Github](https://github.com/orgs/yummify/people/moniquehayes), [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
-- Manimala Sivasubramanian: [Github](https://github.com/orgs/yummify/people/msiva06), [LinkedIn](https://www.linkedin.com/in/manimalasiva/)
+- Jacqueline Basanta: [Github](https://github.com/slightdevastation), [LinkedIn](https://www.linkedin.com/in/jacqueline-basanta/)
+- Caroline Boyle: [Github](https://github.com/caroline-boyle), [LinkedIn](https://www.linkedin.com/in/caroline-boyle97/)
+- Meg Bickerstaff: [Github](https://github.com/megtb), [LinkedIn](https://www.linkedin.com/in/meg-bickerstaff/)
+- Monique Hayes: [Github](https://github.com/moniquehayes), [LinkedIn](https://www.linkedin.com/in/monique-hayes/)
+- Manimala Sivasubramanian: [Github](https://github.com/msiva06), [LinkedIn](https://www.linkedin.com/in/manimalasiva/)
 
 ### Structure
 
