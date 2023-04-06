@@ -113,53 +113,6 @@ const AdminManageUsers = () => {
                   </Container>
                   </div>
                    : null}
-                  {/* <Container
-                    style={{
-                      backgroundColor: "#8783d1",
-                      padding: "4px",
-                      maxHeight: "15vh",
-                      overflow: "scroll",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    <p style={{ fontWeight: "700" }}>Order History</p>
-                    <Row style={{ fontWeight: "bold" }}>
-                      <Col>Order #</Col>
-                      <Col>Price</Col>
-                      <Col>Date</Col>
-                    </Row>
-                    {userOrders.length > 0 ? (
-                      userOrders.map((order) => {
-                        return (
-                          <div
-                            key={order?.id}
-                            style={{
-                              border: "1px solid black",
-                              padding: "2px",
-                              borderRadius: "4px",
-                            }}
-                          >
-                            <Row>
-                              <Col
-                                className="text-wrap"
-                                style={{ wordBreak: "break-all" }}
-                              >
-                                {order?.id}
-                              </Col>
-                              <Col>{order?.newPrice}</Col>
-                              <Col>{order?.expiration}</Col>
-                            </Row>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <div style={{ padding: "2px" }}>
-                        <Row style={{ textAlign: "center" }}>
-                          <Col> No previous orders</Col>
-                        </Row>
-                      </div>
-                    )}
-                  </Container> */}
                 </Card>
               );
             })

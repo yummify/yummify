@@ -70,7 +70,7 @@ YUMMIFY
     │───firebase
     |    └── config.js
     |    └── getPlaces.js
-    |    └── usersSeed.sj
+    |    └── usersSeed.js
     └───store
          └── index.js
 

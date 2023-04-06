@@ -18,6 +18,8 @@ const RestaurantOrders = () => {
   const incompleteOrders = [];
   const completeOrders = [];
   const [ordersList, setOrdersList] = useState(orders);
+
+  // This is utilized to distinguish between the different order statuses
   orders.forEach((order) => {
     if (order.status === "awaiting pickup") {
       incompleteOrders.push(order);

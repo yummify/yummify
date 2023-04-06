@@ -24,10 +24,12 @@ const AdminEditRestaurant = () => {
   const [website, setWebsite] = useState("");
   const [show, setShow] = useState(false);
 
+  //dispatch thunk for specific restaurant
   useEffect(() => {
     dispatch(fetchSingleRestaurant(id));
   }, [dispatch, id]);
 
+  //only edit fields in the restaurant that have new information; otherwise, keep the old information
   const editRestaurant = () => {
     const reqbody = {
       restaurantId: id,
