@@ -10,7 +10,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-//post request - put bag in cart
+//post request - use info from bag to create new Order in db
 //cart/order connects to User and Restaurant
 export const placeBagInCartAsync = createAsyncThunk(
   "placeBagInCart",
@@ -49,8 +49,7 @@ export const placeBagInCartAsync = createAsyncThunk(
   }
 );
 
-
-
+//add order to state
 const initialState = [];
 export const cartBagSlice = createSlice({
   name: "cartBag",
