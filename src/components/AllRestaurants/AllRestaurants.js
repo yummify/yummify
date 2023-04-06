@@ -11,10 +11,12 @@ const AllRestaurants = ({ searchTerm, selectedCuisine }) => {
 
   const dispatch = useDispatch();
 
+  //dispatch thunk for full restaurant list
   useEffect(() => {
     dispatch(fetchAllRestaurants());
   }, [dispatch]);
 
+  //filter restaurants based on search terms
   useEffect(() => {
     const filteredByNameOrDescription = allRestaurants.filter(
       (restaurant) =>
@@ -37,6 +39,7 @@ const AllRestaurants = ({ searchTerm, selectedCuisine }) => {
     setFilteredRestaurants(filteredByCuisine);
   }, [allRestaurants, searchTerm, selectedCuisine]);
 
+  //show default message if no restaurants meet terms
   const noRestaurantsMessage = (
     <div style={{ textAlign: "center", padding: "40px", fontSize: "1.2em" }}>
       {selectedCuisine} options coming soon!

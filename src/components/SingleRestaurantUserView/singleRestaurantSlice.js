@@ -2,6 +2,7 @@ import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+//thunk to retrieve one restaurant based on ID
 export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async (restaurantId) => {
     try {
 
@@ -18,6 +19,7 @@ export const fetchSingleRestaurant = createAsyncThunk("singleRestaurant", async 
     }
 })
 
+//thunk for Admin to update restaurant status to "approved"
 export const approveStatusRestaurantAsync = createAsyncThunk("updateStatusRestaurant", async (restId) => {
     try {
         const docRef = doc(db, "restaurants", restId);
@@ -29,6 +31,7 @@ export const approveStatusRestaurantAsync = createAsyncThunk("updateStatusRestau
     }
 });
 
+//thunk for Admin to update restaurant status to "suspended"
 export const denyStatusRestaurantAsync = createAsyncThunk("updateStatusRestaurant", async (restId) => {
     try {
         const docRef = doc(db, "restaurants", restId);
@@ -40,6 +43,7 @@ export const denyStatusRestaurantAsync = createAsyncThunk("updateStatusRestauran
     }
 });
 
+//thunk for Admin to delete restaurant from db
 export const deleteRestaurantAsync = createAsyncThunk("deleteRestaurant", async (restId) => {
     try {
         const docRef = doc(db, "restaurants", restId);
@@ -49,6 +53,7 @@ export const deleteRestaurantAsync = createAsyncThunk("deleteRestaurant", async 
     }
 })
 
+//puts restaurant in state
 export const singleRestaurantSlice = createSlice({
     name: "singleRestaurant",
     initialState: [],
@@ -60,6 +65,7 @@ export const singleRestaurantSlice = createSlice({
     },
 });
 
+//retrieves restaurant from state
 export const selectRestaurant = (state) => state.singleRestaurant;
 
 export default singleRestaurantSlice.reducer;
