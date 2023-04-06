@@ -1,4 +1,5 @@
 # Yummify
+https://yummify-352b4.web.app/
 
 Yummify is an e-commerce app that addresses two critical issues: reducing food waste and saving money. By offering discounted "surprise bags," restaurants can sell their unsold or unused food to customers rather than discarding it. This not only helps reduce the amount of waste hauled but also recoups costs for the restaurant. Moreover, it demonstrates a commitment to sustainability and the environment, thereby earning customer trust and loyalty.
 
@@ -40,21 +41,6 @@ This project was created with create-react-app, as a Capstone Project for the Gr
 - Manimala Sivasubramanian: [Github](https://github.com/msiva06), [LinkedIn](https://www.linkedin.com/in/manimalasiva/)
 
 ### Structure
-
-SRC Folder: 
-
-1. Components
-    - each component has a folder. That folder contains the component's JS file and its slice.
-
-2. Contexts
-    - contains AuthContext.js
-
-3. Firebase
-    - config.js -> firebase setup
-    - file for each component's methods
-
-4. Store
-    - compiles Redux slices
 
 ```
 YUMMIFY
