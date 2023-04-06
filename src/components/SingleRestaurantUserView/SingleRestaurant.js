@@ -17,14 +17,17 @@ const SingleRestaurant = () => {
   const restaurant = useSelector(selectRestaurant);
   const bags = useSelector(selectBag);
 
+  //get restaurant ID from URL
   const { id } = useParams();
 
+  //retrieve specific restaurant and group of bags from db
   useEffect(() => {
     dispatch(fetchSingleRestaurant(id));
 
     dispatch(fetchGroupBagByRestAsync(id));
   }, [dispatch, id]);
 
+  //check db for active bags
   const checkActive = (expir, quant) => {
     const parts = expir.split("-");
     const expdate = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -35,11 +38,6 @@ const SingleRestaurant = () => {
       return false;
     }
   };
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
     <>
