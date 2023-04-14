@@ -31,6 +31,7 @@ const AdminOrderHistory = () => {
         }}
       >
         {orders.map((order) => {
+          // for each order, need to identify the associated restaurant and user in order to access the name field for each of them
           const restId = order.restaurantId;
           const rest = restaurants.find((rest) => rest.id === restId);
           const userId = order.userId;

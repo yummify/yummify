@@ -2,6 +2,7 @@ import { getDocs, doc, query, collection, where, updateDoc, deleteDoc } from "fi
 import { db } from "../../firebase/config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+// thunk to fetch every order that's been placed
 export const fetchAllOrdersAsync = createAsyncThunk("orders", async () => {
     try {
         const querySnapshot = await getDocs(collection(db, "orders"));
@@ -15,6 +16,7 @@ export const fetchAllOrdersAsync = createAsyncThunk("orders", async () => {
     }
 })
 
+// thunk to fetch all the orders for a specific user
 export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId) => {
     try {
         const q = query(collection(db, "orders"), where("userId", "==", userId));
@@ -34,6 +36,7 @@ export const fetchUserOrdersAsync = createAsyncThunk("userOrders", async (userId
     }
 });
 
+// thunk to only fetch the orders of a specific user which haven't been confirmed yet (still shopping)
 export const fetchOrderByStatusAsync = createAsyncThunk(
     "cart",
     async (userId) => {
@@ -57,6 +60,7 @@ export const fetchOrderByStatusAsync = createAsyncThunk(
     }
   );
 
+// thunk to fetch all the orders for a specific restaurant
 export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrders", async (restaurantId) => {
     try {
         const q = query(collection(db, "orders"), where("restaurantId", "==", restaurantId));
@@ -71,6 +75,7 @@ export const fetchAllOrdersForRestaurantAsync = createAsyncThunk("restaurantOrde
     }
 })
 
+// thunk for restaurants to mark an order complete once it's been picked up
 export const markComplete = createAsyncThunk("markComplete", async (orderId) => {
     try {
         const orderRef = doc(db, "orders", orderId);
@@ -84,6 +89,7 @@ export const markComplete = createAsyncThunk("markComplete", async (orderId) => 
     }
 })
 
+// thunk to delete an order
 export const deleteOrderAsync = createAsyncThunk("deleteOrder", async (orderId) => {
     try{
     const orderRef = doc(db, "orders", orderId);
