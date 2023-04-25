@@ -5,7 +5,7 @@ Yummify is an e-commerce app that addresses two critical issues: reducing food w
 
 ## Demo
 
-[![Yummify Demo](https://img.youtube.com/vi/K3fjTKBAuxE/maxresdefault.jpg)](https://www.youtube.com/watch?v=K3fjTKBAuxE&t=31s)
+[![Yummify Demo](https://img.youtube.com/vi/K3fjTKBAuxE/maxresdefault.jpg)](https://www.youtube.com/watch?v=K3fjTKBAuxE)
 
 ## Features
 
